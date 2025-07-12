@@ -1,0 +1,52 @@
+{
+  "name": "rshtml",
+  "displayName": "rshtml",
+  "description": "RsHtml Template Support",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.102.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "grammars": [
+      {
+        "language": "html",
+        "scopeName": "source.rshtml",
+        "path": "./syntaxes/rshtml.tmLanguage.json",
+        "injectTo": [
+          "text.html.basic"
+        ]
+      }
+    ]
+  },
+  "configuration": {
+    "title": "Rshtml Configuration",
+    "properties": {
+      "rshtml.trace.server": {
+        "type": "string",
+        "scope": "windows",
+        "description": "description of rshtml.trace.server",
+        "default": "off",
+        "enum": [
+          "off",
+          "messages",
+          "verbose"
+        ]
+      }
+    }
+  },
+  "dependencies": {
+    "vscode-languageclient": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.4",
+    "@types/vscode": "^1.101.0"
+  },
+  "activationEvents": [
+    "onLanguage:html"
+  ],
+  "main": "./extension.js",
+  "type": "module"
+}

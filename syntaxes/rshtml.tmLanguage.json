@@ -1,0 +1,19 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "rshtml",
+	"patterns": [
+		{
+			"include": "#rshtml_constructs"
+		},
+		{
+			"include": "text.html.basic"
+		},
+		{
+			"name": "comment.block.rshtml",
+			"begin": "@\\*",
+			"end": "\\*@",
+			"patterns": []
+		}
+	],
+	"scopeName": "source.rshtml"
+}
