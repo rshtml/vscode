@@ -2,6 +2,7 @@ import { workspace, ConfigurationTarget, window } from 'vscode';
 import { createConnection } from 'net';
 import path from 'path';
 import { LanguageClient, TransportKind } from 'vscode-languageclient/node.js';
+import { platform } from 'os';
 
 let client;
 
@@ -42,9 +43,20 @@ export async function activate(context) {
             });
         });
     };
+    
+    const platformName = platform();
+    let serverPath;
+
+    if (platformName === 'win32') {
+        serverPath = "lsp/rshtml-analyzer.exe";
+    } else if (platformName === 'darwin') {
+        serverPath = "lsp/rshtml-analyzer-macos";
+    } else {
+        serverPath = "lsp/rshtml-analyzer-linux";
+    }
 
     const serverOptionsRPC = {
-        command: context.asAbsolutePath("rshtml_analyzer.exe"),
+        command: context.asAbsolutePath(serverPath),
         //args: [context.asAbsolutePath(path.join('server', 'main.js'))],
         transport: TransportKind.stdio
     };
@@ -66,7 +78,7 @@ export async function activate(context) {
     client = new LanguageClient(
         'rshtmlLanguageServer',
         'RSHtml Language Server',
-        serverOptionsTCP,
+        serverOptionsRPC,
         clientOptions
     );
 

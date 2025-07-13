@@ -1,9 +1,12 @@
-# Change Log
+# Changelog
 
-All notable changes to the "rshtml" extension will be documented in this file.
+All notable changes to this project will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+## [0.1.0]
 
-## [Unreleased]
+### Added
 
-- Initial release
+- Initial release of the RsHtml VS Code extension.
+- Language server support for Windows, macOS, and Linux.
+- Basic syntax highlighting for `.rs.html` files.
+- Provides diagnostics for errors and code suggestions.
