@@ -4,7 +4,16 @@
   "description": "RsHtml Template Support",
   "version": "0.0.1",
   "publisher": "rshtml",
-  "license": "MIT or Apache-2.0",
+  "files": [
+    "out/",
+    "syntaxes/",
+    "lsp/",
+    "rshtml.png",
+    "language-configuration.json",
+    "CHANGELOG.md",
+    "README.md"
+  ],
+  "license": "MIT or Apache-20",
   "keywords": [
     "rshtml",
     "rust",
@@ -21,6 +30,7 @@
   "bugs": {
     "url": "https://github.com/rshtml/ext-vscode/issues"
   },
+  "icon": "rshtml.png",
   "engines": {
     "vscode": "^1.102.0"
   },
@@ -60,11 +70,14 @@
   },
   "devDependencies": {
     "@types/node": "^24.0.4",
-    "@types/vscode": "^1.101.0"
+    "@types/vscode": "^1.101.0",
+    "esbuild": "^0.25.6"
   },
   "activationEvents": [
     "onLanguage:html"
   ],
-  "main": "./extension.js",
-  "type": "module"
+  "main": "./out/extension",
+  "scripts": {
+    "build": "esbuild ./extension.js --bundle --outfile=./out/extension.cjs --external:vscode --format=cjs --platform=node"
+  }
 }
