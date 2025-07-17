@@ -76,7 +76,7 @@
   "activationEvents": [
     "onLanguage:html"
   ],
-  "main": "./out/extension",
+  "main": "./out/extension.cjs",
   "scripts": {
     "build": "esbuild ./extension.js --bundle --outfile=./out/extension.cjs --external:vscode --format=cjs --platform=node"
   }
