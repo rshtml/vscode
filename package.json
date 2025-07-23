@@ -2,7 +2,7 @@
   "name": "rshtml",
   "displayName": "rshtml",
   "description": "RsHtml Template Support",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "publisher": "rshtml",
   "files": [
     "out/",
@@ -76,8 +76,8 @@
   "activationEvents": [
     "onLanguage:html"
   ],
-  "main": "./out/extension.cjs",
+  "main": "out/extension.js",
   "scripts": {
-    "build": "esbuild ./extension.js --bundle --outfile=./out/extension.cjs --external:vscode --format=cjs --platform=node"
+    "build": "esbuild ./extension.js --bundle --outfile=./out/extension.js --external:vscode --format=cjs --platform=node"
   }
 }
