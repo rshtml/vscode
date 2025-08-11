@@ -2,7 +2,7 @@
   "name": "rshtml",
   "displayName": "rshtml",
   "description": "RsHtml Template Support",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "rshtml",
   "files": [
     "out/",
@@ -13,7 +13,7 @@
     "CHANGELOG.md",
     "README.md"
   ],
-  "license": "MIT or Apache-20",
+  "license": "MIT or Apache-2.0",
   "keywords": [
     "rshtml",
     "rust",
