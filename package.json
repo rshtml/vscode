@@ -2,17 +2,8 @@
   "name": "rshtml",
   "displayName": "rshtml",
   "description": "RsHtml Template Support",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "publisher": "rshtml",
-  "files": [
-    "out/",
-    "syntaxes/",
-    "lsp/",
-    "rshtml.png",
-    "language-configuration.json",
-    "CHANGELOG.md",
-    "README.md"
-  ],
   "license": "MIT or Apache-2.0",
   "keywords": [
     "rshtml",

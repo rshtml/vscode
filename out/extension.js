@@ -18025,13 +18025,22 @@ async function activate(context) {
     });
   };
   const platformName = (0, import_os.platform)();
+  const archName = (0, import_os.arch)();
   let serverPath;
   if (platformName === "win32") {
     serverPath = "lsp/rshtml-analyzer.exe";
   } else if (platformName === "darwin") {
-    serverPath = "lsp/rshtml-analyzer-macos";
+    if (archName === "arm64") {
+      serverPath = "lsp/rshtml-analyzer-macos-arm64";
+    } else {
+      serverPath = "lsp/rshtml-analyzer-macos-x64";
+    }
   } else {
-    serverPath = "lsp/rshtml-analyzer-linux";
+    if (archName === "arm64") {
+      serverPath = "lsp/rshtml-analyzer-linux-arm64";
+    } else {
+      serverPath = "lsp/rshtml-analyzer-linux-x64";
+    }
   }
   const serverOptionsRPC = {
     command: context.asAbsolutePath(serverPath),
@@ -18055,6 +18064,7 @@ async function activate(context) {
     "rshtmlLanguageServer",
     "RSHtml Language Server",
     serverOptionsRPC,
+    //serverOptionsTCP
     clientOptions
   );
   console.log("LanguageClient starting...");
