@@ -15,11 +15,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/rshtml/ext-vscode.git"
+    "url": "https://github.com/rshtml/vscode.git"
   },
-  "homepage": "https://github.com/rshtml/ext-vscode",
+  "homepage": "https://github.com/rshtml/vscode",
   "bugs": {
-    "url": "https://github.com/rshtml/ext-vscode/issues"
+    "url": "https://github.com/rshtml/vscode/issues"
   },
   "icon": "rshtml.png",
   "engines": {
