@@ -4,7 +4,7 @@ This extension provides official language server support for the [RsHtml](https:
 
 ## Features
 
-*   **Language Server Protocol (LSP):** Integrates the RsHtml language server to provide rich language features.
+*   **Language Server:** Integrates the RsHtml language server to provide rich language features.
 *   **Syntax Highlighting:** Basic syntax highlighting for `.rs.html` files.
 *   **Cross-Platform Support:** The language server works seamlessly on Windows, macOS, and Linux.
 
