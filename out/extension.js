@@ -7,15 +7,15 @@ var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
+var __export = (target, all3) => {
+  for (var name2 in all3)
+    __defProp(target, name2, { get: all3[name2], enumerable: true });
 };
-var __copyProps = (to, from, except, desc) => {
+var __copyProps = (to, from, except, desc2) => {
   if (from && typeof from === "object" || typeof from === "function") {
     for (let key of __getOwnPropNames(from))
       if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc2 = __getOwnPropDesc(from, key)) || desc2.enumerable });
   }
   return to;
 };
@@ -149,9 +149,9 @@ var require_messages = __commonJS({
       ErrorCodes2.serverErrorEnd = -32e3;
     })(ErrorCodes || (exports2.ErrorCodes = ErrorCodes = {}));
     var ResponseError = class _ResponseError extends Error {
-      constructor(code, message, data) {
+      constructor(code2, message, data) {
         super(message);
-        this.code = is.number(code) ? code : ErrorCodes.UnknownErrorCode;
+        this.code = is.number(code2) ? code2 : ErrorCodes.UnknownErrorCode;
         this.data = data;
         Object.setPrototypeOf(this, _ResponseError.prototype);
       }
@@ -342,21 +342,21 @@ var require_messages = __commonJS({
     exports2.NotificationType9 = NotificationType9;
     var Message;
     (function(Message2) {
-      function isRequest(message) {
+      function isRequest2(message) {
         const candidate = message;
         return candidate && is.string(candidate.method) && (is.string(candidate.id) || is.number(candidate.id));
       }
-      Message2.isRequest = isRequest;
+      Message2.isRequest = isRequest2;
       function isNotification(message) {
         const candidate = message;
         return candidate && is.string(candidate.method) && message.id === void 0;
       }
       Message2.isNotification = isNotification;
-      function isResponse(message) {
+      function isResponse2(message) {
         const candidate = message;
         return candidate && (candidate.result !== void 0 || !!candidate.error) && (is.string(candidate.id) || is.number(candidate.id) || candidate.id === null);
       }
-      Message2.isResponse = isResponse;
+      Message2.isResponse = isResponse2;
     })(Message || (exports2.Message = Message = {}));
   }
 });
@@ -489,9 +489,9 @@ var require_linkedMap = __commonJS({
       keys() {
         const state = this._state;
         let current = this._head;
-        const iterator = {
+        const iterator2 = {
           [Symbol.iterator]: () => {
-            return iterator;
+            return iterator2;
           },
           next: () => {
             if (this._state !== state) {
@@ -506,14 +506,14 @@ var require_linkedMap = __commonJS({
             }
           }
         };
-        return iterator;
+        return iterator2;
       }
       values() {
         const state = this._state;
         let current = this._head;
-        const iterator = {
+        const iterator2 = {
           [Symbol.iterator]: () => {
-            return iterator;
+            return iterator2;
           },
           next: () => {
             if (this._state !== state) {
@@ -528,14 +528,14 @@ var require_linkedMap = __commonJS({
             }
           }
         };
-        return iterator;
+        return iterator2;
       }
       entries() {
         const state = this._state;
         let current = this._head;
-        const iterator = {
+        const iterator2 = {
           [Symbol.iterator]: () => {
-            return iterator;
+            return iterator2;
           },
           next: () => {
             if (this._state !== state) {
@@ -550,7 +550,7 @@ var require_linkedMap = __commonJS({
             }
           }
         };
-        return iterator;
+        return iterator2;
       }
       [(_a = Symbol.toStringTag, Symbol.iterator)]() {
         return this.entries();
@@ -739,12 +739,12 @@ var require_disposable = __commonJS({
     exports2.Disposable = void 0;
     var Disposable;
     (function(Disposable2) {
-      function create(func) {
+      function create2(func) {
         return {
           dispose: func
         };
       }
-      Disposable2.create = create;
+      Disposable2.create = create2;
     })(Disposable || (exports2.Disposable = Disposable = {}));
   }
 });
@@ -1338,7 +1338,7 @@ var require_messageWriter = __commonJS({
     var semaphore_1 = require_semaphore();
     var events_1 = require_events();
     var ContentLength = "Content-Length: ";
-    var CRLF = "\r\n";
+    var CRLF2 = "\r\n";
     var MessageWriter;
     (function(MessageWriter2) {
       function is(value) {
@@ -1409,8 +1409,8 @@ var require_messageWriter = __commonJS({
           });
           return payload.then((buffer) => {
             const headers = [];
-            headers.push(ContentLength, buffer.byteLength.toString(), CRLF);
-            headers.push(CRLF);
+            headers.push(ContentLength, buffer.byteLength.toString(), CRLF2);
+            headers.push(CRLF2);
             return this.doWrite(msg, headers, buffer);
           }, (error) => {
             this.fireError(error);
@@ -1447,7 +1447,7 @@ var require_messageBuffer = __commonJS({
     exports2.AbstractMessageBuffer = void 0;
     var CR = 13;
     var LF = 10;
-    var CRLF = "\r\n";
+    var CRLF2 = "\r\n";
     var AbstractMessageBuffer = class {
       constructor(encoding = "utf-8") {
         this._encoding = encoding;
@@ -1514,7 +1514,7 @@ var require_messageBuffer = __commonJS({
         }
         const buffer = this._read(chunkBytesRead + offset);
         const result = /* @__PURE__ */ new Map();
-        const headers = this.toString(buffer, "ascii").split(CRLF);
+        const headers = this.toString(buffer, "ascii").split(CRLF2);
         if (headers.length < 2) {
           return result;
         }
@@ -1670,7 +1670,7 @@ var require_connection = __commonJS({
         }
       }
       Trace2.fromString = fromString;
-      function toString(value) {
+      function toString3(value) {
         switch (value) {
           case Trace2.Off:
             return "off";
@@ -1684,7 +1684,7 @@ var require_connection = __commonJS({
             return "off";
         }
       }
-      Trace2.toString = toString;
+      Trace2.toString = toString3;
     })(Trace || (exports2.Trace = Trace = {}));
     var TraceFormat;
     (function(TraceFormat2) {
@@ -1720,9 +1720,9 @@ var require_connection = __commonJS({
       ConnectionErrors2[ConnectionErrors2["AlreadyListening"] = 3] = "AlreadyListening";
     })(ConnectionErrors || (exports2.ConnectionErrors = ConnectionErrors = {}));
     var ConnectionError = class _ConnectionError extends Error {
-      constructor(code, message) {
+      constructor(code2, message) {
         super(message);
-        this.code = code;
+        this.code = code2;
         Object.setPrototypeOf(this, _ConnectionError.prototype);
       }
     };
@@ -2954,8 +2954,8 @@ var require_ril = __commonJS({
     };
     MessageBuffer.emptyBuffer = Buffer.allocUnsafe(0);
     var ReadableStreamWrapper = class {
-      constructor(stream) {
-        this.stream = stream;
+      constructor(stream4) {
+        this.stream = stream4;
       }
       onClose(listener) {
         this.stream.on("close", listener);
@@ -2975,8 +2975,8 @@ var require_ril = __commonJS({
       }
     };
     var WritableStreamWrapper = class {
-      constructor(stream) {
-        this.stream = stream;
+      constructor(stream4) {
+        this.stream = stream4;
       }
       onClose(listener) {
         this.stream.on("close", listener);
@@ -3041,8 +3041,8 @@ var require_ril = __commonJS({
         })
       }),
       stream: Object.freeze({
-        asReadableStream: (stream) => new ReadableStreamWrapper(stream),
-        asWritableStream: (stream) => new WritableStreamWrapper(stream)
+        asReadableStream: (stream4) => new ReadableStreamWrapper(stream4),
+        asWritableStream: (stream4) => new WritableStreamWrapper(stream4)
       }),
       console,
       timer: Object.freeze({
@@ -3079,13 +3079,13 @@ var require_main = __commonJS({
     "use strict";
     var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: function() {
+      var desc2 = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc2 || ("get" in desc2 ? !m.__esModule : desc2.writable || desc2.configurable)) {
+        desc2 = { enumerable: true, get: function() {
           return m[k];
         } };
       }
-      Object.defineProperty(o, k2, desc);
+      Object.defineProperty(o, k2, desc2);
     } : function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
       o[k2] = m[k];
@@ -3097,7 +3097,7 @@ var require_main = __commonJS({
     exports2.createMessageConnection = exports2.createServerSocketTransport = exports2.createClientSocketTransport = exports2.createServerPipeTransport = exports2.createClientPipeTransport = exports2.generateRandomPipeName = exports2.StreamMessageWriter = exports2.StreamMessageReader = exports2.SocketMessageWriter = exports2.SocketMessageReader = exports2.PortMessageWriter = exports2.PortMessageReader = exports2.IPCMessageWriter = exports2.IPCMessageReader = void 0;
     var ril_1 = require_ril();
     ril_1.default.install();
-    var path = require("path");
+    var path8 = require("path");
     var os = require("os");
     var crypto_1 = require("crypto");
     var net_1 = require("net");
@@ -3233,9 +3233,9 @@ var require_main = __commonJS({
       }
       let result;
       if (XDG_RUNTIME_DIR) {
-        result = path.join(XDG_RUNTIME_DIR, `vscode-ipc-${randomSuffix}.sock`);
+        result = path8.join(XDG_RUNTIME_DIR, `vscode-ipc-${randomSuffix}.sock`);
       } else {
-        result = path.join(os.tmpdir(), `vscode-${randomSuffix}.sock`);
+        result = path8.join(os.tmpdir(), `vscode-${randomSuffix}.sock`);
       }
       const limit = safeIpcPathLengths.get(process.platform);
       if (limit !== void 0 && result.length > limit) {
@@ -3310,7 +3310,7 @@ var require_main = __commonJS({
       ];
     }
     exports2.createServerSocketTransport = createServerSocketTransport;
-    function isReadableStream(value) {
+    function isReadableStream2(value) {
       const candidate = value;
       return candidate.read !== void 0 && candidate.addListener !== void 0;
     }
@@ -3322,7 +3322,7 @@ var require_main = __commonJS({
       if (!logger) {
         logger = api_1.NullLogger;
       }
-      const reader = isReadableStream(input) ? new StreamMessageReader(input) : input;
+      const reader = isReadableStream2(input) ? new StreamMessageReader(input) : input;
       const writer = isWritableStream(output) ? new StreamMessageWriter(output) : output;
       if (api_1.ConnectionStrategy.is(options)) {
         options = { connectionStrategy: options };
@@ -3344,12 +3344,12 @@ var require_node = __commonJS({
 // node_modules/vscode-languageserver-types/lib/umd/main.js
 var require_main2 = __commonJS({
   "node_modules/vscode-languageserver-types/lib/umd/main.js"(exports2, module2) {
-    (function(factory) {
+    (function(factory2) {
       if (typeof module2 === "object" && typeof module2.exports === "object") {
-        var v = factory(require, exports2);
+        var v = factory2(require, exports2);
         if (v !== void 0) module2.exports = v;
       } else if (typeof define === "function" && define.amd) {
-        define(["require", "exports"], factory);
+        define(["require", "exports"], factory2);
       }
     })(function(require2, exports3) {
       "use strict";
@@ -3389,7 +3389,7 @@ var require_main2 = __commonJS({
       })(uinteger || (exports3.uinteger = uinteger = {}));
       var Position;
       (function(Position2) {
-        function create(line, character) {
+        function create2(line, character) {
           if (line === Number.MAX_VALUE) {
             line = uinteger.MAX_VALUE;
           }
@@ -3398,7 +3398,7 @@ var require_main2 = __commonJS({
           }
           return { line, character };
         }
-        Position2.create = create;
+        Position2.create = create2;
         function is(value) {
           var candidate = value;
           return Is.objectLiteral(candidate) && Is.uinteger(candidate.line) && Is.uinteger(candidate.character);
@@ -3407,7 +3407,7 @@ var require_main2 = __commonJS({
       })(Position || (exports3.Position = Position = {}));
       var Range;
       (function(Range2) {
-        function create(one, two, three, four) {
+        function create2(one, two, three, four) {
           if (Is.uinteger(one) && Is.uinteger(two) && Is.uinteger(three) && Is.uinteger(four)) {
             return { start: Position.create(one, two), end: Position.create(three, four) };
           } else if (Position.is(one) && Position.is(two)) {
@@ -3416,7 +3416,7 @@ var require_main2 = __commonJS({
             throw new Error("Range#create called with invalid arguments[".concat(one, ", ").concat(two, ", ").concat(three, ", ").concat(four, "]"));
           }
         }
-        Range2.create = create;
+        Range2.create = create2;
         function is(value) {
           var candidate = value;
           return Is.objectLiteral(candidate) && Position.is(candidate.start) && Position.is(candidate.end);
@@ -3425,10 +3425,10 @@ var require_main2 = __commonJS({
       })(Range || (exports3.Range = Range = {}));
       var Location;
       (function(Location2) {
-        function create(uri, range) {
+        function create2(uri, range) {
           return { uri, range };
         }
-        Location2.create = create;
+        Location2.create = create2;
         function is(value) {
           var candidate = value;
           return Is.objectLiteral(candidate) && Range.is(candidate.range) && (Is.string(candidate.uri) || Is.undefined(candidate.uri));
@@ -3437,10 +3437,10 @@ var require_main2 = __commonJS({
       })(Location || (exports3.Location = Location = {}));
       var LocationLink;
       (function(LocationLink2) {
-        function create(targetUri, targetRange, targetSelectionRange, originSelectionRange) {
+        function create2(targetUri, targetRange, targetSelectionRange, originSelectionRange) {
           return { targetUri, targetRange, targetSelectionRange, originSelectionRange };
         }
-        LocationLink2.create = create;
+        LocationLink2.create = create2;
         function is(value) {
           var candidate = value;
           return Is.objectLiteral(candidate) && Range.is(candidate.targetRange) && Is.string(candidate.targetUri) && Range.is(candidate.targetSelectionRange) && (Range.is(candidate.originSelectionRange) || Is.undefined(candidate.originSelectionRange));
@@ -3449,7 +3449,7 @@ var require_main2 = __commonJS({
       })(LocationLink || (exports3.LocationLink = LocationLink = {}));
       var Color;
       (function(Color2) {
-        function create(red, green, blue, alpha) {
+        function create2(red, green, blue, alpha) {
           return {
             red,
             green,
@@ -3457,7 +3457,7 @@ var require_main2 = __commonJS({
             alpha
           };
         }
-        Color2.create = create;
+        Color2.create = create2;
         function is(value) {
           var candidate = value;
           return Is.objectLiteral(candidate) && Is.numberRange(candidate.red, 0, 1) && Is.numberRange(candidate.green, 0, 1) && Is.numberRange(candidate.blue, 0, 1) && Is.numberRange(candidate.alpha, 0, 1);
@@ -3466,13 +3466,13 @@ var require_main2 = __commonJS({
       })(Color || (exports3.Color = Color = {}));
       var ColorInformation;
       (function(ColorInformation2) {
-        function create(range, color) {
+        function create2(range, color) {
           return {
             range,
             color
           };
         }
-        ColorInformation2.create = create;
+        ColorInformation2.create = create2;
         function is(value) {
           var candidate = value;
           return Is.objectLiteral(candidate) && Range.is(candidate.range) && Color.is(candidate.color);
@@ -3481,14 +3481,14 @@ var require_main2 = __commonJS({
       })(ColorInformation || (exports3.ColorInformation = ColorInformation = {}));
       var ColorPresentation;
       (function(ColorPresentation2) {
-        function create(label, textEdit, additionalTextEdits) {
+        function create2(label, textEdit, additionalTextEdits) {
           return {
             label,
             textEdit,
             additionalTextEdits
           };
         }
-        ColorPresentation2.create = create;
+        ColorPresentation2.create = create2;
         function is(value) {
           var candidate = value;
           return Is.objectLiteral(candidate) && Is.string(candidate.label) && (Is.undefined(candidate.textEdit) || TextEdit.is(candidate)) && (Is.undefined(candidate.additionalTextEdits) || Is.typedArray(candidate.additionalTextEdits, TextEdit.is));
@@ -3503,7 +3503,7 @@ var require_main2 = __commonJS({
       })(FoldingRangeKind || (exports3.FoldingRangeKind = FoldingRangeKind = {}));
       var FoldingRange;
       (function(FoldingRange2) {
-        function create(startLine, endLine, startCharacter, endCharacter, kind, collapsedText) {
+        function create2(startLine, endLine, startCharacter, endCharacter, kind, collapsedText) {
           var result = {
             startLine,
             endLine
@@ -3522,7 +3522,7 @@ var require_main2 = __commonJS({
           }
           return result;
         }
-        FoldingRange2.create = create;
+        FoldingRange2.create = create2;
         function is(value) {
           var candidate = value;
           return Is.objectLiteral(candidate) && Is.uinteger(candidate.startLine) && Is.uinteger(candidate.startLine) && (Is.undefined(candidate.startCharacter) || Is.uinteger(candidate.startCharacter)) && (Is.undefined(candidate.endCharacter) || Is.uinteger(candidate.endCharacter)) && (Is.undefined(candidate.kind) || Is.string(candidate.kind));
@@ -3531,13 +3531,13 @@ var require_main2 = __commonJS({
       })(FoldingRange || (exports3.FoldingRange = FoldingRange = {}));
       var DiagnosticRelatedInformation;
       (function(DiagnosticRelatedInformation2) {
-        function create(location, message) {
+        function create2(location, message) {
           return {
             location,
             message
           };
         }
-        DiagnosticRelatedInformation2.create = create;
+        DiagnosticRelatedInformation2.create = create2;
         function is(value) {
           var candidate = value;
           return Is.defined(candidate) && Location.is(candidate.location) && Is.string(candidate.message);
@@ -3566,13 +3566,13 @@ var require_main2 = __commonJS({
       })(CodeDescription || (exports3.CodeDescription = CodeDescription = {}));
       var Diagnostic;
       (function(Diagnostic2) {
-        function create(range, message, severity, code, source, relatedInformation) {
+        function create2(range, message, severity, code2, source, relatedInformation) {
           var result = { range, message };
           if (Is.defined(severity)) {
             result.severity = severity;
           }
-          if (Is.defined(code)) {
-            result.code = code;
+          if (Is.defined(code2)) {
+            result.code = code2;
           }
           if (Is.defined(source)) {
             result.source = source;
@@ -3582,7 +3582,7 @@ var require_main2 = __commonJS({
           }
           return result;
         }
-        Diagnostic2.create = create;
+        Diagnostic2.create = create2;
         function is(value) {
           var _a;
           var candidate = value;
@@ -3592,7 +3592,7 @@ var require_main2 = __commonJS({
       })(Diagnostic || (exports3.Diagnostic = Diagnostic = {}));
       var Command;
       (function(Command2) {
-        function create(title, command) {
+        function create2(title, command) {
           var args = [];
           for (var _i = 2; _i < arguments.length; _i++) {
             args[_i - 2] = arguments[_i];
@@ -3603,7 +3603,7 @@ var require_main2 = __commonJS({
           }
           return result;
         }
-        Command2.create = create;
+        Command2.create = create2;
         function is(value) {
           var candidate = value;
           return Is.defined(candidate) && Is.string(candidate.title) && Is.string(candidate.command);
@@ -3612,10 +3612,10 @@ var require_main2 = __commonJS({
       })(Command || (exports3.Command = Command = {}));
       var TextEdit;
       (function(TextEdit2) {
-        function replace(range, newText) {
+        function replace2(range, newText) {
           return { range, newText };
         }
-        TextEdit2.replace = replace;
+        TextEdit2.replace = replace2;
         function insert(position, newText) {
           return { range: { start: position, end: position }, newText };
         }
@@ -3632,7 +3632,7 @@ var require_main2 = __commonJS({
       })(TextEdit || (exports3.TextEdit = TextEdit = {}));
       var ChangeAnnotation;
       (function(ChangeAnnotation2) {
-        function create(label, needsConfirmation, description) {
+        function create2(label, needsConfirmation, description) {
           var result = { label };
           if (needsConfirmation !== void 0) {
             result.needsConfirmation = needsConfirmation;
@@ -3642,7 +3642,7 @@ var require_main2 = __commonJS({
           }
           return result;
         }
-        ChangeAnnotation2.create = create;
+        ChangeAnnotation2.create = create2;
         function is(value) {
           var candidate = value;
           return Is.objectLiteral(candidate) && Is.string(candidate.label) && (Is.boolean(candidate.needsConfirmation) || candidate.needsConfirmation === void 0) && (Is.string(candidate.description) || candidate.description === void 0);
@@ -3659,10 +3659,10 @@ var require_main2 = __commonJS({
       })(ChangeAnnotationIdentifier || (exports3.ChangeAnnotationIdentifier = ChangeAnnotationIdentifier = {}));
       var AnnotatedTextEdit;
       (function(AnnotatedTextEdit2) {
-        function replace(range, newText, annotation) {
+        function replace2(range, newText, annotation) {
           return { range, newText, annotationId: annotation };
         }
-        AnnotatedTextEdit2.replace = replace;
+        AnnotatedTextEdit2.replace = replace2;
         function insert(position, newText, annotation) {
           return { range: { start: position, end: position }, newText, annotationId: annotation };
         }
@@ -3679,10 +3679,10 @@ var require_main2 = __commonJS({
       })(AnnotatedTextEdit || (exports3.AnnotatedTextEdit = AnnotatedTextEdit = {}));
       var TextDocumentEdit;
       (function(TextDocumentEdit2) {
-        function create(textDocument, edits) {
+        function create2(textDocument, edits) {
           return { textDocument, edits };
         }
-        TextDocumentEdit2.create = create;
+        TextDocumentEdit2.create = create2;
         function is(value) {
           var candidate = value;
           return Is.defined(candidate) && OptionalVersionedTextDocumentIdentifier.is(candidate.textDocument) && Array.isArray(candidate.edits);
@@ -3691,7 +3691,7 @@ var require_main2 = __commonJS({
       })(TextDocumentEdit || (exports3.TextDocumentEdit = TextDocumentEdit = {}));
       var CreateFile;
       (function(CreateFile2) {
-        function create(uri, options, annotation) {
+        function create2(uri, options, annotation) {
           var result = {
             kind: "create",
             uri
@@ -3704,7 +3704,7 @@ var require_main2 = __commonJS({
           }
           return result;
         }
-        CreateFile2.create = create;
+        CreateFile2.create = create2;
         function is(value) {
           var candidate = value;
           return candidate && candidate.kind === "create" && Is.string(candidate.uri) && (candidate.options === void 0 || (candidate.options.overwrite === void 0 || Is.boolean(candidate.options.overwrite)) && (candidate.options.ignoreIfExists === void 0 || Is.boolean(candidate.options.ignoreIfExists))) && (candidate.annotationId === void 0 || ChangeAnnotationIdentifier.is(candidate.annotationId));
@@ -3713,7 +3713,7 @@ var require_main2 = __commonJS({
       })(CreateFile || (exports3.CreateFile = CreateFile = {}));
       var RenameFile;
       (function(RenameFile2) {
-        function create(oldUri, newUri, options, annotation) {
+        function create2(oldUri, newUri, options, annotation) {
           var result = {
             kind: "rename",
             oldUri,
@@ -3727,7 +3727,7 @@ var require_main2 = __commonJS({
           }
           return result;
         }
-        RenameFile2.create = create;
+        RenameFile2.create = create2;
         function is(value) {
           var candidate = value;
           return candidate && candidate.kind === "rename" && Is.string(candidate.oldUri) && Is.string(candidate.newUri) && (candidate.options === void 0 || (candidate.options.overwrite === void 0 || Is.boolean(candidate.options.overwrite)) && (candidate.options.ignoreIfExists === void 0 || Is.boolean(candidate.options.ignoreIfExists))) && (candidate.annotationId === void 0 || ChangeAnnotationIdentifier.is(candidate.annotationId));
@@ -3736,7 +3736,7 @@ var require_main2 = __commonJS({
       })(RenameFile || (exports3.RenameFile = RenameFile = {}));
       var DeleteFile;
       (function(DeleteFile2) {
-        function create(uri, options, annotation) {
+        function create2(uri, options, annotation) {
           var result = {
             kind: "delete",
             uri
@@ -3749,7 +3749,7 @@ var require_main2 = __commonJS({
           }
           return result;
         }
-        DeleteFile2.create = create;
+        DeleteFile2.create = create2;
         function is(value) {
           var candidate = value;
           return candidate && candidate.kind === "delete" && Is.string(candidate.uri) && (candidate.options === void 0 || (candidate.options.recursive === void 0 || Is.boolean(candidate.options.recursive)) && (candidate.options.ignoreIfNotExists === void 0 || Is.boolean(candidate.options.ignoreIfNotExists))) && (candidate.annotationId === void 0 || ChangeAnnotationIdentifier.is(candidate.annotationId));
@@ -4061,10 +4061,10 @@ var require_main2 = __commonJS({
       exports3.WorkspaceChange = WorkspaceChange;
       var TextDocumentIdentifier;
       (function(TextDocumentIdentifier2) {
-        function create(uri) {
+        function create2(uri) {
           return { uri };
         }
-        TextDocumentIdentifier2.create = create;
+        TextDocumentIdentifier2.create = create2;
         function is(value) {
           var candidate = value;
           return Is.defined(candidate) && Is.string(candidate.uri);
@@ -4073,10 +4073,10 @@ var require_main2 = __commonJS({
       })(TextDocumentIdentifier || (exports3.TextDocumentIdentifier = TextDocumentIdentifier = {}));
       var VersionedTextDocumentIdentifier;
       (function(VersionedTextDocumentIdentifier2) {
-        function create(uri, version) {
+        function create2(uri, version) {
           return { uri, version };
         }
-        VersionedTextDocumentIdentifier2.create = create;
+        VersionedTextDocumentIdentifier2.create = create2;
         function is(value) {
           var candidate = value;
           return Is.defined(candidate) && Is.string(candidate.uri) && Is.integer(candidate.version);
@@ -4085,10 +4085,10 @@ var require_main2 = __commonJS({
       })(VersionedTextDocumentIdentifier || (exports3.VersionedTextDocumentIdentifier = VersionedTextDocumentIdentifier = {}));
       var OptionalVersionedTextDocumentIdentifier;
       (function(OptionalVersionedTextDocumentIdentifier2) {
-        function create(uri, version) {
+        function create2(uri, version) {
           return { uri, version };
         }
-        OptionalVersionedTextDocumentIdentifier2.create = create;
+        OptionalVersionedTextDocumentIdentifier2.create = create2;
         function is(value) {
           var candidate = value;
           return Is.defined(candidate) && Is.string(candidate.uri) && (candidate.version === null || Is.integer(candidate.version));
@@ -4097,10 +4097,10 @@ var require_main2 = __commonJS({
       })(OptionalVersionedTextDocumentIdentifier || (exports3.OptionalVersionedTextDocumentIdentifier = OptionalVersionedTextDocumentIdentifier = {}));
       var TextDocumentItem;
       (function(TextDocumentItem2) {
-        function create(uri, languageId, version, text) {
+        function create2(uri, languageId, version, text) {
           return { uri, languageId, version, text };
         }
-        TextDocumentItem2.create = create;
+        TextDocumentItem2.create = create2;
         function is(value) {
           var candidate = value;
           return Is.defined(candidate) && Is.string(candidate.uri) && Is.string(candidate.languageId) && Is.integer(candidate.version) && Is.string(candidate.text);
@@ -4164,10 +4164,10 @@ var require_main2 = __commonJS({
       })(CompletionItemTag || (exports3.CompletionItemTag = CompletionItemTag = {}));
       var InsertReplaceEdit;
       (function(InsertReplaceEdit2) {
-        function create(newText, insert, replace) {
-          return { newText, insert, replace };
+        function create2(newText, insert, replace2) {
+          return { newText, insert, replace: replace2 };
         }
-        InsertReplaceEdit2.create = create;
+        InsertReplaceEdit2.create = create2;
         function is(value) {
           var candidate = value;
           return candidate && Is.string(candidate.newText) && Range.is(candidate.insert) && Range.is(candidate.replace);
@@ -4189,17 +4189,17 @@ var require_main2 = __commonJS({
       })(CompletionItemLabelDetails || (exports3.CompletionItemLabelDetails = CompletionItemLabelDetails = {}));
       var CompletionItem;
       (function(CompletionItem2) {
-        function create(label) {
+        function create2(label) {
           return { label };
         }
-        CompletionItem2.create = create;
+        CompletionItem2.create = create2;
       })(CompletionItem || (exports3.CompletionItem = CompletionItem = {}));
       var CompletionList;
       (function(CompletionList2) {
-        function create(items, isIncomplete) {
+        function create2(items, isIncomplete) {
           return { items: items ? items : [], isIncomplete: !!isIncomplete };
         }
-        CompletionList2.create = create;
+        CompletionList2.create = create2;
       })(CompletionList || (exports3.CompletionList = CompletionList = {}));
       var MarkedString;
       (function(MarkedString2) {
@@ -4223,14 +4223,14 @@ var require_main2 = __commonJS({
       })(Hover || (exports3.Hover = Hover = {}));
       var ParameterInformation;
       (function(ParameterInformation2) {
-        function create(label, documentation) {
+        function create2(label, documentation) {
           return documentation ? { label, documentation } : { label };
         }
-        ParameterInformation2.create = create;
+        ParameterInformation2.create = create2;
       })(ParameterInformation || (exports3.ParameterInformation = ParameterInformation = {}));
       var SignatureInformation;
       (function(SignatureInformation2) {
-        function create(label, documentation) {
+        function create2(label, documentation) {
           var parameters = [];
           for (var _i = 2; _i < arguments.length; _i++) {
             parameters[_i - 2] = arguments[_i];
@@ -4246,7 +4246,7 @@ var require_main2 = __commonJS({
           }
           return result;
         }
-        SignatureInformation2.create = create;
+        SignatureInformation2.create = create2;
       })(SignatureInformation || (exports3.SignatureInformation = SignatureInformation = {}));
       var DocumentHighlightKind;
       (function(DocumentHighlightKind2) {
@@ -4256,14 +4256,14 @@ var require_main2 = __commonJS({
       })(DocumentHighlightKind || (exports3.DocumentHighlightKind = DocumentHighlightKind = {}));
       var DocumentHighlight;
       (function(DocumentHighlight2) {
-        function create(range, kind) {
+        function create2(range, kind) {
           var result = { range };
           if (Is.number(kind)) {
             result.kind = kind;
           }
           return result;
         }
-        DocumentHighlight2.create = create;
+        DocumentHighlight2.create = create2;
       })(DocumentHighlight || (exports3.DocumentHighlight = DocumentHighlight = {}));
       var SymbolKind;
       (function(SymbolKind2) {
@@ -4300,9 +4300,9 @@ var require_main2 = __commonJS({
       })(SymbolTag || (exports3.SymbolTag = SymbolTag = {}));
       var SymbolInformation;
       (function(SymbolInformation2) {
-        function create(name, kind, range, uri, containerName) {
+        function create2(name2, kind, range, uri, containerName) {
           var result = {
-            name,
+            name: name2,
             kind,
             location: { uri, range }
           };
@@ -4311,20 +4311,20 @@ var require_main2 = __commonJS({
           }
           return result;
         }
-        SymbolInformation2.create = create;
+        SymbolInformation2.create = create2;
       })(SymbolInformation || (exports3.SymbolInformation = SymbolInformation = {}));
       var WorkspaceSymbol;
       (function(WorkspaceSymbol2) {
-        function create(name, kind, uri, range) {
-          return range !== void 0 ? { name, kind, location: { uri, range } } : { name, kind, location: { uri } };
+        function create2(name2, kind, uri, range) {
+          return range !== void 0 ? { name: name2, kind, location: { uri, range } } : { name: name2, kind, location: { uri } };
         }
-        WorkspaceSymbol2.create = create;
+        WorkspaceSymbol2.create = create2;
       })(WorkspaceSymbol || (exports3.WorkspaceSymbol = WorkspaceSymbol = {}));
       var DocumentSymbol;
       (function(DocumentSymbol2) {
-        function create(name, detail, kind, range, selectionRange, children) {
+        function create2(name2, detail, kind, range, selectionRange, children) {
           var result = {
-            name,
+            name: name2,
             detail,
             kind,
             range,
@@ -4335,7 +4335,7 @@ var require_main2 = __commonJS({
           }
           return result;
         }
-        DocumentSymbol2.create = create;
+        DocumentSymbol2.create = create2;
         function is(value) {
           var candidate = value;
           return candidate && Is.string(candidate.name) && Is.number(candidate.kind) && Range.is(candidate.range) && Range.is(candidate.selectionRange) && (candidate.detail === void 0 || Is.string(candidate.detail)) && (candidate.deprecated === void 0 || Is.boolean(candidate.deprecated)) && (candidate.children === void 0 || Array.isArray(candidate.children)) && (candidate.tags === void 0 || Array.isArray(candidate.tags));
@@ -4361,7 +4361,7 @@ var require_main2 = __commonJS({
       })(CodeActionTriggerKind || (exports3.CodeActionTriggerKind = CodeActionTriggerKind = {}));
       var CodeActionContext;
       (function(CodeActionContext2) {
-        function create(diagnostics, only, triggerKind) {
+        function create2(diagnostics, only, triggerKind) {
           var result = { diagnostics };
           if (only !== void 0 && only !== null) {
             result.only = only;
@@ -4371,7 +4371,7 @@ var require_main2 = __commonJS({
           }
           return result;
         }
-        CodeActionContext2.create = create;
+        CodeActionContext2.create = create2;
         function is(value) {
           var candidate = value;
           return Is.defined(candidate) && Is.typedArray(candidate.diagnostics, Diagnostic.is) && (candidate.only === void 0 || Is.typedArray(candidate.only, Is.string)) && (candidate.triggerKind === void 0 || candidate.triggerKind === CodeActionTriggerKind.Invoked || candidate.triggerKind === CodeActionTriggerKind.Automatic);
@@ -4380,7 +4380,7 @@ var require_main2 = __commonJS({
       })(CodeActionContext || (exports3.CodeActionContext = CodeActionContext = {}));
       var CodeAction;
       (function(CodeAction2) {
-        function create(title, kindOrCommandOrEdit, kind) {
+        function create2(title, kindOrCommandOrEdit, kind) {
           var result = { title };
           var checkKind = true;
           if (typeof kindOrCommandOrEdit === "string") {
@@ -4396,7 +4396,7 @@ var require_main2 = __commonJS({
           }
           return result;
         }
-        CodeAction2.create = create;
+        CodeAction2.create = create2;
         function is(value) {
           var candidate = value;
           return candidate && Is.string(candidate.title) && (candidate.diagnostics === void 0 || Is.typedArray(candidate.diagnostics, Diagnostic.is)) && (candidate.kind === void 0 || Is.string(candidate.kind)) && (candidate.edit !== void 0 || candidate.command !== void 0) && (candidate.command === void 0 || Command.is(candidate.command)) && (candidate.isPreferred === void 0 || Is.boolean(candidate.isPreferred)) && (candidate.edit === void 0 || WorkspaceEdit.is(candidate.edit));
@@ -4405,14 +4405,14 @@ var require_main2 = __commonJS({
       })(CodeAction || (exports3.CodeAction = CodeAction = {}));
       var CodeLens;
       (function(CodeLens2) {
-        function create(range, data) {
+        function create2(range, data) {
           var result = { range };
           if (Is.defined(data)) {
             result.data = data;
           }
           return result;
         }
-        CodeLens2.create = create;
+        CodeLens2.create = create2;
         function is(value) {
           var candidate = value;
           return Is.defined(candidate) && Range.is(candidate.range) && (Is.undefined(candidate.command) || Command.is(candidate.command));
@@ -4421,10 +4421,10 @@ var require_main2 = __commonJS({
       })(CodeLens || (exports3.CodeLens = CodeLens = {}));
       var FormattingOptions;
       (function(FormattingOptions2) {
-        function create(tabSize, insertSpaces) {
+        function create2(tabSize, insertSpaces) {
           return { tabSize, insertSpaces };
         }
-        FormattingOptions2.create = create;
+        FormattingOptions2.create = create2;
         function is(value) {
           var candidate = value;
           return Is.defined(candidate) && Is.uinteger(candidate.tabSize) && Is.boolean(candidate.insertSpaces);
@@ -4433,10 +4433,10 @@ var require_main2 = __commonJS({
       })(FormattingOptions || (exports3.FormattingOptions = FormattingOptions = {}));
       var DocumentLink;
       (function(DocumentLink2) {
-        function create(range, target, data) {
+        function create2(range, target, data) {
           return { range, target, data };
         }
-        DocumentLink2.create = create;
+        DocumentLink2.create = create2;
         function is(value) {
           var candidate = value;
           return Is.defined(candidate) && Range.is(candidate.range) && (Is.undefined(candidate.target) || Is.string(candidate.target));
@@ -4445,10 +4445,10 @@ var require_main2 = __commonJS({
       })(DocumentLink || (exports3.DocumentLink = DocumentLink = {}));
       var SelectionRange;
       (function(SelectionRange2) {
-        function create(range, parent) {
+        function create2(range, parent) {
           return { range, parent };
         }
-        SelectionRange2.create = create;
+        SelectionRange2.create = create2;
         function is(value) {
           var candidate = value;
           return Is.objectLiteral(candidate) && Range.is(candidate.range) && (candidate.parent === void 0 || SelectionRange2.is(candidate.parent));
@@ -4504,10 +4504,10 @@ var require_main2 = __commonJS({
       })(SemanticTokens || (exports3.SemanticTokens = SemanticTokens = {}));
       var InlineValueText;
       (function(InlineValueText2) {
-        function create(range, text) {
+        function create2(range, text) {
           return { range, text };
         }
-        InlineValueText2.create = create;
+        InlineValueText2.create = create2;
         function is(value) {
           var candidate = value;
           return candidate !== void 0 && candidate !== null && Range.is(candidate.range) && Is.string(candidate.text);
@@ -4516,10 +4516,10 @@ var require_main2 = __commonJS({
       })(InlineValueText || (exports3.InlineValueText = InlineValueText = {}));
       var InlineValueVariableLookup;
       (function(InlineValueVariableLookup2) {
-        function create(range, variableName, caseSensitiveLookup) {
+        function create2(range, variableName, caseSensitiveLookup) {
           return { range, variableName, caseSensitiveLookup };
         }
-        InlineValueVariableLookup2.create = create;
+        InlineValueVariableLookup2.create = create2;
         function is(value) {
           var candidate = value;
           return candidate !== void 0 && candidate !== null && Range.is(candidate.range) && Is.boolean(candidate.caseSensitiveLookup) && (Is.string(candidate.variableName) || candidate.variableName === void 0);
@@ -4528,10 +4528,10 @@ var require_main2 = __commonJS({
       })(InlineValueVariableLookup || (exports3.InlineValueVariableLookup = InlineValueVariableLookup = {}));
       var InlineValueEvaluatableExpression;
       (function(InlineValueEvaluatableExpression2) {
-        function create(range, expression) {
+        function create2(range, expression) {
           return { range, expression };
         }
-        InlineValueEvaluatableExpression2.create = create;
+        InlineValueEvaluatableExpression2.create = create2;
         function is(value) {
           var candidate = value;
           return candidate !== void 0 && candidate !== null && Range.is(candidate.range) && (Is.string(candidate.expression) || candidate.expression === void 0);
@@ -4540,10 +4540,10 @@ var require_main2 = __commonJS({
       })(InlineValueEvaluatableExpression || (exports3.InlineValueEvaluatableExpression = InlineValueEvaluatableExpression = {}));
       var InlineValueContext;
       (function(InlineValueContext2) {
-        function create(frameId, stoppedLocation) {
+        function create2(frameId, stoppedLocation) {
           return { frameId, stoppedLocation };
         }
-        InlineValueContext2.create = create;
+        InlineValueContext2.create = create2;
         function is(value) {
           var candidate = value;
           return Is.defined(candidate) && Range.is(value.stoppedLocation);
@@ -4561,10 +4561,10 @@ var require_main2 = __commonJS({
       })(InlayHintKind || (exports3.InlayHintKind = InlayHintKind = {}));
       var InlayHintLabelPart;
       (function(InlayHintLabelPart2) {
-        function create(value) {
+        function create2(value) {
           return { value };
         }
-        InlayHintLabelPart2.create = create;
+        InlayHintLabelPart2.create = create2;
         function is(value) {
           var candidate = value;
           return Is.objectLiteral(candidate) && (candidate.tooltip === void 0 || Is.string(candidate.tooltip) || MarkupContent.is(candidate.tooltip)) && (candidate.location === void 0 || Location.is(candidate.location)) && (candidate.command === void 0 || Command.is(candidate.command));
@@ -4573,14 +4573,14 @@ var require_main2 = __commonJS({
       })(InlayHintLabelPart || (exports3.InlayHintLabelPart = InlayHintLabelPart = {}));
       var InlayHint;
       (function(InlayHint2) {
-        function create(position, label, kind) {
+        function create2(position, label, kind) {
           var result = { position, label };
           if (kind !== void 0) {
             result.kind = kind;
           }
           return result;
         }
-        InlayHint2.create = create;
+        InlayHint2.create = create2;
         function is(value) {
           var candidate = value;
           return Is.objectLiteral(candidate) && Position.is(candidate.position) && (Is.string(candidate.label) || Is.typedArray(candidate.label, InlayHintLabelPart.is)) && (candidate.kind === void 0 || InlayHintKind.is(candidate.kind)) && candidate.textEdits === void 0 || Is.typedArray(candidate.textEdits, TextEdit.is) && (candidate.tooltip === void 0 || Is.string(candidate.tooltip) || MarkupContent.is(candidate.tooltip)) && (candidate.paddingLeft === void 0 || Is.boolean(candidate.paddingLeft)) && (candidate.paddingRight === void 0 || Is.boolean(candidate.paddingRight));
@@ -4596,17 +4596,17 @@ var require_main2 = __commonJS({
       })(StringValue || (exports3.StringValue = StringValue = {}));
       var InlineCompletionItem;
       (function(InlineCompletionItem2) {
-        function create(insertText, filterText, range, command) {
+        function create2(insertText, filterText, range, command) {
           return { insertText, filterText, range, command };
         }
-        InlineCompletionItem2.create = create;
+        InlineCompletionItem2.create = create2;
       })(InlineCompletionItem || (exports3.InlineCompletionItem = InlineCompletionItem = {}));
       var InlineCompletionList;
       (function(InlineCompletionList2) {
-        function create(items) {
+        function create2(items) {
           return { items };
         }
-        InlineCompletionList2.create = create;
+        InlineCompletionList2.create = create2;
       })(InlineCompletionList || (exports3.InlineCompletionList = InlineCompletionList = {}));
       var InlineCompletionTriggerKind;
       (function(InlineCompletionTriggerKind2) {
@@ -4615,17 +4615,17 @@ var require_main2 = __commonJS({
       })(InlineCompletionTriggerKind || (exports3.InlineCompletionTriggerKind = InlineCompletionTriggerKind = {}));
       var SelectedCompletionInfo;
       (function(SelectedCompletionInfo2) {
-        function create(range, text) {
+        function create2(range, text) {
           return { range, text };
         }
-        SelectedCompletionInfo2.create = create;
+        SelectedCompletionInfo2.create = create2;
       })(SelectedCompletionInfo || (exports3.SelectedCompletionInfo = SelectedCompletionInfo = {}));
       var InlineCompletionContext;
       (function(InlineCompletionContext2) {
-        function create(triggerKind, selectedCompletionInfo) {
+        function create2(triggerKind, selectedCompletionInfo) {
           return { triggerKind, selectedCompletionInfo };
         }
-        InlineCompletionContext2.create = create;
+        InlineCompletionContext2.create = create2;
       })(InlineCompletionContext || (exports3.InlineCompletionContext = InlineCompletionContext = {}));
       var WorkspaceFolder;
       (function(WorkspaceFolder2) {
@@ -4638,17 +4638,17 @@ var require_main2 = __commonJS({
       exports3.EOL = ["\n", "\r\n", "\r"];
       var TextDocument;
       (function(TextDocument2) {
-        function create(uri, languageId, version, content) {
+        function create2(uri, languageId, version, content) {
           return new FullTextDocument(uri, languageId, version, content);
         }
-        TextDocument2.create = create;
+        TextDocument2.create = create2;
         function is(value) {
           var candidate = value;
           return Is.defined(candidate) && Is.string(candidate.uri) && (Is.undefined(candidate.languageId) || Is.string(candidate.languageId)) && Is.uinteger(candidate.lineCount) && Is.func(candidate.getText) && Is.func(candidate.positionAt) && Is.func(candidate.offsetAt) ? true : false;
         }
         TextDocument2.is = is;
-        function applyEdits(document, edits) {
-          var text = document.getText();
+        function applyEdits(document2, edits) {
+          var text = document2.getText();
           var sortedEdits = mergeSort(edits, function(a, b) {
             var diff = a.range.start.line - b.range.start.line;
             if (diff === 0) {
@@ -4659,8 +4659,8 @@ var require_main2 = __commonJS({
           var lastModifiedOffset = text.length;
           for (var i = sortedEdits.length - 1; i >= 0; i--) {
             var e = sortedEdits[i];
-            var startOffset = document.offsetAt(e.range.start);
-            var endOffset = document.offsetAt(e.range.end);
+            var startOffset = document2.offsetAt(e.range.start);
+            var endOffset = document2.offsetAt(e.range.end);
             if (endOffset <= lastModifiedOffset) {
               text = text.substring(0, startOffset) + e.newText + text.substring(endOffset, text.length);
             } else {
@@ -4808,7 +4808,7 @@ var require_main2 = __commonJS({
       );
       var Is;
       (function(Is2) {
-        var toString = Object.prototype.toString;
+        var toString3 = Object.prototype.toString;
         function defined(value) {
           return typeof value !== "undefined";
         }
@@ -4822,27 +4822,27 @@ var require_main2 = __commonJS({
         }
         Is2.boolean = boolean;
         function string(value) {
-          return toString.call(value) === "[object String]";
+          return toString3.call(value) === "[object String]";
         }
         Is2.string = string;
         function number(value) {
-          return toString.call(value) === "[object Number]";
+          return toString3.call(value) === "[object Number]";
         }
         Is2.number = number;
         function numberRange(value, min, max) {
-          return toString.call(value) === "[object Number]" && min <= value && value <= max;
+          return toString3.call(value) === "[object Number]" && min <= value && value <= max;
         }
         Is2.numberRange = numberRange;
         function integer2(value) {
-          return toString.call(value) === "[object Number]" && -2147483648 <= value && value <= 2147483647;
+          return toString3.call(value) === "[object Number]" && -2147483648 <= value && value <= 2147483647;
         }
         Is2.integer = integer2;
         function uinteger2(value) {
-          return toString.call(value) === "[object Number]" && 0 <= value && value <= 2147483647;
+          return toString3.call(value) === "[object Number]" && 0 <= value && value <= 2147483647;
         }
         Is2.uinteger = uinteger2;
         function func(value) {
-          return toString.call(value) === "[object Function]";
+          return toString3.call(value) === "[object Function]";
         }
         Is2.func = func;
         function objectLiteral(value) {
@@ -5456,14 +5456,14 @@ var require_protocol_notebook = __commonJS({
     })(NotebookCellKind || (exports2.NotebookCellKind = NotebookCellKind = {}));
     var ExecutionSummary;
     (function(ExecutionSummary2) {
-      function create(executionOrder, success) {
+      function create2(executionOrder, success) {
         const result = { executionOrder };
         if (success === true || success === false) {
           result.success = success;
         }
         return result;
       }
-      ExecutionSummary2.create = create;
+      ExecutionSummary2.create = create2;
       function is(value) {
         const candidate = value;
         return Is.objectLiteral(candidate) && vscode_languageserver_types_1.uinteger.is(candidate.executionOrder) && (candidate.success === void 0 || Is.boolean(candidate.success));
@@ -5482,10 +5482,10 @@ var require_protocol_notebook = __commonJS({
     })(ExecutionSummary || (exports2.ExecutionSummary = ExecutionSummary = {}));
     var NotebookCell;
     (function(NotebookCell2) {
-      function create(kind, document) {
-        return { kind, document };
+      function create2(kind, document2) {
+        return { kind, document: document2 };
       }
-      NotebookCell2.create = create;
+      NotebookCell2.create = create2;
       function is(value) {
         const candidate = value;
         return Is.objectLiteral(candidate) && NotebookCellKind.is(candidate.kind) && vscode_languageserver_types_1.DocumentUri.is(candidate.document) && (candidate.metadata === void 0 || Is.objectLiteral(candidate.metadata));
@@ -5562,10 +5562,10 @@ var require_protocol_notebook = __commonJS({
     })(NotebookCell || (exports2.NotebookCell = NotebookCell = {}));
     var NotebookDocument;
     (function(NotebookDocument2) {
-      function create(uri, notebookType, version, cells) {
+      function create2(uri, notebookType, version, cells) {
         return { uri, notebookType, version, cells };
       }
-      NotebookDocument2.create = create;
+      NotebookDocument2.create = create2;
       function is(value) {
         const candidate = value;
         return Is.objectLiteral(candidate) && Is.string(candidate.uri) && vscode_languageserver_types_1.integer.is(candidate.version) && Is.typedArray(candidate.cells, NotebookCell.is);
@@ -5592,14 +5592,14 @@ var require_protocol_notebook = __commonJS({
         return Is.objectLiteral(candidate) && vscode_languageserver_types_1.uinteger.is(candidate.start) && vscode_languageserver_types_1.uinteger.is(candidate.deleteCount) && (candidate.cells === void 0 || Is.typedArray(candidate.cells, NotebookCell.is));
       }
       NotebookCellArrayChange2.is = is;
-      function create(start, deleteCount, cells) {
+      function create2(start, deleteCount, cells) {
         const result = { start, deleteCount };
         if (cells !== void 0) {
           result.cells = cells;
         }
         return result;
       }
-      NotebookCellArrayChange2.create = create;
+      NotebookCellArrayChange2.create = create2;
     })(NotebookCellArrayChange || (exports2.NotebookCellArrayChange = NotebookCellArrayChange = {}));
     var DidChangeNotebookDocumentNotification;
     (function(DidChangeNotebookDocumentNotification2) {
@@ -6300,13 +6300,13 @@ var require_api2 = __commonJS({
     "use strict";
     var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: function() {
+      var desc2 = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc2 || ("get" in desc2 ? !m.__esModule : desc2.writable || desc2.configurable)) {
+        desc2 = { enumerable: true, get: function() {
           return m[k];
         } };
       }
-      Object.defineProperty(o, k2, desc);
+      Object.defineProperty(o, k2, desc2);
     } : function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
       o[k2] = m[k];
@@ -6342,13 +6342,13 @@ var require_main3 = __commonJS({
     "use strict";
     var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: function() {
+      var desc2 = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc2 || ("get" in desc2 ? !m.__esModule : desc2.writable || desc2.configurable)) {
+        desc2 = { enumerable: true, get: function() {
           return m[k];
         } };
       }
-      Object.defineProperty(o, k2, desc);
+      Object.defineProperty(o, k2, desc2);
     } : function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
       o[k2] = m[k];
@@ -6599,7 +6599,7 @@ var require_async = __commonJS({
       return result;
     }
     exports2.mapAsync = mapAsync;
-    async function forEach(items, func, token, options) {
+    async function forEach2(items, func, token, options) {
       if (items.length === 0) {
         return;
       }
@@ -6627,7 +6627,7 @@ var require_async = __commonJS({
         });
       }
     }
-    exports2.forEach = forEach;
+    exports2.forEach = forEach2;
   }
 });
 
@@ -6636,8 +6636,8 @@ var require_protocolCompletionItem = __commonJS({
   "node_modules/vscode-languageclient/lib/common/protocolCompletionItem.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    var code = require("vscode");
-    var ProtocolCompletionItem = class extends code.CompletionItem {
+    var code2 = require("vscode");
+    var ProtocolCompletionItem = class extends code2.CompletionItem {
       constructor(label) {
         super(label);
       }
@@ -6651,8 +6651,8 @@ var require_protocolCodeLens = __commonJS({
   "node_modules/vscode-languageclient/lib/common/protocolCodeLens.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    var code = require("vscode");
-    var ProtocolCodeLens = class extends code.CodeLens {
+    var code2 = require("vscode");
+    var ProtocolCodeLens = class extends code2.CodeLens {
       constructor(range) {
         super(range);
       }
@@ -6666,8 +6666,8 @@ var require_protocolDocumentLink = __commonJS({
   "node_modules/vscode-languageclient/lib/common/protocolDocumentLink.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    var code = require("vscode");
-    var ProtocolDocumentLink = class extends code.DocumentLink {
+    var code2 = require("vscode");
+    var ProtocolDocumentLink = class extends code2.DocumentLink {
       constructor(range, target) {
         super(range, target);
       }
@@ -6724,10 +6724,10 @@ var require_protocolCallHierarchyItem = __commonJS({
   "node_modules/vscode-languageclient/lib/common/protocolCallHierarchyItem.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    var code = require("vscode");
-    var ProtocolCallHierarchyItem = class extends code.CallHierarchyItem {
-      constructor(kind, name, detail, uri, range, selectionRange, data) {
-        super(kind, name, detail, uri, range, selectionRange);
+    var code2 = require("vscode");
+    var ProtocolCallHierarchyItem = class extends code2.CallHierarchyItem {
+      constructor(kind, name2, detail, uri, range, selectionRange, data) {
+        super(kind, name2, detail, uri, range, selectionRange);
         if (data !== void 0) {
           this.data = data;
         }
@@ -6742,10 +6742,10 @@ var require_protocolTypeHierarchyItem = __commonJS({
   "node_modules/vscode-languageclient/lib/common/protocolTypeHierarchyItem.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    var code = require("vscode");
-    var ProtocolTypeHierarchyItem = class extends code.TypeHierarchyItem {
-      constructor(kind, name, detail, uri, range, selectionRange, data) {
-        super(kind, name, detail, uri, range, selectionRange);
+    var code2 = require("vscode");
+    var ProtocolTypeHierarchyItem = class extends code2.TypeHierarchyItem {
+      constructor(kind, name2, detail, uri, range, selectionRange, data) {
+        super(kind, name2, detail, uri, range, selectionRange);
         if (data !== void 0) {
           this.data = data;
         }
@@ -6760,11 +6760,11 @@ var require_protocolWorkspaceSymbol = __commonJS({
   "node_modules/vscode-languageclient/lib/common/protocolWorkspaceSymbol.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    var code = require("vscode");
-    var WorkspaceSymbol = class extends code.SymbolInformation {
-      constructor(name, kind, containerName, locationOrUri, data) {
-        const hasRange = !(locationOrUri instanceof code.Uri);
-        super(name, kind, containerName, hasRange ? locationOrUri : new code.Location(locationOrUri, new code.Range(0, 0, 0, 0)));
+    var code2 = require("vscode");
+    var WorkspaceSymbol = class extends code2.SymbolInformation {
+      constructor(name2, kind, containerName, locationOrUri, data) {
+        const hasRange = !(locationOrUri instanceof code2.Uri);
+        super(name2, kind, containerName, hasRange ? locationOrUri : new code2.Location(locationOrUri, new code2.Range(0, 0, 0, 0)));
         this.hasRange = hasRange;
         if (data !== void 0) {
           this.data = data;
@@ -6780,8 +6780,8 @@ var require_protocolInlayHint = __commonJS({
   "node_modules/vscode-languageclient/lib/common/protocolInlayHint.js"(exports2) {
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
-    var code = require("vscode");
-    var ProtocolInlayHint = class extends code.InlayHint {
+    var code2 = require("vscode");
+    var ProtocolInlayHint = class extends code2.InlayHint {
       constructor(position, label, kind) {
         super(position, label, kind);
       }
@@ -6796,7 +6796,7 @@ var require_codeConverter = __commonJS({
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.createConverter = void 0;
-    var code = require("vscode");
+    var code2 = require("vscode");
     var proto = require_main3();
     var Is = require_is();
     var async = require_async();
@@ -6906,11 +6906,11 @@ var require_codeConverter = __commonJS({
       }
       function asTextDocumentSaveReason(reason) {
         switch (reason) {
-          case code.TextDocumentSaveReason.Manual:
+          case code2.TextDocumentSaveReason.Manual:
             return proto.TextDocumentSaveReason.Manual;
-          case code.TextDocumentSaveReason.AfterDelay:
+          case code2.TextDocumentSaveReason.AfterDelay:
             return proto.TextDocumentSaveReason.AfterDelay;
-          case code.TextDocumentSaveReason.FocusOut:
+          case code2.TextDocumentSaveReason.FocusOut:
             return proto.TextDocumentSaveReason.FocusOut;
         }
         return proto.TextDocumentSaveReason.Manual;
@@ -6973,9 +6973,9 @@ var require_codeConverter = __commonJS({
       }
       function asCompletionTriggerKind(triggerKind) {
         switch (triggerKind) {
-          case code.CompletionTriggerKind.TriggerCharacter:
+          case code2.CompletionTriggerKind.TriggerCharacter:
             return proto.CompletionTriggerKind.TriggerCharacter;
-          case code.CompletionTriggerKind.TriggerForIncompleteCompletions:
+          case code2.CompletionTriggerKind.TriggerForIncompleteCompletions:
             return proto.CompletionTriggerKind.TriggerForIncompleteCompletions;
           default:
             return proto.CompletionTriggerKind.Invoked;
@@ -6993,11 +6993,11 @@ var require_codeConverter = __commonJS({
       }
       function asSignatureHelpTriggerKind(triggerKind) {
         switch (triggerKind) {
-          case code.SignatureHelpTriggerKind.Invoke:
+          case code2.SignatureHelpTriggerKind.Invoke:
             return proto.SignatureHelpTriggerKind.Invoked;
-          case code.SignatureHelpTriggerKind.TriggerCharacter:
+          case code2.SignatureHelpTriggerKind.TriggerCharacter:
             return proto.SignatureHelpTriggerKind.TriggerCharacter;
-          case code.SignatureHelpTriggerKind.ContentChange:
+          case code2.SignatureHelpTriggerKind.ContentChange:
             return proto.SignatureHelpTriggerKind.ContentChange;
         }
       }
@@ -7072,13 +7072,13 @@ var require_codeConverter = __commonJS({
       }
       function asDiagnosticSeverity(value) {
         switch (value) {
-          case code.DiagnosticSeverity.Error:
+          case code2.DiagnosticSeverity.Error:
             return proto.DiagnosticSeverity.Error;
-          case code.DiagnosticSeverity.Warning:
+          case code2.DiagnosticSeverity.Warning:
             return proto.DiagnosticSeverity.Warning;
-          case code.DiagnosticSeverity.Information:
+          case code2.DiagnosticSeverity.Information:
             return proto.DiagnosticSeverity.Information;
-          case code.DiagnosticSeverity.Hint:
+          case code2.DiagnosticSeverity.Hint:
             return proto.DiagnosticSeverity.Hint;
         }
       }
@@ -7097,9 +7097,9 @@ var require_codeConverter = __commonJS({
       }
       function asDiagnosticTag(tag) {
         switch (tag) {
-          case code.DiagnosticTag.Unnecessary:
+          case code2.DiagnosticTag.Unnecessary:
             return proto.DiagnosticTag.Unnecessary;
-          case code.DiagnosticTag.Deprecated:
+          case code2.DiagnosticTag.Deprecated:
             return proto.DiagnosticTag.Deprecated;
           default:
             return void 0;
@@ -7129,16 +7129,16 @@ var require_codeConverter = __commonJS({
         if (protocolDiagnostic !== void 0 && protocolDiagnostic.data !== void 0) {
           result.data = protocolDiagnostic.data;
         }
-        const code2 = asDiagnosticCode(item.code);
-        if (protocolDiagnostic_1.DiagnosticCode.is(code2)) {
+        const code3 = asDiagnosticCode(item.code);
+        if (protocolDiagnostic_1.DiagnosticCode.is(code3)) {
           if (protocolDiagnostic !== void 0 && protocolDiagnostic.hasDiagnosticCode) {
-            result.code = code2;
+            result.code = code3;
           } else {
-            result.code = code2.value;
-            result.codeDescription = { href: code2.target };
+            result.code = code3.value;
+            result.codeDescription = { href: code3.target };
           }
         } else {
-          result.code = code2;
+          result.code = code3;
         }
         if (Is.number(item.severity)) {
           result.severity = asDiagnosticSeverity(item.severity);
@@ -7180,7 +7180,7 @@ var require_codeConverter = __commonJS({
       }
       function asCompletionItemTag(tag) {
         switch (tag) {
-          case code.CompletionItemTag.Deprecated:
+          case code2.CompletionItemTag.Deprecated:
             return proto.CompletionItemTag.Deprecated;
         }
         return void 0;
@@ -7259,7 +7259,7 @@ var require_codeConverter = __commonJS({
           }
           if (protocolItem.deprecated === true || protocolItem.deprecated === false) {
             if (protocolItem.deprecated === true && tags !== void 0 && tags.length > 0) {
-              const index = tags.indexOf(code.CompletionItemTag.Deprecated);
+              const index = tags.indexOf(code2.CompletionItemTag.Deprecated);
               if (index !== -1) {
                 tags.splice(index, 1);
               }
@@ -7285,7 +7285,7 @@ var require_codeConverter = __commonJS({
         if (source.textEdit) {
           text = source.textEdit.newText;
           range = source.textEdit.range;
-        } else if (source.insertText instanceof code.SnippetString) {
+        } else if (source.insertText instanceof code2.SnippetString) {
           format = proto.InsertTextFormat.Snippet;
           text = source.insertText.value;
         } else {
@@ -7318,7 +7318,7 @@ var require_codeConverter = __commonJS({
         return edits.map(asTextEdit);
       }
       function asSymbolKind(item) {
-        if (item <= code.SymbolKind.TypeParameter) {
+        if (item <= code2.SymbolKind.TypeParameter) {
           return item + 1;
         }
         return proto.SymbolKind.Property;
@@ -7408,9 +7408,9 @@ var require_codeConverter = __commonJS({
       }
       function asCodeActionTriggerKind(kind) {
         switch (kind) {
-          case code.CodeActionTriggerKind.Invoke:
+          case code2.CodeActionTriggerKind.Invoke:
             return proto.CodeActionTriggerKind.Invoked;
-          case code.CodeActionTriggerKind.Automatic:
+          case code2.CodeActionTriggerKind.Automatic:
             return proto.CodeActionTriggerKind.Automatic;
           default:
             return void 0;
@@ -7428,10 +7428,10 @@ var require_codeConverter = __commonJS({
         }
         return proto.InlineValueContext.create(context.frameId, asRange(context.stoppedLocation));
       }
-      function asInlineCompletionParams(document, position, context) {
+      function asInlineCompletionParams(document2, position, context) {
         return {
           context: proto.InlineCompletionContext.create(context.triggerKind, context.selectedCompletionInfo),
-          textDocument: asTextDocumentIdentifier(document),
+          textDocument: asTextDocumentIdentifier(document2),
           position: asPosition(position)
         };
       }
@@ -7656,7 +7656,7 @@ var require_protocolConverter = __commonJS({
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.createConverter = void 0;
-    var code = require("vscode");
+    var code2 = require("vscode");
     var ls = require_main3();
     var Is = require_is();
     var async = require_async();
@@ -7679,25 +7679,25 @@ var require_protocolConverter = __commonJS({
       CodeBlock2.is = is;
     })(CodeBlock || (CodeBlock = {}));
     function createConverter(uriConverter, trustMarkdown, supportHtml) {
-      const nullConverter = (value) => code.Uri.parse(value);
+      const nullConverter = (value) => code2.Uri.parse(value);
       const _uriConverter = uriConverter || nullConverter;
       function asUri(value) {
         return _uriConverter(value);
       }
       function asDocumentSelector(selector) {
         const result = [];
-        for (const filter of selector) {
-          if (typeof filter === "string") {
-            result.push(filter);
-          } else if (vscode_languageserver_protocol_1.NotebookCellTextDocumentFilter.is(filter)) {
-            if (typeof filter.notebook === "string") {
-              result.push({ notebookType: filter.notebook, language: filter.language });
+        for (const filter2 of selector) {
+          if (typeof filter2 === "string") {
+            result.push(filter2);
+          } else if (vscode_languageserver_protocol_1.NotebookCellTextDocumentFilter.is(filter2)) {
+            if (typeof filter2.notebook === "string") {
+              result.push({ notebookType: filter2.notebook, language: filter2.language });
             } else {
-              const notebookType = filter.notebook.notebookType ?? "*";
-              result.push({ notebookType, scheme: filter.notebook.scheme, pattern: filter.notebook.pattern, language: filter.language });
+              const notebookType = filter2.notebook.notebookType ?? "*";
+              result.push({ notebookType, scheme: filter2.notebook.scheme, pattern: filter2.notebook.pattern, language: filter2.language });
             }
-          } else if (vscode_languageserver_protocol_1.TextDocumentFilter.is(filter)) {
-            result.push({ language: filter.language, scheme: filter.scheme, pattern: filter.pattern });
+          } else if (vscode_languageserver_protocol_1.TextDocumentFilter.is(filter2)) {
+            result.push({ language: filter2.language, scheme: filter2.scheme, pattern: filter2.pattern });
           }
         }
         return result;
@@ -7748,7 +7748,7 @@ var require_protocolConverter = __commonJS({
         const result = new Array(relatedInformation.length);
         for (let i = 0; i < relatedInformation.length; i++) {
           const info = relatedInformation[i];
-          result[i] = new code.DiagnosticRelatedInformation(asLocation(info.location), info.message);
+          result[i] = new code2.DiagnosticRelatedInformation(asLocation(info.location), info.message);
         }
         return result;
       }
@@ -7768,39 +7768,39 @@ var require_protocolConverter = __commonJS({
       function asDiagnosticTag(tag) {
         switch (tag) {
           case ls.DiagnosticTag.Unnecessary:
-            return code.DiagnosticTag.Unnecessary;
+            return code2.DiagnosticTag.Unnecessary;
           case ls.DiagnosticTag.Deprecated:
-            return code.DiagnosticTag.Deprecated;
+            return code2.DiagnosticTag.Deprecated;
           default:
             return void 0;
         }
       }
       function asPosition(value) {
-        return value ? new code.Position(value.line, value.character) : void 0;
+        return value ? new code2.Position(value.line, value.character) : void 0;
       }
       function asRange(value) {
-        return value ? new code.Range(value.start.line, value.start.character, value.end.line, value.end.character) : void 0;
+        return value ? new code2.Range(value.start.line, value.start.character, value.end.line, value.end.character) : void 0;
       }
       async function asRanges(items, token) {
         return async.map(items, (range) => {
-          return new code.Range(range.start.line, range.start.character, range.end.line, range.end.character);
+          return new code2.Range(range.start.line, range.start.character, range.end.line, range.end.character);
         }, token);
       }
       function asDiagnosticSeverity(value) {
         if (value === void 0 || value === null) {
-          return code.DiagnosticSeverity.Error;
+          return code2.DiagnosticSeverity.Error;
         }
         switch (value) {
           case ls.DiagnosticSeverity.Error:
-            return code.DiagnosticSeverity.Error;
+            return code2.DiagnosticSeverity.Error;
           case ls.DiagnosticSeverity.Warning:
-            return code.DiagnosticSeverity.Warning;
+            return code2.DiagnosticSeverity.Warning;
           case ls.DiagnosticSeverity.Information:
-            return code.DiagnosticSeverity.Information;
+            return code2.DiagnosticSeverity.Information;
           case ls.DiagnosticSeverity.Hint:
-            return code.DiagnosticSeverity.Hint;
+            return code2.DiagnosticSeverity.Hint;
         }
-        return code.DiagnosticSeverity.Error;
+        return code2.DiagnosticSeverity.Error;
       }
       function asHoverContent(value) {
         if (Is.string(value)) {
@@ -7841,18 +7841,18 @@ var require_protocolConverter = __commonJS({
       function asMarkdownString(value) {
         let result;
         if (value === void 0 || typeof value === "string") {
-          result = new code.MarkdownString(value);
+          result = new code2.MarkdownString(value);
         } else {
           switch (value.kind) {
             case ls.MarkupKind.Markdown:
-              result = new code.MarkdownString(value.value);
+              result = new code2.MarkdownString(value.value);
               break;
             case ls.MarkupKind.PlainText:
-              result = new code.MarkdownString();
+              result = new code2.MarkdownString();
               result.appendText(value.value);
               break;
             default:
-              result = new code.MarkdownString();
+              result = new code2.MarkdownString();
               result.appendText(`Unsupported Markup content received. Kind is: ${value.kind}`);
               break;
           }
@@ -7865,7 +7865,7 @@ var require_protocolConverter = __commonJS({
         if (!hover) {
           return void 0;
         }
-        return new code.Hover(asHoverContent(hover.contents), asRange(hover.range));
+        return new code2.Hover(asHoverContent(hover.contents), asRange(hover.range));
       }
       async function asCompletionResult(value, allCommitCharacters, token) {
         if (!value) {
@@ -7874,28 +7874,28 @@ var require_protocolConverter = __commonJS({
         if (Array.isArray(value)) {
           return async.map(value, (item) => asCompletionItem(item, allCommitCharacters), token);
         }
-        const list = value;
-        const { defaultRange, commitCharacters } = getCompletionItemDefaults(list, allCommitCharacters);
-        const converted = await async.map(list.items, (item) => {
-          return asCompletionItem(item, commitCharacters, defaultRange, list.itemDefaults?.insertTextMode, list.itemDefaults?.insertTextFormat, list.itemDefaults?.data);
+        const list2 = value;
+        const { defaultRange, commitCharacters } = getCompletionItemDefaults(list2, allCommitCharacters);
+        const converted = await async.map(list2.items, (item) => {
+          return asCompletionItem(item, commitCharacters, defaultRange, list2.itemDefaults?.insertTextMode, list2.itemDefaults?.insertTextFormat, list2.itemDefaults?.data);
         }, token);
-        return new code.CompletionList(converted, list.isIncomplete);
+        return new code2.CompletionList(converted, list2.isIncomplete);
       }
-      function getCompletionItemDefaults(list, allCommitCharacters) {
-        const rangeDefaults = list.itemDefaults?.editRange;
-        const commitCharacters = list.itemDefaults?.commitCharacters ?? allCommitCharacters;
+      function getCompletionItemDefaults(list2, allCommitCharacters) {
+        const rangeDefaults = list2.itemDefaults?.editRange;
+        const commitCharacters = list2.itemDefaults?.commitCharacters ?? allCommitCharacters;
         return ls.Range.is(rangeDefaults) ? { defaultRange: asRange(rangeDefaults), commitCharacters } : rangeDefaults !== void 0 ? { defaultRange: { inserting: asRange(rangeDefaults.insert), replacing: asRange(rangeDefaults.replace) }, commitCharacters } : { defaultRange: void 0, commitCharacters };
       }
       function asCompletionItemKind(value) {
         if (ls.CompletionItemKind.Text <= value && value <= ls.CompletionItemKind.TypeParameter) {
           return [value - 1, void 0];
         }
-        return [code.CompletionItemKind.Text, value];
+        return [code2.CompletionItemKind.Text, value];
       }
       function asCompletionItemTag(tag) {
         switch (tag) {
           case ls.CompletionItemTag.Deprecated:
-            return code.CompletionItemTag.Deprecated;
+            return code2.CompletionItemTag.Deprecated;
         }
         return void 0;
       }
@@ -7955,7 +7955,7 @@ var require_protocolConverter = __commonJS({
         if (item.deprecated === true || item.deprecated === false) {
           result.deprecated = item.deprecated;
           if (item.deprecated === true) {
-            tags.push(code.CompletionItemTag.Deprecated);
+            tags.push(code2.CompletionItemTag.Deprecated);
           }
         }
         if (item.preselect === true || item.preselect === false) {
@@ -7993,13 +7993,13 @@ var require_protocolConverter = __commonJS({
         if (item.textEdit !== void 0 || defaultRange !== void 0) {
           const [range, newText] = item.textEdit !== void 0 ? getCompletionRangeAndText(item.textEdit) : [defaultRange, item.textEditText ?? item.label];
           if (insertTextFormat === ls.InsertTextFormat.Snippet) {
-            return { text: new code.SnippetString(newText), range, fromEdit: true };
+            return { text: new code2.SnippetString(newText), range, fromEdit: true };
           } else {
             return { text: newText, range, fromEdit: true };
           }
         } else if (item.insertText) {
           if (insertTextFormat === ls.InsertTextFormat.Snippet) {
-            return { text: new code.SnippetString(item.insertText), fromEdit: false };
+            return { text: new code2.SnippetString(item.insertText), fromEdit: false };
           } else {
             return { text: item.insertText, fromEdit: false };
           }
@@ -8018,7 +8018,7 @@ var require_protocolConverter = __commonJS({
         if (!edit) {
           return void 0;
         }
-        return new code.TextEdit(asRange(edit.range), edit.newText);
+        return new code2.TextEdit(asRange(edit.range), edit.newText);
       }
       async function asTextEdits(items, token) {
         if (!items) {
@@ -8040,7 +8040,7 @@ var require_protocolConverter = __commonJS({
         if (!item) {
           return void 0;
         }
-        let result = new code.SignatureHelp();
+        let result = new code2.SignatureHelp();
         if (Is.number(item.activeSignature)) {
           result.activeSignature = item.activeSignature;
         } else {
@@ -8060,7 +8060,7 @@ var require_protocolConverter = __commonJS({
         return async.mapAsync(items, asSignatureInformation, token);
       }
       async function asSignatureInformation(item, token) {
-        let result = new code.SignatureInformation(item.label);
+        let result = new code2.SignatureInformation(item.label);
         if (item.documentation !== void 0) {
           result.documentation = asDocumentation(item.documentation);
         }
@@ -8078,14 +8078,14 @@ var require_protocolConverter = __commonJS({
         return async.map(items, asParameterInformation, token);
       }
       function asParameterInformation(item) {
-        let result = new code.ParameterInformation(item.label);
+        let result = new code2.ParameterInformation(item.label);
         if (item.documentation) {
           result.documentation = asDocumentation(item.documentation);
         }
         return result;
       }
       function asLocation(item) {
-        return item ? new code.Location(_uriConverter(item.uri), asRange(item.range)) : void 0;
+        return item ? new code2.Location(_uriConverter(item.uri), asRange(item.range)) : void 0;
       }
       async function asDeclarationResult(item, token) {
         if (!item) {
@@ -8147,7 +8147,7 @@ var require_protocolConverter = __commonJS({
         return async.map(values, asDocumentHighlight, token);
       }
       function asDocumentHighlight(item) {
-        let result = new code.DocumentHighlight(asRange(item.range));
+        let result = new code2.DocumentHighlight(asRange(item.range));
         if (Is.number(item.kind)) {
           result.kind = asDocumentHighlightKind(item.kind);
         }
@@ -8156,13 +8156,13 @@ var require_protocolConverter = __commonJS({
       function asDocumentHighlightKind(item) {
         switch (item) {
           case ls.DocumentHighlightKind.Text:
-            return code.DocumentHighlightKind.Text;
+            return code2.DocumentHighlightKind.Text;
           case ls.DocumentHighlightKind.Read:
-            return code.DocumentHighlightKind.Read;
+            return code2.DocumentHighlightKind.Read;
           case ls.DocumentHighlightKind.Write:
-            return code.DocumentHighlightKind.Write;
+            return code2.DocumentHighlightKind.Write;
         }
-        return code.DocumentHighlightKind.Text;
+        return code2.DocumentHighlightKind.Text;
       }
       async function asSymbolInformations(values, token) {
         if (!values) {
@@ -8174,12 +8174,12 @@ var require_protocolConverter = __commonJS({
         if (item <= ls.SymbolKind.TypeParameter) {
           return item - 1;
         }
-        return code.SymbolKind.Property;
+        return code2.SymbolKind.Property;
       }
       function asSymbolTag(value) {
         switch (value) {
           case ls.SymbolTag.Deprecated:
-            return code.SymbolTag.Deprecated;
+            return code2.SymbolTag.Deprecated;
           default:
             return void 0;
         }
@@ -8200,7 +8200,7 @@ var require_protocolConverter = __commonJS({
       function asSymbolInformation(item) {
         const data = item.data;
         const location = item.location;
-        const result = location.range === void 0 || data !== void 0 ? new protocolWorkspaceSymbol_1.default(item.name, asSymbolKind(item.kind), item.containerName ?? "", location.range === void 0 ? _uriConverter(location.uri) : new code.Location(_uriConverter(item.location.uri), asRange(location.range)), data) : new code.SymbolInformation(item.name, asSymbolKind(item.kind), item.containerName ?? "", new code.Location(_uriConverter(item.location.uri), asRange(location.range)));
+        const result = location.range === void 0 || data !== void 0 ? new protocolWorkspaceSymbol_1.default(item.name, asSymbolKind(item.kind), item.containerName ?? "", location.range === void 0 ? _uriConverter(location.uri) : new code2.Location(_uriConverter(item.location.uri), asRange(location.range)), data) : new code2.SymbolInformation(item.name, asSymbolKind(item.kind), item.containerName ?? "", new code2.Location(_uriConverter(item.location.uri), asRange(location.range)));
         fillTags(result, item);
         return result;
       }
@@ -8211,7 +8211,7 @@ var require_protocolConverter = __commonJS({
         return async.map(values, asDocumentSymbol, token);
       }
       function asDocumentSymbol(value) {
-        let result = new code.DocumentSymbol(value.name, value.detail || "", asSymbolKind(value.kind), asRange(value.range), asRange(value.selectionRange));
+        let result = new code2.DocumentSymbol(value.name, value.detail || "", asSymbolKind(value.kind), asRange(value.range), asRange(value.selectionRange));
         fillTags(result, value);
         if (value.children !== void 0 && value.children.length > 0) {
           let children = [];
@@ -8226,10 +8226,10 @@ var require_protocolConverter = __commonJS({
         result.tags = asSymbolTags(value.tags);
         if (value.deprecated) {
           if (!result.tags) {
-            result.tags = [code.SymbolTag.Deprecated];
+            result.tags = [code2.SymbolTag.Deprecated];
           } else {
-            if (!result.tags.includes(code.SymbolTag.Deprecated)) {
-              result.tags = result.tags.concat(code.SymbolTag.Deprecated);
+            if (!result.tags.includes(code2.SymbolTag.Deprecated)) {
+              result.tags = result.tags.concat(code2.SymbolTag.Deprecated);
             }
           }
         }
@@ -8248,14 +8248,14 @@ var require_protocolConverter = __commonJS({
         return async.map(items, asCommand, token);
       }
       const kindMapping = /* @__PURE__ */ new Map();
-      kindMapping.set(ls.CodeActionKind.Empty, code.CodeActionKind.Empty);
-      kindMapping.set(ls.CodeActionKind.QuickFix, code.CodeActionKind.QuickFix);
-      kindMapping.set(ls.CodeActionKind.Refactor, code.CodeActionKind.Refactor);
-      kindMapping.set(ls.CodeActionKind.RefactorExtract, code.CodeActionKind.RefactorExtract);
-      kindMapping.set(ls.CodeActionKind.RefactorInline, code.CodeActionKind.RefactorInline);
-      kindMapping.set(ls.CodeActionKind.RefactorRewrite, code.CodeActionKind.RefactorRewrite);
-      kindMapping.set(ls.CodeActionKind.Source, code.CodeActionKind.Source);
-      kindMapping.set(ls.CodeActionKind.SourceOrganizeImports, code.CodeActionKind.SourceOrganizeImports);
+      kindMapping.set(ls.CodeActionKind.Empty, code2.CodeActionKind.Empty);
+      kindMapping.set(ls.CodeActionKind.QuickFix, code2.CodeActionKind.QuickFix);
+      kindMapping.set(ls.CodeActionKind.Refactor, code2.CodeActionKind.Refactor);
+      kindMapping.set(ls.CodeActionKind.RefactorExtract, code2.CodeActionKind.RefactorExtract);
+      kindMapping.set(ls.CodeActionKind.RefactorInline, code2.CodeActionKind.RefactorInline);
+      kindMapping.set(ls.CodeActionKind.RefactorRewrite, code2.CodeActionKind.RefactorRewrite);
+      kindMapping.set(ls.CodeActionKind.Source, code2.CodeActionKind.Source);
+      kindMapping.set(ls.CodeActionKind.SourceOrganizeImports, code2.CodeActionKind.SourceOrganizeImports);
       function asCodeActionKind(item) {
         if (item === void 0 || item === null) {
           return void 0;
@@ -8265,7 +8265,7 @@ var require_protocolConverter = __commonJS({
           return result;
         }
         let parts = item.split(".");
-        result = code.CodeActionKind.Empty;
+        result = code2.CodeActionKind.Empty;
         for (let part of parts) {
           result = result.append(part);
         }
@@ -8349,7 +8349,7 @@ var require_protocolConverter = __commonJS({
             return sharedMetadata.get(annotation);
           }
         };
-        const result = new code.WorkspaceEdit();
+        const result = new code2.WorkspaceEdit();
         if (item.documentChanges) {
           const documentChanges = item.documentChanges;
           await async.forEach(documentChanges, (change) => {
@@ -8406,10 +8406,10 @@ ${JSON.stringify(change, void 0, 4)}`);
         return async.map(items, asDocumentLink, token);
       }
       function asColor(color) {
-        return new code.Color(color.red, color.green, color.blue, color.alpha);
+        return new code2.Color(color.red, color.green, color.blue, color.alpha);
       }
       function asColorInformation(ci) {
-        return new code.ColorInformation(asRange(ci.range), asColor(ci.color));
+        return new code2.ColorInformation(asRange(ci.range), asColor(ci.color));
       }
       async function asColorInformations(colorInformation, token) {
         if (!colorInformation) {
@@ -8418,7 +8418,7 @@ ${JSON.stringify(change, void 0, 4)}`);
         return async.map(colorInformation, asColorInformation, token);
       }
       function asColorPresentation(cp) {
-        let presentation = new code.ColorPresentation(cp.label);
+        let presentation = new code2.ColorPresentation(cp.label);
         presentation.additionalTextEdits = asTextEditsSync(cp.additionalTextEdits);
         if (cp.textEdit) {
           presentation.textEdit = asTextEdit(cp.textEdit);
@@ -8435,17 +8435,17 @@ ${JSON.stringify(change, void 0, 4)}`);
         if (kind) {
           switch (kind) {
             case ls.FoldingRangeKind.Comment:
-              return code.FoldingRangeKind.Comment;
+              return code2.FoldingRangeKind.Comment;
             case ls.FoldingRangeKind.Imports:
-              return code.FoldingRangeKind.Imports;
+              return code2.FoldingRangeKind.Imports;
             case ls.FoldingRangeKind.Region:
-              return code.FoldingRangeKind.Region;
+              return code2.FoldingRangeKind.Region;
           }
         }
         return void 0;
       }
       function asFoldingRange(r) {
-        return new code.FoldingRange(r.startLine, r.endLine, asFoldingRangeKind(r.kind));
+        return new code2.FoldingRange(r.startLine, r.endLine, asFoldingRangeKind(r.kind));
       }
       async function asFoldingRanges(foldingRanges, token) {
         if (!foldingRanges) {
@@ -8454,7 +8454,7 @@ ${JSON.stringify(change, void 0, 4)}`);
         return async.map(foldingRanges, asFoldingRange, token);
       }
       function asSelectionRange(selectionRange) {
-        return new code.SelectionRange(asRange(selectionRange.range), selectionRange.parent ? asSelectionRange(selectionRange.parent) : void 0);
+        return new code2.SelectionRange(asRange(selectionRange.range), selectionRange.parent ? asSelectionRange(selectionRange.parent) : void 0);
       }
       async function asSelectionRanges(selectionRanges, token) {
         if (!Array.isArray(selectionRanges)) {
@@ -8464,11 +8464,11 @@ ${JSON.stringify(change, void 0, 4)}`);
       }
       function asInlineValue(inlineValue) {
         if (ls.InlineValueText.is(inlineValue)) {
-          return new code.InlineValueText(asRange(inlineValue.range), inlineValue.text);
+          return new code2.InlineValueText(asRange(inlineValue.range), inlineValue.text);
         } else if (ls.InlineValueVariableLookup.is(inlineValue)) {
-          return new code.InlineValueVariableLookup(asRange(inlineValue.range), inlineValue.variableName, inlineValue.caseSensitiveLookup);
+          return new code2.InlineValueVariableLookup(asRange(inlineValue.range), inlineValue.variableName, inlineValue.caseSensitiveLookup);
         } else {
-          return new code.InlineValueEvaluatableExpression(asRange(inlineValue.range), inlineValue.expression);
+          return new code2.InlineValueEvaluatableExpression(asRange(inlineValue.range), inlineValue.expression);
         }
       }
       async function asInlineValues(inlineValues, token) {
@@ -8501,7 +8501,7 @@ ${JSON.stringify(change, void 0, 4)}`);
         return result;
       }
       function asInlayHintLabelPart(part) {
-        const result = new code.InlayHintLabelPart(part.value);
+        const result = new code2.InlayHintLabelPart(part.value);
         if (part.location !== void 0) {
           result.location = asLocation(part.location);
         }
@@ -8542,7 +8542,7 @@ ${JSON.stringify(change, void 0, 4)}`);
         return async.map(items, asCallHierarchyItem, token);
       }
       async function asCallHierarchyIncomingCall(item, token) {
-        return new code.CallHierarchyIncomingCall(asCallHierarchyItem(item.from), await asRanges(item.fromRanges, token));
+        return new code2.CallHierarchyIncomingCall(asCallHierarchyItem(item.from), await asRanges(item.fromRanges, token));
       }
       async function asCallHierarchyIncomingCalls(items, token) {
         if (items === null) {
@@ -8551,7 +8551,7 @@ ${JSON.stringify(change, void 0, 4)}`);
         return async.mapAsync(items, asCallHierarchyIncomingCall, token);
       }
       async function asCallHierarchyOutgoingCall(item, token) {
-        return new code.CallHierarchyOutgoingCall(asCallHierarchyItem(item.to), await asRanges(item.fromRanges, token));
+        return new code2.CallHierarchyOutgoingCall(asCallHierarchyItem(item.to), await asRanges(item.fromRanges, token));
       }
       async function asCallHierarchyOutgoingCalls(items, token) {
         if (items === null) {
@@ -8563,16 +8563,16 @@ ${JSON.stringify(change, void 0, 4)}`);
         if (value === void 0 || value === null) {
           return void 0;
         }
-        return new code.SemanticTokens(new Uint32Array(value.data), value.resultId);
+        return new code2.SemanticTokens(new Uint32Array(value.data), value.resultId);
       }
       function asSemanticTokensEdit(value) {
-        return new code.SemanticTokensEdit(value.start, value.deleteCount, value.data !== void 0 ? new Uint32Array(value.data) : void 0);
+        return new code2.SemanticTokensEdit(value.start, value.deleteCount, value.data !== void 0 ? new Uint32Array(value.data) : void 0);
       }
       async function asSemanticTokensEdits(value, _token) {
         if (value === void 0 || value === null) {
           return void 0;
         }
-        return new code.SemanticTokensEdits(value.edits.map(asSemanticTokensEdit), value.resultId);
+        return new code2.SemanticTokensEdits(value.edits.map(asSemanticTokensEdit), value.resultId);
       }
       function asSemanticTokensLegend(value) {
         return value;
@@ -8581,7 +8581,7 @@ ${JSON.stringify(change, void 0, 4)}`);
         if (value === null || value === void 0) {
           return void 0;
         }
-        return new code.LinkedEditingRanges(await asRanges(value.ranges, token), asRegularExpression(value.wordPattern));
+        return new code2.LinkedEditingRanges(await asRanges(value.ranges, token), asRegularExpression(value.wordPattern));
       }
       function asRegularExpression(value) {
         if (value === null || value === void 0) {
@@ -8611,10 +8611,10 @@ ${JSON.stringify(change, void 0, 4)}`);
         }
         if (ls.RelativePattern.is(pattern)) {
           if (ls.URI.is(pattern.baseUri)) {
-            return new code.RelativePattern(asUri(pattern.baseUri), pattern.pattern);
+            return new code2.RelativePattern(asUri(pattern.baseUri), pattern.pattern);
           } else if (ls.WorkspaceFolder.is(pattern.baseUri)) {
-            const workspaceFolder = code.workspace.getWorkspaceFolder(asUri(pattern.baseUri.uri));
-            return workspaceFolder !== void 0 ? new code.RelativePattern(workspaceFolder, pattern.pattern) : void 0;
+            const workspaceFolder = code2.workspace.getWorkspaceFolder(asUri(pattern.baseUri.uri));
+            return workspaceFolder !== void 0 ? new code2.RelativePattern(workspaceFolder, pattern.pattern) : void 0;
           }
         }
         return void 0;
@@ -8626,24 +8626,24 @@ ${JSON.stringify(change, void 0, 4)}`);
         if (Array.isArray(value)) {
           return async.map(value, (item) => asInlineCompletionItem(item), token);
         }
-        const list = value;
-        const converted = await async.map(list.items, (item) => {
+        const list2 = value;
+        const converted = await async.map(list2.items, (item) => {
           return asInlineCompletionItem(item);
         }, token);
-        return new code.InlineCompletionList(converted);
+        return new code2.InlineCompletionList(converted);
       }
       function asInlineCompletionItem(item) {
         let insertText;
         if (typeof item.insertText === "string") {
           insertText = item.insertText;
         } else {
-          insertText = new code.SnippetString(item.insertText.value);
+          insertText = new code2.SnippetString(item.insertText.value);
         }
         let command = void 0;
         if (item.command) {
           command = asCommand(item.command);
         }
-        const inlineCompletionItem = new code.InlineCompletionItem(insertText, asRange(item.range), command);
+        const inlineCompletionItem = new code2.InlineCompletionItem(insertText, asRange(item.range), command);
         if (item.filterText) {
           inlineCompletionItem.filterText = item.filterText;
         }
@@ -8807,13 +8807,13 @@ var require_uuid = __commonJS({
       return _UUIDPattern.test(value);
     }
     exports2.isUUID = isUUID;
-    function parse(value) {
+    function parse4(value) {
       if (!isUUID(value)) {
         throw new Error("invalid uuid");
       }
       return new ValueUUID(value);
     }
-    exports2.parse = parse;
+    exports2.parse = parse4;
     function generateUuid() {
       return v4().asHex();
     }
@@ -8967,8 +8967,8 @@ var require_features = __commonJS({
         let count = 0;
         for (const selector of selectors) {
           count++;
-          for (const document of vscode_1.workspace.textDocuments) {
-            if (vscode_1.languages.match(selector, document) > 0) {
+          for (const document2 of vscode_1.workspace.textDocuments) {
+            if (vscode_1.languages.match(selector, document2) > 0) {
               return { kind: "document", id: this.registrationType.method, registrations: true, matches: true };
             }
           }
@@ -9055,9 +9055,9 @@ var require_features = __commonJS({
           this._listener = void 0;
         }
       }
-      getProvider(document) {
+      getProvider(document2) {
         for (const selector of this._selectors.values()) {
-          if (vscode_1.languages.match(selector, document) > 0) {
+          if (vscode_1.languages.match(selector, document2) > 0) {
             return {
               send: (data) => {
                 return this.callback(data);
@@ -9192,8 +9192,8 @@ var require_features = __commonJS({
 // node_modules/minimatch/lib/path.js
 var require_path = __commonJS({
   "node_modules/minimatch/lib/path.js"(exports2, module2) {
-    var isWindows = typeof process === "object" && process && process.platform === "win32";
-    module2.exports = isWindows ? { sep: "\\" } : { sep: "/" };
+    var isWindows4 = typeof process === "object" && process && process.platform === "win32";
+    module2.exports = isWindows4 ? { sep: "\\" } : { sep: "/" };
   }
 });
 
@@ -9357,15 +9357,15 @@ var require_brace_expansion = __commonJS({
           var y = numeric(n[1]);
           var width = Math.max(n[0].length, n[1].length);
           var incr = n.length == 3 ? Math.abs(numeric(n[2])) : 1;
-          var test = lte;
+          var test2 = lte;
           var reverse = y < x;
           if (reverse) {
             incr *= -1;
-            test = gte;
+            test2 = gte;
           }
           var pad = n.some(isPadded);
           N = [];
-          for (var i = x; test(i, y); i += incr) {
+          for (var i = x; test2(i, y); i += incr) {
             var c;
             if (isAlphaSequence) {
               c = String.fromCharCode(i);
@@ -9416,8 +9416,8 @@ var require_minimatch = __commonJS({
       return new Minimatch(pattern, options).match(p);
     };
     module2.exports = minimatch;
-    var path = require_path();
-    minimatch.sep = path.sep;
+    var path8 = require_path();
+    minimatch.sep = path8.sep;
     var GLOBSTAR = Symbol("globstar **");
     minimatch.GLOBSTAR = GLOBSTAR;
     var expand = require_brace_expansion();
@@ -9439,7 +9439,7 @@ var require_minimatch = __commonJS({
     var reSpecials = charSet("().*{}+?[]^$\\!");
     var addPatternStartSet = charSet("[.(");
     var slashSplit = /\/+/;
-    minimatch.filter = (pattern, options = {}) => (p, i, list) => minimatch(p, pattern, options);
+    minimatch.filter = (pattern, options = {}) => (p, i, list2) => minimatch(p, pattern, options);
     var ext = (a, b = {}) => {
       const t = {};
       Object.keys(a).forEach((k) => t[k] = a[k]);
@@ -9462,7 +9462,7 @@ var require_minimatch = __commonJS({
       m.defaults = (options) => orig.defaults(ext(def, options));
       m.makeRe = (pattern, options) => orig.makeRe(pattern, ext(def, options));
       m.braceExpand = (pattern, options) => orig.braceExpand(pattern, ext(def, options));
-      m.match = (list, pattern, options) => orig.match(list, pattern, ext(def, options));
+      m.match = (list2, pattern, options) => orig.match(list2, pattern, ext(def, options));
       return m;
     };
     minimatch.braceExpand = (pattern, options) => braceExpand(pattern, options);
@@ -9484,13 +9484,13 @@ var require_minimatch = __commonJS({
     };
     var SUBPARSE = Symbol("subparse");
     minimatch.makeRe = (pattern, options) => new Minimatch(pattern, options || {}).makeRe();
-    minimatch.match = (list, pattern, options = {}) => {
+    minimatch.match = (list2, pattern, options = {}) => {
       const mm = new Minimatch(pattern, options);
-      list = list.filter((f) => mm.match(f));
-      if (mm.options.nonull && !list.length) {
-        list.push(pattern);
+      list2 = list2.filter((f) => mm.match(f));
+      if (mm.options.nonull && !list2.length) {
+        list2.push(pattern);
       }
-      return list;
+      return list2;
     };
     var globUnescape = (s) => s.replace(/\\(.)/g, "$1");
     var charUnescape = (s) => s.replace(/\\([^-\]])/g, "$1");
@@ -9926,8 +9926,8 @@ var require_minimatch = __commonJS({
         if (this.empty) return f === "";
         if (f === "/" && partial) return true;
         const options = this.options;
-        if (path.sep !== "/") {
-          f = f.split(path.sep).join("/");
+        if (path8.sep !== "/") {
+          f = f.split(path8.sep).join("/");
         }
         f = f.split(slashSplit);
         this.debug(this.pattern, "split", f);
@@ -10051,11 +10051,11 @@ var require_diagnostic = __commonJS({
       dispose() {
         this.disposable.dispose();
       }
-      isActive(document) {
-        return document instanceof vscode_1.Uri ? vscode_1.window.activeTextEditor?.document.uri === document : vscode_1.window.activeTextEditor?.document === document;
+      isActive(document2) {
+        return document2 instanceof vscode_1.Uri ? vscode_1.window.activeTextEditor?.document.uri === document2 : vscode_1.window.activeTextEditor?.document === document2;
       }
-      isVisible(document) {
-        const uri = document instanceof vscode_1.Uri ? document : document.uri;
+      isVisible(document2) {
+        const uri = document2 instanceof vscode_1.Uri ? document2 : document2.uri;
         return this.open.has(uri.toString());
       }
       getTabResources() {
@@ -10091,8 +10091,8 @@ var require_diagnostic = __commonJS({
     })(PullState || (PullState = {}));
     var DocumentOrUri;
     (function(DocumentOrUri2) {
-      function asKey(document) {
-        return document instanceof vscode_1.Uri ? document.toString() : document.uri.toString();
+      function asKey(document2) {
+        return document2 instanceof vscode_1.Uri ? document2.toString() : document2.uri.toString();
       }
       DocumentOrUri2.asKey = asKey;
     })(DocumentOrUri || (DocumentOrUri = {}));
@@ -10101,9 +10101,9 @@ var require_diagnostic = __commonJS({
         this.documentPullStates = /* @__PURE__ */ new Map();
         this.workspacePullStates = /* @__PURE__ */ new Map();
       }
-      track(kind, document, arg1) {
+      track(kind, document2, arg1) {
         const states = kind === PullState.document ? this.documentPullStates : this.workspacePullStates;
-        const [key, uri, version] = document instanceof vscode_1.Uri ? [document.toString(), document, arg1] : [document.uri.toString(), document.uri, document.version];
+        const [key, uri, version] = document2 instanceof vscode_1.Uri ? [document2.toString(), document2, arg1] : [document2.uri.toString(), document2.uri, document2.version];
         let state = states.get(key);
         if (state === void 0) {
           state = { document: uri, pulledVersion: version, resultId: void 0 };
@@ -10111,9 +10111,9 @@ var require_diagnostic = __commonJS({
         }
         return state;
       }
-      update(kind, document, arg1, arg2) {
+      update(kind, document2, arg1, arg2) {
         const states = kind === PullState.document ? this.documentPullStates : this.workspacePullStates;
-        const [key, uri, version, resultId] = document instanceof vscode_1.Uri ? [document.toString(), document, arg1, arg2] : [document.uri.toString(), document.uri, document.version, arg1];
+        const [key, uri, version, resultId] = document2 instanceof vscode_1.Uri ? [document2.toString(), document2, arg1, arg2] : [document2.uri.toString(), document2.uri, document2.version, arg1];
         let state = states.get(key);
         if (state === void 0) {
           state = { document: uri, pulledVersion: version, resultId };
@@ -10123,18 +10123,18 @@ var require_diagnostic = __commonJS({
           state.resultId = resultId;
         }
       }
-      unTrack(kind, document) {
-        const key = DocumentOrUri.asKey(document);
+      unTrack(kind, document2) {
+        const key = DocumentOrUri.asKey(document2);
         const states = kind === PullState.document ? this.documentPullStates : this.workspacePullStates;
         states.delete(key);
       }
-      tracks(kind, document) {
-        const key = DocumentOrUri.asKey(document);
+      tracks(kind, document2) {
+        const key = DocumentOrUri.asKey(document2);
         const states = kind === PullState.document ? this.documentPullStates : this.workspacePullStates;
         return states.has(key);
       }
-      getResultId(kind, document) {
-        const key = DocumentOrUri.asKey(document);
+      getResultId(kind, document2) {
+        const key = DocumentOrUri.asKey(document2);
         const states = kind === PullState.document ? this.documentPullStates : this.workspacePullStates;
         return states.get(key)?.resultId;
       }
@@ -10164,19 +10164,19 @@ var require_diagnostic = __commonJS({
         this.documentStates = new DocumentPullStateTracker();
         this.workspaceErrorCounter = 0;
       }
-      knows(kind, document) {
-        const uri = document instanceof vscode_1.Uri ? document : document.uri;
-        return this.documentStates.tracks(kind, document) || this.openRequests.has(uri.toString());
+      knows(kind, document2) {
+        const uri = document2 instanceof vscode_1.Uri ? document2 : document2.uri;
+        return this.documentStates.tracks(kind, document2) || this.openRequests.has(uri.toString());
       }
-      forget(kind, document) {
-        this.documentStates.unTrack(kind, document);
+      forget(kind, document2) {
+        this.documentStates.unTrack(kind, document2);
       }
-      pull(document, cb) {
+      pull(document2, cb) {
         if (this.isDisposed) {
           return;
         }
-        const uri = document instanceof vscode_1.Uri ? document : document.uri;
-        this.pullAsync(document).then(() => {
+        const uri = document2 instanceof vscode_1.Uri ? document2 : document2.uri;
+        this.pullAsync(document2).then(() => {
           if (cb) {
             cb();
           }
@@ -10184,29 +10184,29 @@ var require_diagnostic = __commonJS({
           this.client.error(`Document pull failed for text document ${uri.toString()}`, error, false);
         });
       }
-      async pullAsync(document, version) {
+      async pullAsync(document2, version) {
         if (this.isDisposed) {
           return;
         }
-        const isUri = document instanceof vscode_1.Uri;
-        const uri = isUri ? document : document.uri;
+        const isUri = document2 instanceof vscode_1.Uri;
+        const uri = isUri ? document2 : document2.uri;
         const key = uri.toString();
-        version = isUri ? version : document.version;
+        version = isUri ? version : document2.version;
         const currentRequestState = this.openRequests.get(key);
-        const documentState = isUri ? this.documentStates.track(PullState.document, document, version) : this.documentStates.track(PullState.document, document);
+        const documentState = isUri ? this.documentStates.track(PullState.document, document2, version) : this.documentStates.track(PullState.document, document2);
         if (currentRequestState === void 0) {
           const tokenSource = new vscode_1.CancellationTokenSource();
-          this.openRequests.set(key, { state: RequestStateKind.active, document, version, tokenSource });
+          this.openRequests.set(key, { state: RequestStateKind.active, document: document2, version, tokenSource });
           let report;
           let afterState;
           try {
-            report = await this.provider.provideDiagnostics(document, documentState.resultId, tokenSource.token) ?? { kind: vsdiag.DocumentDiagnosticReportKind.full, items: [] };
+            report = await this.provider.provideDiagnostics(document2, documentState.resultId, tokenSource.token) ?? { kind: vsdiag.DocumentDiagnosticReportKind.full, items: [] };
           } catch (error) {
             if (error instanceof features_1.LSPCancellationError && vscode_languageserver_protocol_1.DiagnosticServerCancellationData.is(error.data) && error.data.retriggerRequest === false) {
-              afterState = { state: RequestStateKind.outDated, document };
+              afterState = { state: RequestStateKind.outDated, document: document2 };
             }
             if (afterState === void 0 && error instanceof vscode_1.CancellationError) {
-              afterState = { state: RequestStateKind.reschedule, document };
+              afterState = { state: RequestStateKind.reschedule, document: document2 };
             } else {
               throw error;
             }
@@ -10218,8 +10218,8 @@ var require_diagnostic = __commonJS({
             return;
           }
           this.openRequests.delete(key);
-          if (!this.tabs.isVisible(document)) {
-            this.documentStates.unTrack(PullState.document, document);
+          if (!this.tabs.isVisible(document2)) {
+            this.documentStates.unTrack(PullState.document, document2);
             return;
           }
           if (afterState.state === RequestStateKind.outDated) {
@@ -10233,7 +10233,7 @@ var require_diagnostic = __commonJS({
             documentState.resultId = report.resultId;
           }
           if (afterState.state === RequestStateKind.reschedule) {
-            this.pull(document);
+            this.pull(document2);
           }
         } else {
           if (currentRequestState.state === RequestStateKind.active) {
@@ -10244,16 +10244,16 @@ var require_diagnostic = __commonJS({
           }
         }
       }
-      forgetDocument(document) {
-        const uri = document instanceof vscode_1.Uri ? document : document.uri;
+      forgetDocument(document2) {
+        const uri = document2 instanceof vscode_1.Uri ? document2 : document2.uri;
         const key = uri.toString();
         const request = this.openRequests.get(key);
         if (this.options.workspaceDiagnostics) {
           if (request !== void 0) {
-            this.openRequests.set(key, { state: RequestStateKind.reschedule, document });
+            this.openRequests.set(key, { state: RequestStateKind.reschedule, document: document2 });
           } else {
-            this.pull(document, () => {
-              this.forget(PullState.document, document);
+            this.pull(document2, () => {
+              this.forget(PullState.document, document2);
             });
           }
         } else {
@@ -10261,10 +10261,10 @@ var require_diagnostic = __commonJS({
             if (request.state === RequestStateKind.active) {
               request.tokenSource.cancel();
             }
-            this.openRequests.set(key, { state: RequestStateKind.outDated, document });
+            this.openRequests.set(key, { state: RequestStateKind.outDated, document: document2 });
           }
           this.diagnostics.delete(uri);
-          this.forget(PullState.document, document);
+          this.forget(PullState.document, document2);
         }
       }
       pullWorkspace() {
@@ -10319,11 +10319,11 @@ var require_diagnostic = __commonJS({
       createProvider() {
         const result = {
           onDidChangeDiagnostics: this.onDidChangeDiagnosticsEmitter.event,
-          provideDiagnostics: (document, previousResultId, token) => {
-            const provideDiagnostics = (document2, previousResultId2, token2) => {
+          provideDiagnostics: (document2, previousResultId, token) => {
+            const provideDiagnostics = (document3, previousResultId2, token2) => {
               const params = {
                 identifier: this.options.identifier,
-                textDocument: { uri: this.client.code2ProtocolConverter.asUri(document2 instanceof vscode_1.Uri ? document2 : document2.uri) },
+                textDocument: { uri: this.client.code2ProtocolConverter.asUri(document3 instanceof vscode_1.Uri ? document3 : document3.uri) },
                 previousResultId: previousResultId2
               };
               if (this.isDisposed === true || !this.client.isRunning()) {
@@ -10343,7 +10343,7 @@ var require_diagnostic = __commonJS({
               });
             };
             const middleware = this.client.middleware;
-            return middleware.provideDiagnostics ? middleware.provideDiagnostics(document, previousResultId, token, provideDiagnostics) : provideDiagnostics(document, previousResultId, token);
+            return middleware.provideDiagnostics ? middleware.provideDiagnostics(document2, previousResultId, token, provideDiagnostics) : provideDiagnostics(document2, previousResultId, token);
           }
         };
         if (this.options.workspaceDiagnostics) {
@@ -10443,19 +10443,19 @@ var require_diagnostic = __commonJS({
         this.documents = new vscode_languageserver_protocol_1.LinkedMap();
         this.isDisposed = false;
       }
-      add(document) {
+      add(document2) {
         if (this.isDisposed === true) {
           return;
         }
-        const key = DocumentOrUri.asKey(document);
+        const key = DocumentOrUri.asKey(document2);
         if (this.documents.has(key)) {
           return;
         }
-        this.documents.set(key, document, vscode_languageserver_protocol_1.Touch.Last);
+        this.documents.set(key, document2, vscode_languageserver_protocol_1.Touch.Last);
         this.trigger();
       }
-      remove(document) {
-        const key = DocumentOrUri.asKey(document);
+      remove(document2) {
+        const key = DocumentOrUri.asKey(document2);
         this.documents.delete(key);
         if (this.documents.size === 0) {
           this.stop();
@@ -10473,11 +10473,11 @@ var require_diagnostic = __commonJS({
         }
         this.endDocument = this.documents.last;
         this.intervalHandle = (0, vscode_languageserver_protocol_1.RAL)().timer.setInterval(() => {
-          const document = this.documents.first;
-          if (document !== void 0) {
-            const key = DocumentOrUri.asKey(document);
-            this.diagnosticRequestor.pull(document);
-            this.documents.set(key, document, vscode_languageserver_protocol_1.Touch.Last);
+          const document2 = this.documents.first;
+          if (document2 !== void 0) {
+            const key = DocumentOrUri.asKey(document2);
+            this.diagnosticRequestor.pull(document2);
+            this.documents.set(key, document2, vscode_languageserver_protocol_1.Touch.Last);
             if (key === this.endDocumentKey()) {
               this.stop();
             }
@@ -10508,21 +10508,21 @@ var require_diagnostic = __commonJS({
           if (diagnosticPullOptions.match !== void 0) {
             return diagnosticPullOptions.match(selector, resource);
           }
-          for (const filter of selector) {
-            if (!vscode_languageserver_protocol_1.TextDocumentFilter.is(filter)) {
+          for (const filter2 of selector) {
+            if (!vscode_languageserver_protocol_1.TextDocumentFilter.is(filter2)) {
               continue;
             }
-            if (typeof filter === "string") {
+            if (typeof filter2 === "string") {
               return false;
             }
-            if (filter.language !== void 0 && filter.language !== "*") {
+            if (filter2.language !== void 0 && filter2.language !== "*") {
               return false;
             }
-            if (filter.scheme !== void 0 && filter.scheme !== "*" && filter.scheme !== resource.scheme) {
+            if (filter2.scheme !== void 0 && filter2.scheme !== "*" && filter2.scheme !== resource.scheme) {
               return false;
             }
-            if (filter.pattern !== void 0) {
-              const matcher = new minimatch.Minimatch(filter.pattern, { noext: true });
+            if (filter2.pattern !== void 0) {
+              const matcher = new minimatch.Minimatch(filter2.pattern, { noext: true });
               if (!matcher.makeRe()) {
                 return false;
               }
@@ -10533,19 +10533,19 @@ var require_diagnostic = __commonJS({
           }
           return true;
         };
-        const matches = (document) => {
-          return document instanceof vscode_1.Uri ? matchResource(document) : vscode_1.languages.match(documentSelector, document) > 0 && tabs.isVisible(document);
+        const matches = (document2) => {
+          return document2 instanceof vscode_1.Uri ? matchResource(document2) : vscode_1.languages.match(documentSelector, document2) > 0 && tabs.isVisible(document2);
         };
-        const isActiveDocument = (document) => {
-          return document instanceof vscode_1.Uri ? this.activeTextDocument?.uri.toString() === document.toString() : this.activeTextDocument === document;
+        const isActiveDocument = (document2) => {
+          return document2 instanceof vscode_1.Uri ? this.activeTextDocument?.uri.toString() === document2.toString() : this.activeTextDocument === document2;
         };
         this.diagnosticRequestor = new DiagnosticRequestor(client2, tabs, options);
         this.backgroundScheduler = new BackgroundScheduler(this.diagnosticRequestor);
-        const addToBackgroundIfNeeded = (document) => {
-          if (!matches(document) || !options.interFileDependencies || isActiveDocument(document)) {
+        const addToBackgroundIfNeeded = (document2) => {
+          if (!matches(document2) || !options.interFileDependencies || isActiveDocument(document2)) {
             return;
           }
-          this.backgroundScheduler.add(document);
+          this.backgroundScheduler.add(document2);
         };
         this.activeTextDocument = vscode_1.window.activeTextEditor?.document;
         vscode_1.window.onDidChangeActiveTextEditor((editor) => {
@@ -10635,8 +10635,8 @@ var require_diagnostic = __commonJS({
           this.cleanUpDocument(event.textDocument);
         }));
         tabs.onClose((closed) => {
-          for (const document of closed) {
-            this.cleanUpDocument(document);
+          for (const document2 of closed) {
+            this.cleanUpDocument(document2);
           }
         });
         this.diagnosticRequestor.onDidChangeDiagnosticsEmitter.event(() => {
@@ -10657,10 +10657,10 @@ var require_diagnostic = __commonJS({
       get diagnostics() {
         return this.diagnosticRequestor.provider;
       }
-      cleanUpDocument(document) {
-        if (this.diagnosticRequestor.knows(PullState.document, document)) {
-          this.diagnosticRequestor.forgetDocument(document);
-          this.backgroundScheduler.remove(document);
+      cleanUpDocument(document2) {
+        if (this.diagnosticRequestor.knows(PullState.document, document2)) {
+          this.diagnosticRequestor.forgetDocument(document2);
+          this.backgroundScheduler.remove(document2);
         }
       }
     };
@@ -10954,19 +10954,19 @@ var require_notebook = __commonJS({
     })($NotebookCell || ($NotebookCell = {}));
     var $NotebookDocumentFilter;
     (function($NotebookDocumentFilter2) {
-      function matchNotebook(filter, notebookDocument) {
-        if (typeof filter === "string") {
-          return filter === "*" || notebookDocument.notebookType === filter;
+      function matchNotebook(filter2, notebookDocument) {
+        if (typeof filter2 === "string") {
+          return filter2 === "*" || notebookDocument.notebookType === filter2;
         }
-        if (filter.notebookType !== void 0 && filter.notebookType !== "*" && notebookDocument.notebookType !== filter.notebookType) {
+        if (filter2.notebookType !== void 0 && filter2.notebookType !== "*" && notebookDocument.notebookType !== filter2.notebookType) {
           return false;
         }
         const uri = notebookDocument.uri;
-        if (filter.scheme !== void 0 && filter.scheme !== "*" && uri.scheme !== filter.scheme) {
+        if (filter2.scheme !== void 0 && filter2.scheme !== "*" && uri.scheme !== filter2.scheme) {
           return false;
         }
-        if (filter.pattern !== void 0) {
-          const matcher = new minimatch.Minimatch(filter.pattern, { noext: true });
+        if (filter2.pattern !== void 0) {
+          const matcher = new minimatch.Minimatch(filter2.pattern, { noext: true });
           if (!matcher.makeRe()) {
             return false;
           }
@@ -11004,13 +11004,13 @@ var require_notebook = __commonJS({
     })($NotebookDocumentSyncOptions || ($NotebookDocumentSyncOptions = {}));
     var SyncInfo;
     (function(SyncInfo2) {
-      function create(cells) {
+      function create2(cells) {
         return {
           cells,
           uris: new Set(cells.map((cell) => cell.document.uri.toString()))
         };
       }
-      SyncInfo2.create = create;
+      SyncInfo2.create = create2;
     })(SyncInfo || (SyncInfo = {}));
     var NotebookDocumentSyncFeatureProvider = class {
       constructor(client2, options) {
@@ -11347,7 +11347,7 @@ var require_notebook = __commonJS({
       filterCells(notebookDocument, cells, cellSelector) {
         const filtered = cellSelector !== void 0 ? cells.filter((cell) => {
           const cellLanguage = cell.document.languageId;
-          return cellSelector.some((filter) => filter.language === "*" || cellLanguage === filter.language);
+          return cellSelector.some((filter2) => filter2.language === "*" || cellLanguage === filter2.language);
         }) : cells;
         return typeof this.client.clientOptions.notebookDocumentOptions?.filterCells === "function" ? this.client.clientOptions.notebookDocumentOptions.filterCells(notebookDocument, filtered) : filtered;
       }
@@ -11531,11 +11531,11 @@ var require_configuration = __commonJS({
         if (section) {
           let index = section.lastIndexOf(".");
           if (index === -1) {
-            result = toJSONObject(vscode_1.workspace.getConfiguration(void 0, resource).get(section));
+            result = toJSONObject2(vscode_1.workspace.getConfiguration(void 0, resource).get(section));
           } else {
             let config = vscode_1.workspace.getConfiguration(section.substr(0, index), resource);
             if (config) {
-              result = toJSONObject(config.get(section.substr(index + 1)));
+              result = toJSONObject2(config.get(section.substr(index + 1)));
             }
           }
         } else {
@@ -11543,7 +11543,7 @@ var require_configuration = __commonJS({
           result = {};
           for (let key of Object.keys(config)) {
             if (config.has(key)) {
-              result[key] = toJSONObject(config.get(key));
+              result[key] = toJSONObject2(config.get(key));
             }
           }
         }
@@ -11556,15 +11556,15 @@ var require_configuration = __commonJS({
       }
     };
     exports2.ConfigurationFeature = ConfigurationFeature;
-    function toJSONObject(obj) {
+    function toJSONObject2(obj) {
       if (obj) {
         if (Array.isArray(obj)) {
-          return obj.map(toJSONObject);
+          return obj.map(toJSONObject2);
         } else if (typeof obj === "object") {
           const res = /* @__PURE__ */ Object.create(null);
           for (const key in obj) {
             if (Object.prototype.hasOwnProperty.call(obj, key)) {
-              res[key] = toJSONObject(obj[key]);
+              res[key] = toJSONObject2(obj[key]);
             }
           }
           return res;
@@ -11572,7 +11572,7 @@ var require_configuration = __commonJS({
       }
       return obj;
     }
-    exports2.toJSONObject = toJSONObject;
+    exports2.toJSONObject = toJSONObject2;
     var SyncConfigurationFeature = class {
       constructor(_client) {
         this._client = _client;
@@ -11652,13 +11652,13 @@ var require_configuration = __commonJS({
         });
       }
       extractSettingsInformation(keys) {
-        function ensurePath(config, path) {
+        function ensurePath(config, path8) {
           let current = config;
-          for (let i = 0; i < path.length - 1; i++) {
-            let obj = current[path[i]];
+          for (let i = 0; i < path8.length - 1; i++) {
+            let obj = current[path8[i]];
             if (!obj) {
               obj = /* @__PURE__ */ Object.create(null);
-              current[path[i]] = obj;
+              current[path8[i]] = obj;
             }
             current = obj;
           }
@@ -11676,8 +11676,8 @@ var require_configuration = __commonJS({
             config = vscode_1.workspace.getConfiguration(void 0, resource).get(key);
           }
           if (config) {
-            let path = keys[i].split(".");
-            ensurePath(result, path)[path[path.length - 1]] = toJSONObject(config);
+            let path8 = keys[i].split(".");
+            ensurePath(result, path8)[path8[path8.length - 1]] = toJSONObject2(config);
           }
         }
         return result;
@@ -11929,9 +11929,9 @@ var require_textSynchronization = __commonJS({
         }
         return result;
       }
-      getProvider(document) {
+      getProvider(document2) {
         for (const changeData of this._changeData.values()) {
-          if (vscode_1.languages.match(changeData.documentSelector, document) > 0) {
+          if (vscode_1.languages.match(changeData.documentSelector, document2) > 0) {
             return {
               send: (event) => {
                 return this.callback(event);
@@ -12165,11 +12165,11 @@ var require_completion = __commonJS({
         const defaultCommitCharacters = options.allCommitCharacters;
         const selector = options.documentSelector;
         const provider = {
-          provideCompletionItems: (document, position, token, context) => {
+          provideCompletionItems: (document2, position, token, context) => {
             const client2 = this._client;
             const middleware = this._client.middleware;
-            const provideCompletionItems = (document2, position2, context2, token2) => {
-              return client2.sendRequest(vscode_languageserver_protocol_1.CompletionRequest.type, client2.code2ProtocolConverter.asCompletionParams(document2, position2, context2), token2).then((result) => {
+            const provideCompletionItems = (document3, position2, context2, token2) => {
+              return client2.sendRequest(vscode_languageserver_protocol_1.CompletionRequest.type, client2.code2ProtocolConverter.asCompletionParams(document3, position2, context2), token2).then((result) => {
                 if (token2.isCancellationRequested) {
                   return null;
                 }
@@ -12178,7 +12178,7 @@ var require_completion = __commonJS({
                 return client2.handleFailedRequest(vscode_languageserver_protocol_1.CompletionRequest.type, token2, error, null);
               });
             };
-            return middleware.provideCompletionItem ? middleware.provideCompletionItem(document, position, context, token, provideCompletionItems) : provideCompletionItems(document, position, context, token);
+            return middleware.provideCompletionItem ? middleware.provideCompletionItem(document2, position, context, token, provideCompletionItems) : provideCompletionItems(document2, position, context, token);
           },
           resolveCompletionItem: options.resolveProvider ? (item, token) => {
             const client2 = this._client;
@@ -12235,10 +12235,10 @@ var require_hover = __commonJS({
       registerLanguageProvider(options) {
         const selector = options.documentSelector;
         const provider = {
-          provideHover: (document, position, token) => {
+          provideHover: (document2, position, token) => {
             const client2 = this._client;
-            const provideHover = (document2, position2, token2) => {
-              return client2.sendRequest(vscode_languageserver_protocol_1.HoverRequest.type, client2.code2ProtocolConverter.asTextDocumentPositionParams(document2, position2), token2).then((result) => {
+            const provideHover = (document3, position2, token2) => {
+              return client2.sendRequest(vscode_languageserver_protocol_1.HoverRequest.type, client2.code2ProtocolConverter.asTextDocumentPositionParams(document3, position2), token2).then((result) => {
                 if (token2.isCancellationRequested) {
                   return null;
                 }
@@ -12248,7 +12248,7 @@ var require_hover = __commonJS({
               });
             };
             const middleware = client2.middleware;
-            return middleware.provideHover ? middleware.provideHover(document, position, token, provideHover) : provideHover(document, position, token);
+            return middleware.provideHover ? middleware.provideHover(document2, position, token, provideHover) : provideHover(document2, position, token);
           }
         };
         return [this.registerProvider(selector, provider), provider];
@@ -12290,10 +12290,10 @@ var require_definition = __commonJS({
       registerLanguageProvider(options) {
         const selector = options.documentSelector;
         const provider = {
-          provideDefinition: (document, position, token) => {
+          provideDefinition: (document2, position, token) => {
             const client2 = this._client;
-            const provideDefinition = (document2, position2, token2) => {
-              return client2.sendRequest(vscode_languageserver_protocol_1.DefinitionRequest.type, client2.code2ProtocolConverter.asTextDocumentPositionParams(document2, position2), token2).then((result) => {
+            const provideDefinition = (document3, position2, token2) => {
+              return client2.sendRequest(vscode_languageserver_protocol_1.DefinitionRequest.type, client2.code2ProtocolConverter.asTextDocumentPositionParams(document3, position2), token2).then((result) => {
                 if (token2.isCancellationRequested) {
                   return null;
                 }
@@ -12303,7 +12303,7 @@ var require_definition = __commonJS({
               });
             };
             const middleware = client2.middleware;
-            return middleware.provideDefinition ? middleware.provideDefinition(document, position, token, provideDefinition) : provideDefinition(document, position, token);
+            return middleware.provideDefinition ? middleware.provideDefinition(document2, position, token, provideDefinition) : provideDefinition(document2, position, token);
           }
         };
         return [this.registerProvider(selector, provider), provider];
@@ -12350,10 +12350,10 @@ var require_signatureHelp = __commonJS({
       }
       registerLanguageProvider(options) {
         const provider = {
-          provideSignatureHelp: (document, position, token, context) => {
+          provideSignatureHelp: (document2, position, token, context) => {
             const client2 = this._client;
-            const providerSignatureHelp = (document2, position2, context2, token2) => {
-              return client2.sendRequest(vscode_languageserver_protocol_1.SignatureHelpRequest.type, client2.code2ProtocolConverter.asSignatureHelpParams(document2, position2, context2), token2).then((result) => {
+            const providerSignatureHelp = (document3, position2, context2, token2) => {
+              return client2.sendRequest(vscode_languageserver_protocol_1.SignatureHelpRequest.type, client2.code2ProtocolConverter.asSignatureHelpParams(document3, position2, context2), token2).then((result) => {
                 if (token2.isCancellationRequested) {
                   return null;
                 }
@@ -12363,7 +12363,7 @@ var require_signatureHelp = __commonJS({
               });
             };
             const middleware = client2.middleware;
-            return middleware.provideSignatureHelp ? middleware.provideSignatureHelp(document, position, context, token, providerSignatureHelp) : providerSignatureHelp(document, position, context, token);
+            return middleware.provideSignatureHelp ? middleware.provideSignatureHelp(document2, position, context, token, providerSignatureHelp) : providerSignatureHelp(document2, position, context, token);
           }
         };
         return [this.registerProvider(options, provider), provider];
@@ -12413,10 +12413,10 @@ var require_documentHighlight = __commonJS({
       registerLanguageProvider(options) {
         const selector = options.documentSelector;
         const provider = {
-          provideDocumentHighlights: (document, position, token) => {
+          provideDocumentHighlights: (document2, position, token) => {
             const client2 = this._client;
-            const _provideDocumentHighlights = (document2, position2, token2) => {
-              return client2.sendRequest(vscode_languageserver_protocol_1.DocumentHighlightRequest.type, client2.code2ProtocolConverter.asTextDocumentPositionParams(document2, position2), token2).then((result) => {
+            const _provideDocumentHighlights = (document3, position2, token2) => {
+              return client2.sendRequest(vscode_languageserver_protocol_1.DocumentHighlightRequest.type, client2.code2ProtocolConverter.asTextDocumentPositionParams(document3, position2), token2).then((result) => {
                 if (token2.isCancellationRequested) {
                   return null;
                 }
@@ -12426,7 +12426,7 @@ var require_documentHighlight = __commonJS({
               });
             };
             const middleware = client2.middleware;
-            return middleware.provideDocumentHighlights ? middleware.provideDocumentHighlights(document, position, token, _provideDocumentHighlights) : _provideDocumentHighlights(document, position, token);
+            return middleware.provideDocumentHighlights ? middleware.provideDocumentHighlights(document2, position, token, _provideDocumentHighlights) : _provideDocumentHighlights(document2, position, token);
           }
         };
         return [vscode_1.languages.registerDocumentHighlightProvider(this._client.protocol2CodeConverter.asDocumentSelector(selector), provider), provider];
@@ -12503,11 +12503,11 @@ var require_documentSymbol = __commonJS({
       registerLanguageProvider(options) {
         const selector = options.documentSelector;
         const provider = {
-          provideDocumentSymbols: (document, token) => {
+          provideDocumentSymbols: (document2, token) => {
             const client2 = this._client;
-            const _provideDocumentSymbols = async (document2, token2) => {
+            const _provideDocumentSymbols = async (document3, token2) => {
               try {
-                const data = await client2.sendRequest(vscode_languageserver_protocol_1.DocumentSymbolRequest.type, client2.code2ProtocolConverter.asDocumentSymbolParams(document2), token2);
+                const data = await client2.sendRequest(vscode_languageserver_protocol_1.DocumentSymbolRequest.type, client2.code2ProtocolConverter.asDocumentSymbolParams(document3), token2);
                 if (token2.isCancellationRequested || data === void 0 || data === null) {
                   return null;
                 }
@@ -12526,7 +12526,7 @@ var require_documentSymbol = __commonJS({
               }
             };
             const middleware = client2.middleware;
-            return middleware.provideDocumentSymbols ? middleware.provideDocumentSymbols(document, token, _provideDocumentSymbols) : _provideDocumentSymbols(document, token);
+            return middleware.provideDocumentSymbols ? middleware.provideDocumentSymbols(document2, token, _provideDocumentSymbols) : _provideDocumentSymbols(document2, token);
           }
         };
         const metaData = options.label !== void 0 ? { label: options.label } : void 0;
@@ -12639,10 +12639,10 @@ var require_reference = __commonJS({
       registerLanguageProvider(options) {
         const selector = options.documentSelector;
         const provider = {
-          provideReferences: (document, position, options2, token) => {
+          provideReferences: (document2, position, options2, token) => {
             const client2 = this._client;
-            const _providerReferences = (document2, position2, options3, token2) => {
-              return client2.sendRequest(vscode_languageserver_protocol_1.ReferencesRequest.type, client2.code2ProtocolConverter.asReferenceParams(document2, position2, options3), token2).then((result) => {
+            const _providerReferences = (document3, position2, options3, token2) => {
+              return client2.sendRequest(vscode_languageserver_protocol_1.ReferencesRequest.type, client2.code2ProtocolConverter.asReferenceParams(document3, position2, options3), token2).then((result) => {
                 if (token2.isCancellationRequested) {
                   return null;
                 }
@@ -12652,7 +12652,7 @@ var require_reference = __commonJS({
               });
             };
             const middleware = client2.middleware;
-            return middleware.provideReferences ? middleware.provideReferences(document, position, options2, token, _providerReferences) : _providerReferences(document, position, options2, token);
+            return middleware.provideReferences ? middleware.provideReferences(document2, position, options2, token, _providerReferences) : _providerReferences(document2, position, options2, token);
           }
         };
         return [this.registerProvider(selector, provider), provider];
@@ -12714,11 +12714,11 @@ var require_codeAction = __commonJS({
       registerLanguageProvider(options) {
         const selector = options.documentSelector;
         const provider = {
-          provideCodeActions: (document, range, context, token) => {
+          provideCodeActions: (document2, range, context, token) => {
             const client2 = this._client;
-            const _provideCodeActions = async (document2, range2, context2, token2) => {
+            const _provideCodeActions = async (document3, range2, context2, token2) => {
               const params = {
-                textDocument: client2.code2ProtocolConverter.asTextDocumentIdentifier(document2),
+                textDocument: client2.code2ProtocolConverter.asTextDocumentIdentifier(document3),
                 range: client2.code2ProtocolConverter.asRange(range2),
                 context: client2.code2ProtocolConverter.asCodeActionContextSync(context2)
               };
@@ -12732,7 +12732,7 @@ var require_codeAction = __commonJS({
               });
             };
             const middleware = client2.middleware;
-            return middleware.provideCodeActions ? middleware.provideCodeActions(document, range, context, token, _provideCodeActions) : _provideCodeActions(document, range, context, token);
+            return middleware.provideCodeActions ? middleware.provideCodeActions(document2, range, context, token, _provideCodeActions) : _provideCodeActions(document2, range, context, token);
           },
           resolveCodeAction: options.resolveProvider ? (item, token) => {
             const client2 = this._client;
@@ -12793,10 +12793,10 @@ var require_codeLens = __commonJS({
         const eventEmitter = new vscode_1.EventEmitter();
         const provider = {
           onDidChangeCodeLenses: eventEmitter.event,
-          provideCodeLenses: (document, token) => {
+          provideCodeLenses: (document2, token) => {
             const client2 = this._client;
-            const provideCodeLenses = (document2, token2) => {
-              return client2.sendRequest(vscode_languageserver_protocol_1.CodeLensRequest.type, client2.code2ProtocolConverter.asCodeLensParams(document2), token2).then((result) => {
+            const provideCodeLenses = (document3, token2) => {
+              return client2.sendRequest(vscode_languageserver_protocol_1.CodeLensRequest.type, client2.code2ProtocolConverter.asCodeLensParams(document3), token2).then((result) => {
                 if (token2.isCancellationRequested) {
                   return null;
                 }
@@ -12806,7 +12806,7 @@ var require_codeLens = __commonJS({
               });
             };
             const middleware = client2.middleware;
-            return middleware.provideCodeLenses ? middleware.provideCodeLenses(document, token, provideCodeLenses) : provideCodeLenses(document, token);
+            return middleware.provideCodeLenses ? middleware.provideCodeLenses(document2, token, provideCodeLenses) : provideCodeLenses(document2, token);
           },
           resolveCodeLens: options.resolveProvider ? (codeLens, token) => {
             const client2 = this._client;
@@ -12843,8 +12843,8 @@ var require_formatting = __commonJS({
     var features_1 = require_features();
     var FileFormattingOptions;
     (function(FileFormattingOptions2) {
-      function fromConfiguration(document) {
-        const filesConfig = vscode_1.workspace.getConfiguration("files", document);
+      function fromConfiguration(document2) {
+        const filesConfig = vscode_1.workspace.getConfiguration("files", document2);
         return {
           trimTrailingWhitespace: filesConfig.get("trimTrailingWhitespace"),
           trimFinalNewlines: filesConfig.get("trimFinalNewlines"),
@@ -12870,12 +12870,12 @@ var require_formatting = __commonJS({
       registerLanguageProvider(options) {
         const selector = options.documentSelector;
         const provider = {
-          provideDocumentFormattingEdits: (document, options2, token) => {
+          provideDocumentFormattingEdits: (document2, options2, token) => {
             const client2 = this._client;
-            const provideDocumentFormattingEdits = (document2, options3, token2) => {
+            const provideDocumentFormattingEdits = (document3, options3, token2) => {
               const params = {
-                textDocument: client2.code2ProtocolConverter.asTextDocumentIdentifier(document2),
-                options: client2.code2ProtocolConverter.asFormattingOptions(options3, FileFormattingOptions.fromConfiguration(document2))
+                textDocument: client2.code2ProtocolConverter.asTextDocumentIdentifier(document3),
+                options: client2.code2ProtocolConverter.asFormattingOptions(options3, FileFormattingOptions.fromConfiguration(document3))
               };
               return client2.sendRequest(vscode_languageserver_protocol_1.DocumentFormattingRequest.type, params, token2).then((result) => {
                 if (token2.isCancellationRequested) {
@@ -12887,7 +12887,7 @@ var require_formatting = __commonJS({
               });
             };
             const middleware = client2.middleware;
-            return middleware.provideDocumentFormattingEdits ? middleware.provideDocumentFormattingEdits(document, options2, token, provideDocumentFormattingEdits) : provideDocumentFormattingEdits(document, options2, token);
+            return middleware.provideDocumentFormattingEdits ? middleware.provideDocumentFormattingEdits(document2, options2, token, provideDocumentFormattingEdits) : provideDocumentFormattingEdits(document2, options2, token);
           }
         };
         return [vscode_1.languages.registerDocumentFormattingEditProvider(this._client.protocol2CodeConverter.asDocumentSelector(selector), provider), provider];
@@ -12913,13 +12913,13 @@ var require_formatting = __commonJS({
       registerLanguageProvider(options) {
         const selector = options.documentSelector;
         const provider = {
-          provideDocumentRangeFormattingEdits: (document, range, options2, token) => {
+          provideDocumentRangeFormattingEdits: (document2, range, options2, token) => {
             const client2 = this._client;
-            const provideDocumentRangeFormattingEdits = (document2, range2, options3, token2) => {
+            const provideDocumentRangeFormattingEdits = (document3, range2, options3, token2) => {
               const params = {
-                textDocument: client2.code2ProtocolConverter.asTextDocumentIdentifier(document2),
+                textDocument: client2.code2ProtocolConverter.asTextDocumentIdentifier(document3),
                 range: client2.code2ProtocolConverter.asRange(range2),
-                options: client2.code2ProtocolConverter.asFormattingOptions(options3, FileFormattingOptions.fromConfiguration(document2))
+                options: client2.code2ProtocolConverter.asFormattingOptions(options3, FileFormattingOptions.fromConfiguration(document3))
               };
               return client2.sendRequest(vscode_languageserver_protocol_1.DocumentRangeFormattingRequest.type, params, token2).then((result) => {
                 if (token2.isCancellationRequested) {
@@ -12931,17 +12931,17 @@ var require_formatting = __commonJS({
               });
             };
             const middleware = client2.middleware;
-            return middleware.provideDocumentRangeFormattingEdits ? middleware.provideDocumentRangeFormattingEdits(document, range, options2, token, provideDocumentRangeFormattingEdits) : provideDocumentRangeFormattingEdits(document, range, options2, token);
+            return middleware.provideDocumentRangeFormattingEdits ? middleware.provideDocumentRangeFormattingEdits(document2, range, options2, token, provideDocumentRangeFormattingEdits) : provideDocumentRangeFormattingEdits(document2, range, options2, token);
           }
         };
         if (options.rangesSupport) {
-          provider.provideDocumentRangesFormattingEdits = (document, ranges, options2, token) => {
+          provider.provideDocumentRangesFormattingEdits = (document2, ranges, options2, token) => {
             const client2 = this._client;
-            const provideDocumentRangesFormattingEdits = (document2, ranges2, options3, token2) => {
+            const provideDocumentRangesFormattingEdits = (document3, ranges2, options3, token2) => {
               const params = {
-                textDocument: client2.code2ProtocolConverter.asTextDocumentIdentifier(document2),
+                textDocument: client2.code2ProtocolConverter.asTextDocumentIdentifier(document3),
                 ranges: client2.code2ProtocolConverter.asRanges(ranges2),
-                options: client2.code2ProtocolConverter.asFormattingOptions(options3, FileFormattingOptions.fromConfiguration(document2))
+                options: client2.code2ProtocolConverter.asFormattingOptions(options3, FileFormattingOptions.fromConfiguration(document3))
               };
               return client2.sendRequest(vscode_languageserver_protocol_1.DocumentRangesFormattingRequest.type, params, token2).then((result) => {
                 if (token2.isCancellationRequested) {
@@ -12953,7 +12953,7 @@ var require_formatting = __commonJS({
               });
             };
             const middleware = client2.middleware;
-            return middleware.provideDocumentRangesFormattingEdits ? middleware.provideDocumentRangesFormattingEdits(document, ranges, options2, token, provideDocumentRangesFormattingEdits) : provideDocumentRangesFormattingEdits(document, ranges, options2, token);
+            return middleware.provideDocumentRangesFormattingEdits ? middleware.provideDocumentRangesFormattingEdits(document2, ranges, options2, token, provideDocumentRangesFormattingEdits) : provideDocumentRangesFormattingEdits(document2, ranges, options2, token);
           };
         }
         return [vscode_1.languages.registerDocumentRangeFormattingEditProvider(this._client.protocol2CodeConverter.asDocumentSelector(selector), provider), provider];
@@ -12977,14 +12977,14 @@ var require_formatting = __commonJS({
       registerLanguageProvider(options) {
         const selector = options.documentSelector;
         const provider = {
-          provideOnTypeFormattingEdits: (document, position, ch, options2, token) => {
+          provideOnTypeFormattingEdits: (document2, position, ch, options2, token) => {
             const client2 = this._client;
-            const provideOnTypeFormattingEdits = (document2, position2, ch2, options3, token2) => {
+            const provideOnTypeFormattingEdits = (document3, position2, ch2, options3, token2) => {
               let params = {
-                textDocument: client2.code2ProtocolConverter.asTextDocumentIdentifier(document2),
+                textDocument: client2.code2ProtocolConverter.asTextDocumentIdentifier(document3),
                 position: client2.code2ProtocolConverter.asPosition(position2),
                 ch: ch2,
-                options: client2.code2ProtocolConverter.asFormattingOptions(options3, FileFormattingOptions.fromConfiguration(document2))
+                options: client2.code2ProtocolConverter.asFormattingOptions(options3, FileFormattingOptions.fromConfiguration(document3))
               };
               return client2.sendRequest(vscode_languageserver_protocol_1.DocumentOnTypeFormattingRequest.type, params, token2).then((result) => {
                 if (token2.isCancellationRequested) {
@@ -12996,7 +12996,7 @@ var require_formatting = __commonJS({
               });
             };
             const middleware = client2.middleware;
-            return middleware.provideOnTypeFormattingEdits ? middleware.provideOnTypeFormattingEdits(document, position, ch, options2, token, provideOnTypeFormattingEdits) : provideOnTypeFormattingEdits(document, position, ch, options2, token);
+            return middleware.provideOnTypeFormattingEdits ? middleware.provideOnTypeFormattingEdits(document2, position, ch, options2, token, provideOnTypeFormattingEdits) : provideOnTypeFormattingEdits(document2, position, ch, options2, token);
           }
         };
         const moreTriggerCharacter = options.moreTriggerCharacter || [];
@@ -13042,11 +13042,11 @@ var require_rename = __commonJS({
       registerLanguageProvider(options) {
         const selector = options.documentSelector;
         const provider = {
-          provideRenameEdits: (document, position, newName, token) => {
+          provideRenameEdits: (document2, position, newName, token) => {
             const client2 = this._client;
-            const provideRenameEdits = (document2, position2, newName2, token2) => {
+            const provideRenameEdits = (document3, position2, newName2, token2) => {
               let params = {
-                textDocument: client2.code2ProtocolConverter.asTextDocumentIdentifier(document2),
+                textDocument: client2.code2ProtocolConverter.asTextDocumentIdentifier(document3),
                 position: client2.code2ProtocolConverter.asPosition(position2),
                 newName: newName2
               };
@@ -13060,13 +13060,13 @@ var require_rename = __commonJS({
               });
             };
             const middleware = client2.middleware;
-            return middleware.provideRenameEdits ? middleware.provideRenameEdits(document, position, newName, token, provideRenameEdits) : provideRenameEdits(document, position, newName, token);
+            return middleware.provideRenameEdits ? middleware.provideRenameEdits(document2, position, newName, token, provideRenameEdits) : provideRenameEdits(document2, position, newName, token);
           },
-          prepareRename: options.prepareProvider ? (document, position, token) => {
+          prepareRename: options.prepareProvider ? (document2, position, token) => {
             const client2 = this._client;
-            const prepareRename = (document2, position2, token2) => {
+            const prepareRename = (document3, position2, token2) => {
               let params = {
-                textDocument: client2.code2ProtocolConverter.asTextDocumentIdentifier(document2),
+                textDocument: client2.code2ProtocolConverter.asTextDocumentIdentifier(document3),
                 position: client2.code2ProtocolConverter.asPosition(position2)
               };
               return client2.sendRequest(vscode_languageserver_protocol_1.PrepareRenameRequest.type, params, token2).then((result) => {
@@ -13093,7 +13093,7 @@ var require_rename = __commonJS({
               });
             };
             const middleware = client2.middleware;
-            return middleware.prepareRename ? middleware.prepareRename(document, position, token, prepareRename) : prepareRename(document, position, token);
+            return middleware.prepareRename ? middleware.prepareRename(document2, position, token, prepareRename) : prepareRename(document2, position, token);
           } : void 0
         };
         return [this.registerProvider(selector, provider), provider];
@@ -13139,10 +13139,10 @@ var require_documentLink = __commonJS({
       registerLanguageProvider(options) {
         const selector = options.documentSelector;
         const provider = {
-          provideDocumentLinks: (document, token) => {
+          provideDocumentLinks: (document2, token) => {
             const client2 = this._client;
-            const provideDocumentLinks = (document2, token2) => {
-              return client2.sendRequest(vscode_languageserver_protocol_1.DocumentLinkRequest.type, client2.code2ProtocolConverter.asDocumentLinkParams(document2), token2).then((result) => {
+            const provideDocumentLinks = (document3, token2) => {
+              return client2.sendRequest(vscode_languageserver_protocol_1.DocumentLinkRequest.type, client2.code2ProtocolConverter.asDocumentLinkParams(document3), token2).then((result) => {
                 if (token2.isCancellationRequested) {
                   return null;
                 }
@@ -13152,7 +13152,7 @@ var require_documentLink = __commonJS({
               });
             };
             const middleware = client2.middleware;
-            return middleware.provideDocumentLinks ? middleware.provideDocumentLinks(document, token, provideDocumentLinks) : provideDocumentLinks(document, token);
+            return middleware.provideDocumentLinks ? middleware.provideDocumentLinks(document2, token, provideDocumentLinks) : provideDocumentLinks(document2, token);
           },
           resolveDocumentLink: options.resolveProvider ? (link, token) => {
             const client2 = this._client;
@@ -13392,11 +13392,11 @@ var require_colorProvider = __commonJS({
             const middleware = client2.middleware;
             return middleware.provideColorPresentations ? middleware.provideColorPresentations(color, context, token, provideColorPresentations) : provideColorPresentations(color, context, token);
           },
-          provideDocumentColors: (document, token) => {
+          provideDocumentColors: (document2, token) => {
             const client2 = this._client;
-            const provideDocumentColors = (document2, token2) => {
+            const provideDocumentColors = (document3, token2) => {
               const requestParams = {
-                textDocument: client2.code2ProtocolConverter.asTextDocumentIdentifier(document2)
+                textDocument: client2.code2ProtocolConverter.asTextDocumentIdentifier(document3)
               };
               return client2.sendRequest(vscode_languageserver_protocol_1.DocumentColorRequest.type, requestParams, token2).then((result) => {
                 if (token2.isCancellationRequested) {
@@ -13408,7 +13408,7 @@ var require_colorProvider = __commonJS({
               });
             };
             const middleware = client2.middleware;
-            return middleware.provideDocumentColors ? middleware.provideDocumentColors(document, token, provideDocumentColors) : provideDocumentColors(document, token);
+            return middleware.provideDocumentColors ? middleware.provideDocumentColors(document2, token, provideDocumentColors) : provideDocumentColors(document2, token);
           }
         };
         return [vscode_1.languages.registerColorProvider(this._client.protocol2CodeConverter.asDocumentSelector(selector), provider), provider];
@@ -13446,10 +13446,10 @@ var require_implementation = __commonJS({
       registerLanguageProvider(options) {
         const selector = options.documentSelector;
         const provider = {
-          provideImplementation: (document, position, token) => {
+          provideImplementation: (document2, position, token) => {
             const client2 = this._client;
-            const provideImplementation = (document2, position2, token2) => {
-              return client2.sendRequest(vscode_languageserver_protocol_1.ImplementationRequest.type, client2.code2ProtocolConverter.asTextDocumentPositionParams(document2, position2), token2).then((result) => {
+            const provideImplementation = (document3, position2, token2) => {
+              return client2.sendRequest(vscode_languageserver_protocol_1.ImplementationRequest.type, client2.code2ProtocolConverter.asTextDocumentPositionParams(document3, position2), token2).then((result) => {
                 if (token2.isCancellationRequested) {
                   return null;
                 }
@@ -13459,7 +13459,7 @@ var require_implementation = __commonJS({
               });
             };
             const middleware = client2.middleware;
-            return middleware.provideImplementation ? middleware.provideImplementation(document, position, token, provideImplementation) : provideImplementation(document, position, token);
+            return middleware.provideImplementation ? middleware.provideImplementation(document2, position, token, provideImplementation) : provideImplementation(document2, position, token);
           }
         };
         return [this.registerProvider(selector, provider), provider];
@@ -13501,10 +13501,10 @@ var require_typeDefinition = __commonJS({
       registerLanguageProvider(options) {
         const selector = options.documentSelector;
         const provider = {
-          provideTypeDefinition: (document, position, token) => {
+          provideTypeDefinition: (document2, position, token) => {
             const client2 = this._client;
-            const provideTypeDefinition = (document2, position2, token2) => {
-              return client2.sendRequest(vscode_languageserver_protocol_1.TypeDefinitionRequest.type, client2.code2ProtocolConverter.asTextDocumentPositionParams(document2, position2), token2).then((result) => {
+            const provideTypeDefinition = (document3, position2, token2) => {
+              return client2.sendRequest(vscode_languageserver_protocol_1.TypeDefinitionRequest.type, client2.code2ProtocolConverter.asTextDocumentPositionParams(document3, position2), token2).then((result) => {
                 if (token2.isCancellationRequested) {
                   return null;
                 }
@@ -13514,7 +13514,7 @@ var require_typeDefinition = __commonJS({
               });
             };
             const middleware = client2.middleware;
-            return middleware.provideTypeDefinition ? middleware.provideTypeDefinition(document, position, token, provideTypeDefinition) : provideTypeDefinition(document, position, token);
+            return middleware.provideTypeDefinition ? middleware.provideTypeDefinition(document2, position, token, provideTypeDefinition) : provideTypeDefinition(document2, position, token);
           }
         };
         return [this.registerProvider(selector, provider), provider];
@@ -13708,11 +13708,11 @@ var require_foldingRange = __commonJS({
         const eventEmitter = new vscode_1.EventEmitter();
         const provider = {
           onDidChangeFoldingRanges: eventEmitter.event,
-          provideFoldingRanges: (document, context, token) => {
+          provideFoldingRanges: (document2, context, token) => {
             const client2 = this._client;
-            const provideFoldingRanges = (document2, _, token2) => {
+            const provideFoldingRanges = (document3, _, token2) => {
               const requestParams = {
-                textDocument: client2.code2ProtocolConverter.asTextDocumentIdentifier(document2)
+                textDocument: client2.code2ProtocolConverter.asTextDocumentIdentifier(document3)
               };
               return client2.sendRequest(vscode_languageserver_protocol_1.FoldingRangeRequest.type, requestParams, token2).then((result) => {
                 if (token2.isCancellationRequested) {
@@ -13724,7 +13724,7 @@ var require_foldingRange = __commonJS({
               });
             };
             const middleware = client2.middleware;
-            return middleware.provideFoldingRanges ? middleware.provideFoldingRanges(document, context, token, provideFoldingRanges) : provideFoldingRanges(document, context, token);
+            return middleware.provideFoldingRanges ? middleware.provideFoldingRanges(document2, context, token, provideFoldingRanges) : provideFoldingRanges(document2, context, token);
           }
         };
         return [vscode_1.languages.registerFoldingRangeProvider(this._client.protocol2CodeConverter.asDocumentSelector(selector), provider), { provider, onDidChangeFoldingRange: eventEmitter }];
@@ -13762,10 +13762,10 @@ var require_declaration = __commonJS({
       registerLanguageProvider(options) {
         const selector = options.documentSelector;
         const provider = {
-          provideDeclaration: (document, position, token) => {
+          provideDeclaration: (document2, position, token) => {
             const client2 = this._client;
-            const provideDeclaration = (document2, position2, token2) => {
-              return client2.sendRequest(vscode_languageserver_protocol_1.DeclarationRequest.type, client2.code2ProtocolConverter.asTextDocumentPositionParams(document2, position2), token2).then((result) => {
+            const provideDeclaration = (document3, position2, token2) => {
+              return client2.sendRequest(vscode_languageserver_protocol_1.DeclarationRequest.type, client2.code2ProtocolConverter.asTextDocumentPositionParams(document3, position2), token2).then((result) => {
                 if (token2.isCancellationRequested) {
                   return null;
                 }
@@ -13775,7 +13775,7 @@ var require_declaration = __commonJS({
               });
             };
             const middleware = client2.middleware;
-            return middleware.provideDeclaration ? middleware.provideDeclaration(document, position, token, provideDeclaration) : provideDeclaration(document, position, token);
+            return middleware.provideDeclaration ? middleware.provideDeclaration(document2, position, token, provideDeclaration) : provideDeclaration(document2, position, token);
           }
         };
         return [this.registerProvider(selector, provider), provider];
@@ -13815,11 +13815,11 @@ var require_selectionRange = __commonJS({
       registerLanguageProvider(options) {
         const selector = options.documentSelector;
         const provider = {
-          provideSelectionRanges: (document, positions, token) => {
+          provideSelectionRanges: (document2, positions, token) => {
             const client2 = this._client;
-            const provideSelectionRanges = async (document2, positions2, token2) => {
+            const provideSelectionRanges = async (document3, positions2, token2) => {
               const requestParams = {
-                textDocument: client2.code2ProtocolConverter.asTextDocumentIdentifier(document2),
+                textDocument: client2.code2ProtocolConverter.asTextDocumentIdentifier(document3),
                 positions: client2.code2ProtocolConverter.asPositionsSync(positions2, token2)
               };
               return client2.sendRequest(vscode_languageserver_protocol_1.SelectionRangeRequest.type, requestParams, token2).then((ranges) => {
@@ -13832,7 +13832,7 @@ var require_selectionRange = __commonJS({
               });
             };
             const middleware = client2.middleware;
-            return middleware.provideSelectionRanges ? middleware.provideSelectionRanges(document, positions, token, provideSelectionRanges) : provideSelectionRanges(document, positions, token);
+            return middleware.provideSelectionRanges ? middleware.provideSelectionRanges(document2, positions, token, provideSelectionRanges) : provideSelectionRanges(document2, positions, token);
           }
         };
         return [this.registerProvider(selector, provider), provider];
@@ -13905,11 +13905,11 @@ var require_callHierarchy = __commonJS({
         this.client = client2;
         this.middleware = client2.middleware;
       }
-      prepareCallHierarchy(document, position, token) {
+      prepareCallHierarchy(document2, position, token) {
         const client2 = this.client;
         const middleware = this.middleware;
-        const prepareCallHierarchy = (document2, position2, token2) => {
-          const params = client2.code2ProtocolConverter.asTextDocumentPositionParams(document2, position2);
+        const prepareCallHierarchy = (document3, position2, token2) => {
+          const params = client2.code2ProtocolConverter.asTextDocumentPositionParams(document3, position2);
           return client2.sendRequest(vscode_languageserver_protocol_1.CallHierarchyPrepareRequest.type, params, token2).then((result) => {
             if (token2.isCancellationRequested) {
               return null;
@@ -13919,7 +13919,7 @@ var require_callHierarchy = __commonJS({
             return client2.handleFailedRequest(vscode_languageserver_protocol_1.CallHierarchyPrepareRequest.type, token2, error, null);
           });
         };
-        return middleware.prepareCallHierarchy ? middleware.prepareCallHierarchy(document, position, token, prepareCallHierarchy) : prepareCallHierarchy(document, position, token);
+        return middleware.prepareCallHierarchy ? middleware.prepareCallHierarchy(document2, position, token, prepareCallHierarchy) : prepareCallHierarchy(document2, position, token);
       }
       provideCallHierarchyIncomingCalls(item, token) {
         const client2 = this.client;
@@ -14071,12 +14071,12 @@ var require_semanticTokens = __commonJS({
         const eventEmitter = new vscode.EventEmitter();
         const documentProvider = fullProvider ? {
           onDidChangeSemanticTokens: eventEmitter.event,
-          provideDocumentSemanticTokens: (document, token) => {
+          provideDocumentSemanticTokens: (document2, token) => {
             const client3 = this._client;
             const middleware = client3.middleware;
-            const provideDocumentSemanticTokens = (document2, token2) => {
+            const provideDocumentSemanticTokens = (document3, token2) => {
               const params = {
-                textDocument: client3.code2ProtocolConverter.asTextDocumentIdentifier(document2)
+                textDocument: client3.code2ProtocolConverter.asTextDocumentIdentifier(document3)
               };
               return client3.sendRequest(vscode_languageserver_protocol_1.SemanticTokensRequest.type, params, token2).then((result) => {
                 if (token2.isCancellationRequested) {
@@ -14087,14 +14087,14 @@ var require_semanticTokens = __commonJS({
                 return client3.handleFailedRequest(vscode_languageserver_protocol_1.SemanticTokensRequest.type, token2, error, null);
               });
             };
-            return middleware.provideDocumentSemanticTokens ? middleware.provideDocumentSemanticTokens(document, token, provideDocumentSemanticTokens) : provideDocumentSemanticTokens(document, token);
+            return middleware.provideDocumentSemanticTokens ? middleware.provideDocumentSemanticTokens(document2, token, provideDocumentSemanticTokens) : provideDocumentSemanticTokens(document2, token);
           },
-          provideDocumentSemanticTokensEdits: hasEditProvider ? (document, previousResultId, token) => {
+          provideDocumentSemanticTokensEdits: hasEditProvider ? (document2, previousResultId, token) => {
             const client3 = this._client;
             const middleware = client3.middleware;
-            const provideDocumentSemanticTokensEdits = (document2, previousResultId2, token2) => {
+            const provideDocumentSemanticTokensEdits = (document3, previousResultId2, token2) => {
               const params = {
-                textDocument: client3.code2ProtocolConverter.asTextDocumentIdentifier(document2),
+                textDocument: client3.code2ProtocolConverter.asTextDocumentIdentifier(document3),
                 previousResultId: previousResultId2
               };
               return client3.sendRequest(vscode_languageserver_protocol_1.SemanticTokensDeltaRequest.type, params, token2).then(async (result) => {
@@ -14110,17 +14110,17 @@ var require_semanticTokens = __commonJS({
                 return client3.handleFailedRequest(vscode_languageserver_protocol_1.SemanticTokensDeltaRequest.type, token2, error, null);
               });
             };
-            return middleware.provideDocumentSemanticTokensEdits ? middleware.provideDocumentSemanticTokensEdits(document, previousResultId, token, provideDocumentSemanticTokensEdits) : provideDocumentSemanticTokensEdits(document, previousResultId, token);
+            return middleware.provideDocumentSemanticTokensEdits ? middleware.provideDocumentSemanticTokensEdits(document2, previousResultId, token, provideDocumentSemanticTokensEdits) : provideDocumentSemanticTokensEdits(document2, previousResultId, token);
           } : void 0
         } : void 0;
         const hasRangeProvider = options.range === true;
         const rangeProvider = hasRangeProvider ? {
-          provideDocumentRangeSemanticTokens: (document, range, token) => {
+          provideDocumentRangeSemanticTokens: (document2, range, token) => {
             const client3 = this._client;
             const middleware = client3.middleware;
-            const provideDocumentRangeSemanticTokens = (document2, range2, token2) => {
+            const provideDocumentRangeSemanticTokens = (document3, range2, token2) => {
               const params = {
-                textDocument: client3.code2ProtocolConverter.asTextDocumentIdentifier(document2),
+                textDocument: client3.code2ProtocolConverter.asTextDocumentIdentifier(document3),
                 range: client3.code2ProtocolConverter.asRange(range2)
               };
               return client3.sendRequest(vscode_languageserver_protocol_1.SemanticTokensRangeRequest.type, params, token2).then((result) => {
@@ -14132,7 +14132,7 @@ var require_semanticTokens = __commonJS({
                 return client3.handleFailedRequest(vscode_languageserver_protocol_1.SemanticTokensRangeRequest.type, token2, error, null);
               });
             };
-            return middleware.provideDocumentRangeSemanticTokens ? middleware.provideDocumentRangeSemanticTokens(document, range, token, provideDocumentRangeSemanticTokens) : provideDocumentRangeSemanticTokens(document, range, token);
+            return middleware.provideDocumentRangeSemanticTokens ? middleware.provideDocumentRangeSemanticTokens(document2, range, token, provideDocumentRangeSemanticTokens) : provideDocumentRangeSemanticTokens(document2, range, token);
           }
         } : void 0;
         const disposables = [];
@@ -14158,7 +14158,7 @@ var require_fileOperations = __commonJS({
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.WillDeleteFilesFeature = exports2.WillRenameFilesFeature = exports2.WillCreateFilesFeature = exports2.DidDeleteFilesFeature = exports2.DidRenameFilesFeature = exports2.DidCreateFilesFeature = void 0;
-    var code = require("vscode");
+    var code2 = require("vscode");
     var minimatch = require_minimatch();
     var proto = require_main3();
     var UUID = require_uuid();
@@ -14215,12 +14215,12 @@ var require_fileOperations = __commonJS({
         if (!this._listener) {
           this._listener = this._event(this.send, this);
         }
-        const minimatchFilter = data.registerOptions.filters.map((filter) => {
-          const matcher = new minimatch.Minimatch(filter.pattern.glob, _FileOperationFeature.asMinimatchOptions(filter.pattern.options));
+        const minimatchFilter = data.registerOptions.filters.map((filter2) => {
+          const matcher = new minimatch.Minimatch(filter2.pattern.glob, _FileOperationFeature.asMinimatchOptions(filter2.pattern.options));
           if (!matcher.makeRe()) {
-            throw new Error(`Invalid pattern ${filter.pattern.glob}!`);
+            throw new Error(`Invalid pattern ${filter2.pattern.glob}!`);
           }
-          return { scheme: filter.scheme, matcher, kind: filter.pattern.matches };
+          return { scheme: filter2.scheme, matcher, kind: filter2.pattern.matches };
         });
         this._filters.set(data.id, minimatchFilter);
       }
@@ -14244,14 +14244,14 @@ var require_fileOperations = __commonJS({
       async filter(event, prop) {
         const fileMatches = await Promise.all(event.files.map(async (item) => {
           const uri = prop(item);
-          const path = uri.fsPath.replace(/\\/g, "/");
+          const path8 = uri.fsPath.replace(/\\/g, "/");
           for (const filters of this._filters.values()) {
-            for (const filter of filters) {
-              if (filter.scheme !== void 0 && filter.scheme !== uri.scheme) {
+            for (const filter2 of filters) {
+              if (filter2.scheme !== void 0 && filter2.scheme !== uri.scheme) {
                 continue;
               }
-              if (filter.matcher.match(path)) {
-                if (filter.kind === void 0) {
+              if (filter2.matcher.match(path8)) {
+                if (filter2.kind === void 0) {
                   return true;
                 }
                 const fileType = await this.getFileType(uri);
@@ -14259,12 +14259,12 @@ var require_fileOperations = __commonJS({
                   this._client.error(`Failed to determine file type for ${uri.toString()}.`);
                   return true;
                 }
-                if (fileType === code.FileType.File && filter.kind === proto.FileOperationPatternKind.file || fileType === code.FileType.Directory && filter.kind === proto.FileOperationPatternKind.folder) {
+                if (fileType === code2.FileType.File && filter2.kind === proto.FileOperationPatternKind.file || fileType === code2.FileType.Directory && filter2.kind === proto.FileOperationPatternKind.folder) {
                   return true;
                 }
-              } else if (filter.kind === proto.FileOperationPatternKind.folder) {
+              } else if (filter2.kind === proto.FileOperationPatternKind.folder) {
                 const fileType = await _FileOperationFeature.getFileType(uri);
-                if (fileType === code.FileType.Directory && filter.matcher.match(`${path}/`)) {
+                if (fileType === code2.FileType.Directory && filter2.matcher.match(`${path8}/`)) {
                   return true;
                 }
               }
@@ -14277,7 +14277,7 @@ var require_fileOperations = __commonJS({
       }
       static async getFileType(uri) {
         try {
-          return (await code.workspace.fs.stat(uri)).type;
+          return (await code2.workspace.fs.stat(uri)).type;
         } catch (e) {
           return void 0;
         }
@@ -14346,7 +14346,7 @@ var require_fileOperations = __commonJS({
     };
     var DidCreateFilesFeature = class extends NotificationFileOperationFeature {
       constructor(client2) {
-        super(client2, code.workspace.onDidCreateFiles, proto.DidCreateFilesNotification.type, "didCreate", "didCreate", (i) => i, client2.code2ProtocolConverter.asDidCreateFilesParams);
+        super(client2, code2.workspace.onDidCreateFiles, proto.DidCreateFilesNotification.type, "didCreate", "didCreate", (i) => i, client2.code2ProtocolConverter.asDidCreateFilesParams);
       }
       doSend(event, next) {
         const middleware = this._client.middleware.workspace;
@@ -14356,11 +14356,11 @@ var require_fileOperations = __commonJS({
     exports2.DidCreateFilesFeature = DidCreateFilesFeature;
     var DidRenameFilesFeature = class extends CachingNotificationFileOperationFeature {
       constructor(client2) {
-        super(client2, code.workspace.onDidRenameFiles, proto.DidRenameFilesNotification.type, "didRename", "didRename", (i) => i.oldUri, client2.code2ProtocolConverter.asDidRenameFilesParams);
+        super(client2, code2.workspace.onDidRenameFiles, proto.DidRenameFilesNotification.type, "didRename", "didRename", (i) => i.oldUri, client2.code2ProtocolConverter.asDidRenameFilesParams);
       }
       register(data) {
         if (!this._willListener) {
-          this._willListener = code.workspace.onWillRenameFiles(this.willRename, this);
+          this._willListener = code2.workspace.onWillRenameFiles(this.willRename, this);
         }
         super.register(data);
       }
@@ -14376,11 +14376,11 @@ var require_fileOperations = __commonJS({
     exports2.DidRenameFilesFeature = DidRenameFilesFeature;
     var DidDeleteFilesFeature = class extends CachingNotificationFileOperationFeature {
       constructor(client2) {
-        super(client2, code.workspace.onDidDeleteFiles, proto.DidDeleteFilesNotification.type, "didDelete", "didDelete", (i) => i, client2.code2ProtocolConverter.asDidDeleteFilesParams);
+        super(client2, code2.workspace.onDidDeleteFiles, proto.DidDeleteFilesNotification.type, "didDelete", "didDelete", (i) => i, client2.code2ProtocolConverter.asDidDeleteFilesParams);
       }
       register(data) {
         if (!this._willListener) {
-          this._willListener = code.workspace.onWillDeleteFiles(this.willDelete, this);
+          this._willListener = code2.workspace.onWillDeleteFiles(this.willDelete, this);
         }
         super.register(data);
       }
@@ -14419,7 +14419,7 @@ var require_fileOperations = __commonJS({
     };
     var WillCreateFilesFeature = class extends RequestFileOperationFeature {
       constructor(client2) {
-        super(client2, code.workspace.onWillCreateFiles, proto.WillCreateFilesRequest.type, "willCreate", "willCreate", (i) => i, client2.code2ProtocolConverter.asWillCreateFilesParams);
+        super(client2, code2.workspace.onWillCreateFiles, proto.WillCreateFilesRequest.type, "willCreate", "willCreate", (i) => i, client2.code2ProtocolConverter.asWillCreateFilesParams);
       }
       doSend(event, next) {
         const middleware = this._client.middleware.workspace;
@@ -14429,7 +14429,7 @@ var require_fileOperations = __commonJS({
     exports2.WillCreateFilesFeature = WillCreateFilesFeature;
     var WillRenameFilesFeature = class extends RequestFileOperationFeature {
       constructor(client2) {
-        super(client2, code.workspace.onWillRenameFiles, proto.WillRenameFilesRequest.type, "willRename", "willRename", (i) => i.oldUri, client2.code2ProtocolConverter.asWillRenameFilesParams);
+        super(client2, code2.workspace.onWillRenameFiles, proto.WillRenameFilesRequest.type, "willRename", "willRename", (i) => i.oldUri, client2.code2ProtocolConverter.asWillRenameFilesParams);
       }
       doSend(event, next) {
         const middleware = this._client.middleware.workspace;
@@ -14439,7 +14439,7 @@ var require_fileOperations = __commonJS({
     exports2.WillRenameFilesFeature = WillRenameFilesFeature;
     var WillDeleteFilesFeature = class extends RequestFileOperationFeature {
       constructor(client2) {
-        super(client2, code.workspace.onWillDeleteFiles, proto.WillDeleteFilesRequest.type, "willDelete", "willDelete", (i) => i, client2.code2ProtocolConverter.asWillDeleteFilesParams);
+        super(client2, code2.workspace.onWillDeleteFiles, proto.WillDeleteFilesRequest.type, "willDelete", "willDelete", (i) => i, client2.code2ProtocolConverter.asWillDeleteFilesParams);
       }
       doSend(event, next) {
         const middleware = this._client.middleware.workspace;
@@ -14456,7 +14456,7 @@ var require_linkedEditingRange = __commonJS({
     "use strict";
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.LinkedEditingFeature = void 0;
-    var code = require("vscode");
+    var code2 = require("vscode");
     var proto = require_main3();
     var features_1 = require_features();
     var LinkedEditingFeature = class extends features_1.TextDocumentLanguageFeature {
@@ -14477,10 +14477,10 @@ var require_linkedEditingRange = __commonJS({
       registerLanguageProvider(options) {
         const selector = options.documentSelector;
         const provider = {
-          provideLinkedEditingRanges: (document, position, token) => {
+          provideLinkedEditingRanges: (document2, position, token) => {
             const client2 = this._client;
-            const provideLinkedEditing = (document2, position2, token2) => {
-              return client2.sendRequest(proto.LinkedEditingRangeRequest.type, client2.code2ProtocolConverter.asTextDocumentPositionParams(document2, position2), token2).then((result) => {
+            const provideLinkedEditing = (document3, position2, token2) => {
+              return client2.sendRequest(proto.LinkedEditingRangeRequest.type, client2.code2ProtocolConverter.asTextDocumentPositionParams(document3, position2), token2).then((result) => {
                 if (token2.isCancellationRequested) {
                   return null;
                 }
@@ -14490,13 +14490,13 @@ var require_linkedEditingRange = __commonJS({
               });
             };
             const middleware = client2.middleware;
-            return middleware.provideLinkedEditingRange ? middleware.provideLinkedEditingRange(document, position, token, provideLinkedEditing) : provideLinkedEditing(document, position, token);
+            return middleware.provideLinkedEditingRange ? middleware.provideLinkedEditingRange(document2, position, token, provideLinkedEditing) : provideLinkedEditing(document2, position, token);
           }
         };
         return [this.registerProvider(selector, provider), provider];
       }
       registerProvider(selector, provider) {
-        return code.languages.registerLinkedEditingRangeProvider(this._client.protocol2CodeConverter.asDocumentSelector(selector), provider);
+        return code2.languages.registerLinkedEditingRangeProvider(this._client.protocol2CodeConverter.asDocumentSelector(selector), provider);
       }
     };
     exports2.LinkedEditingFeature = LinkedEditingFeature;
@@ -14517,11 +14517,11 @@ var require_typeHierarchy = __commonJS({
         this.client = client2;
         this.middleware = client2.middleware;
       }
-      prepareTypeHierarchy(document, position, token) {
+      prepareTypeHierarchy(document2, position, token) {
         const client2 = this.client;
         const middleware = this.middleware;
-        const prepareTypeHierarchy = (document2, position2, token2) => {
-          const params = client2.code2ProtocolConverter.asTextDocumentPositionParams(document2, position2);
+        const prepareTypeHierarchy = (document3, position2, token2) => {
+          const params = client2.code2ProtocolConverter.asTextDocumentPositionParams(document3, position2);
           return client2.sendRequest(vscode_languageserver_protocol_1.TypeHierarchyPrepareRequest.type, params, token2).then((result) => {
             if (token2.isCancellationRequested) {
               return null;
@@ -14531,7 +14531,7 @@ var require_typeHierarchy = __commonJS({
             return client2.handleFailedRequest(vscode_languageserver_protocol_1.TypeHierarchyPrepareRequest.type, token2, error, null);
           });
         };
-        return middleware.prepareTypeHierarchy ? middleware.prepareTypeHierarchy(document, position, token, prepareTypeHierarchy) : prepareTypeHierarchy(document, position, token);
+        return middleware.prepareTypeHierarchy ? middleware.prepareTypeHierarchy(document2, position, token, prepareTypeHierarchy) : prepareTypeHierarchy(document2, position, token);
       }
       provideTypeHierarchySupertypes(item, token) {
         const client2 = this.client;
@@ -14629,11 +14629,11 @@ var require_inlineValue = __commonJS({
         const eventEmitter = new vscode_1.EventEmitter();
         const provider = {
           onDidChangeInlineValues: eventEmitter.event,
-          provideInlineValues: (document, viewPort, context, token) => {
+          provideInlineValues: (document2, viewPort, context, token) => {
             const client2 = this._client;
-            const provideInlineValues = (document2, viewPort2, context2, token2) => {
+            const provideInlineValues = (document3, viewPort2, context2, token2) => {
               const requestParams = {
-                textDocument: client2.code2ProtocolConverter.asTextDocumentIdentifier(document2),
+                textDocument: client2.code2ProtocolConverter.asTextDocumentIdentifier(document3),
                 range: client2.code2ProtocolConverter.asRange(viewPort2),
                 context: client2.code2ProtocolConverter.asInlineValueContext(context2)
               };
@@ -14647,7 +14647,7 @@ var require_inlineValue = __commonJS({
               });
             };
             const middleware = client2.middleware;
-            return middleware.provideInlineValues ? middleware.provideInlineValues(document, viewPort, context, token, provideInlineValues) : provideInlineValues(document, viewPort, context, token);
+            return middleware.provideInlineValues ? middleware.provideInlineValues(document2, viewPort, context, token, provideInlineValues) : provideInlineValues(document2, viewPort, context, token);
           }
         };
         return [this.registerProvider(selector, provider), { provider, onDidChangeInlineValues: eventEmitter }];
@@ -14698,11 +14698,11 @@ var require_inlayHint = __commonJS({
         const eventEmitter = new vscode_1.EventEmitter();
         const provider = {
           onDidChangeInlayHints: eventEmitter.event,
-          provideInlayHints: (document, viewPort, token) => {
+          provideInlayHints: (document2, viewPort, token) => {
             const client2 = this._client;
-            const provideInlayHints = async (document2, viewPort2, token2) => {
+            const provideInlayHints = async (document3, viewPort2, token2) => {
               const requestParams = {
-                textDocument: client2.code2ProtocolConverter.asTextDocumentIdentifier(document2),
+                textDocument: client2.code2ProtocolConverter.asTextDocumentIdentifier(document3),
                 range: client2.code2ProtocolConverter.asRange(viewPort2)
               };
               try {
@@ -14716,7 +14716,7 @@ var require_inlayHint = __commonJS({
               }
             };
             const middleware = client2.middleware;
-            return middleware.provideInlayHints ? middleware.provideInlayHints(document, viewPort, token, provideInlayHints) : provideInlayHints(document, viewPort, token);
+            return middleware.provideInlayHints ? middleware.provideInlayHints(document2, viewPort, token, provideInlayHints) : provideInlayHints(document2, viewPort, token);
           }
         };
         provider.resolveInlayHint = options.resolveProvider === true ? (hint, token) => {
@@ -14777,11 +14777,11 @@ var require_inlineCompletion = __commonJS({
       registerLanguageProvider(options) {
         const selector = options.documentSelector;
         const provider = {
-          provideInlineCompletionItems: (document, position, context, token) => {
+          provideInlineCompletionItems: (document2, position, context, token) => {
             const client2 = this._client;
             const middleware = this._client.middleware;
-            const provideInlineCompletionItems = (document2, position2, context2, token2) => {
-              return client2.sendRequest(vscode_languageserver_protocol_1.InlineCompletionRequest.type, client2.code2ProtocolConverter.asInlineCompletionParams(document2, position2, context2), token2).then((result) => {
+            const provideInlineCompletionItems = (document3, position2, context2, token2) => {
+              return client2.sendRequest(vscode_languageserver_protocol_1.InlineCompletionRequest.type, client2.code2ProtocolConverter.asInlineCompletionParams(document3, position2, context2), token2).then((result) => {
                 if (token2.isCancellationRequested) {
                   return null;
                 }
@@ -14790,7 +14790,7 @@ var require_inlineCompletion = __commonJS({
                 return client2.handleFailedRequest(vscode_languageserver_protocol_1.InlineCompletionRequest.type, token2, error, null);
               });
             };
-            return middleware.provideInlineCompletionItems ? middleware.provideInlineCompletionItems(document, position, context, token, provideInlineCompletionItems) : provideInlineCompletionItems(document, position, context, token);
+            return middleware.provideInlineCompletionItems ? middleware.provideInlineCompletionItems(document2, position, context, token, provideInlineCompletionItems) : provideInlineCompletionItems(document2, position, context, token);
           }
         };
         return [vscode_1.languages.registerInlineCompletionItemProvider(this._client.protocol2CodeConverter.asDocumentSelector(selector), provider), provider];
@@ -14937,7 +14937,7 @@ var require_client = __commonJS({
       MessageTransports2.is = is;
     })(MessageTransports || (exports2.MessageTransports = MessageTransports = {}));
     var BaseLanguageClient = class _BaseLanguageClient {
-      constructor(id, name, clientOptions) {
+      constructor(id, name2, clientOptions) {
         this._traceFormat = vscode_languageserver_protocol_1.TraceFormat.Text;
         this._diagnosticQueue = /* @__PURE__ */ new Map();
         this._diagnosticQueueState = { state: "idle" };
@@ -14945,7 +14945,7 @@ var require_client = __commonJS({
         this._dynamicFeatures = /* @__PURE__ */ new Map();
         this.workspaceEditLock = new async_1.Semaphore(1);
         this._id = id;
-        this._name = name;
+        this._name = name2;
         clientOptions = clientOptions || {};
         const markdown = { isTrusted: false, supportHtml: false };
         if (clientOptions.markdown !== void 0) {
@@ -15310,8 +15310,8 @@ var require_client = __commonJS({
       error(message, data, showNotification = true) {
         this.logOutputMessage(vscode_languageserver_protocol_1.MessageType.Error, RevealOutputChannelOn.Error, "Error", message, data, showNotification);
       }
-      logOutputMessage(type, reveal, name, message, data, showNotification) {
-        this.outputChannel.appendLine(`[${name.padEnd(5)} - ${(/* @__PURE__ */ new Date()).toLocaleTimeString()}] ${message}`);
+      logOutputMessage(type, reveal, name2, message, data, showNotification) {
+        this.outputChannel.appendLine(`[${name2.padEnd(5)} - ${(/* @__PURE__ */ new Date()).toLocaleTimeString()}] ${message}`);
         if (data !== null && data !== void 0) {
           this.outputChannel.appendLine(this.data2String(data));
         }
@@ -15722,10 +15722,10 @@ var require_client = __commonJS({
             if (changes.length === 0) {
               return;
             }
-            for (const document of changes) {
-              const params = this.code2ProtocolConverter.asChangeTextDocumentParams(document);
+            for (const document2 of changes) {
+              const params = this.code2ProtocolConverter.asChangeTextDocumentParams(document2);
               await connection.sendNotification(vscode_languageserver_protocol_1.DidChangeTextDocumentNotification.type, params);
-              this._didChangeTextDocumentFeature.notificationSent(document, vscode_languageserver_protocol_1.DidChangeTextDocumentNotification.type, params);
+              this._didChangeTextDocumentFeature.notificationSent(document2, vscode_languageserver_protocol_1.DidChangeTextDocumentNotification.type, params);
             }
           } catch (error) {
             this.error(`Sending pending changes failed`, error, false);
@@ -15767,13 +15767,13 @@ var require_client = __commonJS({
         if (next.done === true) {
           return;
         }
-        const [document, diagnostics] = next.value;
-        this._diagnosticQueue.delete(document);
+        const [document2, diagnostics] = next.value;
+        this._diagnosticQueue.delete(document2);
         const tokenSource = new vscode_1.CancellationTokenSource();
-        this._diagnosticQueueState = { state: "busy", document, tokenSource };
+        this._diagnosticQueueState = { state: "busy", document: document2, tokenSource };
         this._p2c.asDiagnostics(diagnostics, tokenSource.token).then((converted) => {
           if (!tokenSource.token.isCancellationRequested) {
-            const uri = this._p2c.asUri(document);
+            const uri = this._p2c.asUri(document2);
             const middleware = this.clientOptions.middleware;
             if (middleware.handleDiagnostics) {
               middleware.handleDiagnostics(uri, converted, (uri2, diagnostics2) => this.setDiagnostics(uri2, diagnostics2));
@@ -16110,7 +16110,7 @@ ${error.message}`, void 0, handlerResult.handled === true ? false : "force");
           return this._p2c.asWorkspaceEdit(workspaceEdit);
         });
         const openTextDocuments = /* @__PURE__ */ new Map();
-        vscode_1.workspace.textDocuments.forEach((document) => openTextDocuments.set(document.uri.toString(), document));
+        vscode_1.workspace.textDocuments.forEach((document2) => openTextDocuments.set(document2.uri.toString(), document2));
         let versionMismatch = false;
         if (workspaceEdit.documentChanges) {
           for (const change of workspaceEdit.documentChanges) {
@@ -16250,11 +16250,11 @@ var require_processes = __commonJS({
     exports2.terminate = void 0;
     var cp = require("child_process");
     var path_1 = require("path");
-    var isWindows = process.platform === "win32";
+    var isWindows4 = process.platform === "win32";
     var isMacintosh = process.platform === "darwin";
     var isLinux = process.platform === "linux";
     function terminate(process2, cwd) {
-      if (isWindows) {
+      if (isWindows4) {
         try {
           let options = {
             stdio: ["pipe", "pipe", "ignore"]
@@ -16363,11 +16363,11 @@ var require_re = __commonJS({
       }
       return value;
     };
-    var createToken = (name, value, isGlobal) => {
+    var createToken = (name2, value, isGlobal) => {
       const safe = makeSafeRegex(value);
       const index = R++;
-      debug(name, index, value);
-      t[name] = index;
+      debug(name2, index, value);
+      t[name2] = index;
       src[index] = value;
       safeSrc[index] = safe;
       re[index] = new RegExp(value, isGlobal ? "g" : void 0);
@@ -16729,7 +16729,7 @@ var require_parse = __commonJS({
   "node_modules/semver/functions/parse.js"(exports2, module2) {
     "use strict";
     var SemVer = require_semver();
-    var parse = (version, options, throwErrors = false) => {
+    var parse4 = (version, options, throwErrors = false) => {
       if (version instanceof SemVer) {
         return version;
       }
@@ -16742,7 +16742,7 @@ var require_parse = __commonJS({
         throw er;
       }
     };
-    module2.exports = parse;
+    module2.exports = parse4;
   }
 });
 
@@ -17089,7 +17089,7 @@ var require_range = __commonJS({
       parseRange(range) {
         const memoOpts = (this.options.includePrerelease && FLAG_INCLUDE_PRERELEASE) | (this.options.loose && FLAG_LOOSE);
         const memoKey = memoOpts + ":" + range;
-        const cached = cache.get(memoKey);
+        const cached = cache2.get(memoKey);
         if (cached) {
           return cached;
         }
@@ -17123,7 +17123,7 @@ var require_range = __commonJS({
           rangeMap.delete("");
         }
         const result = [...rangeMap.values()];
-        cache.set(memoKey, result);
+        cache2.set(memoKey, result);
         return result;
       }
       intersects(range, options) {
@@ -17162,7 +17162,7 @@ var require_range = __commonJS({
     };
     module2.exports = Range;
     var LRU = require_lrucache();
-    var cache = new LRU();
+    var cache2 = new LRU();
     var parseOptions = require_parse_options();
     var Comparator = require_comparator();
     var debug = require_debug();
@@ -17416,13 +17416,13 @@ var require_api3 = __commonJS({
     "use strict";
     var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: function() {
+      var desc2 = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc2 || ("get" in desc2 ? !m.__esModule : desc2.writable || desc2.configurable)) {
+        desc2 = { enumerable: true, get: function() {
           return m[k];
         } };
       }
-      Object.defineProperty(o, k2, desc);
+      Object.defineProperty(o, k2, desc2);
     } : function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
       o[k2] = m[k];
@@ -17451,13 +17451,13 @@ var require_main4 = __commonJS({
     "use strict";
     var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
-      var desc = Object.getOwnPropertyDescriptor(m, k);
-      if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-        desc = { enumerable: true, get: function() {
+      var desc2 = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc2 || ("get" in desc2 ? !m.__esModule : desc2.writable || desc2.configurable)) {
+        desc2 = { enumerable: true, get: function() {
           return m[k];
         } };
       }
-      Object.defineProperty(o, k2, desc);
+      Object.defineProperty(o, k2, desc2);
     } : function(o, m, k, k2) {
       if (k2 === void 0) k2 = k;
       o[k2] = m[k];
@@ -17468,8 +17468,8 @@ var require_main4 = __commonJS({
     Object.defineProperty(exports2, "__esModule", { value: true });
     exports2.SettingMonitor = exports2.LanguageClient = exports2.TransportKind = void 0;
     var cp = require("child_process");
-    var fs = require("fs");
-    var path = require("path");
+    var fs12 = require("fs");
+    var path8 = require("path");
     var vscode_1 = require("vscode");
     var Is = require_is();
     var client_1 = require_client();
@@ -17509,14 +17509,14 @@ var require_main4 = __commonJS({
       }
       NodeModule2.is = is;
     })(NodeModule || (NodeModule = {}));
-    var StreamInfo;
-    (function(StreamInfo2) {
+    var StreamInfo2;
+    (function(StreamInfo3) {
       function is(value) {
         let candidate = value;
         return candidate && candidate.writer !== void 0 && candidate.reader !== void 0;
       }
-      StreamInfo2.is = is;
-    })(StreamInfo || (StreamInfo = {}));
+      StreamInfo3.is = is;
+    })(StreamInfo2 || (StreamInfo2 = {}));
     var ChildProcessInfo;
     (function(ChildProcessInfo2) {
       function is(value) {
@@ -17528,19 +17528,19 @@ var require_main4 = __commonJS({
     var LanguageClient2 = class extends client_1.BaseLanguageClient {
       constructor(arg1, arg2, arg3, arg4, arg5) {
         let id;
-        let name;
+        let name2;
         let serverOptions;
         let clientOptions;
         let forceDebug;
         if (Is.string(arg2)) {
           id = arg1;
-          name = arg2;
+          name2 = arg2;
           serverOptions = arg3;
           clientOptions = arg4;
           forceDebug = !!arg5;
         } else {
           id = arg1.toLowerCase();
-          name = arg1;
+          name2 = arg1;
           serverOptions = arg2;
           clientOptions = arg3;
           forceDebug = arg4;
@@ -17548,7 +17548,7 @@ var require_main4 = __commonJS({
         if (forceDebug === void 0) {
           forceDebug = false;
         }
-        super(id, name, clientOptions);
+        super(id, name2, clientOptions);
         this._serverOptions = serverOptions;
         this._forceDebug = forceDebug;
         this._isInDebugMode = forceDebug;
@@ -17659,7 +17659,7 @@ var require_main4 = __commonJS({
             if (client_1.MessageTransports.is(result)) {
               this._isDetached = !!result.detached;
               return result;
-            } else if (StreamInfo.is(result)) {
+            } else if (StreamInfo2.is(result)) {
               this._isDetached = !!result.detached;
               return { reader: new node_1.StreamMessageReader(result.reader), writer: new node_1.StreamMessageWriter(result.writer) };
             } else {
@@ -17875,9 +17875,9 @@ var require_main4 = __commonJS({
           return Promise.reject(new Error(`Unsupported server configuration ` + JSON.stringify(server, null, 4)));
         }).finally(() => {
           if (this._serverProcess !== void 0) {
-            this._serverProcess.on("exit", (code, signal) => {
-              if (code !== null) {
-                this.error(`Server process exited with code ${code}.`, void 0, false);
+            this._serverProcess.on("exit", (code2, signal) => {
+              if (code2 !== null) {
+                this.error(`Server process exited with code ${code2}.`, void 0, false);
               }
               if (signal !== null) {
                 this.error(`Server process exited with signal ${signal}.`, void 0, false);
@@ -17887,19 +17887,19 @@ var require_main4 = __commonJS({
         });
       }
       _getRuntimePath(runtime, serverWorkingDirectory) {
-        if (path.isAbsolute(runtime)) {
+        if (path8.isAbsolute(runtime)) {
           return runtime;
         }
         const mainRootPath = this._mainGetRootPath();
         if (mainRootPath !== void 0) {
-          const result = path.join(mainRootPath, runtime);
-          if (fs.existsSync(result)) {
+          const result = path8.join(mainRootPath, runtime);
+          if (fs12.existsSync(result)) {
             return result;
           }
         }
         if (serverWorkingDirectory !== void 0) {
-          const result = path.join(serverWorkingDirectory, runtime);
-          if (fs.existsSync(result)) {
+          const result = path8.join(serverWorkingDirectory, runtime);
+          if (fs12.existsSync(result)) {
             return result;
           }
         }
@@ -17923,7 +17923,7 @@ var require_main4 = __commonJS({
         }
         if (cwd) {
           return new Promise((s) => {
-            fs.lstat(cwd, (err, stats) => {
+            fs12.lstat(cwd, (err, stats) => {
               s(!err && stats.isDirectory() ? cwd : void 0);
             });
           });
@@ -17982,26 +17982,20433 @@ var require_node3 = __commonJS({
   }
 });
 
-// extension.js
+// node_modules/isexe/dist/cjs/posix.js
+var require_posix = __commonJS({
+  "node_modules/isexe/dist/cjs/posix.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.sync = exports2.isexe = void 0;
+    var fs_1 = require("fs");
+    var promises_1 = require("fs/promises");
+    var isexe = async (path8, options = {}) => {
+      const { ignoreErrors = false } = options;
+      try {
+        return checkStat(await (0, promises_1.stat)(path8), options);
+      } catch (e) {
+        const er = e;
+        if (ignoreErrors || er.code === "EACCES")
+          return false;
+        throw er;
+      }
+    };
+    exports2.isexe = isexe;
+    var sync = (path8, options = {}) => {
+      const { ignoreErrors = false } = options;
+      try {
+        return checkStat((0, fs_1.statSync)(path8), options);
+      } catch (e) {
+        const er = e;
+        if (ignoreErrors || er.code === "EACCES")
+          return false;
+        throw er;
+      }
+    };
+    exports2.sync = sync;
+    var checkStat = (stat, options) => stat.isFile() && checkMode(stat, options);
+    var checkMode = (stat, options) => {
+      const myUid = options.uid ?? process.getuid?.();
+      const myGroups = options.groups ?? process.getgroups?.() ?? [];
+      const myGid = options.gid ?? process.getgid?.() ?? myGroups[0];
+      if (myUid === void 0 || myGid === void 0) {
+        throw new Error("cannot get uid or gid");
+      }
+      const groups = /* @__PURE__ */ new Set([myGid, ...myGroups]);
+      const mod = stat.mode;
+      const uid = stat.uid;
+      const gid = stat.gid;
+      const u = parseInt("100", 8);
+      const g = parseInt("010", 8);
+      const o = parseInt("001", 8);
+      const ug = u | g;
+      return !!(mod & o || mod & g && groups.has(gid) || mod & u && uid === myUid || mod & ug && myUid === 0);
+    };
+  }
+});
+
+// node_modules/isexe/dist/cjs/win32.js
+var require_win32 = __commonJS({
+  "node_modules/isexe/dist/cjs/win32.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.sync = exports2.isexe = void 0;
+    var fs_1 = require("fs");
+    var promises_1 = require("fs/promises");
+    var isexe = async (path8, options = {}) => {
+      const { ignoreErrors = false } = options;
+      try {
+        return checkStat(await (0, promises_1.stat)(path8), path8, options);
+      } catch (e) {
+        const er = e;
+        if (ignoreErrors || er.code === "EACCES")
+          return false;
+        throw er;
+      }
+    };
+    exports2.isexe = isexe;
+    var sync = (path8, options = {}) => {
+      const { ignoreErrors = false } = options;
+      try {
+        return checkStat((0, fs_1.statSync)(path8), path8, options);
+      } catch (e) {
+        const er = e;
+        if (ignoreErrors || er.code === "EACCES")
+          return false;
+        throw er;
+      }
+    };
+    exports2.sync = sync;
+    var checkPathExt = (path8, options) => {
+      const { pathExt = process.env.PATHEXT || "" } = options;
+      const peSplit = pathExt.split(";");
+      if (peSplit.indexOf("") !== -1) {
+        return true;
+      }
+      for (let i = 0; i < peSplit.length; i++) {
+        const p = peSplit[i].toLowerCase();
+        const ext = path8.substring(path8.length - p.length).toLowerCase();
+        if (p && ext === p) {
+          return true;
+        }
+      }
+      return false;
+    };
+    var checkStat = (stat, path8, options) => stat.isFile() && checkPathExt(path8, options);
+  }
+});
+
+// node_modules/isexe/dist/cjs/options.js
+var require_options = __commonJS({
+  "node_modules/isexe/dist/cjs/options.js"(exports2) {
+    "use strict";
+    Object.defineProperty(exports2, "__esModule", { value: true });
+  }
+});
+
+// node_modules/isexe/dist/cjs/index.js
+var require_cjs = __commonJS({
+  "node_modules/isexe/dist/cjs/index.js"(exports2) {
+    "use strict";
+    var __createBinding = exports2 && exports2.__createBinding || (Object.create ? function(o, m, k, k2) {
+      if (k2 === void 0) k2 = k;
+      var desc2 = Object.getOwnPropertyDescriptor(m, k);
+      if (!desc2 || ("get" in desc2 ? !m.__esModule : desc2.writable || desc2.configurable)) {
+        desc2 = { enumerable: true, get: function() {
+          return m[k];
+        } };
+      }
+      Object.defineProperty(o, k2, desc2);
+    } : function(o, m, k, k2) {
+      if (k2 === void 0) k2 = k;
+      o[k2] = m[k];
+    });
+    var __setModuleDefault = exports2 && exports2.__setModuleDefault || (Object.create ? function(o, v) {
+      Object.defineProperty(o, "default", { enumerable: true, value: v });
+    } : function(o, v) {
+      o["default"] = v;
+    });
+    var __importStar = exports2 && exports2.__importStar || function(mod) {
+      if (mod && mod.__esModule) return mod;
+      var result = {};
+      if (mod != null) {
+        for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+      }
+      __setModuleDefault(result, mod);
+      return result;
+    };
+    var __exportStar = exports2 && exports2.__exportStar || function(m, exports3) {
+      for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports3, p)) __createBinding(exports3, m, p);
+    };
+    Object.defineProperty(exports2, "__esModule", { value: true });
+    exports2.sync = exports2.isexe = exports2.posix = exports2.win32 = void 0;
+    var posix = __importStar(require_posix());
+    exports2.posix = posix;
+    var win322 = __importStar(require_win32());
+    exports2.win32 = win322;
+    __exportStar(require_options(), exports2);
+    var platform6 = process.env._ISEXE_TEST_PLATFORM_ || process.platform;
+    var impl = platform6 === "win32" ? win322 : posix;
+    exports2.isexe = impl.isexe;
+    exports2.sync = impl.sync;
+  }
+});
+
+// node_modules/which/lib/index.js
+var require_lib = __commonJS({
+  "node_modules/which/lib/index.js"(exports2, module2) {
+    var { isexe, sync: isexeSync } = require_cjs();
+    var { join: join2, delimiter, sep, posix } = require("path");
+    var isWindows4 = process.platform === "win32";
+    var rSlash = new RegExp(`[${posix.sep}${sep === posix.sep ? "" : sep}]`.replace(/(\\)/g, "\\$1"));
+    var rRel = new RegExp(`^\\.${rSlash.source}`);
+    var getNotFoundError = (cmd) => Object.assign(new Error(`not found: ${cmd}`), { code: "ENOENT" });
+    var getPathInfo = (cmd, {
+      path: optPath = process.env.PATH,
+      pathExt: optPathExt = process.env.PATHEXT,
+      delimiter: optDelimiter = delimiter
+    }) => {
+      const pathEnv = cmd.match(rSlash) ? [""] : [
+        // windows always checks the cwd first
+        ...isWindows4 ? [process.cwd()] : [],
+        ...(optPath || /* istanbul ignore next: very unusual */
+        "").split(optDelimiter)
+      ];
+      if (isWindows4) {
+        const pathExtExe = optPathExt || [".EXE", ".CMD", ".BAT", ".COM"].join(optDelimiter);
+        const pathExt = pathExtExe.split(optDelimiter).flatMap((item) => [item, item.toLowerCase()]);
+        if (cmd.includes(".") && pathExt[0] !== "") {
+          pathExt.unshift("");
+        }
+        return { pathEnv, pathExt, pathExtExe };
+      }
+      return { pathEnv, pathExt: [""] };
+    };
+    var getPathPart = (raw2, cmd) => {
+      const pathPart = /^".*"$/.test(raw2) ? raw2.slice(1, -1) : raw2;
+      const prefix = !pathPart && rRel.test(cmd) ? cmd.slice(0, 2) : "";
+      return prefix + join2(pathPart, cmd);
+    };
+    var which2 = async (cmd, opt = {}) => {
+      const { pathEnv, pathExt, pathExtExe } = getPathInfo(cmd, opt);
+      const found = [];
+      for (const envPart of pathEnv) {
+        const p = getPathPart(envPart, cmd);
+        for (const ext of pathExt) {
+          const withExt = p + ext;
+          const is = await isexe(withExt, { pathExt: pathExtExe, ignoreErrors: true });
+          if (is) {
+            if (!opt.all) {
+              return withExt;
+            }
+            found.push(withExt);
+          }
+        }
+      }
+      if (opt.all && found.length) {
+        return found;
+      }
+      if (opt.nothrow) {
+        return null;
+      }
+      throw getNotFoundError(cmd);
+    };
+    var whichSync = (cmd, opt = {}) => {
+      const { pathEnv, pathExt, pathExtExe } = getPathInfo(cmd, opt);
+      const found = [];
+      for (const pathEnvPart of pathEnv) {
+        const p = getPathPart(pathEnvPart, cmd);
+        for (const ext of pathExt) {
+          const withExt = p + ext;
+          const is = isexeSync(withExt, { pathExt: pathExtExe, ignoreErrors: true });
+          if (is) {
+            if (!opt.all) {
+              return withExt;
+            }
+            found.push(withExt);
+          }
+        }
+      }
+      if (opt.all && found.length) {
+        return found;
+      }
+      if (opt.nothrow) {
+        return null;
+      }
+      throw getNotFoundError(cmd);
+    };
+    module2.exports = which2;
+    which2.sync = whichSync;
+  }
+});
+
+// node_modules/delayed-stream/lib/delayed_stream.js
+var require_delayed_stream = __commonJS({
+  "node_modules/delayed-stream/lib/delayed_stream.js"(exports2, module2) {
+    var Stream2 = require("stream").Stream;
+    var util3 = require("util");
+    module2.exports = DelayedStream;
+    function DelayedStream() {
+      this.source = null;
+      this.dataSize = 0;
+      this.maxDataSize = 1024 * 1024;
+      this.pauseStream = true;
+      this._maxDataSizeExceeded = false;
+      this._released = false;
+      this._bufferedEvents = [];
+    }
+    util3.inherits(DelayedStream, Stream2);
+    DelayedStream.create = function(source, options) {
+      var delayedStream = new this();
+      options = options || {};
+      for (var option in options) {
+        delayedStream[option] = options[option];
+      }
+      delayedStream.source = source;
+      var realEmit = source.emit;
+      source.emit = function() {
+        delayedStream._handleEmit(arguments);
+        return realEmit.apply(source, arguments);
+      };
+      source.on("error", function() {
+      });
+      if (delayedStream.pauseStream) {
+        source.pause();
+      }
+      return delayedStream;
+    };
+    Object.defineProperty(DelayedStream.prototype, "readable", {
+      configurable: true,
+      enumerable: true,
+      get: function() {
+        return this.source.readable;
+      }
+    });
+    DelayedStream.prototype.setEncoding = function() {
+      return this.source.setEncoding.apply(this.source, arguments);
+    };
+    DelayedStream.prototype.resume = function() {
+      if (!this._released) {
+        this.release();
+      }
+      this.source.resume();
+    };
+    DelayedStream.prototype.pause = function() {
+      this.source.pause();
+    };
+    DelayedStream.prototype.release = function() {
+      this._released = true;
+      this._bufferedEvents.forEach(function(args) {
+        this.emit.apply(this, args);
+      }.bind(this));
+      this._bufferedEvents = [];
+    };
+    DelayedStream.prototype.pipe = function() {
+      var r = Stream2.prototype.pipe.apply(this, arguments);
+      this.resume();
+      return r;
+    };
+    DelayedStream.prototype._handleEmit = function(args) {
+      if (this._released) {
+        this.emit.apply(this, args);
+        return;
+      }
+      if (args[0] === "data") {
+        this.dataSize += args[1].length;
+        this._checkIfMaxDataSizeExceeded();
+      }
+      this._bufferedEvents.push(args);
+    };
+    DelayedStream.prototype._checkIfMaxDataSizeExceeded = function() {
+      if (this._maxDataSizeExceeded) {
+        return;
+      }
+      if (this.dataSize <= this.maxDataSize) {
+        return;
+      }
+      this._maxDataSizeExceeded = true;
+      var message = "DelayedStream#maxDataSize of " + this.maxDataSize + " bytes exceeded.";
+      this.emit("error", new Error(message));
+    };
+  }
+});
+
+// node_modules/combined-stream/lib/combined_stream.js
+var require_combined_stream = __commonJS({
+  "node_modules/combined-stream/lib/combined_stream.js"(exports2, module2) {
+    var util3 = require("util");
+    var Stream2 = require("stream").Stream;
+    var DelayedStream = require_delayed_stream();
+    module2.exports = CombinedStream;
+    function CombinedStream() {
+      this.writable = false;
+      this.readable = true;
+      this.dataSize = 0;
+      this.maxDataSize = 2 * 1024 * 1024;
+      this.pauseStreams = true;
+      this._released = false;
+      this._streams = [];
+      this._currentStream = null;
+      this._insideLoop = false;
+      this._pendingNext = false;
+    }
+    util3.inherits(CombinedStream, Stream2);
+    CombinedStream.create = function(options) {
+      var combinedStream = new this();
+      options = options || {};
+      for (var option in options) {
+        combinedStream[option] = options[option];
+      }
+      return combinedStream;
+    };
+    CombinedStream.isStreamLike = function(stream4) {
+      return typeof stream4 !== "function" && typeof stream4 !== "string" && typeof stream4 !== "boolean" && typeof stream4 !== "number" && !Buffer.isBuffer(stream4);
+    };
+    CombinedStream.prototype.append = function(stream4) {
+      var isStreamLike = CombinedStream.isStreamLike(stream4);
+      if (isStreamLike) {
+        if (!(stream4 instanceof DelayedStream)) {
+          var newStream = DelayedStream.create(stream4, {
+            maxDataSize: Infinity,
+            pauseStream: this.pauseStreams
+          });
+          stream4.on("data", this._checkDataSize.bind(this));
+          stream4 = newStream;
+        }
+        this._handleErrors(stream4);
+        if (this.pauseStreams) {
+          stream4.pause();
+        }
+      }
+      this._streams.push(stream4);
+      return this;
+    };
+    CombinedStream.prototype.pipe = function(dest, options) {
+      Stream2.prototype.pipe.call(this, dest, options);
+      this.resume();
+      return dest;
+    };
+    CombinedStream.prototype._getNext = function() {
+      this._currentStream = null;
+      if (this._insideLoop) {
+        this._pendingNext = true;
+        return;
+      }
+      this._insideLoop = true;
+      try {
+        do {
+          this._pendingNext = false;
+          this._realGetNext();
+        } while (this._pendingNext);
+      } finally {
+        this._insideLoop = false;
+      }
+    };
+    CombinedStream.prototype._realGetNext = function() {
+      var stream4 = this._streams.shift();
+      if (typeof stream4 == "undefined") {
+        this.end();
+        return;
+      }
+      if (typeof stream4 !== "function") {
+        this._pipeNext(stream4);
+        return;
+      }
+      var getStream = stream4;
+      getStream(function(stream5) {
+        var isStreamLike = CombinedStream.isStreamLike(stream5);
+        if (isStreamLike) {
+          stream5.on("data", this._checkDataSize.bind(this));
+          this._handleErrors(stream5);
+        }
+        this._pipeNext(stream5);
+      }.bind(this));
+    };
+    CombinedStream.prototype._pipeNext = function(stream4) {
+      this._currentStream = stream4;
+      var isStreamLike = CombinedStream.isStreamLike(stream4);
+      if (isStreamLike) {
+        stream4.on("end", this._getNext.bind(this));
+        stream4.pipe(this, { end: false });
+        return;
+      }
+      var value = stream4;
+      this.write(value);
+      this._getNext();
+    };
+    CombinedStream.prototype._handleErrors = function(stream4) {
+      var self2 = this;
+      stream4.on("error", function(err) {
+        self2._emitError(err);
+      });
+    };
+    CombinedStream.prototype.write = function(data) {
+      this.emit("data", data);
+    };
+    CombinedStream.prototype.pause = function() {
+      if (!this.pauseStreams) {
+        return;
+      }
+      if (this.pauseStreams && this._currentStream && typeof this._currentStream.pause == "function") this._currentStream.pause();
+      this.emit("pause");
+    };
+    CombinedStream.prototype.resume = function() {
+      if (!this._released) {
+        this._released = true;
+        this.writable = true;
+        this._getNext();
+      }
+      if (this.pauseStreams && this._currentStream && typeof this._currentStream.resume == "function") this._currentStream.resume();
+      this.emit("resume");
+    };
+    CombinedStream.prototype.end = function() {
+      this._reset();
+      this.emit("end");
+    };
+    CombinedStream.prototype.destroy = function() {
+      this._reset();
+      this.emit("close");
+    };
+    CombinedStream.prototype._reset = function() {
+      this.writable = false;
+      this._streams = [];
+      this._currentStream = null;
+    };
+    CombinedStream.prototype._checkDataSize = function() {
+      this._updateDataSize();
+      if (this.dataSize <= this.maxDataSize) {
+        return;
+      }
+      var message = "DelayedStream#maxDataSize of " + this.maxDataSize + " bytes exceeded.";
+      this._emitError(new Error(message));
+    };
+    CombinedStream.prototype._updateDataSize = function() {
+      this.dataSize = 0;
+      var self2 = this;
+      this._streams.forEach(function(stream4) {
+        if (!stream4.dataSize) {
+          return;
+        }
+        self2.dataSize += stream4.dataSize;
+      });
+      if (this._currentStream && this._currentStream.dataSize) {
+        this.dataSize += this._currentStream.dataSize;
+      }
+    };
+    CombinedStream.prototype._emitError = function(err) {
+      this._reset();
+      this.emit("error", err);
+    };
+  }
+});
+
+// node_modules/mime-db/db.json
+var require_db = __commonJS({
+  "node_modules/mime-db/db.json"(exports2, module2) {
+    module2.exports = {
+      "application/1d-interleaved-parityfec": {
+        source: "iana"
+      },
+      "application/3gpdash-qoe-report+xml": {
+        source: "iana",
+        charset: "UTF-8",
+        compressible: true
+      },
+      "application/3gpp-ims+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/3gpphal+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/3gpphalforms+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/a2l": {
+        source: "iana"
+      },
+      "application/ace+cbor": {
+        source: "iana"
+      },
+      "application/activemessage": {
+        source: "iana"
+      },
+      "application/activity+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/alto-costmap+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/alto-costmapfilter+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/alto-directory+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/alto-endpointcost+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/alto-endpointcostparams+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/alto-endpointprop+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/alto-endpointpropparams+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/alto-error+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/alto-networkmap+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/alto-networkmapfilter+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/alto-updatestreamcontrol+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/alto-updatestreamparams+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/aml": {
+        source: "iana"
+      },
+      "application/andrew-inset": {
+        source: "iana",
+        extensions: ["ez"]
+      },
+      "application/applefile": {
+        source: "iana"
+      },
+      "application/applixware": {
+        source: "apache",
+        extensions: ["aw"]
+      },
+      "application/at+jwt": {
+        source: "iana"
+      },
+      "application/atf": {
+        source: "iana"
+      },
+      "application/atfx": {
+        source: "iana"
+      },
+      "application/atom+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["atom"]
+      },
+      "application/atomcat+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["atomcat"]
+      },
+      "application/atomdeleted+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["atomdeleted"]
+      },
+      "application/atomicmail": {
+        source: "iana"
+      },
+      "application/atomsvc+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["atomsvc"]
+      },
+      "application/atsc-dwd+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["dwd"]
+      },
+      "application/atsc-dynamic-event-message": {
+        source: "iana"
+      },
+      "application/atsc-held+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["held"]
+      },
+      "application/atsc-rdt+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/atsc-rsat+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["rsat"]
+      },
+      "application/atxml": {
+        source: "iana"
+      },
+      "application/auth-policy+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/bacnet-xdd+zip": {
+        source: "iana",
+        compressible: false
+      },
+      "application/batch-smtp": {
+        source: "iana"
+      },
+      "application/bdoc": {
+        compressible: false,
+        extensions: ["bdoc"]
+      },
+      "application/beep+xml": {
+        source: "iana",
+        charset: "UTF-8",
+        compressible: true
+      },
+      "application/calendar+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/calendar+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["xcs"]
+      },
+      "application/call-completion": {
+        source: "iana"
+      },
+      "application/cals-1840": {
+        source: "iana"
+      },
+      "application/captive+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/cbor": {
+        source: "iana"
+      },
+      "application/cbor-seq": {
+        source: "iana"
+      },
+      "application/cccex": {
+        source: "iana"
+      },
+      "application/ccmp+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/ccxml+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["ccxml"]
+      },
+      "application/cdfx+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["cdfx"]
+      },
+      "application/cdmi-capability": {
+        source: "iana",
+        extensions: ["cdmia"]
+      },
+      "application/cdmi-container": {
+        source: "iana",
+        extensions: ["cdmic"]
+      },
+      "application/cdmi-domain": {
+        source: "iana",
+        extensions: ["cdmid"]
+      },
+      "application/cdmi-object": {
+        source: "iana",
+        extensions: ["cdmio"]
+      },
+      "application/cdmi-queue": {
+        source: "iana",
+        extensions: ["cdmiq"]
+      },
+      "application/cdni": {
+        source: "iana"
+      },
+      "application/cea": {
+        source: "iana"
+      },
+      "application/cea-2018+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/cellml+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/cfw": {
+        source: "iana"
+      },
+      "application/city+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/clr": {
+        source: "iana"
+      },
+      "application/clue+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/clue_info+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/cms": {
+        source: "iana"
+      },
+      "application/cnrp+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/coap-group+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/coap-payload": {
+        source: "iana"
+      },
+      "application/commonground": {
+        source: "iana"
+      },
+      "application/conference-info+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/cose": {
+        source: "iana"
+      },
+      "application/cose-key": {
+        source: "iana"
+      },
+      "application/cose-key-set": {
+        source: "iana"
+      },
+      "application/cpl+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["cpl"]
+      },
+      "application/csrattrs": {
+        source: "iana"
+      },
+      "application/csta+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/cstadata+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/csvm+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/cu-seeme": {
+        source: "apache",
+        extensions: ["cu"]
+      },
+      "application/cwt": {
+        source: "iana"
+      },
+      "application/cybercash": {
+        source: "iana"
+      },
+      "application/dart": {
+        compressible: true
+      },
+      "application/dash+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["mpd"]
+      },
+      "application/dash-patch+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["mpp"]
+      },
+      "application/dashdelta": {
+        source: "iana"
+      },
+      "application/davmount+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["davmount"]
+      },
+      "application/dca-rft": {
+        source: "iana"
+      },
+      "application/dcd": {
+        source: "iana"
+      },
+      "application/dec-dx": {
+        source: "iana"
+      },
+      "application/dialog-info+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/dicom": {
+        source: "iana"
+      },
+      "application/dicom+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/dicom+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/dii": {
+        source: "iana"
+      },
+      "application/dit": {
+        source: "iana"
+      },
+      "application/dns": {
+        source: "iana"
+      },
+      "application/dns+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/dns-message": {
+        source: "iana"
+      },
+      "application/docbook+xml": {
+        source: "apache",
+        compressible: true,
+        extensions: ["dbk"]
+      },
+      "application/dots+cbor": {
+        source: "iana"
+      },
+      "application/dskpp+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/dssc+der": {
+        source: "iana",
+        extensions: ["dssc"]
+      },
+      "application/dssc+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["xdssc"]
+      },
+      "application/dvcs": {
+        source: "iana"
+      },
+      "application/ecmascript": {
+        source: "iana",
+        compressible: true,
+        extensions: ["es", "ecma"]
+      },
+      "application/edi-consent": {
+        source: "iana"
+      },
+      "application/edi-x12": {
+        source: "iana",
+        compressible: false
+      },
+      "application/edifact": {
+        source: "iana",
+        compressible: false
+      },
+      "application/efi": {
+        source: "iana"
+      },
+      "application/elm+json": {
+        source: "iana",
+        charset: "UTF-8",
+        compressible: true
+      },
+      "application/elm+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/emergencycalldata.cap+xml": {
+        source: "iana",
+        charset: "UTF-8",
+        compressible: true
+      },
+      "application/emergencycalldata.comment+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/emergencycalldata.control+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/emergencycalldata.deviceinfo+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/emergencycalldata.ecall.msd": {
+        source: "iana"
+      },
+      "application/emergencycalldata.providerinfo+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/emergencycalldata.serviceinfo+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/emergencycalldata.subscriberinfo+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/emergencycalldata.veds+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/emma+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["emma"]
+      },
+      "application/emotionml+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["emotionml"]
+      },
+      "application/encaprtp": {
+        source: "iana"
+      },
+      "application/epp+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/epub+zip": {
+        source: "iana",
+        compressible: false,
+        extensions: ["epub"]
+      },
+      "application/eshop": {
+        source: "iana"
+      },
+      "application/exi": {
+        source: "iana",
+        extensions: ["exi"]
+      },
+      "application/expect-ct-report+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/express": {
+        source: "iana",
+        extensions: ["exp"]
+      },
+      "application/fastinfoset": {
+        source: "iana"
+      },
+      "application/fastsoap": {
+        source: "iana"
+      },
+      "application/fdt+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["fdt"]
+      },
+      "application/fhir+json": {
+        source: "iana",
+        charset: "UTF-8",
+        compressible: true
+      },
+      "application/fhir+xml": {
+        source: "iana",
+        charset: "UTF-8",
+        compressible: true
+      },
+      "application/fido.trusted-apps+json": {
+        compressible: true
+      },
+      "application/fits": {
+        source: "iana"
+      },
+      "application/flexfec": {
+        source: "iana"
+      },
+      "application/font-sfnt": {
+        source: "iana"
+      },
+      "application/font-tdpfr": {
+        source: "iana",
+        extensions: ["pfr"]
+      },
+      "application/font-woff": {
+        source: "iana",
+        compressible: false
+      },
+      "application/framework-attributes+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/geo+json": {
+        source: "iana",
+        compressible: true,
+        extensions: ["geojson"]
+      },
+      "application/geo+json-seq": {
+        source: "iana"
+      },
+      "application/geopackage+sqlite3": {
+        source: "iana"
+      },
+      "application/geoxacml+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/gltf-buffer": {
+        source: "iana"
+      },
+      "application/gml+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["gml"]
+      },
+      "application/gpx+xml": {
+        source: "apache",
+        compressible: true,
+        extensions: ["gpx"]
+      },
+      "application/gxf": {
+        source: "apache",
+        extensions: ["gxf"]
+      },
+      "application/gzip": {
+        source: "iana",
+        compressible: false,
+        extensions: ["gz"]
+      },
+      "application/h224": {
+        source: "iana"
+      },
+      "application/held+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/hjson": {
+        extensions: ["hjson"]
+      },
+      "application/http": {
+        source: "iana"
+      },
+      "application/hyperstudio": {
+        source: "iana",
+        extensions: ["stk"]
+      },
+      "application/ibe-key-request+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/ibe-pkg-reply+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/ibe-pp-data": {
+        source: "iana"
+      },
+      "application/iges": {
+        source: "iana"
+      },
+      "application/im-iscomposing+xml": {
+        source: "iana",
+        charset: "UTF-8",
+        compressible: true
+      },
+      "application/index": {
+        source: "iana"
+      },
+      "application/index.cmd": {
+        source: "iana"
+      },
+      "application/index.obj": {
+        source: "iana"
+      },
+      "application/index.response": {
+        source: "iana"
+      },
+      "application/index.vnd": {
+        source: "iana"
+      },
+      "application/inkml+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["ink", "inkml"]
+      },
+      "application/iotp": {
+        source: "iana"
+      },
+      "application/ipfix": {
+        source: "iana",
+        extensions: ["ipfix"]
+      },
+      "application/ipp": {
+        source: "iana"
+      },
+      "application/isup": {
+        source: "iana"
+      },
+      "application/its+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["its"]
+      },
+      "application/java-archive": {
+        source: "apache",
+        compressible: false,
+        extensions: ["jar", "war", "ear"]
+      },
+      "application/java-serialized-object": {
+        source: "apache",
+        compressible: false,
+        extensions: ["ser"]
+      },
+      "application/java-vm": {
+        source: "apache",
+        compressible: false,
+        extensions: ["class"]
+      },
+      "application/javascript": {
+        source: "iana",
+        charset: "UTF-8",
+        compressible: true,
+        extensions: ["js", "mjs"]
+      },
+      "application/jf2feed+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/jose": {
+        source: "iana"
+      },
+      "application/jose+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/jrd+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/jscalendar+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/json": {
+        source: "iana",
+        charset: "UTF-8",
+        compressible: true,
+        extensions: ["json", "map"]
+      },
+      "application/json-patch+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/json-seq": {
+        source: "iana"
+      },
+      "application/json5": {
+        extensions: ["json5"]
+      },
+      "application/jsonml+json": {
+        source: "apache",
+        compressible: true,
+        extensions: ["jsonml"]
+      },
+      "application/jwk+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/jwk-set+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/jwt": {
+        source: "iana"
+      },
+      "application/kpml-request+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/kpml-response+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/ld+json": {
+        source: "iana",
+        compressible: true,
+        extensions: ["jsonld"]
+      },
+      "application/lgr+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["lgr"]
+      },
+      "application/link-format": {
+        source: "iana"
+      },
+      "application/load-control+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/lost+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["lostxml"]
+      },
+      "application/lostsync+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/lpf+zip": {
+        source: "iana",
+        compressible: false
+      },
+      "application/lxf": {
+        source: "iana"
+      },
+      "application/mac-binhex40": {
+        source: "iana",
+        extensions: ["hqx"]
+      },
+      "application/mac-compactpro": {
+        source: "apache",
+        extensions: ["cpt"]
+      },
+      "application/macwriteii": {
+        source: "iana"
+      },
+      "application/mads+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["mads"]
+      },
+      "application/manifest+json": {
+        source: "iana",
+        charset: "UTF-8",
+        compressible: true,
+        extensions: ["webmanifest"]
+      },
+      "application/marc": {
+        source: "iana",
+        extensions: ["mrc"]
+      },
+      "application/marcxml+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["mrcx"]
+      },
+      "application/mathematica": {
+        source: "iana",
+        extensions: ["ma", "nb", "mb"]
+      },
+      "application/mathml+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["mathml"]
+      },
+      "application/mathml-content+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/mathml-presentation+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/mbms-associated-procedure-description+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/mbms-deregister+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/mbms-envelope+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/mbms-msk+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/mbms-msk-response+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/mbms-protection-description+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/mbms-reception-report+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/mbms-register+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/mbms-register-response+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/mbms-schedule+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/mbms-user-service-description+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/mbox": {
+        source: "iana",
+        extensions: ["mbox"]
+      },
+      "application/media-policy-dataset+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["mpf"]
+      },
+      "application/media_control+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/mediaservercontrol+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["mscml"]
+      },
+      "application/merge-patch+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/metalink+xml": {
+        source: "apache",
+        compressible: true,
+        extensions: ["metalink"]
+      },
+      "application/metalink4+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["meta4"]
+      },
+      "application/mets+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["mets"]
+      },
+      "application/mf4": {
+        source: "iana"
+      },
+      "application/mikey": {
+        source: "iana"
+      },
+      "application/mipc": {
+        source: "iana"
+      },
+      "application/missing-blocks+cbor-seq": {
+        source: "iana"
+      },
+      "application/mmt-aei+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["maei"]
+      },
+      "application/mmt-usd+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["musd"]
+      },
+      "application/mods+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["mods"]
+      },
+      "application/moss-keys": {
+        source: "iana"
+      },
+      "application/moss-signature": {
+        source: "iana"
+      },
+      "application/mosskey-data": {
+        source: "iana"
+      },
+      "application/mosskey-request": {
+        source: "iana"
+      },
+      "application/mp21": {
+        source: "iana",
+        extensions: ["m21", "mp21"]
+      },
+      "application/mp4": {
+        source: "iana",
+        extensions: ["mp4s", "m4p"]
+      },
+      "application/mpeg4-generic": {
+        source: "iana"
+      },
+      "application/mpeg4-iod": {
+        source: "iana"
+      },
+      "application/mpeg4-iod-xmt": {
+        source: "iana"
+      },
+      "application/mrb-consumer+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/mrb-publish+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/msc-ivr+xml": {
+        source: "iana",
+        charset: "UTF-8",
+        compressible: true
+      },
+      "application/msc-mixer+xml": {
+        source: "iana",
+        charset: "UTF-8",
+        compressible: true
+      },
+      "application/msword": {
+        source: "iana",
+        compressible: false,
+        extensions: ["doc", "dot"]
+      },
+      "application/mud+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/multipart-core": {
+        source: "iana"
+      },
+      "application/mxf": {
+        source: "iana",
+        extensions: ["mxf"]
+      },
+      "application/n-quads": {
+        source: "iana",
+        extensions: ["nq"]
+      },
+      "application/n-triples": {
+        source: "iana",
+        extensions: ["nt"]
+      },
+      "application/nasdata": {
+        source: "iana"
+      },
+      "application/news-checkgroups": {
+        source: "iana",
+        charset: "US-ASCII"
+      },
+      "application/news-groupinfo": {
+        source: "iana",
+        charset: "US-ASCII"
+      },
+      "application/news-transmission": {
+        source: "iana"
+      },
+      "application/nlsml+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/node": {
+        source: "iana",
+        extensions: ["cjs"]
+      },
+      "application/nss": {
+        source: "iana"
+      },
+      "application/oauth-authz-req+jwt": {
+        source: "iana"
+      },
+      "application/oblivious-dns-message": {
+        source: "iana"
+      },
+      "application/ocsp-request": {
+        source: "iana"
+      },
+      "application/ocsp-response": {
+        source: "iana"
+      },
+      "application/octet-stream": {
+        source: "iana",
+        compressible: false,
+        extensions: ["bin", "dms", "lrf", "mar", "so", "dist", "distz", "pkg", "bpk", "dump", "elc", "deploy", "exe", "dll", "deb", "dmg", "iso", "img", "msi", "msp", "msm", "buffer"]
+      },
+      "application/oda": {
+        source: "iana",
+        extensions: ["oda"]
+      },
+      "application/odm+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/odx": {
+        source: "iana"
+      },
+      "application/oebps-package+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["opf"]
+      },
+      "application/ogg": {
+        source: "iana",
+        compressible: false,
+        extensions: ["ogx"]
+      },
+      "application/omdoc+xml": {
+        source: "apache",
+        compressible: true,
+        extensions: ["omdoc"]
+      },
+      "application/onenote": {
+        source: "apache",
+        extensions: ["onetoc", "onetoc2", "onetmp", "onepkg"]
+      },
+      "application/opc-nodeset+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/oscore": {
+        source: "iana"
+      },
+      "application/oxps": {
+        source: "iana",
+        extensions: ["oxps"]
+      },
+      "application/p21": {
+        source: "iana"
+      },
+      "application/p21+zip": {
+        source: "iana",
+        compressible: false
+      },
+      "application/p2p-overlay+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["relo"]
+      },
+      "application/parityfec": {
+        source: "iana"
+      },
+      "application/passport": {
+        source: "iana"
+      },
+      "application/patch-ops-error+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["xer"]
+      },
+      "application/pdf": {
+        source: "iana",
+        compressible: false,
+        extensions: ["pdf"]
+      },
+      "application/pdx": {
+        source: "iana"
+      },
+      "application/pem-certificate-chain": {
+        source: "iana"
+      },
+      "application/pgp-encrypted": {
+        source: "iana",
+        compressible: false,
+        extensions: ["pgp"]
+      },
+      "application/pgp-keys": {
+        source: "iana",
+        extensions: ["asc"]
+      },
+      "application/pgp-signature": {
+        source: "iana",
+        extensions: ["asc", "sig"]
+      },
+      "application/pics-rules": {
+        source: "apache",
+        extensions: ["prf"]
+      },
+      "application/pidf+xml": {
+        source: "iana",
+        charset: "UTF-8",
+        compressible: true
+      },
+      "application/pidf-diff+xml": {
+        source: "iana",
+        charset: "UTF-8",
+        compressible: true
+      },
+      "application/pkcs10": {
+        source: "iana",
+        extensions: ["p10"]
+      },
+      "application/pkcs12": {
+        source: "iana"
+      },
+      "application/pkcs7-mime": {
+        source: "iana",
+        extensions: ["p7m", "p7c"]
+      },
+      "application/pkcs7-signature": {
+        source: "iana",
+        extensions: ["p7s"]
+      },
+      "application/pkcs8": {
+        source: "iana",
+        extensions: ["p8"]
+      },
+      "application/pkcs8-encrypted": {
+        source: "iana"
+      },
+      "application/pkix-attr-cert": {
+        source: "iana",
+        extensions: ["ac"]
+      },
+      "application/pkix-cert": {
+        source: "iana",
+        extensions: ["cer"]
+      },
+      "application/pkix-crl": {
+        source: "iana",
+        extensions: ["crl"]
+      },
+      "application/pkix-pkipath": {
+        source: "iana",
+        extensions: ["pkipath"]
+      },
+      "application/pkixcmp": {
+        source: "iana",
+        extensions: ["pki"]
+      },
+      "application/pls+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["pls"]
+      },
+      "application/poc-settings+xml": {
+        source: "iana",
+        charset: "UTF-8",
+        compressible: true
+      },
+      "application/postscript": {
+        source: "iana",
+        compressible: true,
+        extensions: ["ai", "eps", "ps"]
+      },
+      "application/ppsp-tracker+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/problem+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/problem+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/provenance+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["provx"]
+      },
+      "application/prs.alvestrand.titrax-sheet": {
+        source: "iana"
+      },
+      "application/prs.cww": {
+        source: "iana",
+        extensions: ["cww"]
+      },
+      "application/prs.cyn": {
+        source: "iana",
+        charset: "7-BIT"
+      },
+      "application/prs.hpub+zip": {
+        source: "iana",
+        compressible: false
+      },
+      "application/prs.nprend": {
+        source: "iana"
+      },
+      "application/prs.plucker": {
+        source: "iana"
+      },
+      "application/prs.rdf-xml-crypt": {
+        source: "iana"
+      },
+      "application/prs.xsf+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/pskc+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["pskcxml"]
+      },
+      "application/pvd+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/qsig": {
+        source: "iana"
+      },
+      "application/raml+yaml": {
+        compressible: true,
+        extensions: ["raml"]
+      },
+      "application/raptorfec": {
+        source: "iana"
+      },
+      "application/rdap+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/rdf+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["rdf", "owl"]
+      },
+      "application/reginfo+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["rif"]
+      },
+      "application/relax-ng-compact-syntax": {
+        source: "iana",
+        extensions: ["rnc"]
+      },
+      "application/remote-printing": {
+        source: "iana"
+      },
+      "application/reputon+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/resource-lists+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["rl"]
+      },
+      "application/resource-lists-diff+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["rld"]
+      },
+      "application/rfc+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/riscos": {
+        source: "iana"
+      },
+      "application/rlmi+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/rls-services+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["rs"]
+      },
+      "application/route-apd+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["rapd"]
+      },
+      "application/route-s-tsid+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["sls"]
+      },
+      "application/route-usd+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["rusd"]
+      },
+      "application/rpki-ghostbusters": {
+        source: "iana",
+        extensions: ["gbr"]
+      },
+      "application/rpki-manifest": {
+        source: "iana",
+        extensions: ["mft"]
+      },
+      "application/rpki-publication": {
+        source: "iana"
+      },
+      "application/rpki-roa": {
+        source: "iana",
+        extensions: ["roa"]
+      },
+      "application/rpki-updown": {
+        source: "iana"
+      },
+      "application/rsd+xml": {
+        source: "apache",
+        compressible: true,
+        extensions: ["rsd"]
+      },
+      "application/rss+xml": {
+        source: "apache",
+        compressible: true,
+        extensions: ["rss"]
+      },
+      "application/rtf": {
+        source: "iana",
+        compressible: true,
+        extensions: ["rtf"]
+      },
+      "application/rtploopback": {
+        source: "iana"
+      },
+      "application/rtx": {
+        source: "iana"
+      },
+      "application/samlassertion+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/samlmetadata+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/sarif+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/sarif-external-properties+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/sbe": {
+        source: "iana"
+      },
+      "application/sbml+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["sbml"]
+      },
+      "application/scaip+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/scim+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/scvp-cv-request": {
+        source: "iana",
+        extensions: ["scq"]
+      },
+      "application/scvp-cv-response": {
+        source: "iana",
+        extensions: ["scs"]
+      },
+      "application/scvp-vp-request": {
+        source: "iana",
+        extensions: ["spq"]
+      },
+      "application/scvp-vp-response": {
+        source: "iana",
+        extensions: ["spp"]
+      },
+      "application/sdp": {
+        source: "iana",
+        extensions: ["sdp"]
+      },
+      "application/secevent+jwt": {
+        source: "iana"
+      },
+      "application/senml+cbor": {
+        source: "iana"
+      },
+      "application/senml+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/senml+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["senmlx"]
+      },
+      "application/senml-etch+cbor": {
+        source: "iana"
+      },
+      "application/senml-etch+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/senml-exi": {
+        source: "iana"
+      },
+      "application/sensml+cbor": {
+        source: "iana"
+      },
+      "application/sensml+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/sensml+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["sensmlx"]
+      },
+      "application/sensml-exi": {
+        source: "iana"
+      },
+      "application/sep+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/sep-exi": {
+        source: "iana"
+      },
+      "application/session-info": {
+        source: "iana"
+      },
+      "application/set-payment": {
+        source: "iana"
+      },
+      "application/set-payment-initiation": {
+        source: "iana",
+        extensions: ["setpay"]
+      },
+      "application/set-registration": {
+        source: "iana"
+      },
+      "application/set-registration-initiation": {
+        source: "iana",
+        extensions: ["setreg"]
+      },
+      "application/sgml": {
+        source: "iana"
+      },
+      "application/sgml-open-catalog": {
+        source: "iana"
+      },
+      "application/shf+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["shf"]
+      },
+      "application/sieve": {
+        source: "iana",
+        extensions: ["siv", "sieve"]
+      },
+      "application/simple-filter+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/simple-message-summary": {
+        source: "iana"
+      },
+      "application/simplesymbolcontainer": {
+        source: "iana"
+      },
+      "application/sipc": {
+        source: "iana"
+      },
+      "application/slate": {
+        source: "iana"
+      },
+      "application/smil": {
+        source: "iana"
+      },
+      "application/smil+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["smi", "smil"]
+      },
+      "application/smpte336m": {
+        source: "iana"
+      },
+      "application/soap+fastinfoset": {
+        source: "iana"
+      },
+      "application/soap+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/sparql-query": {
+        source: "iana",
+        extensions: ["rq"]
+      },
+      "application/sparql-results+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["srx"]
+      },
+      "application/spdx+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/spirits-event+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/sql": {
+        source: "iana"
+      },
+      "application/srgs": {
+        source: "iana",
+        extensions: ["gram"]
+      },
+      "application/srgs+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["grxml"]
+      },
+      "application/sru+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["sru"]
+      },
+      "application/ssdl+xml": {
+        source: "apache",
+        compressible: true,
+        extensions: ["ssdl"]
+      },
+      "application/ssml+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["ssml"]
+      },
+      "application/stix+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/swid+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["swidtag"]
+      },
+      "application/tamp-apex-update": {
+        source: "iana"
+      },
+      "application/tamp-apex-update-confirm": {
+        source: "iana"
+      },
+      "application/tamp-community-update": {
+        source: "iana"
+      },
+      "application/tamp-community-update-confirm": {
+        source: "iana"
+      },
+      "application/tamp-error": {
+        source: "iana"
+      },
+      "application/tamp-sequence-adjust": {
+        source: "iana"
+      },
+      "application/tamp-sequence-adjust-confirm": {
+        source: "iana"
+      },
+      "application/tamp-status-query": {
+        source: "iana"
+      },
+      "application/tamp-status-response": {
+        source: "iana"
+      },
+      "application/tamp-update": {
+        source: "iana"
+      },
+      "application/tamp-update-confirm": {
+        source: "iana"
+      },
+      "application/tar": {
+        compressible: true
+      },
+      "application/taxii+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/td+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/tei+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["tei", "teicorpus"]
+      },
+      "application/tetra_isi": {
+        source: "iana"
+      },
+      "application/thraud+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["tfi"]
+      },
+      "application/timestamp-query": {
+        source: "iana"
+      },
+      "application/timestamp-reply": {
+        source: "iana"
+      },
+      "application/timestamped-data": {
+        source: "iana",
+        extensions: ["tsd"]
+      },
+      "application/tlsrpt+gzip": {
+        source: "iana"
+      },
+      "application/tlsrpt+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/tnauthlist": {
+        source: "iana"
+      },
+      "application/token-introspection+jwt": {
+        source: "iana"
+      },
+      "application/toml": {
+        compressible: true,
+        extensions: ["toml"]
+      },
+      "application/trickle-ice-sdpfrag": {
+        source: "iana"
+      },
+      "application/trig": {
+        source: "iana",
+        extensions: ["trig"]
+      },
+      "application/ttml+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["ttml"]
+      },
+      "application/tve-trigger": {
+        source: "iana"
+      },
+      "application/tzif": {
+        source: "iana"
+      },
+      "application/tzif-leap": {
+        source: "iana"
+      },
+      "application/ubjson": {
+        compressible: false,
+        extensions: ["ubj"]
+      },
+      "application/ulpfec": {
+        source: "iana"
+      },
+      "application/urc-grpsheet+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/urc-ressheet+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["rsheet"]
+      },
+      "application/urc-targetdesc+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["td"]
+      },
+      "application/urc-uisocketdesc+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vcard+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vcard+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vemmi": {
+        source: "iana"
+      },
+      "application/vividence.scriptfile": {
+        source: "apache"
+      },
+      "application/vnd.1000minds.decision-model+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["1km"]
+      },
+      "application/vnd.3gpp-prose+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp-prose-pc3ch+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp-v2x-local-service-information": {
+        source: "iana"
+      },
+      "application/vnd.3gpp.5gnas": {
+        source: "iana"
+      },
+      "application/vnd.3gpp.access-transfer-events+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.bsf+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.gmop+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.gtpc": {
+        source: "iana"
+      },
+      "application/vnd.3gpp.interworking-data": {
+        source: "iana"
+      },
+      "application/vnd.3gpp.lpp": {
+        source: "iana"
+      },
+      "application/vnd.3gpp.mc-signalling-ear": {
+        source: "iana"
+      },
+      "application/vnd.3gpp.mcdata-affiliation-command+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.mcdata-info+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.mcdata-payload": {
+        source: "iana"
+      },
+      "application/vnd.3gpp.mcdata-service-config+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.mcdata-signalling": {
+        source: "iana"
+      },
+      "application/vnd.3gpp.mcdata-ue-config+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.mcdata-user-profile+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.mcptt-affiliation-command+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.mcptt-floor-request+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.mcptt-info+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.mcptt-location-info+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.mcptt-mbms-usage-info+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.mcptt-service-config+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.mcptt-signed+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.mcptt-ue-config+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.mcptt-ue-init-config+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.mcptt-user-profile+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.mcvideo-affiliation-command+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.mcvideo-affiliation-info+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.mcvideo-info+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.mcvideo-location-info+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.mcvideo-mbms-usage-info+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.mcvideo-service-config+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.mcvideo-transmission-request+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.mcvideo-ue-config+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.mcvideo-user-profile+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.mid-call+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.ngap": {
+        source: "iana"
+      },
+      "application/vnd.3gpp.pfcp": {
+        source: "iana"
+      },
+      "application/vnd.3gpp.pic-bw-large": {
+        source: "iana",
+        extensions: ["plb"]
+      },
+      "application/vnd.3gpp.pic-bw-small": {
+        source: "iana",
+        extensions: ["psb"]
+      },
+      "application/vnd.3gpp.pic-bw-var": {
+        source: "iana",
+        extensions: ["pvb"]
+      },
+      "application/vnd.3gpp.s1ap": {
+        source: "iana"
+      },
+      "application/vnd.3gpp.sms": {
+        source: "iana"
+      },
+      "application/vnd.3gpp.sms+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.srvcc-ext+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.srvcc-info+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.state-and-event-info+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp.ussd+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp2.bcmcsinfo+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.3gpp2.sms": {
+        source: "iana"
+      },
+      "application/vnd.3gpp2.tcap": {
+        source: "iana",
+        extensions: ["tcap"]
+      },
+      "application/vnd.3lightssoftware.imagescal": {
+        source: "iana"
+      },
+      "application/vnd.3m.post-it-notes": {
+        source: "iana",
+        extensions: ["pwn"]
+      },
+      "application/vnd.accpac.simply.aso": {
+        source: "iana",
+        extensions: ["aso"]
+      },
+      "application/vnd.accpac.simply.imp": {
+        source: "iana",
+        extensions: ["imp"]
+      },
+      "application/vnd.acucobol": {
+        source: "iana",
+        extensions: ["acu"]
+      },
+      "application/vnd.acucorp": {
+        source: "iana",
+        extensions: ["atc", "acutc"]
+      },
+      "application/vnd.adobe.air-application-installer-package+zip": {
+        source: "apache",
+        compressible: false,
+        extensions: ["air"]
+      },
+      "application/vnd.adobe.flash.movie": {
+        source: "iana"
+      },
+      "application/vnd.adobe.formscentral.fcdt": {
+        source: "iana",
+        extensions: ["fcdt"]
+      },
+      "application/vnd.adobe.fxp": {
+        source: "iana",
+        extensions: ["fxp", "fxpl"]
+      },
+      "application/vnd.adobe.partial-upload": {
+        source: "iana"
+      },
+      "application/vnd.adobe.xdp+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["xdp"]
+      },
+      "application/vnd.adobe.xfdf": {
+        source: "iana",
+        extensions: ["xfdf"]
+      },
+      "application/vnd.aether.imp": {
+        source: "iana"
+      },
+      "application/vnd.afpc.afplinedata": {
+        source: "iana"
+      },
+      "application/vnd.afpc.afplinedata-pagedef": {
+        source: "iana"
+      },
+      "application/vnd.afpc.cmoca-cmresource": {
+        source: "iana"
+      },
+      "application/vnd.afpc.foca-charset": {
+        source: "iana"
+      },
+      "application/vnd.afpc.foca-codedfont": {
+        source: "iana"
+      },
+      "application/vnd.afpc.foca-codepage": {
+        source: "iana"
+      },
+      "application/vnd.afpc.modca": {
+        source: "iana"
+      },
+      "application/vnd.afpc.modca-cmtable": {
+        source: "iana"
+      },
+      "application/vnd.afpc.modca-formdef": {
+        source: "iana"
+      },
+      "application/vnd.afpc.modca-mediummap": {
+        source: "iana"
+      },
+      "application/vnd.afpc.modca-objectcontainer": {
+        source: "iana"
+      },
+      "application/vnd.afpc.modca-overlay": {
+        source: "iana"
+      },
+      "application/vnd.afpc.modca-pagesegment": {
+        source: "iana"
+      },
+      "application/vnd.age": {
+        source: "iana",
+        extensions: ["age"]
+      },
+      "application/vnd.ah-barcode": {
+        source: "iana"
+      },
+      "application/vnd.ahead.space": {
+        source: "iana",
+        extensions: ["ahead"]
+      },
+      "application/vnd.airzip.filesecure.azf": {
+        source: "iana",
+        extensions: ["azf"]
+      },
+      "application/vnd.airzip.filesecure.azs": {
+        source: "iana",
+        extensions: ["azs"]
+      },
+      "application/vnd.amadeus+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.amazon.ebook": {
+        source: "apache",
+        extensions: ["azw"]
+      },
+      "application/vnd.amazon.mobi8-ebook": {
+        source: "iana"
+      },
+      "application/vnd.americandynamics.acc": {
+        source: "iana",
+        extensions: ["acc"]
+      },
+      "application/vnd.amiga.ami": {
+        source: "iana",
+        extensions: ["ami"]
+      },
+      "application/vnd.amundsen.maze+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.android.ota": {
+        source: "iana"
+      },
+      "application/vnd.android.package-archive": {
+        source: "apache",
+        compressible: false,
+        extensions: ["apk"]
+      },
+      "application/vnd.anki": {
+        source: "iana"
+      },
+      "application/vnd.anser-web-certificate-issue-initiation": {
+        source: "iana",
+        extensions: ["cii"]
+      },
+      "application/vnd.anser-web-funds-transfer-initiation": {
+        source: "apache",
+        extensions: ["fti"]
+      },
+      "application/vnd.antix.game-component": {
+        source: "iana",
+        extensions: ["atx"]
+      },
+      "application/vnd.apache.arrow.file": {
+        source: "iana"
+      },
+      "application/vnd.apache.arrow.stream": {
+        source: "iana"
+      },
+      "application/vnd.apache.thrift.binary": {
+        source: "iana"
+      },
+      "application/vnd.apache.thrift.compact": {
+        source: "iana"
+      },
+      "application/vnd.apache.thrift.json": {
+        source: "iana"
+      },
+      "application/vnd.api+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.aplextor.warrp+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.apothekende.reservation+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.apple.installer+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["mpkg"]
+      },
+      "application/vnd.apple.keynote": {
+        source: "iana",
+        extensions: ["key"]
+      },
+      "application/vnd.apple.mpegurl": {
+        source: "iana",
+        extensions: ["m3u8"]
+      },
+      "application/vnd.apple.numbers": {
+        source: "iana",
+        extensions: ["numbers"]
+      },
+      "application/vnd.apple.pages": {
+        source: "iana",
+        extensions: ["pages"]
+      },
+      "application/vnd.apple.pkpass": {
+        compressible: false,
+        extensions: ["pkpass"]
+      },
+      "application/vnd.arastra.swi": {
+        source: "iana"
+      },
+      "application/vnd.aristanetworks.swi": {
+        source: "iana",
+        extensions: ["swi"]
+      },
+      "application/vnd.artisan+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.artsquare": {
+        source: "iana"
+      },
+      "application/vnd.astraea-software.iota": {
+        source: "iana",
+        extensions: ["iota"]
+      },
+      "application/vnd.audiograph": {
+        source: "iana",
+        extensions: ["aep"]
+      },
+      "application/vnd.autopackage": {
+        source: "iana"
+      },
+      "application/vnd.avalon+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.avistar+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.balsamiq.bmml+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["bmml"]
+      },
+      "application/vnd.balsamiq.bmpr": {
+        source: "iana"
+      },
+      "application/vnd.banana-accounting": {
+        source: "iana"
+      },
+      "application/vnd.bbf.usp.error": {
+        source: "iana"
+      },
+      "application/vnd.bbf.usp.msg": {
+        source: "iana"
+      },
+      "application/vnd.bbf.usp.msg+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.bekitzur-stech+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.bint.med-content": {
+        source: "iana"
+      },
+      "application/vnd.biopax.rdf+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.blink-idb-value-wrapper": {
+        source: "iana"
+      },
+      "application/vnd.blueice.multipass": {
+        source: "iana",
+        extensions: ["mpm"]
+      },
+      "application/vnd.bluetooth.ep.oob": {
+        source: "iana"
+      },
+      "application/vnd.bluetooth.le.oob": {
+        source: "iana"
+      },
+      "application/vnd.bmi": {
+        source: "iana",
+        extensions: ["bmi"]
+      },
+      "application/vnd.bpf": {
+        source: "iana"
+      },
+      "application/vnd.bpf3": {
+        source: "iana"
+      },
+      "application/vnd.businessobjects": {
+        source: "iana",
+        extensions: ["rep"]
+      },
+      "application/vnd.byu.uapi+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.cab-jscript": {
+        source: "iana"
+      },
+      "application/vnd.canon-cpdl": {
+        source: "iana"
+      },
+      "application/vnd.canon-lips": {
+        source: "iana"
+      },
+      "application/vnd.capasystems-pg+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.cendio.thinlinc.clientconf": {
+        source: "iana"
+      },
+      "application/vnd.century-systems.tcp_stream": {
+        source: "iana"
+      },
+      "application/vnd.chemdraw+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["cdxml"]
+      },
+      "application/vnd.chess-pgn": {
+        source: "iana"
+      },
+      "application/vnd.chipnuts.karaoke-mmd": {
+        source: "iana",
+        extensions: ["mmd"]
+      },
+      "application/vnd.ciedi": {
+        source: "iana"
+      },
+      "application/vnd.cinderella": {
+        source: "iana",
+        extensions: ["cdy"]
+      },
+      "application/vnd.cirpack.isdn-ext": {
+        source: "iana"
+      },
+      "application/vnd.citationstyles.style+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["csl"]
+      },
+      "application/vnd.claymore": {
+        source: "iana",
+        extensions: ["cla"]
+      },
+      "application/vnd.cloanto.rp9": {
+        source: "iana",
+        extensions: ["rp9"]
+      },
+      "application/vnd.clonk.c4group": {
+        source: "iana",
+        extensions: ["c4g", "c4d", "c4f", "c4p", "c4u"]
+      },
+      "application/vnd.cluetrust.cartomobile-config": {
+        source: "iana",
+        extensions: ["c11amc"]
+      },
+      "application/vnd.cluetrust.cartomobile-config-pkg": {
+        source: "iana",
+        extensions: ["c11amz"]
+      },
+      "application/vnd.coffeescript": {
+        source: "iana"
+      },
+      "application/vnd.collabio.xodocuments.document": {
+        source: "iana"
+      },
+      "application/vnd.collabio.xodocuments.document-template": {
+        source: "iana"
+      },
+      "application/vnd.collabio.xodocuments.presentation": {
+        source: "iana"
+      },
+      "application/vnd.collabio.xodocuments.presentation-template": {
+        source: "iana"
+      },
+      "application/vnd.collabio.xodocuments.spreadsheet": {
+        source: "iana"
+      },
+      "application/vnd.collabio.xodocuments.spreadsheet-template": {
+        source: "iana"
+      },
+      "application/vnd.collection+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.collection.doc+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.collection.next+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.comicbook+zip": {
+        source: "iana",
+        compressible: false
+      },
+      "application/vnd.comicbook-rar": {
+        source: "iana"
+      },
+      "application/vnd.commerce-battelle": {
+        source: "iana"
+      },
+      "application/vnd.commonspace": {
+        source: "iana",
+        extensions: ["csp"]
+      },
+      "application/vnd.contact.cmsg": {
+        source: "iana",
+        extensions: ["cdbcmsg"]
+      },
+      "application/vnd.coreos.ignition+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.cosmocaller": {
+        source: "iana",
+        extensions: ["cmc"]
+      },
+      "application/vnd.crick.clicker": {
+        source: "iana",
+        extensions: ["clkx"]
+      },
+      "application/vnd.crick.clicker.keyboard": {
+        source: "iana",
+        extensions: ["clkk"]
+      },
+      "application/vnd.crick.clicker.palette": {
+        source: "iana",
+        extensions: ["clkp"]
+      },
+      "application/vnd.crick.clicker.template": {
+        source: "iana",
+        extensions: ["clkt"]
+      },
+      "application/vnd.crick.clicker.wordbank": {
+        source: "iana",
+        extensions: ["clkw"]
+      },
+      "application/vnd.criticaltools.wbs+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["wbs"]
+      },
+      "application/vnd.cryptii.pipe+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.crypto-shade-file": {
+        source: "iana"
+      },
+      "application/vnd.cryptomator.encrypted": {
+        source: "iana"
+      },
+      "application/vnd.cryptomator.vault": {
+        source: "iana"
+      },
+      "application/vnd.ctc-posml": {
+        source: "iana",
+        extensions: ["pml"]
+      },
+      "application/vnd.ctct.ws+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.cups-pdf": {
+        source: "iana"
+      },
+      "application/vnd.cups-postscript": {
+        source: "iana"
+      },
+      "application/vnd.cups-ppd": {
+        source: "iana",
+        extensions: ["ppd"]
+      },
+      "application/vnd.cups-raster": {
+        source: "iana"
+      },
+      "application/vnd.cups-raw": {
+        source: "iana"
+      },
+      "application/vnd.curl": {
+        source: "iana"
+      },
+      "application/vnd.curl.car": {
+        source: "apache",
+        extensions: ["car"]
+      },
+      "application/vnd.curl.pcurl": {
+        source: "apache",
+        extensions: ["pcurl"]
+      },
+      "application/vnd.cyan.dean.root+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.cybank": {
+        source: "iana"
+      },
+      "application/vnd.cyclonedx+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.cyclonedx+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.d2l.coursepackage1p0+zip": {
+        source: "iana",
+        compressible: false
+      },
+      "application/vnd.d3m-dataset": {
+        source: "iana"
+      },
+      "application/vnd.d3m-problem": {
+        source: "iana"
+      },
+      "application/vnd.dart": {
+        source: "iana",
+        compressible: true,
+        extensions: ["dart"]
+      },
+      "application/vnd.data-vision.rdz": {
+        source: "iana",
+        extensions: ["rdz"]
+      },
+      "application/vnd.datapackage+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.dataresource+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.dbf": {
+        source: "iana",
+        extensions: ["dbf"]
+      },
+      "application/vnd.debian.binary-package": {
+        source: "iana"
+      },
+      "application/vnd.dece.data": {
+        source: "iana",
+        extensions: ["uvf", "uvvf", "uvd", "uvvd"]
+      },
+      "application/vnd.dece.ttml+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["uvt", "uvvt"]
+      },
+      "application/vnd.dece.unspecified": {
+        source: "iana",
+        extensions: ["uvx", "uvvx"]
+      },
+      "application/vnd.dece.zip": {
+        source: "iana",
+        extensions: ["uvz", "uvvz"]
+      },
+      "application/vnd.denovo.fcselayout-link": {
+        source: "iana",
+        extensions: ["fe_launch"]
+      },
+      "application/vnd.desmume.movie": {
+        source: "iana"
+      },
+      "application/vnd.dir-bi.plate-dl-nosuffix": {
+        source: "iana"
+      },
+      "application/vnd.dm.delegation+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.dna": {
+        source: "iana",
+        extensions: ["dna"]
+      },
+      "application/vnd.document+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.dolby.mlp": {
+        source: "apache",
+        extensions: ["mlp"]
+      },
+      "application/vnd.dolby.mobile.1": {
+        source: "iana"
+      },
+      "application/vnd.dolby.mobile.2": {
+        source: "iana"
+      },
+      "application/vnd.doremir.scorecloud-binary-document": {
+        source: "iana"
+      },
+      "application/vnd.dpgraph": {
+        source: "iana",
+        extensions: ["dpg"]
+      },
+      "application/vnd.dreamfactory": {
+        source: "iana",
+        extensions: ["dfac"]
+      },
+      "application/vnd.drive+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.ds-keypoint": {
+        source: "apache",
+        extensions: ["kpxx"]
+      },
+      "application/vnd.dtg.local": {
+        source: "iana"
+      },
+      "application/vnd.dtg.local.flash": {
+        source: "iana"
+      },
+      "application/vnd.dtg.local.html": {
+        source: "iana"
+      },
+      "application/vnd.dvb.ait": {
+        source: "iana",
+        extensions: ["ait"]
+      },
+      "application/vnd.dvb.dvbisl+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.dvb.dvbj": {
+        source: "iana"
+      },
+      "application/vnd.dvb.esgcontainer": {
+        source: "iana"
+      },
+      "application/vnd.dvb.ipdcdftnotifaccess": {
+        source: "iana"
+      },
+      "application/vnd.dvb.ipdcesgaccess": {
+        source: "iana"
+      },
+      "application/vnd.dvb.ipdcesgaccess2": {
+        source: "iana"
+      },
+      "application/vnd.dvb.ipdcesgpdd": {
+        source: "iana"
+      },
+      "application/vnd.dvb.ipdcroaming": {
+        source: "iana"
+      },
+      "application/vnd.dvb.iptv.alfec-base": {
+        source: "iana"
+      },
+      "application/vnd.dvb.iptv.alfec-enhancement": {
+        source: "iana"
+      },
+      "application/vnd.dvb.notif-aggregate-root+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.dvb.notif-container+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.dvb.notif-generic+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.dvb.notif-ia-msglist+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.dvb.notif-ia-registration-request+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.dvb.notif-ia-registration-response+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.dvb.notif-init+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.dvb.pfr": {
+        source: "iana"
+      },
+      "application/vnd.dvb.service": {
+        source: "iana",
+        extensions: ["svc"]
+      },
+      "application/vnd.dxr": {
+        source: "iana"
+      },
+      "application/vnd.dynageo": {
+        source: "iana",
+        extensions: ["geo"]
+      },
+      "application/vnd.dzr": {
+        source: "iana"
+      },
+      "application/vnd.easykaraoke.cdgdownload": {
+        source: "iana"
+      },
+      "application/vnd.ecdis-update": {
+        source: "iana"
+      },
+      "application/vnd.ecip.rlp": {
+        source: "iana"
+      },
+      "application/vnd.eclipse.ditto+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.ecowin.chart": {
+        source: "iana",
+        extensions: ["mag"]
+      },
+      "application/vnd.ecowin.filerequest": {
+        source: "iana"
+      },
+      "application/vnd.ecowin.fileupdate": {
+        source: "iana"
+      },
+      "application/vnd.ecowin.series": {
+        source: "iana"
+      },
+      "application/vnd.ecowin.seriesrequest": {
+        source: "iana"
+      },
+      "application/vnd.ecowin.seriesupdate": {
+        source: "iana"
+      },
+      "application/vnd.efi.img": {
+        source: "iana"
+      },
+      "application/vnd.efi.iso": {
+        source: "iana"
+      },
+      "application/vnd.emclient.accessrequest+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.enliven": {
+        source: "iana",
+        extensions: ["nml"]
+      },
+      "application/vnd.enphase.envoy": {
+        source: "iana"
+      },
+      "application/vnd.eprints.data+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.epson.esf": {
+        source: "iana",
+        extensions: ["esf"]
+      },
+      "application/vnd.epson.msf": {
+        source: "iana",
+        extensions: ["msf"]
+      },
+      "application/vnd.epson.quickanime": {
+        source: "iana",
+        extensions: ["qam"]
+      },
+      "application/vnd.epson.salt": {
+        source: "iana",
+        extensions: ["slt"]
+      },
+      "application/vnd.epson.ssf": {
+        source: "iana",
+        extensions: ["ssf"]
+      },
+      "application/vnd.ericsson.quickcall": {
+        source: "iana"
+      },
+      "application/vnd.espass-espass+zip": {
+        source: "iana",
+        compressible: false
+      },
+      "application/vnd.eszigno3+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["es3", "et3"]
+      },
+      "application/vnd.etsi.aoc+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.etsi.asic-e+zip": {
+        source: "iana",
+        compressible: false
+      },
+      "application/vnd.etsi.asic-s+zip": {
+        source: "iana",
+        compressible: false
+      },
+      "application/vnd.etsi.cug+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.etsi.iptvcommand+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.etsi.iptvdiscovery+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.etsi.iptvprofile+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.etsi.iptvsad-bc+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.etsi.iptvsad-cod+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.etsi.iptvsad-npvr+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.etsi.iptvservice+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.etsi.iptvsync+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.etsi.iptvueprofile+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.etsi.mcid+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.etsi.mheg5": {
+        source: "iana"
+      },
+      "application/vnd.etsi.overload-control-policy-dataset+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.etsi.pstn+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.etsi.sci+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.etsi.simservs+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.etsi.timestamp-token": {
+        source: "iana"
+      },
+      "application/vnd.etsi.tsl+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.etsi.tsl.der": {
+        source: "iana"
+      },
+      "application/vnd.eu.kasparian.car+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.eudora.data": {
+        source: "iana"
+      },
+      "application/vnd.evolv.ecig.profile": {
+        source: "iana"
+      },
+      "application/vnd.evolv.ecig.settings": {
+        source: "iana"
+      },
+      "application/vnd.evolv.ecig.theme": {
+        source: "iana"
+      },
+      "application/vnd.exstream-empower+zip": {
+        source: "iana",
+        compressible: false
+      },
+      "application/vnd.exstream-package": {
+        source: "iana"
+      },
+      "application/vnd.ezpix-album": {
+        source: "iana",
+        extensions: ["ez2"]
+      },
+      "application/vnd.ezpix-package": {
+        source: "iana",
+        extensions: ["ez3"]
+      },
+      "application/vnd.f-secure.mobile": {
+        source: "iana"
+      },
+      "application/vnd.familysearch.gedcom+zip": {
+        source: "iana",
+        compressible: false
+      },
+      "application/vnd.fastcopy-disk-image": {
+        source: "iana"
+      },
+      "application/vnd.fdf": {
+        source: "iana",
+        extensions: ["fdf"]
+      },
+      "application/vnd.fdsn.mseed": {
+        source: "iana",
+        extensions: ["mseed"]
+      },
+      "application/vnd.fdsn.seed": {
+        source: "iana",
+        extensions: ["seed", "dataless"]
+      },
+      "application/vnd.ffsns": {
+        source: "iana"
+      },
+      "application/vnd.ficlab.flb+zip": {
+        source: "iana",
+        compressible: false
+      },
+      "application/vnd.filmit.zfc": {
+        source: "iana"
+      },
+      "application/vnd.fints": {
+        source: "iana"
+      },
+      "application/vnd.firemonkeys.cloudcell": {
+        source: "iana"
+      },
+      "application/vnd.flographit": {
+        source: "iana",
+        extensions: ["gph"]
+      },
+      "application/vnd.fluxtime.clip": {
+        source: "iana",
+        extensions: ["ftc"]
+      },
+      "application/vnd.font-fontforge-sfd": {
+        source: "iana"
+      },
+      "application/vnd.framemaker": {
+        source: "iana",
+        extensions: ["fm", "frame", "maker", "book"]
+      },
+      "application/vnd.frogans.fnc": {
+        source: "iana",
+        extensions: ["fnc"]
+      },
+      "application/vnd.frogans.ltf": {
+        source: "iana",
+        extensions: ["ltf"]
+      },
+      "application/vnd.fsc.weblaunch": {
+        source: "iana",
+        extensions: ["fsc"]
+      },
+      "application/vnd.fujifilm.fb.docuworks": {
+        source: "iana"
+      },
+      "application/vnd.fujifilm.fb.docuworks.binder": {
+        source: "iana"
+      },
+      "application/vnd.fujifilm.fb.docuworks.container": {
+        source: "iana"
+      },
+      "application/vnd.fujifilm.fb.jfi+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.fujitsu.oasys": {
+        source: "iana",
+        extensions: ["oas"]
+      },
+      "application/vnd.fujitsu.oasys2": {
+        source: "iana",
+        extensions: ["oa2"]
+      },
+      "application/vnd.fujitsu.oasys3": {
+        source: "iana",
+        extensions: ["oa3"]
+      },
+      "application/vnd.fujitsu.oasysgp": {
+        source: "iana",
+        extensions: ["fg5"]
+      },
+      "application/vnd.fujitsu.oasysprs": {
+        source: "iana",
+        extensions: ["bh2"]
+      },
+      "application/vnd.fujixerox.art-ex": {
+        source: "iana"
+      },
+      "application/vnd.fujixerox.art4": {
+        source: "iana"
+      },
+      "application/vnd.fujixerox.ddd": {
+        source: "iana",
+        extensions: ["ddd"]
+      },
+      "application/vnd.fujixerox.docuworks": {
+        source: "iana",
+        extensions: ["xdw"]
+      },
+      "application/vnd.fujixerox.docuworks.binder": {
+        source: "iana",
+        extensions: ["xbd"]
+      },
+      "application/vnd.fujixerox.docuworks.container": {
+        source: "iana"
+      },
+      "application/vnd.fujixerox.hbpl": {
+        source: "iana"
+      },
+      "application/vnd.fut-misnet": {
+        source: "iana"
+      },
+      "application/vnd.futoin+cbor": {
+        source: "iana"
+      },
+      "application/vnd.futoin+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.fuzzysheet": {
+        source: "iana",
+        extensions: ["fzs"]
+      },
+      "application/vnd.genomatix.tuxedo": {
+        source: "iana",
+        extensions: ["txd"]
+      },
+      "application/vnd.gentics.grd+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.geo+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.geocube+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.geogebra.file": {
+        source: "iana",
+        extensions: ["ggb"]
+      },
+      "application/vnd.geogebra.slides": {
+        source: "iana"
+      },
+      "application/vnd.geogebra.tool": {
+        source: "iana",
+        extensions: ["ggt"]
+      },
+      "application/vnd.geometry-explorer": {
+        source: "iana",
+        extensions: ["gex", "gre"]
+      },
+      "application/vnd.geonext": {
+        source: "iana",
+        extensions: ["gxt"]
+      },
+      "application/vnd.geoplan": {
+        source: "iana",
+        extensions: ["g2w"]
+      },
+      "application/vnd.geospace": {
+        source: "iana",
+        extensions: ["g3w"]
+      },
+      "application/vnd.gerber": {
+        source: "iana"
+      },
+      "application/vnd.globalplatform.card-content-mgt": {
+        source: "iana"
+      },
+      "application/vnd.globalplatform.card-content-mgt-response": {
+        source: "iana"
+      },
+      "application/vnd.gmx": {
+        source: "iana",
+        extensions: ["gmx"]
+      },
+      "application/vnd.google-apps.document": {
+        compressible: false,
+        extensions: ["gdoc"]
+      },
+      "application/vnd.google-apps.presentation": {
+        compressible: false,
+        extensions: ["gslides"]
+      },
+      "application/vnd.google-apps.spreadsheet": {
+        compressible: false,
+        extensions: ["gsheet"]
+      },
+      "application/vnd.google-earth.kml+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["kml"]
+      },
+      "application/vnd.google-earth.kmz": {
+        source: "iana",
+        compressible: false,
+        extensions: ["kmz"]
+      },
+      "application/vnd.gov.sk.e-form+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.gov.sk.e-form+zip": {
+        source: "iana",
+        compressible: false
+      },
+      "application/vnd.gov.sk.xmldatacontainer+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.grafeq": {
+        source: "iana",
+        extensions: ["gqf", "gqs"]
+      },
+      "application/vnd.gridmp": {
+        source: "iana"
+      },
+      "application/vnd.groove-account": {
+        source: "iana",
+        extensions: ["gac"]
+      },
+      "application/vnd.groove-help": {
+        source: "iana",
+        extensions: ["ghf"]
+      },
+      "application/vnd.groove-identity-message": {
+        source: "iana",
+        extensions: ["gim"]
+      },
+      "application/vnd.groove-injector": {
+        source: "iana",
+        extensions: ["grv"]
+      },
+      "application/vnd.groove-tool-message": {
+        source: "iana",
+        extensions: ["gtm"]
+      },
+      "application/vnd.groove-tool-template": {
+        source: "iana",
+        extensions: ["tpl"]
+      },
+      "application/vnd.groove-vcard": {
+        source: "iana",
+        extensions: ["vcg"]
+      },
+      "application/vnd.hal+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.hal+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["hal"]
+      },
+      "application/vnd.handheld-entertainment+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["zmm"]
+      },
+      "application/vnd.hbci": {
+        source: "iana",
+        extensions: ["hbci"]
+      },
+      "application/vnd.hc+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.hcl-bireports": {
+        source: "iana"
+      },
+      "application/vnd.hdt": {
+        source: "iana"
+      },
+      "application/vnd.heroku+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.hhe.lesson-player": {
+        source: "iana",
+        extensions: ["les"]
+      },
+      "application/vnd.hl7cda+xml": {
+        source: "iana",
+        charset: "UTF-8",
+        compressible: true
+      },
+      "application/vnd.hl7v2+xml": {
+        source: "iana",
+        charset: "UTF-8",
+        compressible: true
+      },
+      "application/vnd.hp-hpgl": {
+        source: "iana",
+        extensions: ["hpgl"]
+      },
+      "application/vnd.hp-hpid": {
+        source: "iana",
+        extensions: ["hpid"]
+      },
+      "application/vnd.hp-hps": {
+        source: "iana",
+        extensions: ["hps"]
+      },
+      "application/vnd.hp-jlyt": {
+        source: "iana",
+        extensions: ["jlt"]
+      },
+      "application/vnd.hp-pcl": {
+        source: "iana",
+        extensions: ["pcl"]
+      },
+      "application/vnd.hp-pclxl": {
+        source: "iana",
+        extensions: ["pclxl"]
+      },
+      "application/vnd.httphone": {
+        source: "iana"
+      },
+      "application/vnd.hydrostatix.sof-data": {
+        source: "iana",
+        extensions: ["sfd-hdstx"]
+      },
+      "application/vnd.hyper+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.hyper-item+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.hyperdrive+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.hzn-3d-crossword": {
+        source: "iana"
+      },
+      "application/vnd.ibm.afplinedata": {
+        source: "iana"
+      },
+      "application/vnd.ibm.electronic-media": {
+        source: "iana"
+      },
+      "application/vnd.ibm.minipay": {
+        source: "iana",
+        extensions: ["mpy"]
+      },
+      "application/vnd.ibm.modcap": {
+        source: "iana",
+        extensions: ["afp", "listafp", "list3820"]
+      },
+      "application/vnd.ibm.rights-management": {
+        source: "iana",
+        extensions: ["irm"]
+      },
+      "application/vnd.ibm.secure-container": {
+        source: "iana",
+        extensions: ["sc"]
+      },
+      "application/vnd.iccprofile": {
+        source: "iana",
+        extensions: ["icc", "icm"]
+      },
+      "application/vnd.ieee.1905": {
+        source: "iana"
+      },
+      "application/vnd.igloader": {
+        source: "iana",
+        extensions: ["igl"]
+      },
+      "application/vnd.imagemeter.folder+zip": {
+        source: "iana",
+        compressible: false
+      },
+      "application/vnd.imagemeter.image+zip": {
+        source: "iana",
+        compressible: false
+      },
+      "application/vnd.immervision-ivp": {
+        source: "iana",
+        extensions: ["ivp"]
+      },
+      "application/vnd.immervision-ivu": {
+        source: "iana",
+        extensions: ["ivu"]
+      },
+      "application/vnd.ims.imsccv1p1": {
+        source: "iana"
+      },
+      "application/vnd.ims.imsccv1p2": {
+        source: "iana"
+      },
+      "application/vnd.ims.imsccv1p3": {
+        source: "iana"
+      },
+      "application/vnd.ims.lis.v2.result+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.ims.lti.v2.toolconsumerprofile+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.ims.lti.v2.toolproxy+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.ims.lti.v2.toolproxy.id+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.ims.lti.v2.toolsettings+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.ims.lti.v2.toolsettings.simple+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.informedcontrol.rms+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.informix-visionary": {
+        source: "iana"
+      },
+      "application/vnd.infotech.project": {
+        source: "iana"
+      },
+      "application/vnd.infotech.project+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.innopath.wamp.notification": {
+        source: "iana"
+      },
+      "application/vnd.insors.igm": {
+        source: "iana",
+        extensions: ["igm"]
+      },
+      "application/vnd.intercon.formnet": {
+        source: "iana",
+        extensions: ["xpw", "xpx"]
+      },
+      "application/vnd.intergeo": {
+        source: "iana",
+        extensions: ["i2g"]
+      },
+      "application/vnd.intertrust.digibox": {
+        source: "iana"
+      },
+      "application/vnd.intertrust.nncp": {
+        source: "iana"
+      },
+      "application/vnd.intu.qbo": {
+        source: "iana",
+        extensions: ["qbo"]
+      },
+      "application/vnd.intu.qfx": {
+        source: "iana",
+        extensions: ["qfx"]
+      },
+      "application/vnd.iptc.g2.catalogitem+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.iptc.g2.conceptitem+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.iptc.g2.knowledgeitem+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.iptc.g2.newsitem+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.iptc.g2.newsmessage+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.iptc.g2.packageitem+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.iptc.g2.planningitem+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.ipunplugged.rcprofile": {
+        source: "iana",
+        extensions: ["rcprofile"]
+      },
+      "application/vnd.irepository.package+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["irp"]
+      },
+      "application/vnd.is-xpr": {
+        source: "iana",
+        extensions: ["xpr"]
+      },
+      "application/vnd.isac.fcs": {
+        source: "iana",
+        extensions: ["fcs"]
+      },
+      "application/vnd.iso11783-10+zip": {
+        source: "iana",
+        compressible: false
+      },
+      "application/vnd.jam": {
+        source: "iana",
+        extensions: ["jam"]
+      },
+      "application/vnd.japannet-directory-service": {
+        source: "iana"
+      },
+      "application/vnd.japannet-jpnstore-wakeup": {
+        source: "iana"
+      },
+      "application/vnd.japannet-payment-wakeup": {
+        source: "iana"
+      },
+      "application/vnd.japannet-registration": {
+        source: "iana"
+      },
+      "application/vnd.japannet-registration-wakeup": {
+        source: "iana"
+      },
+      "application/vnd.japannet-setstore-wakeup": {
+        source: "iana"
+      },
+      "application/vnd.japannet-verification": {
+        source: "iana"
+      },
+      "application/vnd.japannet-verification-wakeup": {
+        source: "iana"
+      },
+      "application/vnd.jcp.javame.midlet-rms": {
+        source: "iana",
+        extensions: ["rms"]
+      },
+      "application/vnd.jisp": {
+        source: "iana",
+        extensions: ["jisp"]
+      },
+      "application/vnd.joost.joda-archive": {
+        source: "iana",
+        extensions: ["joda"]
+      },
+      "application/vnd.jsk.isdn-ngn": {
+        source: "iana"
+      },
+      "application/vnd.kahootz": {
+        source: "iana",
+        extensions: ["ktz", "ktr"]
+      },
+      "application/vnd.kde.karbon": {
+        source: "iana",
+        extensions: ["karbon"]
+      },
+      "application/vnd.kde.kchart": {
+        source: "iana",
+        extensions: ["chrt"]
+      },
+      "application/vnd.kde.kformula": {
+        source: "iana",
+        extensions: ["kfo"]
+      },
+      "application/vnd.kde.kivio": {
+        source: "iana",
+        extensions: ["flw"]
+      },
+      "application/vnd.kde.kontour": {
+        source: "iana",
+        extensions: ["kon"]
+      },
+      "application/vnd.kde.kpresenter": {
+        source: "iana",
+        extensions: ["kpr", "kpt"]
+      },
+      "application/vnd.kde.kspread": {
+        source: "iana",
+        extensions: ["ksp"]
+      },
+      "application/vnd.kde.kword": {
+        source: "iana",
+        extensions: ["kwd", "kwt"]
+      },
+      "application/vnd.kenameaapp": {
+        source: "iana",
+        extensions: ["htke"]
+      },
+      "application/vnd.kidspiration": {
+        source: "iana",
+        extensions: ["kia"]
+      },
+      "application/vnd.kinar": {
+        source: "iana",
+        extensions: ["kne", "knp"]
+      },
+      "application/vnd.koan": {
+        source: "iana",
+        extensions: ["skp", "skd", "skt", "skm"]
+      },
+      "application/vnd.kodak-descriptor": {
+        source: "iana",
+        extensions: ["sse"]
+      },
+      "application/vnd.las": {
+        source: "iana"
+      },
+      "application/vnd.las.las+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.las.las+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["lasxml"]
+      },
+      "application/vnd.laszip": {
+        source: "iana"
+      },
+      "application/vnd.leap+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.liberty-request+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.llamagraphics.life-balance.desktop": {
+        source: "iana",
+        extensions: ["lbd"]
+      },
+      "application/vnd.llamagraphics.life-balance.exchange+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["lbe"]
+      },
+      "application/vnd.logipipe.circuit+zip": {
+        source: "iana",
+        compressible: false
+      },
+      "application/vnd.loom": {
+        source: "iana"
+      },
+      "application/vnd.lotus-1-2-3": {
+        source: "iana",
+        extensions: ["123"]
+      },
+      "application/vnd.lotus-approach": {
+        source: "iana",
+        extensions: ["apr"]
+      },
+      "application/vnd.lotus-freelance": {
+        source: "iana",
+        extensions: ["pre"]
+      },
+      "application/vnd.lotus-notes": {
+        source: "iana",
+        extensions: ["nsf"]
+      },
+      "application/vnd.lotus-organizer": {
+        source: "iana",
+        extensions: ["org"]
+      },
+      "application/vnd.lotus-screencam": {
+        source: "iana",
+        extensions: ["scm"]
+      },
+      "application/vnd.lotus-wordpro": {
+        source: "iana",
+        extensions: ["lwp"]
+      },
+      "application/vnd.macports.portpkg": {
+        source: "iana",
+        extensions: ["portpkg"]
+      },
+      "application/vnd.mapbox-vector-tile": {
+        source: "iana",
+        extensions: ["mvt"]
+      },
+      "application/vnd.marlin.drm.actiontoken+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.marlin.drm.conftoken+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.marlin.drm.license+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.marlin.drm.mdcf": {
+        source: "iana"
+      },
+      "application/vnd.mason+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.maxar.archive.3tz+zip": {
+        source: "iana",
+        compressible: false
+      },
+      "application/vnd.maxmind.maxmind-db": {
+        source: "iana"
+      },
+      "application/vnd.mcd": {
+        source: "iana",
+        extensions: ["mcd"]
+      },
+      "application/vnd.medcalcdata": {
+        source: "iana",
+        extensions: ["mc1"]
+      },
+      "application/vnd.mediastation.cdkey": {
+        source: "iana",
+        extensions: ["cdkey"]
+      },
+      "application/vnd.meridian-slingshot": {
+        source: "iana"
+      },
+      "application/vnd.mfer": {
+        source: "iana",
+        extensions: ["mwf"]
+      },
+      "application/vnd.mfmp": {
+        source: "iana",
+        extensions: ["mfm"]
+      },
+      "application/vnd.micro+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.micrografx.flo": {
+        source: "iana",
+        extensions: ["flo"]
+      },
+      "application/vnd.micrografx.igx": {
+        source: "iana",
+        extensions: ["igx"]
+      },
+      "application/vnd.microsoft.portable-executable": {
+        source: "iana"
+      },
+      "application/vnd.microsoft.windows.thumbnail-cache": {
+        source: "iana"
+      },
+      "application/vnd.miele+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.mif": {
+        source: "iana",
+        extensions: ["mif"]
+      },
+      "application/vnd.minisoft-hp3000-save": {
+        source: "iana"
+      },
+      "application/vnd.mitsubishi.misty-guard.trustweb": {
+        source: "iana"
+      },
+      "application/vnd.mobius.daf": {
+        source: "iana",
+        extensions: ["daf"]
+      },
+      "application/vnd.mobius.dis": {
+        source: "iana",
+        extensions: ["dis"]
+      },
+      "application/vnd.mobius.mbk": {
+        source: "iana",
+        extensions: ["mbk"]
+      },
+      "application/vnd.mobius.mqy": {
+        source: "iana",
+        extensions: ["mqy"]
+      },
+      "application/vnd.mobius.msl": {
+        source: "iana",
+        extensions: ["msl"]
+      },
+      "application/vnd.mobius.plc": {
+        source: "iana",
+        extensions: ["plc"]
+      },
+      "application/vnd.mobius.txf": {
+        source: "iana",
+        extensions: ["txf"]
+      },
+      "application/vnd.mophun.application": {
+        source: "iana",
+        extensions: ["mpn"]
+      },
+      "application/vnd.mophun.certificate": {
+        source: "iana",
+        extensions: ["mpc"]
+      },
+      "application/vnd.motorola.flexsuite": {
+        source: "iana"
+      },
+      "application/vnd.motorola.flexsuite.adsi": {
+        source: "iana"
+      },
+      "application/vnd.motorola.flexsuite.fis": {
+        source: "iana"
+      },
+      "application/vnd.motorola.flexsuite.gotap": {
+        source: "iana"
+      },
+      "application/vnd.motorola.flexsuite.kmr": {
+        source: "iana"
+      },
+      "application/vnd.motorola.flexsuite.ttc": {
+        source: "iana"
+      },
+      "application/vnd.motorola.flexsuite.wem": {
+        source: "iana"
+      },
+      "application/vnd.motorola.iprm": {
+        source: "iana"
+      },
+      "application/vnd.mozilla.xul+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["xul"]
+      },
+      "application/vnd.ms-3mfdocument": {
+        source: "iana"
+      },
+      "application/vnd.ms-artgalry": {
+        source: "iana",
+        extensions: ["cil"]
+      },
+      "application/vnd.ms-asf": {
+        source: "iana"
+      },
+      "application/vnd.ms-cab-compressed": {
+        source: "iana",
+        extensions: ["cab"]
+      },
+      "application/vnd.ms-color.iccprofile": {
+        source: "apache"
+      },
+      "application/vnd.ms-excel": {
+        source: "iana",
+        compressible: false,
+        extensions: ["xls", "xlm", "xla", "xlc", "xlt", "xlw"]
+      },
+      "application/vnd.ms-excel.addin.macroenabled.12": {
+        source: "iana",
+        extensions: ["xlam"]
+      },
+      "application/vnd.ms-excel.sheet.binary.macroenabled.12": {
+        source: "iana",
+        extensions: ["xlsb"]
+      },
+      "application/vnd.ms-excel.sheet.macroenabled.12": {
+        source: "iana",
+        extensions: ["xlsm"]
+      },
+      "application/vnd.ms-excel.template.macroenabled.12": {
+        source: "iana",
+        extensions: ["xltm"]
+      },
+      "application/vnd.ms-fontobject": {
+        source: "iana",
+        compressible: true,
+        extensions: ["eot"]
+      },
+      "application/vnd.ms-htmlhelp": {
+        source: "iana",
+        extensions: ["chm"]
+      },
+      "application/vnd.ms-ims": {
+        source: "iana",
+        extensions: ["ims"]
+      },
+      "application/vnd.ms-lrm": {
+        source: "iana",
+        extensions: ["lrm"]
+      },
+      "application/vnd.ms-office.activex+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.ms-officetheme": {
+        source: "iana",
+        extensions: ["thmx"]
+      },
+      "application/vnd.ms-opentype": {
+        source: "apache",
+        compressible: true
+      },
+      "application/vnd.ms-outlook": {
+        compressible: false,
+        extensions: ["msg"]
+      },
+      "application/vnd.ms-package.obfuscated-opentype": {
+        source: "apache"
+      },
+      "application/vnd.ms-pki.seccat": {
+        source: "apache",
+        extensions: ["cat"]
+      },
+      "application/vnd.ms-pki.stl": {
+        source: "apache",
+        extensions: ["stl"]
+      },
+      "application/vnd.ms-playready.initiator+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.ms-powerpoint": {
+        source: "iana",
+        compressible: false,
+        extensions: ["ppt", "pps", "pot"]
+      },
+      "application/vnd.ms-powerpoint.addin.macroenabled.12": {
+        source: "iana",
+        extensions: ["ppam"]
+      },
+      "application/vnd.ms-powerpoint.presentation.macroenabled.12": {
+        source: "iana",
+        extensions: ["pptm"]
+      },
+      "application/vnd.ms-powerpoint.slide.macroenabled.12": {
+        source: "iana",
+        extensions: ["sldm"]
+      },
+      "application/vnd.ms-powerpoint.slideshow.macroenabled.12": {
+        source: "iana",
+        extensions: ["ppsm"]
+      },
+      "application/vnd.ms-powerpoint.template.macroenabled.12": {
+        source: "iana",
+        extensions: ["potm"]
+      },
+      "application/vnd.ms-printdevicecapabilities+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.ms-printing.printticket+xml": {
+        source: "apache",
+        compressible: true
+      },
+      "application/vnd.ms-printschematicket+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.ms-project": {
+        source: "iana",
+        extensions: ["mpp", "mpt"]
+      },
+      "application/vnd.ms-tnef": {
+        source: "iana"
+      },
+      "application/vnd.ms-windows.devicepairing": {
+        source: "iana"
+      },
+      "application/vnd.ms-windows.nwprinting.oob": {
+        source: "iana"
+      },
+      "application/vnd.ms-windows.printerpairing": {
+        source: "iana"
+      },
+      "application/vnd.ms-windows.wsd.oob": {
+        source: "iana"
+      },
+      "application/vnd.ms-wmdrm.lic-chlg-req": {
+        source: "iana"
+      },
+      "application/vnd.ms-wmdrm.lic-resp": {
+        source: "iana"
+      },
+      "application/vnd.ms-wmdrm.meter-chlg-req": {
+        source: "iana"
+      },
+      "application/vnd.ms-wmdrm.meter-resp": {
+        source: "iana"
+      },
+      "application/vnd.ms-word.document.macroenabled.12": {
+        source: "iana",
+        extensions: ["docm"]
+      },
+      "application/vnd.ms-word.template.macroenabled.12": {
+        source: "iana",
+        extensions: ["dotm"]
+      },
+      "application/vnd.ms-works": {
+        source: "iana",
+        extensions: ["wps", "wks", "wcm", "wdb"]
+      },
+      "application/vnd.ms-wpl": {
+        source: "iana",
+        extensions: ["wpl"]
+      },
+      "application/vnd.ms-xpsdocument": {
+        source: "iana",
+        compressible: false,
+        extensions: ["xps"]
+      },
+      "application/vnd.msa-disk-image": {
+        source: "iana"
+      },
+      "application/vnd.mseq": {
+        source: "iana",
+        extensions: ["mseq"]
+      },
+      "application/vnd.msign": {
+        source: "iana"
+      },
+      "application/vnd.multiad.creator": {
+        source: "iana"
+      },
+      "application/vnd.multiad.creator.cif": {
+        source: "iana"
+      },
+      "application/vnd.music-niff": {
+        source: "iana"
+      },
+      "application/vnd.musician": {
+        source: "iana",
+        extensions: ["mus"]
+      },
+      "application/vnd.muvee.style": {
+        source: "iana",
+        extensions: ["msty"]
+      },
+      "application/vnd.mynfc": {
+        source: "iana",
+        extensions: ["taglet"]
+      },
+      "application/vnd.nacamar.ybrid+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.ncd.control": {
+        source: "iana"
+      },
+      "application/vnd.ncd.reference": {
+        source: "iana"
+      },
+      "application/vnd.nearst.inv+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.nebumind.line": {
+        source: "iana"
+      },
+      "application/vnd.nervana": {
+        source: "iana"
+      },
+      "application/vnd.netfpx": {
+        source: "iana"
+      },
+      "application/vnd.neurolanguage.nlu": {
+        source: "iana",
+        extensions: ["nlu"]
+      },
+      "application/vnd.nimn": {
+        source: "iana"
+      },
+      "application/vnd.nintendo.nitro.rom": {
+        source: "iana"
+      },
+      "application/vnd.nintendo.snes.rom": {
+        source: "iana"
+      },
+      "application/vnd.nitf": {
+        source: "iana",
+        extensions: ["ntf", "nitf"]
+      },
+      "application/vnd.noblenet-directory": {
+        source: "iana",
+        extensions: ["nnd"]
+      },
+      "application/vnd.noblenet-sealer": {
+        source: "iana",
+        extensions: ["nns"]
+      },
+      "application/vnd.noblenet-web": {
+        source: "iana",
+        extensions: ["nnw"]
+      },
+      "application/vnd.nokia.catalogs": {
+        source: "iana"
+      },
+      "application/vnd.nokia.conml+wbxml": {
+        source: "iana"
+      },
+      "application/vnd.nokia.conml+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.nokia.iptv.config+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.nokia.isds-radio-presets": {
+        source: "iana"
+      },
+      "application/vnd.nokia.landmark+wbxml": {
+        source: "iana"
+      },
+      "application/vnd.nokia.landmark+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.nokia.landmarkcollection+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.nokia.n-gage.ac+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["ac"]
+      },
+      "application/vnd.nokia.n-gage.data": {
+        source: "iana",
+        extensions: ["ngdat"]
+      },
+      "application/vnd.nokia.n-gage.symbian.install": {
+        source: "iana",
+        extensions: ["n-gage"]
+      },
+      "application/vnd.nokia.ncd": {
+        source: "iana"
+      },
+      "application/vnd.nokia.pcd+wbxml": {
+        source: "iana"
+      },
+      "application/vnd.nokia.pcd+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.nokia.radio-preset": {
+        source: "iana",
+        extensions: ["rpst"]
+      },
+      "application/vnd.nokia.radio-presets": {
+        source: "iana",
+        extensions: ["rpss"]
+      },
+      "application/vnd.novadigm.edm": {
+        source: "iana",
+        extensions: ["edm"]
+      },
+      "application/vnd.novadigm.edx": {
+        source: "iana",
+        extensions: ["edx"]
+      },
+      "application/vnd.novadigm.ext": {
+        source: "iana",
+        extensions: ["ext"]
+      },
+      "application/vnd.ntt-local.content-share": {
+        source: "iana"
+      },
+      "application/vnd.ntt-local.file-transfer": {
+        source: "iana"
+      },
+      "application/vnd.ntt-local.ogw_remote-access": {
+        source: "iana"
+      },
+      "application/vnd.ntt-local.sip-ta_remote": {
+        source: "iana"
+      },
+      "application/vnd.ntt-local.sip-ta_tcp_stream": {
+        source: "iana"
+      },
+      "application/vnd.oasis.opendocument.chart": {
+        source: "iana",
+        extensions: ["odc"]
+      },
+      "application/vnd.oasis.opendocument.chart-template": {
+        source: "iana",
+        extensions: ["otc"]
+      },
+      "application/vnd.oasis.opendocument.database": {
+        source: "iana",
+        extensions: ["odb"]
+      },
+      "application/vnd.oasis.opendocument.formula": {
+        source: "iana",
+        extensions: ["odf"]
+      },
+      "application/vnd.oasis.opendocument.formula-template": {
+        source: "iana",
+        extensions: ["odft"]
+      },
+      "application/vnd.oasis.opendocument.graphics": {
+        source: "iana",
+        compressible: false,
+        extensions: ["odg"]
+      },
+      "application/vnd.oasis.opendocument.graphics-template": {
+        source: "iana",
+        extensions: ["otg"]
+      },
+      "application/vnd.oasis.opendocument.image": {
+        source: "iana",
+        extensions: ["odi"]
+      },
+      "application/vnd.oasis.opendocument.image-template": {
+        source: "iana",
+        extensions: ["oti"]
+      },
+      "application/vnd.oasis.opendocument.presentation": {
+        source: "iana",
+        compressible: false,
+        extensions: ["odp"]
+      },
+      "application/vnd.oasis.opendocument.presentation-template": {
+        source: "iana",
+        extensions: ["otp"]
+      },
+      "application/vnd.oasis.opendocument.spreadsheet": {
+        source: "iana",
+        compressible: false,
+        extensions: ["ods"]
+      },
+      "application/vnd.oasis.opendocument.spreadsheet-template": {
+        source: "iana",
+        extensions: ["ots"]
+      },
+      "application/vnd.oasis.opendocument.text": {
+        source: "iana",
+        compressible: false,
+        extensions: ["odt"]
+      },
+      "application/vnd.oasis.opendocument.text-master": {
+        source: "iana",
+        extensions: ["odm"]
+      },
+      "application/vnd.oasis.opendocument.text-template": {
+        source: "iana",
+        extensions: ["ott"]
+      },
+      "application/vnd.oasis.opendocument.text-web": {
+        source: "iana",
+        extensions: ["oth"]
+      },
+      "application/vnd.obn": {
+        source: "iana"
+      },
+      "application/vnd.ocf+cbor": {
+        source: "iana"
+      },
+      "application/vnd.oci.image.manifest.v1+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oftn.l10n+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oipf.contentaccessdownload+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oipf.contentaccessstreaming+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oipf.cspg-hexbinary": {
+        source: "iana"
+      },
+      "application/vnd.oipf.dae.svg+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oipf.dae.xhtml+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oipf.mippvcontrolmessage+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oipf.pae.gem": {
+        source: "iana"
+      },
+      "application/vnd.oipf.spdiscovery+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oipf.spdlist+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oipf.ueprofile+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oipf.userprofile+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.olpc-sugar": {
+        source: "iana",
+        extensions: ["xo"]
+      },
+      "application/vnd.oma-scws-config": {
+        source: "iana"
+      },
+      "application/vnd.oma-scws-http-request": {
+        source: "iana"
+      },
+      "application/vnd.oma-scws-http-response": {
+        source: "iana"
+      },
+      "application/vnd.oma.bcast.associated-procedure-parameter+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oma.bcast.drm-trigger+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oma.bcast.imd+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oma.bcast.ltkm": {
+        source: "iana"
+      },
+      "application/vnd.oma.bcast.notification+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oma.bcast.provisioningtrigger": {
+        source: "iana"
+      },
+      "application/vnd.oma.bcast.sgboot": {
+        source: "iana"
+      },
+      "application/vnd.oma.bcast.sgdd+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oma.bcast.sgdu": {
+        source: "iana"
+      },
+      "application/vnd.oma.bcast.simple-symbol-container": {
+        source: "iana"
+      },
+      "application/vnd.oma.bcast.smartcard-trigger+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oma.bcast.sprov+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oma.bcast.stkm": {
+        source: "iana"
+      },
+      "application/vnd.oma.cab-address-book+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oma.cab-feature-handler+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oma.cab-pcc+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oma.cab-subs-invite+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oma.cab-user-prefs+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oma.dcd": {
+        source: "iana"
+      },
+      "application/vnd.oma.dcdc": {
+        source: "iana"
+      },
+      "application/vnd.oma.dd2+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["dd2"]
+      },
+      "application/vnd.oma.drm.risd+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oma.group-usage-list+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oma.lwm2m+cbor": {
+        source: "iana"
+      },
+      "application/vnd.oma.lwm2m+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oma.lwm2m+tlv": {
+        source: "iana"
+      },
+      "application/vnd.oma.pal+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oma.poc.detailed-progress-report+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oma.poc.final-report+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oma.poc.groups+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oma.poc.invocation-descriptor+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oma.poc.optimized-progress-report+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oma.push": {
+        source: "iana"
+      },
+      "application/vnd.oma.scidm.messages+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oma.xcap-directory+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.omads-email+xml": {
+        source: "iana",
+        charset: "UTF-8",
+        compressible: true
+      },
+      "application/vnd.omads-file+xml": {
+        source: "iana",
+        charset: "UTF-8",
+        compressible: true
+      },
+      "application/vnd.omads-folder+xml": {
+        source: "iana",
+        charset: "UTF-8",
+        compressible: true
+      },
+      "application/vnd.omaloc-supl-init": {
+        source: "iana"
+      },
+      "application/vnd.onepager": {
+        source: "iana"
+      },
+      "application/vnd.onepagertamp": {
+        source: "iana"
+      },
+      "application/vnd.onepagertamx": {
+        source: "iana"
+      },
+      "application/vnd.onepagertat": {
+        source: "iana"
+      },
+      "application/vnd.onepagertatp": {
+        source: "iana"
+      },
+      "application/vnd.onepagertatx": {
+        source: "iana"
+      },
+      "application/vnd.openblox.game+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["obgx"]
+      },
+      "application/vnd.openblox.game-binary": {
+        source: "iana"
+      },
+      "application/vnd.openeye.oeb": {
+        source: "iana"
+      },
+      "application/vnd.openofficeorg.extension": {
+        source: "apache",
+        extensions: ["oxt"]
+      },
+      "application/vnd.openstreetmap.data+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["osm"]
+      },
+      "application/vnd.opentimestamps.ots": {
+        source: "iana"
+      },
+      "application/vnd.openxmlformats-officedocument.custom-properties+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.customxmlproperties+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.drawing+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.drawingml.chart+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.drawingml.chartshapes+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.drawingml.diagramcolors+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.drawingml.diagramdata+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.drawingml.diagramlayout+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.drawingml.diagramstyle+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.extended-properties+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.presentationml.commentauthors+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.presentationml.comments+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.presentationml.handoutmaster+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.presentationml.notesmaster+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.presentationml.notesslide+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.presentationml.presentation": {
+        source: "iana",
+        compressible: false,
+        extensions: ["pptx"]
+      },
+      "application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.presentationml.presprops+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.presentationml.slide": {
+        source: "iana",
+        extensions: ["sldx"]
+      },
+      "application/vnd.openxmlformats-officedocument.presentationml.slide+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.presentationml.slidelayout+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.presentationml.slidemaster+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.presentationml.slideshow": {
+        source: "iana",
+        extensions: ["ppsx"]
+      },
+      "application/vnd.openxmlformats-officedocument.presentationml.slideshow.main+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.presentationml.slideupdateinfo+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.presentationml.tablestyles+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.presentationml.tags+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.presentationml.template": {
+        source: "iana",
+        extensions: ["potx"]
+      },
+      "application/vnd.openxmlformats-officedocument.presentationml.template.main+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.presentationml.viewprops+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.calcchain+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.chartsheet+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.comments+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.connections+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.dialogsheet+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.externallink+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.pivotcachedefinition+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.pivotcacherecords+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.pivottable+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.querytable+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.revisionheaders+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.revisionlog+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sharedstrings+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
+        source: "iana",
+        compressible: false,
+        extensions: ["xlsx"]
+      },
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheetmetadata+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.table+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.tablesinglecells+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.template": {
+        source: "iana",
+        extensions: ["xltx"]
+      },
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.template.main+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.usernames+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.volatiledependencies+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.theme+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.themeoverride+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.vmldrawing": {
+        source: "iana"
+      },
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.comments+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document": {
+        source: "iana",
+        compressible: false,
+        extensions: ["docx"]
+      },
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document.glossary+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.endnotes+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.fonttable+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.footer+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.footnotes+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.numbering+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.settings+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.template": {
+        source: "iana",
+        extensions: ["dotx"]
+      },
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.template.main+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.websettings+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-package.core-properties+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-package.digital-signature-xmlsignature+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.openxmlformats-package.relationships+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oracle.resource+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.orange.indata": {
+        source: "iana"
+      },
+      "application/vnd.osa.netdeploy": {
+        source: "iana"
+      },
+      "application/vnd.osgeo.mapguide.package": {
+        source: "iana",
+        extensions: ["mgp"]
+      },
+      "application/vnd.osgi.bundle": {
+        source: "iana"
+      },
+      "application/vnd.osgi.dp": {
+        source: "iana",
+        extensions: ["dp"]
+      },
+      "application/vnd.osgi.subsystem": {
+        source: "iana",
+        extensions: ["esa"]
+      },
+      "application/vnd.otps.ct-kip+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.oxli.countgraph": {
+        source: "iana"
+      },
+      "application/vnd.pagerduty+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.palm": {
+        source: "iana",
+        extensions: ["pdb", "pqa", "oprc"]
+      },
+      "application/vnd.panoply": {
+        source: "iana"
+      },
+      "application/vnd.paos.xml": {
+        source: "iana"
+      },
+      "application/vnd.patentdive": {
+        source: "iana"
+      },
+      "application/vnd.patientecommsdoc": {
+        source: "iana"
+      },
+      "application/vnd.pawaafile": {
+        source: "iana",
+        extensions: ["paw"]
+      },
+      "application/vnd.pcos": {
+        source: "iana"
+      },
+      "application/vnd.pg.format": {
+        source: "iana",
+        extensions: ["str"]
+      },
+      "application/vnd.pg.osasli": {
+        source: "iana",
+        extensions: ["ei6"]
+      },
+      "application/vnd.piaccess.application-licence": {
+        source: "iana"
+      },
+      "application/vnd.picsel": {
+        source: "iana",
+        extensions: ["efif"]
+      },
+      "application/vnd.pmi.widget": {
+        source: "iana",
+        extensions: ["wg"]
+      },
+      "application/vnd.poc.group-advertisement+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.pocketlearn": {
+        source: "iana",
+        extensions: ["plf"]
+      },
+      "application/vnd.powerbuilder6": {
+        source: "iana",
+        extensions: ["pbd"]
+      },
+      "application/vnd.powerbuilder6-s": {
+        source: "iana"
+      },
+      "application/vnd.powerbuilder7": {
+        source: "iana"
+      },
+      "application/vnd.powerbuilder7-s": {
+        source: "iana"
+      },
+      "application/vnd.powerbuilder75": {
+        source: "iana"
+      },
+      "application/vnd.powerbuilder75-s": {
+        source: "iana"
+      },
+      "application/vnd.preminet": {
+        source: "iana"
+      },
+      "application/vnd.previewsystems.box": {
+        source: "iana",
+        extensions: ["box"]
+      },
+      "application/vnd.proteus.magazine": {
+        source: "iana",
+        extensions: ["mgz"]
+      },
+      "application/vnd.psfs": {
+        source: "iana"
+      },
+      "application/vnd.publishare-delta-tree": {
+        source: "iana",
+        extensions: ["qps"]
+      },
+      "application/vnd.pvi.ptid1": {
+        source: "iana",
+        extensions: ["ptid"]
+      },
+      "application/vnd.pwg-multiplexed": {
+        source: "iana"
+      },
+      "application/vnd.pwg-xhtml-print+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.qualcomm.brew-app-res": {
+        source: "iana"
+      },
+      "application/vnd.quarantainenet": {
+        source: "iana"
+      },
+      "application/vnd.quark.quarkxpress": {
+        source: "iana",
+        extensions: ["qxd", "qxt", "qwd", "qwt", "qxl", "qxb"]
+      },
+      "application/vnd.quobject-quoxdocument": {
+        source: "iana"
+      },
+      "application/vnd.radisys.moml+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.radisys.msml+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.radisys.msml-audit+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.radisys.msml-audit-conf+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.radisys.msml-audit-conn+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.radisys.msml-audit-dialog+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.radisys.msml-audit-stream+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.radisys.msml-conf+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.radisys.msml-dialog+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.radisys.msml-dialog-base+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.radisys.msml-dialog-fax-detect+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.radisys.msml-dialog-fax-sendrecv+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.radisys.msml-dialog-group+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.radisys.msml-dialog-speech+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.radisys.msml-dialog-transform+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.rainstor.data": {
+        source: "iana"
+      },
+      "application/vnd.rapid": {
+        source: "iana"
+      },
+      "application/vnd.rar": {
+        source: "iana",
+        extensions: ["rar"]
+      },
+      "application/vnd.realvnc.bed": {
+        source: "iana",
+        extensions: ["bed"]
+      },
+      "application/vnd.recordare.musicxml": {
+        source: "iana",
+        extensions: ["mxl"]
+      },
+      "application/vnd.recordare.musicxml+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["musicxml"]
+      },
+      "application/vnd.renlearn.rlprint": {
+        source: "iana"
+      },
+      "application/vnd.resilient.logic": {
+        source: "iana"
+      },
+      "application/vnd.restful+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.rig.cryptonote": {
+        source: "iana",
+        extensions: ["cryptonote"]
+      },
+      "application/vnd.rim.cod": {
+        source: "apache",
+        extensions: ["cod"]
+      },
+      "application/vnd.rn-realmedia": {
+        source: "apache",
+        extensions: ["rm"]
+      },
+      "application/vnd.rn-realmedia-vbr": {
+        source: "apache",
+        extensions: ["rmvb"]
+      },
+      "application/vnd.route66.link66+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["link66"]
+      },
+      "application/vnd.rs-274x": {
+        source: "iana"
+      },
+      "application/vnd.ruckus.download": {
+        source: "iana"
+      },
+      "application/vnd.s3sms": {
+        source: "iana"
+      },
+      "application/vnd.sailingtracker.track": {
+        source: "iana",
+        extensions: ["st"]
+      },
+      "application/vnd.sar": {
+        source: "iana"
+      },
+      "application/vnd.sbm.cid": {
+        source: "iana"
+      },
+      "application/vnd.sbm.mid2": {
+        source: "iana"
+      },
+      "application/vnd.scribus": {
+        source: "iana"
+      },
+      "application/vnd.sealed.3df": {
+        source: "iana"
+      },
+      "application/vnd.sealed.csf": {
+        source: "iana"
+      },
+      "application/vnd.sealed.doc": {
+        source: "iana"
+      },
+      "application/vnd.sealed.eml": {
+        source: "iana"
+      },
+      "application/vnd.sealed.mht": {
+        source: "iana"
+      },
+      "application/vnd.sealed.net": {
+        source: "iana"
+      },
+      "application/vnd.sealed.ppt": {
+        source: "iana"
+      },
+      "application/vnd.sealed.tiff": {
+        source: "iana"
+      },
+      "application/vnd.sealed.xls": {
+        source: "iana"
+      },
+      "application/vnd.sealedmedia.softseal.html": {
+        source: "iana"
+      },
+      "application/vnd.sealedmedia.softseal.pdf": {
+        source: "iana"
+      },
+      "application/vnd.seemail": {
+        source: "iana",
+        extensions: ["see"]
+      },
+      "application/vnd.seis+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.sema": {
+        source: "iana",
+        extensions: ["sema"]
+      },
+      "application/vnd.semd": {
+        source: "iana",
+        extensions: ["semd"]
+      },
+      "application/vnd.semf": {
+        source: "iana",
+        extensions: ["semf"]
+      },
+      "application/vnd.shade-save-file": {
+        source: "iana"
+      },
+      "application/vnd.shana.informed.formdata": {
+        source: "iana",
+        extensions: ["ifm"]
+      },
+      "application/vnd.shana.informed.formtemplate": {
+        source: "iana",
+        extensions: ["itp"]
+      },
+      "application/vnd.shana.informed.interchange": {
+        source: "iana",
+        extensions: ["iif"]
+      },
+      "application/vnd.shana.informed.package": {
+        source: "iana",
+        extensions: ["ipk"]
+      },
+      "application/vnd.shootproof+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.shopkick+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.shp": {
+        source: "iana"
+      },
+      "application/vnd.shx": {
+        source: "iana"
+      },
+      "application/vnd.sigrok.session": {
+        source: "iana"
+      },
+      "application/vnd.simtech-mindmapper": {
+        source: "iana",
+        extensions: ["twd", "twds"]
+      },
+      "application/vnd.siren+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.smaf": {
+        source: "iana",
+        extensions: ["mmf"]
+      },
+      "application/vnd.smart.notebook": {
+        source: "iana"
+      },
+      "application/vnd.smart.teacher": {
+        source: "iana",
+        extensions: ["teacher"]
+      },
+      "application/vnd.snesdev-page-table": {
+        source: "iana"
+      },
+      "application/vnd.software602.filler.form+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["fo"]
+      },
+      "application/vnd.software602.filler.form-xml-zip": {
+        source: "iana"
+      },
+      "application/vnd.solent.sdkm+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["sdkm", "sdkd"]
+      },
+      "application/vnd.spotfire.dxp": {
+        source: "iana",
+        extensions: ["dxp"]
+      },
+      "application/vnd.spotfire.sfs": {
+        source: "iana",
+        extensions: ["sfs"]
+      },
+      "application/vnd.sqlite3": {
+        source: "iana"
+      },
+      "application/vnd.sss-cod": {
+        source: "iana"
+      },
+      "application/vnd.sss-dtf": {
+        source: "iana"
+      },
+      "application/vnd.sss-ntf": {
+        source: "iana"
+      },
+      "application/vnd.stardivision.calc": {
+        source: "apache",
+        extensions: ["sdc"]
+      },
+      "application/vnd.stardivision.draw": {
+        source: "apache",
+        extensions: ["sda"]
+      },
+      "application/vnd.stardivision.impress": {
+        source: "apache",
+        extensions: ["sdd"]
+      },
+      "application/vnd.stardivision.math": {
+        source: "apache",
+        extensions: ["smf"]
+      },
+      "application/vnd.stardivision.writer": {
+        source: "apache",
+        extensions: ["sdw", "vor"]
+      },
+      "application/vnd.stardivision.writer-global": {
+        source: "apache",
+        extensions: ["sgl"]
+      },
+      "application/vnd.stepmania.package": {
+        source: "iana",
+        extensions: ["smzip"]
+      },
+      "application/vnd.stepmania.stepchart": {
+        source: "iana",
+        extensions: ["sm"]
+      },
+      "application/vnd.street-stream": {
+        source: "iana"
+      },
+      "application/vnd.sun.wadl+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["wadl"]
+      },
+      "application/vnd.sun.xml.calc": {
+        source: "apache",
+        extensions: ["sxc"]
+      },
+      "application/vnd.sun.xml.calc.template": {
+        source: "apache",
+        extensions: ["stc"]
+      },
+      "application/vnd.sun.xml.draw": {
+        source: "apache",
+        extensions: ["sxd"]
+      },
+      "application/vnd.sun.xml.draw.template": {
+        source: "apache",
+        extensions: ["std"]
+      },
+      "application/vnd.sun.xml.impress": {
+        source: "apache",
+        extensions: ["sxi"]
+      },
+      "application/vnd.sun.xml.impress.template": {
+        source: "apache",
+        extensions: ["sti"]
+      },
+      "application/vnd.sun.xml.math": {
+        source: "apache",
+        extensions: ["sxm"]
+      },
+      "application/vnd.sun.xml.writer": {
+        source: "apache",
+        extensions: ["sxw"]
+      },
+      "application/vnd.sun.xml.writer.global": {
+        source: "apache",
+        extensions: ["sxg"]
+      },
+      "application/vnd.sun.xml.writer.template": {
+        source: "apache",
+        extensions: ["stw"]
+      },
+      "application/vnd.sus-calendar": {
+        source: "iana",
+        extensions: ["sus", "susp"]
+      },
+      "application/vnd.svd": {
+        source: "iana",
+        extensions: ["svd"]
+      },
+      "application/vnd.swiftview-ics": {
+        source: "iana"
+      },
+      "application/vnd.sycle+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.syft+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.symbian.install": {
+        source: "apache",
+        extensions: ["sis", "sisx"]
+      },
+      "application/vnd.syncml+xml": {
+        source: "iana",
+        charset: "UTF-8",
+        compressible: true,
+        extensions: ["xsm"]
+      },
+      "application/vnd.syncml.dm+wbxml": {
+        source: "iana",
+        charset: "UTF-8",
+        extensions: ["bdm"]
+      },
+      "application/vnd.syncml.dm+xml": {
+        source: "iana",
+        charset: "UTF-8",
+        compressible: true,
+        extensions: ["xdm"]
+      },
+      "application/vnd.syncml.dm.notification": {
+        source: "iana"
+      },
+      "application/vnd.syncml.dmddf+wbxml": {
+        source: "iana"
+      },
+      "application/vnd.syncml.dmddf+xml": {
+        source: "iana",
+        charset: "UTF-8",
+        compressible: true,
+        extensions: ["ddf"]
+      },
+      "application/vnd.syncml.dmtnds+wbxml": {
+        source: "iana"
+      },
+      "application/vnd.syncml.dmtnds+xml": {
+        source: "iana",
+        charset: "UTF-8",
+        compressible: true
+      },
+      "application/vnd.syncml.ds.notification": {
+        source: "iana"
+      },
+      "application/vnd.tableschema+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.tao.intent-module-archive": {
+        source: "iana",
+        extensions: ["tao"]
+      },
+      "application/vnd.tcpdump.pcap": {
+        source: "iana",
+        extensions: ["pcap", "cap", "dmp"]
+      },
+      "application/vnd.think-cell.ppttc+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.tmd.mediaflex.api+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.tml": {
+        source: "iana"
+      },
+      "application/vnd.tmobile-livetv": {
+        source: "iana",
+        extensions: ["tmo"]
+      },
+      "application/vnd.tri.onesource": {
+        source: "iana"
+      },
+      "application/vnd.trid.tpt": {
+        source: "iana",
+        extensions: ["tpt"]
+      },
+      "application/vnd.triscape.mxs": {
+        source: "iana",
+        extensions: ["mxs"]
+      },
+      "application/vnd.trueapp": {
+        source: "iana",
+        extensions: ["tra"]
+      },
+      "application/vnd.truedoc": {
+        source: "iana"
+      },
+      "application/vnd.ubisoft.webplayer": {
+        source: "iana"
+      },
+      "application/vnd.ufdl": {
+        source: "iana",
+        extensions: ["ufd", "ufdl"]
+      },
+      "application/vnd.uiq.theme": {
+        source: "iana",
+        extensions: ["utz"]
+      },
+      "application/vnd.umajin": {
+        source: "iana",
+        extensions: ["umj"]
+      },
+      "application/vnd.unity": {
+        source: "iana",
+        extensions: ["unityweb"]
+      },
+      "application/vnd.uoml+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["uoml"]
+      },
+      "application/vnd.uplanet.alert": {
+        source: "iana"
+      },
+      "application/vnd.uplanet.alert-wbxml": {
+        source: "iana"
+      },
+      "application/vnd.uplanet.bearer-choice": {
+        source: "iana"
+      },
+      "application/vnd.uplanet.bearer-choice-wbxml": {
+        source: "iana"
+      },
+      "application/vnd.uplanet.cacheop": {
+        source: "iana"
+      },
+      "application/vnd.uplanet.cacheop-wbxml": {
+        source: "iana"
+      },
+      "application/vnd.uplanet.channel": {
+        source: "iana"
+      },
+      "application/vnd.uplanet.channel-wbxml": {
+        source: "iana"
+      },
+      "application/vnd.uplanet.list": {
+        source: "iana"
+      },
+      "application/vnd.uplanet.list-wbxml": {
+        source: "iana"
+      },
+      "application/vnd.uplanet.listcmd": {
+        source: "iana"
+      },
+      "application/vnd.uplanet.listcmd-wbxml": {
+        source: "iana"
+      },
+      "application/vnd.uplanet.signal": {
+        source: "iana"
+      },
+      "application/vnd.uri-map": {
+        source: "iana"
+      },
+      "application/vnd.valve.source.material": {
+        source: "iana"
+      },
+      "application/vnd.vcx": {
+        source: "iana",
+        extensions: ["vcx"]
+      },
+      "application/vnd.vd-study": {
+        source: "iana"
+      },
+      "application/vnd.vectorworks": {
+        source: "iana"
+      },
+      "application/vnd.vel+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.verimatrix.vcas": {
+        source: "iana"
+      },
+      "application/vnd.veritone.aion+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.veryant.thin": {
+        source: "iana"
+      },
+      "application/vnd.ves.encrypted": {
+        source: "iana"
+      },
+      "application/vnd.vidsoft.vidconference": {
+        source: "iana"
+      },
+      "application/vnd.visio": {
+        source: "iana",
+        extensions: ["vsd", "vst", "vss", "vsw"]
+      },
+      "application/vnd.visionary": {
+        source: "iana",
+        extensions: ["vis"]
+      },
+      "application/vnd.vividence.scriptfile": {
+        source: "iana"
+      },
+      "application/vnd.vsf": {
+        source: "iana",
+        extensions: ["vsf"]
+      },
+      "application/vnd.wap.sic": {
+        source: "iana"
+      },
+      "application/vnd.wap.slc": {
+        source: "iana"
+      },
+      "application/vnd.wap.wbxml": {
+        source: "iana",
+        charset: "UTF-8",
+        extensions: ["wbxml"]
+      },
+      "application/vnd.wap.wmlc": {
+        source: "iana",
+        extensions: ["wmlc"]
+      },
+      "application/vnd.wap.wmlscriptc": {
+        source: "iana",
+        extensions: ["wmlsc"]
+      },
+      "application/vnd.webturbo": {
+        source: "iana",
+        extensions: ["wtb"]
+      },
+      "application/vnd.wfa.dpp": {
+        source: "iana"
+      },
+      "application/vnd.wfa.p2p": {
+        source: "iana"
+      },
+      "application/vnd.wfa.wsc": {
+        source: "iana"
+      },
+      "application/vnd.windows.devicepairing": {
+        source: "iana"
+      },
+      "application/vnd.wmc": {
+        source: "iana"
+      },
+      "application/vnd.wmf.bootstrap": {
+        source: "iana"
+      },
+      "application/vnd.wolfram.mathematica": {
+        source: "iana"
+      },
+      "application/vnd.wolfram.mathematica.package": {
+        source: "iana"
+      },
+      "application/vnd.wolfram.player": {
+        source: "iana",
+        extensions: ["nbp"]
+      },
+      "application/vnd.wordperfect": {
+        source: "iana",
+        extensions: ["wpd"]
+      },
+      "application/vnd.wqd": {
+        source: "iana",
+        extensions: ["wqd"]
+      },
+      "application/vnd.wrq-hp3000-labelled": {
+        source: "iana"
+      },
+      "application/vnd.wt.stf": {
+        source: "iana",
+        extensions: ["stf"]
+      },
+      "application/vnd.wv.csp+wbxml": {
+        source: "iana"
+      },
+      "application/vnd.wv.csp+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.wv.ssp+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.xacml+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.xara": {
+        source: "iana",
+        extensions: ["xar"]
+      },
+      "application/vnd.xfdl": {
+        source: "iana",
+        extensions: ["xfdl"]
+      },
+      "application/vnd.xfdl.webform": {
+        source: "iana"
+      },
+      "application/vnd.xmi+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vnd.xmpie.cpkg": {
+        source: "iana"
+      },
+      "application/vnd.xmpie.dpkg": {
+        source: "iana"
+      },
+      "application/vnd.xmpie.plan": {
+        source: "iana"
+      },
+      "application/vnd.xmpie.ppkg": {
+        source: "iana"
+      },
+      "application/vnd.xmpie.xlim": {
+        source: "iana"
+      },
+      "application/vnd.yamaha.hv-dic": {
+        source: "iana",
+        extensions: ["hvd"]
+      },
+      "application/vnd.yamaha.hv-script": {
+        source: "iana",
+        extensions: ["hvs"]
+      },
+      "application/vnd.yamaha.hv-voice": {
+        source: "iana",
+        extensions: ["hvp"]
+      },
+      "application/vnd.yamaha.openscoreformat": {
+        source: "iana",
+        extensions: ["osf"]
+      },
+      "application/vnd.yamaha.openscoreformat.osfpvg+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["osfpvg"]
+      },
+      "application/vnd.yamaha.remote-setup": {
+        source: "iana"
+      },
+      "application/vnd.yamaha.smaf-audio": {
+        source: "iana",
+        extensions: ["saf"]
+      },
+      "application/vnd.yamaha.smaf-phrase": {
+        source: "iana",
+        extensions: ["spf"]
+      },
+      "application/vnd.yamaha.through-ngn": {
+        source: "iana"
+      },
+      "application/vnd.yamaha.tunnel-udpencap": {
+        source: "iana"
+      },
+      "application/vnd.yaoweme": {
+        source: "iana"
+      },
+      "application/vnd.yellowriver-custom-menu": {
+        source: "iana",
+        extensions: ["cmp"]
+      },
+      "application/vnd.youtube.yt": {
+        source: "iana"
+      },
+      "application/vnd.zul": {
+        source: "iana",
+        extensions: ["zir", "zirz"]
+      },
+      "application/vnd.zzazz.deck+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["zaz"]
+      },
+      "application/voicexml+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["vxml"]
+      },
+      "application/voucher-cms+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/vq-rtcpxr": {
+        source: "iana"
+      },
+      "application/wasm": {
+        source: "iana",
+        compressible: true,
+        extensions: ["wasm"]
+      },
+      "application/watcherinfo+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["wif"]
+      },
+      "application/webpush-options+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/whoispp-query": {
+        source: "iana"
+      },
+      "application/whoispp-response": {
+        source: "iana"
+      },
+      "application/widget": {
+        source: "iana",
+        extensions: ["wgt"]
+      },
+      "application/winhlp": {
+        source: "apache",
+        extensions: ["hlp"]
+      },
+      "application/wita": {
+        source: "iana"
+      },
+      "application/wordperfect5.1": {
+        source: "iana"
+      },
+      "application/wsdl+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["wsdl"]
+      },
+      "application/wspolicy+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["wspolicy"]
+      },
+      "application/x-7z-compressed": {
+        source: "apache",
+        compressible: false,
+        extensions: ["7z"]
+      },
+      "application/x-abiword": {
+        source: "apache",
+        extensions: ["abw"]
+      },
+      "application/x-ace-compressed": {
+        source: "apache",
+        extensions: ["ace"]
+      },
+      "application/x-amf": {
+        source: "apache"
+      },
+      "application/x-apple-diskimage": {
+        source: "apache",
+        extensions: ["dmg"]
+      },
+      "application/x-arj": {
+        compressible: false,
+        extensions: ["arj"]
+      },
+      "application/x-authorware-bin": {
+        source: "apache",
+        extensions: ["aab", "x32", "u32", "vox"]
+      },
+      "application/x-authorware-map": {
+        source: "apache",
+        extensions: ["aam"]
+      },
+      "application/x-authorware-seg": {
+        source: "apache",
+        extensions: ["aas"]
+      },
+      "application/x-bcpio": {
+        source: "apache",
+        extensions: ["bcpio"]
+      },
+      "application/x-bdoc": {
+        compressible: false,
+        extensions: ["bdoc"]
+      },
+      "application/x-bittorrent": {
+        source: "apache",
+        extensions: ["torrent"]
+      },
+      "application/x-blorb": {
+        source: "apache",
+        extensions: ["blb", "blorb"]
+      },
+      "application/x-bzip": {
+        source: "apache",
+        compressible: false,
+        extensions: ["bz"]
+      },
+      "application/x-bzip2": {
+        source: "apache",
+        compressible: false,
+        extensions: ["bz2", "boz"]
+      },
+      "application/x-cbr": {
+        source: "apache",
+        extensions: ["cbr", "cba", "cbt", "cbz", "cb7"]
+      },
+      "application/x-cdlink": {
+        source: "apache",
+        extensions: ["vcd"]
+      },
+      "application/x-cfs-compressed": {
+        source: "apache",
+        extensions: ["cfs"]
+      },
+      "application/x-chat": {
+        source: "apache",
+        extensions: ["chat"]
+      },
+      "application/x-chess-pgn": {
+        source: "apache",
+        extensions: ["pgn"]
+      },
+      "application/x-chrome-extension": {
+        extensions: ["crx"]
+      },
+      "application/x-cocoa": {
+        source: "nginx",
+        extensions: ["cco"]
+      },
+      "application/x-compress": {
+        source: "apache"
+      },
+      "application/x-conference": {
+        source: "apache",
+        extensions: ["nsc"]
+      },
+      "application/x-cpio": {
+        source: "apache",
+        extensions: ["cpio"]
+      },
+      "application/x-csh": {
+        source: "apache",
+        extensions: ["csh"]
+      },
+      "application/x-deb": {
+        compressible: false
+      },
+      "application/x-debian-package": {
+        source: "apache",
+        extensions: ["deb", "udeb"]
+      },
+      "application/x-dgc-compressed": {
+        source: "apache",
+        extensions: ["dgc"]
+      },
+      "application/x-director": {
+        source: "apache",
+        extensions: ["dir", "dcr", "dxr", "cst", "cct", "cxt", "w3d", "fgd", "swa"]
+      },
+      "application/x-doom": {
+        source: "apache",
+        extensions: ["wad"]
+      },
+      "application/x-dtbncx+xml": {
+        source: "apache",
+        compressible: true,
+        extensions: ["ncx"]
+      },
+      "application/x-dtbook+xml": {
+        source: "apache",
+        compressible: true,
+        extensions: ["dtb"]
+      },
+      "application/x-dtbresource+xml": {
+        source: "apache",
+        compressible: true,
+        extensions: ["res"]
+      },
+      "application/x-dvi": {
+        source: "apache",
+        compressible: false,
+        extensions: ["dvi"]
+      },
+      "application/x-envoy": {
+        source: "apache",
+        extensions: ["evy"]
+      },
+      "application/x-eva": {
+        source: "apache",
+        extensions: ["eva"]
+      },
+      "application/x-font-bdf": {
+        source: "apache",
+        extensions: ["bdf"]
+      },
+      "application/x-font-dos": {
+        source: "apache"
+      },
+      "application/x-font-framemaker": {
+        source: "apache"
+      },
+      "application/x-font-ghostscript": {
+        source: "apache",
+        extensions: ["gsf"]
+      },
+      "application/x-font-libgrx": {
+        source: "apache"
+      },
+      "application/x-font-linux-psf": {
+        source: "apache",
+        extensions: ["psf"]
+      },
+      "application/x-font-pcf": {
+        source: "apache",
+        extensions: ["pcf"]
+      },
+      "application/x-font-snf": {
+        source: "apache",
+        extensions: ["snf"]
+      },
+      "application/x-font-speedo": {
+        source: "apache"
+      },
+      "application/x-font-sunos-news": {
+        source: "apache"
+      },
+      "application/x-font-type1": {
+        source: "apache",
+        extensions: ["pfa", "pfb", "pfm", "afm"]
+      },
+      "application/x-font-vfont": {
+        source: "apache"
+      },
+      "application/x-freearc": {
+        source: "apache",
+        extensions: ["arc"]
+      },
+      "application/x-futuresplash": {
+        source: "apache",
+        extensions: ["spl"]
+      },
+      "application/x-gca-compressed": {
+        source: "apache",
+        extensions: ["gca"]
+      },
+      "application/x-glulx": {
+        source: "apache",
+        extensions: ["ulx"]
+      },
+      "application/x-gnumeric": {
+        source: "apache",
+        extensions: ["gnumeric"]
+      },
+      "application/x-gramps-xml": {
+        source: "apache",
+        extensions: ["gramps"]
+      },
+      "application/x-gtar": {
+        source: "apache",
+        extensions: ["gtar"]
+      },
+      "application/x-gzip": {
+        source: "apache"
+      },
+      "application/x-hdf": {
+        source: "apache",
+        extensions: ["hdf"]
+      },
+      "application/x-httpd-php": {
+        compressible: true,
+        extensions: ["php"]
+      },
+      "application/x-install-instructions": {
+        source: "apache",
+        extensions: ["install"]
+      },
+      "application/x-iso9660-image": {
+        source: "apache",
+        extensions: ["iso"]
+      },
+      "application/x-iwork-keynote-sffkey": {
+        extensions: ["key"]
+      },
+      "application/x-iwork-numbers-sffnumbers": {
+        extensions: ["numbers"]
+      },
+      "application/x-iwork-pages-sffpages": {
+        extensions: ["pages"]
+      },
+      "application/x-java-archive-diff": {
+        source: "nginx",
+        extensions: ["jardiff"]
+      },
+      "application/x-java-jnlp-file": {
+        source: "apache",
+        compressible: false,
+        extensions: ["jnlp"]
+      },
+      "application/x-javascript": {
+        compressible: true
+      },
+      "application/x-keepass2": {
+        extensions: ["kdbx"]
+      },
+      "application/x-latex": {
+        source: "apache",
+        compressible: false,
+        extensions: ["latex"]
+      },
+      "application/x-lua-bytecode": {
+        extensions: ["luac"]
+      },
+      "application/x-lzh-compressed": {
+        source: "apache",
+        extensions: ["lzh", "lha"]
+      },
+      "application/x-makeself": {
+        source: "nginx",
+        extensions: ["run"]
+      },
+      "application/x-mie": {
+        source: "apache",
+        extensions: ["mie"]
+      },
+      "application/x-mobipocket-ebook": {
+        source: "apache",
+        extensions: ["prc", "mobi"]
+      },
+      "application/x-mpegurl": {
+        compressible: false
+      },
+      "application/x-ms-application": {
+        source: "apache",
+        extensions: ["application"]
+      },
+      "application/x-ms-shortcut": {
+        source: "apache",
+        extensions: ["lnk"]
+      },
+      "application/x-ms-wmd": {
+        source: "apache",
+        extensions: ["wmd"]
+      },
+      "application/x-ms-wmz": {
+        source: "apache",
+        extensions: ["wmz"]
+      },
+      "application/x-ms-xbap": {
+        source: "apache",
+        extensions: ["xbap"]
+      },
+      "application/x-msaccess": {
+        source: "apache",
+        extensions: ["mdb"]
+      },
+      "application/x-msbinder": {
+        source: "apache",
+        extensions: ["obd"]
+      },
+      "application/x-mscardfile": {
+        source: "apache",
+        extensions: ["crd"]
+      },
+      "application/x-msclip": {
+        source: "apache",
+        extensions: ["clp"]
+      },
+      "application/x-msdos-program": {
+        extensions: ["exe"]
+      },
+      "application/x-msdownload": {
+        source: "apache",
+        extensions: ["exe", "dll", "com", "bat", "msi"]
+      },
+      "application/x-msmediaview": {
+        source: "apache",
+        extensions: ["mvb", "m13", "m14"]
+      },
+      "application/x-msmetafile": {
+        source: "apache",
+        extensions: ["wmf", "wmz", "emf", "emz"]
+      },
+      "application/x-msmoney": {
+        source: "apache",
+        extensions: ["mny"]
+      },
+      "application/x-mspublisher": {
+        source: "apache",
+        extensions: ["pub"]
+      },
+      "application/x-msschedule": {
+        source: "apache",
+        extensions: ["scd"]
+      },
+      "application/x-msterminal": {
+        source: "apache",
+        extensions: ["trm"]
+      },
+      "application/x-mswrite": {
+        source: "apache",
+        extensions: ["wri"]
+      },
+      "application/x-netcdf": {
+        source: "apache",
+        extensions: ["nc", "cdf"]
+      },
+      "application/x-ns-proxy-autoconfig": {
+        compressible: true,
+        extensions: ["pac"]
+      },
+      "application/x-nzb": {
+        source: "apache",
+        extensions: ["nzb"]
+      },
+      "application/x-perl": {
+        source: "nginx",
+        extensions: ["pl", "pm"]
+      },
+      "application/x-pilot": {
+        source: "nginx",
+        extensions: ["prc", "pdb"]
+      },
+      "application/x-pkcs12": {
+        source: "apache",
+        compressible: false,
+        extensions: ["p12", "pfx"]
+      },
+      "application/x-pkcs7-certificates": {
+        source: "apache",
+        extensions: ["p7b", "spc"]
+      },
+      "application/x-pkcs7-certreqresp": {
+        source: "apache",
+        extensions: ["p7r"]
+      },
+      "application/x-pki-message": {
+        source: "iana"
+      },
+      "application/x-rar-compressed": {
+        source: "apache",
+        compressible: false,
+        extensions: ["rar"]
+      },
+      "application/x-redhat-package-manager": {
+        source: "nginx",
+        extensions: ["rpm"]
+      },
+      "application/x-research-info-systems": {
+        source: "apache",
+        extensions: ["ris"]
+      },
+      "application/x-sea": {
+        source: "nginx",
+        extensions: ["sea"]
+      },
+      "application/x-sh": {
+        source: "apache",
+        compressible: true,
+        extensions: ["sh"]
+      },
+      "application/x-shar": {
+        source: "apache",
+        extensions: ["shar"]
+      },
+      "application/x-shockwave-flash": {
+        source: "apache",
+        compressible: false,
+        extensions: ["swf"]
+      },
+      "application/x-silverlight-app": {
+        source: "apache",
+        extensions: ["xap"]
+      },
+      "application/x-sql": {
+        source: "apache",
+        extensions: ["sql"]
+      },
+      "application/x-stuffit": {
+        source: "apache",
+        compressible: false,
+        extensions: ["sit"]
+      },
+      "application/x-stuffitx": {
+        source: "apache",
+        extensions: ["sitx"]
+      },
+      "application/x-subrip": {
+        source: "apache",
+        extensions: ["srt"]
+      },
+      "application/x-sv4cpio": {
+        source: "apache",
+        extensions: ["sv4cpio"]
+      },
+      "application/x-sv4crc": {
+        source: "apache",
+        extensions: ["sv4crc"]
+      },
+      "application/x-t3vm-image": {
+        source: "apache",
+        extensions: ["t3"]
+      },
+      "application/x-tads": {
+        source: "apache",
+        extensions: ["gam"]
+      },
+      "application/x-tar": {
+        source: "apache",
+        compressible: true,
+        extensions: ["tar"]
+      },
+      "application/x-tcl": {
+        source: "apache",
+        extensions: ["tcl", "tk"]
+      },
+      "application/x-tex": {
+        source: "apache",
+        extensions: ["tex"]
+      },
+      "application/x-tex-tfm": {
+        source: "apache",
+        extensions: ["tfm"]
+      },
+      "application/x-texinfo": {
+        source: "apache",
+        extensions: ["texinfo", "texi"]
+      },
+      "application/x-tgif": {
+        source: "apache",
+        extensions: ["obj"]
+      },
+      "application/x-ustar": {
+        source: "apache",
+        extensions: ["ustar"]
+      },
+      "application/x-virtualbox-hdd": {
+        compressible: true,
+        extensions: ["hdd"]
+      },
+      "application/x-virtualbox-ova": {
+        compressible: true,
+        extensions: ["ova"]
+      },
+      "application/x-virtualbox-ovf": {
+        compressible: true,
+        extensions: ["ovf"]
+      },
+      "application/x-virtualbox-vbox": {
+        compressible: true,
+        extensions: ["vbox"]
+      },
+      "application/x-virtualbox-vbox-extpack": {
+        compressible: false,
+        extensions: ["vbox-extpack"]
+      },
+      "application/x-virtualbox-vdi": {
+        compressible: true,
+        extensions: ["vdi"]
+      },
+      "application/x-virtualbox-vhd": {
+        compressible: true,
+        extensions: ["vhd"]
+      },
+      "application/x-virtualbox-vmdk": {
+        compressible: true,
+        extensions: ["vmdk"]
+      },
+      "application/x-wais-source": {
+        source: "apache",
+        extensions: ["src"]
+      },
+      "application/x-web-app-manifest+json": {
+        compressible: true,
+        extensions: ["webapp"]
+      },
+      "application/x-www-form-urlencoded": {
+        source: "iana",
+        compressible: true
+      },
+      "application/x-x509-ca-cert": {
+        source: "iana",
+        extensions: ["der", "crt", "pem"]
+      },
+      "application/x-x509-ca-ra-cert": {
+        source: "iana"
+      },
+      "application/x-x509-next-ca-cert": {
+        source: "iana"
+      },
+      "application/x-xfig": {
+        source: "apache",
+        extensions: ["fig"]
+      },
+      "application/x-xliff+xml": {
+        source: "apache",
+        compressible: true,
+        extensions: ["xlf"]
+      },
+      "application/x-xpinstall": {
+        source: "apache",
+        compressible: false,
+        extensions: ["xpi"]
+      },
+      "application/x-xz": {
+        source: "apache",
+        extensions: ["xz"]
+      },
+      "application/x-zmachine": {
+        source: "apache",
+        extensions: ["z1", "z2", "z3", "z4", "z5", "z6", "z7", "z8"]
+      },
+      "application/x400-bp": {
+        source: "iana"
+      },
+      "application/xacml+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/xaml+xml": {
+        source: "apache",
+        compressible: true,
+        extensions: ["xaml"]
+      },
+      "application/xcap-att+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["xav"]
+      },
+      "application/xcap-caps+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["xca"]
+      },
+      "application/xcap-diff+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["xdf"]
+      },
+      "application/xcap-el+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["xel"]
+      },
+      "application/xcap-error+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/xcap-ns+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["xns"]
+      },
+      "application/xcon-conference-info+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/xcon-conference-info-diff+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/xenc+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["xenc"]
+      },
+      "application/xhtml+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["xhtml", "xht"]
+      },
+      "application/xhtml-voice+xml": {
+        source: "apache",
+        compressible: true
+      },
+      "application/xliff+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["xlf"]
+      },
+      "application/xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["xml", "xsl", "xsd", "rng"]
+      },
+      "application/xml-dtd": {
+        source: "iana",
+        compressible: true,
+        extensions: ["dtd"]
+      },
+      "application/xml-external-parsed-entity": {
+        source: "iana"
+      },
+      "application/xml-patch+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/xmpp+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/xop+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["xop"]
+      },
+      "application/xproc+xml": {
+        source: "apache",
+        compressible: true,
+        extensions: ["xpl"]
+      },
+      "application/xslt+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["xsl", "xslt"]
+      },
+      "application/xspf+xml": {
+        source: "apache",
+        compressible: true,
+        extensions: ["xspf"]
+      },
+      "application/xv+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["mxml", "xhvml", "xvml", "xvm"]
+      },
+      "application/yang": {
+        source: "iana",
+        extensions: ["yang"]
+      },
+      "application/yang-data+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/yang-data+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/yang-patch+json": {
+        source: "iana",
+        compressible: true
+      },
+      "application/yang-patch+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "application/yin+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["yin"]
+      },
+      "application/zip": {
+        source: "iana",
+        compressible: false,
+        extensions: ["zip"]
+      },
+      "application/zlib": {
+        source: "iana"
+      },
+      "application/zstd": {
+        source: "iana"
+      },
+      "audio/1d-interleaved-parityfec": {
+        source: "iana"
+      },
+      "audio/32kadpcm": {
+        source: "iana"
+      },
+      "audio/3gpp": {
+        source: "iana",
+        compressible: false,
+        extensions: ["3gpp"]
+      },
+      "audio/3gpp2": {
+        source: "iana"
+      },
+      "audio/aac": {
+        source: "iana"
+      },
+      "audio/ac3": {
+        source: "iana"
+      },
+      "audio/adpcm": {
+        source: "apache",
+        extensions: ["adp"]
+      },
+      "audio/amr": {
+        source: "iana",
+        extensions: ["amr"]
+      },
+      "audio/amr-wb": {
+        source: "iana"
+      },
+      "audio/amr-wb+": {
+        source: "iana"
+      },
+      "audio/aptx": {
+        source: "iana"
+      },
+      "audio/asc": {
+        source: "iana"
+      },
+      "audio/atrac-advanced-lossless": {
+        source: "iana"
+      },
+      "audio/atrac-x": {
+        source: "iana"
+      },
+      "audio/atrac3": {
+        source: "iana"
+      },
+      "audio/basic": {
+        source: "iana",
+        compressible: false,
+        extensions: ["au", "snd"]
+      },
+      "audio/bv16": {
+        source: "iana"
+      },
+      "audio/bv32": {
+        source: "iana"
+      },
+      "audio/clearmode": {
+        source: "iana"
+      },
+      "audio/cn": {
+        source: "iana"
+      },
+      "audio/dat12": {
+        source: "iana"
+      },
+      "audio/dls": {
+        source: "iana"
+      },
+      "audio/dsr-es201108": {
+        source: "iana"
+      },
+      "audio/dsr-es202050": {
+        source: "iana"
+      },
+      "audio/dsr-es202211": {
+        source: "iana"
+      },
+      "audio/dsr-es202212": {
+        source: "iana"
+      },
+      "audio/dv": {
+        source: "iana"
+      },
+      "audio/dvi4": {
+        source: "iana"
+      },
+      "audio/eac3": {
+        source: "iana"
+      },
+      "audio/encaprtp": {
+        source: "iana"
+      },
+      "audio/evrc": {
+        source: "iana"
+      },
+      "audio/evrc-qcp": {
+        source: "iana"
+      },
+      "audio/evrc0": {
+        source: "iana"
+      },
+      "audio/evrc1": {
+        source: "iana"
+      },
+      "audio/evrcb": {
+        source: "iana"
+      },
+      "audio/evrcb0": {
+        source: "iana"
+      },
+      "audio/evrcb1": {
+        source: "iana"
+      },
+      "audio/evrcnw": {
+        source: "iana"
+      },
+      "audio/evrcnw0": {
+        source: "iana"
+      },
+      "audio/evrcnw1": {
+        source: "iana"
+      },
+      "audio/evrcwb": {
+        source: "iana"
+      },
+      "audio/evrcwb0": {
+        source: "iana"
+      },
+      "audio/evrcwb1": {
+        source: "iana"
+      },
+      "audio/evs": {
+        source: "iana"
+      },
+      "audio/flexfec": {
+        source: "iana"
+      },
+      "audio/fwdred": {
+        source: "iana"
+      },
+      "audio/g711-0": {
+        source: "iana"
+      },
+      "audio/g719": {
+        source: "iana"
+      },
+      "audio/g722": {
+        source: "iana"
+      },
+      "audio/g7221": {
+        source: "iana"
+      },
+      "audio/g723": {
+        source: "iana"
+      },
+      "audio/g726-16": {
+        source: "iana"
+      },
+      "audio/g726-24": {
+        source: "iana"
+      },
+      "audio/g726-32": {
+        source: "iana"
+      },
+      "audio/g726-40": {
+        source: "iana"
+      },
+      "audio/g728": {
+        source: "iana"
+      },
+      "audio/g729": {
+        source: "iana"
+      },
+      "audio/g7291": {
+        source: "iana"
+      },
+      "audio/g729d": {
+        source: "iana"
+      },
+      "audio/g729e": {
+        source: "iana"
+      },
+      "audio/gsm": {
+        source: "iana"
+      },
+      "audio/gsm-efr": {
+        source: "iana"
+      },
+      "audio/gsm-hr-08": {
+        source: "iana"
+      },
+      "audio/ilbc": {
+        source: "iana"
+      },
+      "audio/ip-mr_v2.5": {
+        source: "iana"
+      },
+      "audio/isac": {
+        source: "apache"
+      },
+      "audio/l16": {
+        source: "iana"
+      },
+      "audio/l20": {
+        source: "iana"
+      },
+      "audio/l24": {
+        source: "iana",
+        compressible: false
+      },
+      "audio/l8": {
+        source: "iana"
+      },
+      "audio/lpc": {
+        source: "iana"
+      },
+      "audio/melp": {
+        source: "iana"
+      },
+      "audio/melp1200": {
+        source: "iana"
+      },
+      "audio/melp2400": {
+        source: "iana"
+      },
+      "audio/melp600": {
+        source: "iana"
+      },
+      "audio/mhas": {
+        source: "iana"
+      },
+      "audio/midi": {
+        source: "apache",
+        extensions: ["mid", "midi", "kar", "rmi"]
+      },
+      "audio/mobile-xmf": {
+        source: "iana",
+        extensions: ["mxmf"]
+      },
+      "audio/mp3": {
+        compressible: false,
+        extensions: ["mp3"]
+      },
+      "audio/mp4": {
+        source: "iana",
+        compressible: false,
+        extensions: ["m4a", "mp4a"]
+      },
+      "audio/mp4a-latm": {
+        source: "iana"
+      },
+      "audio/mpa": {
+        source: "iana"
+      },
+      "audio/mpa-robust": {
+        source: "iana"
+      },
+      "audio/mpeg": {
+        source: "iana",
+        compressible: false,
+        extensions: ["mpga", "mp2", "mp2a", "mp3", "m2a", "m3a"]
+      },
+      "audio/mpeg4-generic": {
+        source: "iana"
+      },
+      "audio/musepack": {
+        source: "apache"
+      },
+      "audio/ogg": {
+        source: "iana",
+        compressible: false,
+        extensions: ["oga", "ogg", "spx", "opus"]
+      },
+      "audio/opus": {
+        source: "iana"
+      },
+      "audio/parityfec": {
+        source: "iana"
+      },
+      "audio/pcma": {
+        source: "iana"
+      },
+      "audio/pcma-wb": {
+        source: "iana"
+      },
+      "audio/pcmu": {
+        source: "iana"
+      },
+      "audio/pcmu-wb": {
+        source: "iana"
+      },
+      "audio/prs.sid": {
+        source: "iana"
+      },
+      "audio/qcelp": {
+        source: "iana"
+      },
+      "audio/raptorfec": {
+        source: "iana"
+      },
+      "audio/red": {
+        source: "iana"
+      },
+      "audio/rtp-enc-aescm128": {
+        source: "iana"
+      },
+      "audio/rtp-midi": {
+        source: "iana"
+      },
+      "audio/rtploopback": {
+        source: "iana"
+      },
+      "audio/rtx": {
+        source: "iana"
+      },
+      "audio/s3m": {
+        source: "apache",
+        extensions: ["s3m"]
+      },
+      "audio/scip": {
+        source: "iana"
+      },
+      "audio/silk": {
+        source: "apache",
+        extensions: ["sil"]
+      },
+      "audio/smv": {
+        source: "iana"
+      },
+      "audio/smv-qcp": {
+        source: "iana"
+      },
+      "audio/smv0": {
+        source: "iana"
+      },
+      "audio/sofa": {
+        source: "iana"
+      },
+      "audio/sp-midi": {
+        source: "iana"
+      },
+      "audio/speex": {
+        source: "iana"
+      },
+      "audio/t140c": {
+        source: "iana"
+      },
+      "audio/t38": {
+        source: "iana"
+      },
+      "audio/telephone-event": {
+        source: "iana"
+      },
+      "audio/tetra_acelp": {
+        source: "iana"
+      },
+      "audio/tetra_acelp_bb": {
+        source: "iana"
+      },
+      "audio/tone": {
+        source: "iana"
+      },
+      "audio/tsvcis": {
+        source: "iana"
+      },
+      "audio/uemclip": {
+        source: "iana"
+      },
+      "audio/ulpfec": {
+        source: "iana"
+      },
+      "audio/usac": {
+        source: "iana"
+      },
+      "audio/vdvi": {
+        source: "iana"
+      },
+      "audio/vmr-wb": {
+        source: "iana"
+      },
+      "audio/vnd.3gpp.iufp": {
+        source: "iana"
+      },
+      "audio/vnd.4sb": {
+        source: "iana"
+      },
+      "audio/vnd.audiokoz": {
+        source: "iana"
+      },
+      "audio/vnd.celp": {
+        source: "iana"
+      },
+      "audio/vnd.cisco.nse": {
+        source: "iana"
+      },
+      "audio/vnd.cmles.radio-events": {
+        source: "iana"
+      },
+      "audio/vnd.cns.anp1": {
+        source: "iana"
+      },
+      "audio/vnd.cns.inf1": {
+        source: "iana"
+      },
+      "audio/vnd.dece.audio": {
+        source: "iana",
+        extensions: ["uva", "uvva"]
+      },
+      "audio/vnd.digital-winds": {
+        source: "iana",
+        extensions: ["eol"]
+      },
+      "audio/vnd.dlna.adts": {
+        source: "iana"
+      },
+      "audio/vnd.dolby.heaac.1": {
+        source: "iana"
+      },
+      "audio/vnd.dolby.heaac.2": {
+        source: "iana"
+      },
+      "audio/vnd.dolby.mlp": {
+        source: "iana"
+      },
+      "audio/vnd.dolby.mps": {
+        source: "iana"
+      },
+      "audio/vnd.dolby.pl2": {
+        source: "iana"
+      },
+      "audio/vnd.dolby.pl2x": {
+        source: "iana"
+      },
+      "audio/vnd.dolby.pl2z": {
+        source: "iana"
+      },
+      "audio/vnd.dolby.pulse.1": {
+        source: "iana"
+      },
+      "audio/vnd.dra": {
+        source: "iana",
+        extensions: ["dra"]
+      },
+      "audio/vnd.dts": {
+        source: "iana",
+        extensions: ["dts"]
+      },
+      "audio/vnd.dts.hd": {
+        source: "iana",
+        extensions: ["dtshd"]
+      },
+      "audio/vnd.dts.uhd": {
+        source: "iana"
+      },
+      "audio/vnd.dvb.file": {
+        source: "iana"
+      },
+      "audio/vnd.everad.plj": {
+        source: "iana"
+      },
+      "audio/vnd.hns.audio": {
+        source: "iana"
+      },
+      "audio/vnd.lucent.voice": {
+        source: "iana",
+        extensions: ["lvp"]
+      },
+      "audio/vnd.ms-playready.media.pya": {
+        source: "iana",
+        extensions: ["pya"]
+      },
+      "audio/vnd.nokia.mobile-xmf": {
+        source: "iana"
+      },
+      "audio/vnd.nortel.vbk": {
+        source: "iana"
+      },
+      "audio/vnd.nuera.ecelp4800": {
+        source: "iana",
+        extensions: ["ecelp4800"]
+      },
+      "audio/vnd.nuera.ecelp7470": {
+        source: "iana",
+        extensions: ["ecelp7470"]
+      },
+      "audio/vnd.nuera.ecelp9600": {
+        source: "iana",
+        extensions: ["ecelp9600"]
+      },
+      "audio/vnd.octel.sbc": {
+        source: "iana"
+      },
+      "audio/vnd.presonus.multitrack": {
+        source: "iana"
+      },
+      "audio/vnd.qcelp": {
+        source: "iana"
+      },
+      "audio/vnd.rhetorex.32kadpcm": {
+        source: "iana"
+      },
+      "audio/vnd.rip": {
+        source: "iana",
+        extensions: ["rip"]
+      },
+      "audio/vnd.rn-realaudio": {
+        compressible: false
+      },
+      "audio/vnd.sealedmedia.softseal.mpeg": {
+        source: "iana"
+      },
+      "audio/vnd.vmx.cvsd": {
+        source: "iana"
+      },
+      "audio/vnd.wave": {
+        compressible: false
+      },
+      "audio/vorbis": {
+        source: "iana",
+        compressible: false
+      },
+      "audio/vorbis-config": {
+        source: "iana"
+      },
+      "audio/wav": {
+        compressible: false,
+        extensions: ["wav"]
+      },
+      "audio/wave": {
+        compressible: false,
+        extensions: ["wav"]
+      },
+      "audio/webm": {
+        source: "apache",
+        compressible: false,
+        extensions: ["weba"]
+      },
+      "audio/x-aac": {
+        source: "apache",
+        compressible: false,
+        extensions: ["aac"]
+      },
+      "audio/x-aiff": {
+        source: "apache",
+        extensions: ["aif", "aiff", "aifc"]
+      },
+      "audio/x-caf": {
+        source: "apache",
+        compressible: false,
+        extensions: ["caf"]
+      },
+      "audio/x-flac": {
+        source: "apache",
+        extensions: ["flac"]
+      },
+      "audio/x-m4a": {
+        source: "nginx",
+        extensions: ["m4a"]
+      },
+      "audio/x-matroska": {
+        source: "apache",
+        extensions: ["mka"]
+      },
+      "audio/x-mpegurl": {
+        source: "apache",
+        extensions: ["m3u"]
+      },
+      "audio/x-ms-wax": {
+        source: "apache",
+        extensions: ["wax"]
+      },
+      "audio/x-ms-wma": {
+        source: "apache",
+        extensions: ["wma"]
+      },
+      "audio/x-pn-realaudio": {
+        source: "apache",
+        extensions: ["ram", "ra"]
+      },
+      "audio/x-pn-realaudio-plugin": {
+        source: "apache",
+        extensions: ["rmp"]
+      },
+      "audio/x-realaudio": {
+        source: "nginx",
+        extensions: ["ra"]
+      },
+      "audio/x-tta": {
+        source: "apache"
+      },
+      "audio/x-wav": {
+        source: "apache",
+        extensions: ["wav"]
+      },
+      "audio/xm": {
+        source: "apache",
+        extensions: ["xm"]
+      },
+      "chemical/x-cdx": {
+        source: "apache",
+        extensions: ["cdx"]
+      },
+      "chemical/x-cif": {
+        source: "apache",
+        extensions: ["cif"]
+      },
+      "chemical/x-cmdf": {
+        source: "apache",
+        extensions: ["cmdf"]
+      },
+      "chemical/x-cml": {
+        source: "apache",
+        extensions: ["cml"]
+      },
+      "chemical/x-csml": {
+        source: "apache",
+        extensions: ["csml"]
+      },
+      "chemical/x-pdb": {
+        source: "apache"
+      },
+      "chemical/x-xyz": {
+        source: "apache",
+        extensions: ["xyz"]
+      },
+      "font/collection": {
+        source: "iana",
+        extensions: ["ttc"]
+      },
+      "font/otf": {
+        source: "iana",
+        compressible: true,
+        extensions: ["otf"]
+      },
+      "font/sfnt": {
+        source: "iana"
+      },
+      "font/ttf": {
+        source: "iana",
+        compressible: true,
+        extensions: ["ttf"]
+      },
+      "font/woff": {
+        source: "iana",
+        extensions: ["woff"]
+      },
+      "font/woff2": {
+        source: "iana",
+        extensions: ["woff2"]
+      },
+      "image/aces": {
+        source: "iana",
+        extensions: ["exr"]
+      },
+      "image/apng": {
+        compressible: false,
+        extensions: ["apng"]
+      },
+      "image/avci": {
+        source: "iana",
+        extensions: ["avci"]
+      },
+      "image/avcs": {
+        source: "iana",
+        extensions: ["avcs"]
+      },
+      "image/avif": {
+        source: "iana",
+        compressible: false,
+        extensions: ["avif"]
+      },
+      "image/bmp": {
+        source: "iana",
+        compressible: true,
+        extensions: ["bmp"]
+      },
+      "image/cgm": {
+        source: "iana",
+        extensions: ["cgm"]
+      },
+      "image/dicom-rle": {
+        source: "iana",
+        extensions: ["drle"]
+      },
+      "image/emf": {
+        source: "iana",
+        extensions: ["emf"]
+      },
+      "image/fits": {
+        source: "iana",
+        extensions: ["fits"]
+      },
+      "image/g3fax": {
+        source: "iana",
+        extensions: ["g3"]
+      },
+      "image/gif": {
+        source: "iana",
+        compressible: false,
+        extensions: ["gif"]
+      },
+      "image/heic": {
+        source: "iana",
+        extensions: ["heic"]
+      },
+      "image/heic-sequence": {
+        source: "iana",
+        extensions: ["heics"]
+      },
+      "image/heif": {
+        source: "iana",
+        extensions: ["heif"]
+      },
+      "image/heif-sequence": {
+        source: "iana",
+        extensions: ["heifs"]
+      },
+      "image/hej2k": {
+        source: "iana",
+        extensions: ["hej2"]
+      },
+      "image/hsj2": {
+        source: "iana",
+        extensions: ["hsj2"]
+      },
+      "image/ief": {
+        source: "iana",
+        extensions: ["ief"]
+      },
+      "image/jls": {
+        source: "iana",
+        extensions: ["jls"]
+      },
+      "image/jp2": {
+        source: "iana",
+        compressible: false,
+        extensions: ["jp2", "jpg2"]
+      },
+      "image/jpeg": {
+        source: "iana",
+        compressible: false,
+        extensions: ["jpeg", "jpg", "jpe"]
+      },
+      "image/jph": {
+        source: "iana",
+        extensions: ["jph"]
+      },
+      "image/jphc": {
+        source: "iana",
+        extensions: ["jhc"]
+      },
+      "image/jpm": {
+        source: "iana",
+        compressible: false,
+        extensions: ["jpm"]
+      },
+      "image/jpx": {
+        source: "iana",
+        compressible: false,
+        extensions: ["jpx", "jpf"]
+      },
+      "image/jxr": {
+        source: "iana",
+        extensions: ["jxr"]
+      },
+      "image/jxra": {
+        source: "iana",
+        extensions: ["jxra"]
+      },
+      "image/jxrs": {
+        source: "iana",
+        extensions: ["jxrs"]
+      },
+      "image/jxs": {
+        source: "iana",
+        extensions: ["jxs"]
+      },
+      "image/jxsc": {
+        source: "iana",
+        extensions: ["jxsc"]
+      },
+      "image/jxsi": {
+        source: "iana",
+        extensions: ["jxsi"]
+      },
+      "image/jxss": {
+        source: "iana",
+        extensions: ["jxss"]
+      },
+      "image/ktx": {
+        source: "iana",
+        extensions: ["ktx"]
+      },
+      "image/ktx2": {
+        source: "iana",
+        extensions: ["ktx2"]
+      },
+      "image/naplps": {
+        source: "iana"
+      },
+      "image/pjpeg": {
+        compressible: false
+      },
+      "image/png": {
+        source: "iana",
+        compressible: false,
+        extensions: ["png"]
+      },
+      "image/prs.btif": {
+        source: "iana",
+        extensions: ["btif"]
+      },
+      "image/prs.pti": {
+        source: "iana",
+        extensions: ["pti"]
+      },
+      "image/pwg-raster": {
+        source: "iana"
+      },
+      "image/sgi": {
+        source: "apache",
+        extensions: ["sgi"]
+      },
+      "image/svg+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["svg", "svgz"]
+      },
+      "image/t38": {
+        source: "iana",
+        extensions: ["t38"]
+      },
+      "image/tiff": {
+        source: "iana",
+        compressible: false,
+        extensions: ["tif", "tiff"]
+      },
+      "image/tiff-fx": {
+        source: "iana",
+        extensions: ["tfx"]
+      },
+      "image/vnd.adobe.photoshop": {
+        source: "iana",
+        compressible: true,
+        extensions: ["psd"]
+      },
+      "image/vnd.airzip.accelerator.azv": {
+        source: "iana",
+        extensions: ["azv"]
+      },
+      "image/vnd.cns.inf2": {
+        source: "iana"
+      },
+      "image/vnd.dece.graphic": {
+        source: "iana",
+        extensions: ["uvi", "uvvi", "uvg", "uvvg"]
+      },
+      "image/vnd.djvu": {
+        source: "iana",
+        extensions: ["djvu", "djv"]
+      },
+      "image/vnd.dvb.subtitle": {
+        source: "iana",
+        extensions: ["sub"]
+      },
+      "image/vnd.dwg": {
+        source: "iana",
+        extensions: ["dwg"]
+      },
+      "image/vnd.dxf": {
+        source: "iana",
+        extensions: ["dxf"]
+      },
+      "image/vnd.fastbidsheet": {
+        source: "iana",
+        extensions: ["fbs"]
+      },
+      "image/vnd.fpx": {
+        source: "iana",
+        extensions: ["fpx"]
+      },
+      "image/vnd.fst": {
+        source: "iana",
+        extensions: ["fst"]
+      },
+      "image/vnd.fujixerox.edmics-mmr": {
+        source: "iana",
+        extensions: ["mmr"]
+      },
+      "image/vnd.fujixerox.edmics-rlc": {
+        source: "iana",
+        extensions: ["rlc"]
+      },
+      "image/vnd.globalgraphics.pgb": {
+        source: "iana"
+      },
+      "image/vnd.microsoft.icon": {
+        source: "iana",
+        compressible: true,
+        extensions: ["ico"]
+      },
+      "image/vnd.mix": {
+        source: "iana"
+      },
+      "image/vnd.mozilla.apng": {
+        source: "iana"
+      },
+      "image/vnd.ms-dds": {
+        compressible: true,
+        extensions: ["dds"]
+      },
+      "image/vnd.ms-modi": {
+        source: "iana",
+        extensions: ["mdi"]
+      },
+      "image/vnd.ms-photo": {
+        source: "apache",
+        extensions: ["wdp"]
+      },
+      "image/vnd.net-fpx": {
+        source: "iana",
+        extensions: ["npx"]
+      },
+      "image/vnd.pco.b16": {
+        source: "iana",
+        extensions: ["b16"]
+      },
+      "image/vnd.radiance": {
+        source: "iana"
+      },
+      "image/vnd.sealed.png": {
+        source: "iana"
+      },
+      "image/vnd.sealedmedia.softseal.gif": {
+        source: "iana"
+      },
+      "image/vnd.sealedmedia.softseal.jpg": {
+        source: "iana"
+      },
+      "image/vnd.svf": {
+        source: "iana"
+      },
+      "image/vnd.tencent.tap": {
+        source: "iana",
+        extensions: ["tap"]
+      },
+      "image/vnd.valve.source.texture": {
+        source: "iana",
+        extensions: ["vtf"]
+      },
+      "image/vnd.wap.wbmp": {
+        source: "iana",
+        extensions: ["wbmp"]
+      },
+      "image/vnd.xiff": {
+        source: "iana",
+        extensions: ["xif"]
+      },
+      "image/vnd.zbrush.pcx": {
+        source: "iana",
+        extensions: ["pcx"]
+      },
+      "image/webp": {
+        source: "apache",
+        extensions: ["webp"]
+      },
+      "image/wmf": {
+        source: "iana",
+        extensions: ["wmf"]
+      },
+      "image/x-3ds": {
+        source: "apache",
+        extensions: ["3ds"]
+      },
+      "image/x-cmu-raster": {
+        source: "apache",
+        extensions: ["ras"]
+      },
+      "image/x-cmx": {
+        source: "apache",
+        extensions: ["cmx"]
+      },
+      "image/x-freehand": {
+        source: "apache",
+        extensions: ["fh", "fhc", "fh4", "fh5", "fh7"]
+      },
+      "image/x-icon": {
+        source: "apache",
+        compressible: true,
+        extensions: ["ico"]
+      },
+      "image/x-jng": {
+        source: "nginx",
+        extensions: ["jng"]
+      },
+      "image/x-mrsid-image": {
+        source: "apache",
+        extensions: ["sid"]
+      },
+      "image/x-ms-bmp": {
+        source: "nginx",
+        compressible: true,
+        extensions: ["bmp"]
+      },
+      "image/x-pcx": {
+        source: "apache",
+        extensions: ["pcx"]
+      },
+      "image/x-pict": {
+        source: "apache",
+        extensions: ["pic", "pct"]
+      },
+      "image/x-portable-anymap": {
+        source: "apache",
+        extensions: ["pnm"]
+      },
+      "image/x-portable-bitmap": {
+        source: "apache",
+        extensions: ["pbm"]
+      },
+      "image/x-portable-graymap": {
+        source: "apache",
+        extensions: ["pgm"]
+      },
+      "image/x-portable-pixmap": {
+        source: "apache",
+        extensions: ["ppm"]
+      },
+      "image/x-rgb": {
+        source: "apache",
+        extensions: ["rgb"]
+      },
+      "image/x-tga": {
+        source: "apache",
+        extensions: ["tga"]
+      },
+      "image/x-xbitmap": {
+        source: "apache",
+        extensions: ["xbm"]
+      },
+      "image/x-xcf": {
+        compressible: false
+      },
+      "image/x-xpixmap": {
+        source: "apache",
+        extensions: ["xpm"]
+      },
+      "image/x-xwindowdump": {
+        source: "apache",
+        extensions: ["xwd"]
+      },
+      "message/cpim": {
+        source: "iana"
+      },
+      "message/delivery-status": {
+        source: "iana"
+      },
+      "message/disposition-notification": {
+        source: "iana",
+        extensions: [
+          "disposition-notification"
+        ]
+      },
+      "message/external-body": {
+        source: "iana"
+      },
+      "message/feedback-report": {
+        source: "iana"
+      },
+      "message/global": {
+        source: "iana",
+        extensions: ["u8msg"]
+      },
+      "message/global-delivery-status": {
+        source: "iana",
+        extensions: ["u8dsn"]
+      },
+      "message/global-disposition-notification": {
+        source: "iana",
+        extensions: ["u8mdn"]
+      },
+      "message/global-headers": {
+        source: "iana",
+        extensions: ["u8hdr"]
+      },
+      "message/http": {
+        source: "iana",
+        compressible: false
+      },
+      "message/imdn+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "message/news": {
+        source: "iana"
+      },
+      "message/partial": {
+        source: "iana",
+        compressible: false
+      },
+      "message/rfc822": {
+        source: "iana",
+        compressible: true,
+        extensions: ["eml", "mime"]
+      },
+      "message/s-http": {
+        source: "iana"
+      },
+      "message/sip": {
+        source: "iana"
+      },
+      "message/sipfrag": {
+        source: "iana"
+      },
+      "message/tracking-status": {
+        source: "iana"
+      },
+      "message/vnd.si.simp": {
+        source: "iana"
+      },
+      "message/vnd.wfa.wsc": {
+        source: "iana",
+        extensions: ["wsc"]
+      },
+      "model/3mf": {
+        source: "iana",
+        extensions: ["3mf"]
+      },
+      "model/e57": {
+        source: "iana"
+      },
+      "model/gltf+json": {
+        source: "iana",
+        compressible: true,
+        extensions: ["gltf"]
+      },
+      "model/gltf-binary": {
+        source: "iana",
+        compressible: true,
+        extensions: ["glb"]
+      },
+      "model/iges": {
+        source: "iana",
+        compressible: false,
+        extensions: ["igs", "iges"]
+      },
+      "model/mesh": {
+        source: "iana",
+        compressible: false,
+        extensions: ["msh", "mesh", "silo"]
+      },
+      "model/mtl": {
+        source: "iana",
+        extensions: ["mtl"]
+      },
+      "model/obj": {
+        source: "iana",
+        extensions: ["obj"]
+      },
+      "model/step": {
+        source: "iana"
+      },
+      "model/step+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["stpx"]
+      },
+      "model/step+zip": {
+        source: "iana",
+        compressible: false,
+        extensions: ["stpz"]
+      },
+      "model/step-xml+zip": {
+        source: "iana",
+        compressible: false,
+        extensions: ["stpxz"]
+      },
+      "model/stl": {
+        source: "iana",
+        extensions: ["stl"]
+      },
+      "model/vnd.collada+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["dae"]
+      },
+      "model/vnd.dwf": {
+        source: "iana",
+        extensions: ["dwf"]
+      },
+      "model/vnd.flatland.3dml": {
+        source: "iana"
+      },
+      "model/vnd.gdl": {
+        source: "iana",
+        extensions: ["gdl"]
+      },
+      "model/vnd.gs-gdl": {
+        source: "apache"
+      },
+      "model/vnd.gs.gdl": {
+        source: "iana"
+      },
+      "model/vnd.gtw": {
+        source: "iana",
+        extensions: ["gtw"]
+      },
+      "model/vnd.moml+xml": {
+        source: "iana",
+        compressible: true
+      },
+      "model/vnd.mts": {
+        source: "iana",
+        extensions: ["mts"]
+      },
+      "model/vnd.opengex": {
+        source: "iana",
+        extensions: ["ogex"]
+      },
+      "model/vnd.parasolid.transmit.binary": {
+        source: "iana",
+        extensions: ["x_b"]
+      },
+      "model/vnd.parasolid.transmit.text": {
+        source: "iana",
+        extensions: ["x_t"]
+      },
+      "model/vnd.pytha.pyox": {
+        source: "iana"
+      },
+      "model/vnd.rosette.annotated-data-model": {
+        source: "iana"
+      },
+      "model/vnd.sap.vds": {
+        source: "iana",
+        extensions: ["vds"]
+      },
+      "model/vnd.usdz+zip": {
+        source: "iana",
+        compressible: false,
+        extensions: ["usdz"]
+      },
+      "model/vnd.valve.source.compiled-map": {
+        source: "iana",
+        extensions: ["bsp"]
+      },
+      "model/vnd.vtu": {
+        source: "iana",
+        extensions: ["vtu"]
+      },
+      "model/vrml": {
+        source: "iana",
+        compressible: false,
+        extensions: ["wrl", "vrml"]
+      },
+      "model/x3d+binary": {
+        source: "apache",
+        compressible: false,
+        extensions: ["x3db", "x3dbz"]
+      },
+      "model/x3d+fastinfoset": {
+        source: "iana",
+        extensions: ["x3db"]
+      },
+      "model/x3d+vrml": {
+        source: "apache",
+        compressible: false,
+        extensions: ["x3dv", "x3dvz"]
+      },
+      "model/x3d+xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["x3d", "x3dz"]
+      },
+      "model/x3d-vrml": {
+        source: "iana",
+        extensions: ["x3dv"]
+      },
+      "multipart/alternative": {
+        source: "iana",
+        compressible: false
+      },
+      "multipart/appledouble": {
+        source: "iana"
+      },
+      "multipart/byteranges": {
+        source: "iana"
+      },
+      "multipart/digest": {
+        source: "iana"
+      },
+      "multipart/encrypted": {
+        source: "iana",
+        compressible: false
+      },
+      "multipart/form-data": {
+        source: "iana",
+        compressible: false
+      },
+      "multipart/header-set": {
+        source: "iana"
+      },
+      "multipart/mixed": {
+        source: "iana"
+      },
+      "multipart/multilingual": {
+        source: "iana"
+      },
+      "multipart/parallel": {
+        source: "iana"
+      },
+      "multipart/related": {
+        source: "iana",
+        compressible: false
+      },
+      "multipart/report": {
+        source: "iana"
+      },
+      "multipart/signed": {
+        source: "iana",
+        compressible: false
+      },
+      "multipart/vnd.bint.med-plus": {
+        source: "iana"
+      },
+      "multipart/voice-message": {
+        source: "iana"
+      },
+      "multipart/x-mixed-replace": {
+        source: "iana"
+      },
+      "text/1d-interleaved-parityfec": {
+        source: "iana"
+      },
+      "text/cache-manifest": {
+        source: "iana",
+        compressible: true,
+        extensions: ["appcache", "manifest"]
+      },
+      "text/calendar": {
+        source: "iana",
+        extensions: ["ics", "ifb"]
+      },
+      "text/calender": {
+        compressible: true
+      },
+      "text/cmd": {
+        compressible: true
+      },
+      "text/coffeescript": {
+        extensions: ["coffee", "litcoffee"]
+      },
+      "text/cql": {
+        source: "iana"
+      },
+      "text/cql-expression": {
+        source: "iana"
+      },
+      "text/cql-identifier": {
+        source: "iana"
+      },
+      "text/css": {
+        source: "iana",
+        charset: "UTF-8",
+        compressible: true,
+        extensions: ["css"]
+      },
+      "text/csv": {
+        source: "iana",
+        compressible: true,
+        extensions: ["csv"]
+      },
+      "text/csv-schema": {
+        source: "iana"
+      },
+      "text/directory": {
+        source: "iana"
+      },
+      "text/dns": {
+        source: "iana"
+      },
+      "text/ecmascript": {
+        source: "iana"
+      },
+      "text/encaprtp": {
+        source: "iana"
+      },
+      "text/enriched": {
+        source: "iana"
+      },
+      "text/fhirpath": {
+        source: "iana"
+      },
+      "text/flexfec": {
+        source: "iana"
+      },
+      "text/fwdred": {
+        source: "iana"
+      },
+      "text/gff3": {
+        source: "iana"
+      },
+      "text/grammar-ref-list": {
+        source: "iana"
+      },
+      "text/html": {
+        source: "iana",
+        compressible: true,
+        extensions: ["html", "htm", "shtml"]
+      },
+      "text/jade": {
+        extensions: ["jade"]
+      },
+      "text/javascript": {
+        source: "iana",
+        compressible: true
+      },
+      "text/jcr-cnd": {
+        source: "iana"
+      },
+      "text/jsx": {
+        compressible: true,
+        extensions: ["jsx"]
+      },
+      "text/less": {
+        compressible: true,
+        extensions: ["less"]
+      },
+      "text/markdown": {
+        source: "iana",
+        compressible: true,
+        extensions: ["markdown", "md"]
+      },
+      "text/mathml": {
+        source: "nginx",
+        extensions: ["mml"]
+      },
+      "text/mdx": {
+        compressible: true,
+        extensions: ["mdx"]
+      },
+      "text/mizar": {
+        source: "iana"
+      },
+      "text/n3": {
+        source: "iana",
+        charset: "UTF-8",
+        compressible: true,
+        extensions: ["n3"]
+      },
+      "text/parameters": {
+        source: "iana",
+        charset: "UTF-8"
+      },
+      "text/parityfec": {
+        source: "iana"
+      },
+      "text/plain": {
+        source: "iana",
+        compressible: true,
+        extensions: ["txt", "text", "conf", "def", "list", "log", "in", "ini"]
+      },
+      "text/provenance-notation": {
+        source: "iana",
+        charset: "UTF-8"
+      },
+      "text/prs.fallenstein.rst": {
+        source: "iana"
+      },
+      "text/prs.lines.tag": {
+        source: "iana",
+        extensions: ["dsc"]
+      },
+      "text/prs.prop.logic": {
+        source: "iana"
+      },
+      "text/raptorfec": {
+        source: "iana"
+      },
+      "text/red": {
+        source: "iana"
+      },
+      "text/rfc822-headers": {
+        source: "iana"
+      },
+      "text/richtext": {
+        source: "iana",
+        compressible: true,
+        extensions: ["rtx"]
+      },
+      "text/rtf": {
+        source: "iana",
+        compressible: true,
+        extensions: ["rtf"]
+      },
+      "text/rtp-enc-aescm128": {
+        source: "iana"
+      },
+      "text/rtploopback": {
+        source: "iana"
+      },
+      "text/rtx": {
+        source: "iana"
+      },
+      "text/sgml": {
+        source: "iana",
+        extensions: ["sgml", "sgm"]
+      },
+      "text/shaclc": {
+        source: "iana"
+      },
+      "text/shex": {
+        source: "iana",
+        extensions: ["shex"]
+      },
+      "text/slim": {
+        extensions: ["slim", "slm"]
+      },
+      "text/spdx": {
+        source: "iana",
+        extensions: ["spdx"]
+      },
+      "text/strings": {
+        source: "iana"
+      },
+      "text/stylus": {
+        extensions: ["stylus", "styl"]
+      },
+      "text/t140": {
+        source: "iana"
+      },
+      "text/tab-separated-values": {
+        source: "iana",
+        compressible: true,
+        extensions: ["tsv"]
+      },
+      "text/troff": {
+        source: "iana",
+        extensions: ["t", "tr", "roff", "man", "me", "ms"]
+      },
+      "text/turtle": {
+        source: "iana",
+        charset: "UTF-8",
+        extensions: ["ttl"]
+      },
+      "text/ulpfec": {
+        source: "iana"
+      },
+      "text/uri-list": {
+        source: "iana",
+        compressible: true,
+        extensions: ["uri", "uris", "urls"]
+      },
+      "text/vcard": {
+        source: "iana",
+        compressible: true,
+        extensions: ["vcard"]
+      },
+      "text/vnd.a": {
+        source: "iana"
+      },
+      "text/vnd.abc": {
+        source: "iana"
+      },
+      "text/vnd.ascii-art": {
+        source: "iana"
+      },
+      "text/vnd.curl": {
+        source: "iana",
+        extensions: ["curl"]
+      },
+      "text/vnd.curl.dcurl": {
+        source: "apache",
+        extensions: ["dcurl"]
+      },
+      "text/vnd.curl.mcurl": {
+        source: "apache",
+        extensions: ["mcurl"]
+      },
+      "text/vnd.curl.scurl": {
+        source: "apache",
+        extensions: ["scurl"]
+      },
+      "text/vnd.debian.copyright": {
+        source: "iana",
+        charset: "UTF-8"
+      },
+      "text/vnd.dmclientscript": {
+        source: "iana"
+      },
+      "text/vnd.dvb.subtitle": {
+        source: "iana",
+        extensions: ["sub"]
+      },
+      "text/vnd.esmertec.theme-descriptor": {
+        source: "iana",
+        charset: "UTF-8"
+      },
+      "text/vnd.familysearch.gedcom": {
+        source: "iana",
+        extensions: ["ged"]
+      },
+      "text/vnd.ficlab.flt": {
+        source: "iana"
+      },
+      "text/vnd.fly": {
+        source: "iana",
+        extensions: ["fly"]
+      },
+      "text/vnd.fmi.flexstor": {
+        source: "iana",
+        extensions: ["flx"]
+      },
+      "text/vnd.gml": {
+        source: "iana"
+      },
+      "text/vnd.graphviz": {
+        source: "iana",
+        extensions: ["gv"]
+      },
+      "text/vnd.hans": {
+        source: "iana"
+      },
+      "text/vnd.hgl": {
+        source: "iana"
+      },
+      "text/vnd.in3d.3dml": {
+        source: "iana",
+        extensions: ["3dml"]
+      },
+      "text/vnd.in3d.spot": {
+        source: "iana",
+        extensions: ["spot"]
+      },
+      "text/vnd.iptc.newsml": {
+        source: "iana"
+      },
+      "text/vnd.iptc.nitf": {
+        source: "iana"
+      },
+      "text/vnd.latex-z": {
+        source: "iana"
+      },
+      "text/vnd.motorola.reflex": {
+        source: "iana"
+      },
+      "text/vnd.ms-mediapackage": {
+        source: "iana"
+      },
+      "text/vnd.net2phone.commcenter.command": {
+        source: "iana"
+      },
+      "text/vnd.radisys.msml-basic-layout": {
+        source: "iana"
+      },
+      "text/vnd.senx.warpscript": {
+        source: "iana"
+      },
+      "text/vnd.si.uricatalogue": {
+        source: "iana"
+      },
+      "text/vnd.sosi": {
+        source: "iana"
+      },
+      "text/vnd.sun.j2me.app-descriptor": {
+        source: "iana",
+        charset: "UTF-8",
+        extensions: ["jad"]
+      },
+      "text/vnd.trolltech.linguist": {
+        source: "iana",
+        charset: "UTF-8"
+      },
+      "text/vnd.wap.si": {
+        source: "iana"
+      },
+      "text/vnd.wap.sl": {
+        source: "iana"
+      },
+      "text/vnd.wap.wml": {
+        source: "iana",
+        extensions: ["wml"]
+      },
+      "text/vnd.wap.wmlscript": {
+        source: "iana",
+        extensions: ["wmls"]
+      },
+      "text/vtt": {
+        source: "iana",
+        charset: "UTF-8",
+        compressible: true,
+        extensions: ["vtt"]
+      },
+      "text/x-asm": {
+        source: "apache",
+        extensions: ["s", "asm"]
+      },
+      "text/x-c": {
+        source: "apache",
+        extensions: ["c", "cc", "cxx", "cpp", "h", "hh", "dic"]
+      },
+      "text/x-component": {
+        source: "nginx",
+        extensions: ["htc"]
+      },
+      "text/x-fortran": {
+        source: "apache",
+        extensions: ["f", "for", "f77", "f90"]
+      },
+      "text/x-gwt-rpc": {
+        compressible: true
+      },
+      "text/x-handlebars-template": {
+        extensions: ["hbs"]
+      },
+      "text/x-java-source": {
+        source: "apache",
+        extensions: ["java"]
+      },
+      "text/x-jquery-tmpl": {
+        compressible: true
+      },
+      "text/x-lua": {
+        extensions: ["lua"]
+      },
+      "text/x-markdown": {
+        compressible: true,
+        extensions: ["mkd"]
+      },
+      "text/x-nfo": {
+        source: "apache",
+        extensions: ["nfo"]
+      },
+      "text/x-opml": {
+        source: "apache",
+        extensions: ["opml"]
+      },
+      "text/x-org": {
+        compressible: true,
+        extensions: ["org"]
+      },
+      "text/x-pascal": {
+        source: "apache",
+        extensions: ["p", "pas"]
+      },
+      "text/x-processing": {
+        compressible: true,
+        extensions: ["pde"]
+      },
+      "text/x-sass": {
+        extensions: ["sass"]
+      },
+      "text/x-scss": {
+        extensions: ["scss"]
+      },
+      "text/x-setext": {
+        source: "apache",
+        extensions: ["etx"]
+      },
+      "text/x-sfv": {
+        source: "apache",
+        extensions: ["sfv"]
+      },
+      "text/x-suse-ymp": {
+        compressible: true,
+        extensions: ["ymp"]
+      },
+      "text/x-uuencode": {
+        source: "apache",
+        extensions: ["uu"]
+      },
+      "text/x-vcalendar": {
+        source: "apache",
+        extensions: ["vcs"]
+      },
+      "text/x-vcard": {
+        source: "apache",
+        extensions: ["vcf"]
+      },
+      "text/xml": {
+        source: "iana",
+        compressible: true,
+        extensions: ["xml"]
+      },
+      "text/xml-external-parsed-entity": {
+        source: "iana"
+      },
+      "text/yaml": {
+        compressible: true,
+        extensions: ["yaml", "yml"]
+      },
+      "video/1d-interleaved-parityfec": {
+        source: "iana"
+      },
+      "video/3gpp": {
+        source: "iana",
+        extensions: ["3gp", "3gpp"]
+      },
+      "video/3gpp-tt": {
+        source: "iana"
+      },
+      "video/3gpp2": {
+        source: "iana",
+        extensions: ["3g2"]
+      },
+      "video/av1": {
+        source: "iana"
+      },
+      "video/bmpeg": {
+        source: "iana"
+      },
+      "video/bt656": {
+        source: "iana"
+      },
+      "video/celb": {
+        source: "iana"
+      },
+      "video/dv": {
+        source: "iana"
+      },
+      "video/encaprtp": {
+        source: "iana"
+      },
+      "video/ffv1": {
+        source: "iana"
+      },
+      "video/flexfec": {
+        source: "iana"
+      },
+      "video/h261": {
+        source: "iana",
+        extensions: ["h261"]
+      },
+      "video/h263": {
+        source: "iana",
+        extensions: ["h263"]
+      },
+      "video/h263-1998": {
+        source: "iana"
+      },
+      "video/h263-2000": {
+        source: "iana"
+      },
+      "video/h264": {
+        source: "iana",
+        extensions: ["h264"]
+      },
+      "video/h264-rcdo": {
+        source: "iana"
+      },
+      "video/h264-svc": {
+        source: "iana"
+      },
+      "video/h265": {
+        source: "iana"
+      },
+      "video/iso.segment": {
+        source: "iana",
+        extensions: ["m4s"]
+      },
+      "video/jpeg": {
+        source: "iana",
+        extensions: ["jpgv"]
+      },
+      "video/jpeg2000": {
+        source: "iana"
+      },
+      "video/jpm": {
+        source: "apache",
+        extensions: ["jpm", "jpgm"]
+      },
+      "video/jxsv": {
+        source: "iana"
+      },
+      "video/mj2": {
+        source: "iana",
+        extensions: ["mj2", "mjp2"]
+      },
+      "video/mp1s": {
+        source: "iana"
+      },
+      "video/mp2p": {
+        source: "iana"
+      },
+      "video/mp2t": {
+        source: "iana",
+        extensions: ["ts"]
+      },
+      "video/mp4": {
+        source: "iana",
+        compressible: false,
+        extensions: ["mp4", "mp4v", "mpg4"]
+      },
+      "video/mp4v-es": {
+        source: "iana"
+      },
+      "video/mpeg": {
+        source: "iana",
+        compressible: false,
+        extensions: ["mpeg", "mpg", "mpe", "m1v", "m2v"]
+      },
+      "video/mpeg4-generic": {
+        source: "iana"
+      },
+      "video/mpv": {
+        source: "iana"
+      },
+      "video/nv": {
+        source: "iana"
+      },
+      "video/ogg": {
+        source: "iana",
+        compressible: false,
+        extensions: ["ogv"]
+      },
+      "video/parityfec": {
+        source: "iana"
+      },
+      "video/pointer": {
+        source: "iana"
+      },
+      "video/quicktime": {
+        source: "iana",
+        compressible: false,
+        extensions: ["qt", "mov"]
+      },
+      "video/raptorfec": {
+        source: "iana"
+      },
+      "video/raw": {
+        source: "iana"
+      },
+      "video/rtp-enc-aescm128": {
+        source: "iana"
+      },
+      "video/rtploopback": {
+        source: "iana"
+      },
+      "video/rtx": {
+        source: "iana"
+      },
+      "video/scip": {
+        source: "iana"
+      },
+      "video/smpte291": {
+        source: "iana"
+      },
+      "video/smpte292m": {
+        source: "iana"
+      },
+      "video/ulpfec": {
+        source: "iana"
+      },
+      "video/vc1": {
+        source: "iana"
+      },
+      "video/vc2": {
+        source: "iana"
+      },
+      "video/vnd.cctv": {
+        source: "iana"
+      },
+      "video/vnd.dece.hd": {
+        source: "iana",
+        extensions: ["uvh", "uvvh"]
+      },
+      "video/vnd.dece.mobile": {
+        source: "iana",
+        extensions: ["uvm", "uvvm"]
+      },
+      "video/vnd.dece.mp4": {
+        source: "iana"
+      },
+      "video/vnd.dece.pd": {
+        source: "iana",
+        extensions: ["uvp", "uvvp"]
+      },
+      "video/vnd.dece.sd": {
+        source: "iana",
+        extensions: ["uvs", "uvvs"]
+      },
+      "video/vnd.dece.video": {
+        source: "iana",
+        extensions: ["uvv", "uvvv"]
+      },
+      "video/vnd.directv.mpeg": {
+        source: "iana"
+      },
+      "video/vnd.directv.mpeg-tts": {
+        source: "iana"
+      },
+      "video/vnd.dlna.mpeg-tts": {
+        source: "iana"
+      },
+      "video/vnd.dvb.file": {
+        source: "iana",
+        extensions: ["dvb"]
+      },
+      "video/vnd.fvt": {
+        source: "iana",
+        extensions: ["fvt"]
+      },
+      "video/vnd.hns.video": {
+        source: "iana"
+      },
+      "video/vnd.iptvforum.1dparityfec-1010": {
+        source: "iana"
+      },
+      "video/vnd.iptvforum.1dparityfec-2005": {
+        source: "iana"
+      },
+      "video/vnd.iptvforum.2dparityfec-1010": {
+        source: "iana"
+      },
+      "video/vnd.iptvforum.2dparityfec-2005": {
+        source: "iana"
+      },
+      "video/vnd.iptvforum.ttsavc": {
+        source: "iana"
+      },
+      "video/vnd.iptvforum.ttsmpeg2": {
+        source: "iana"
+      },
+      "video/vnd.motorola.video": {
+        source: "iana"
+      },
+      "video/vnd.motorola.videop": {
+        source: "iana"
+      },
+      "video/vnd.mpegurl": {
+        source: "iana",
+        extensions: ["mxu", "m4u"]
+      },
+      "video/vnd.ms-playready.media.pyv": {
+        source: "iana",
+        extensions: ["pyv"]
+      },
+      "video/vnd.nokia.interleaved-multimedia": {
+        source: "iana"
+      },
+      "video/vnd.nokia.mp4vr": {
+        source: "iana"
+      },
+      "video/vnd.nokia.videovoip": {
+        source: "iana"
+      },
+      "video/vnd.objectvideo": {
+        source: "iana"
+      },
+      "video/vnd.radgamettools.bink": {
+        source: "iana"
+      },
+      "video/vnd.radgamettools.smacker": {
+        source: "iana"
+      },
+      "video/vnd.sealed.mpeg1": {
+        source: "iana"
+      },
+      "video/vnd.sealed.mpeg4": {
+        source: "iana"
+      },
+      "video/vnd.sealed.swf": {
+        source: "iana"
+      },
+      "video/vnd.sealedmedia.softseal.mov": {
+        source: "iana"
+      },
+      "video/vnd.uvvu.mp4": {
+        source: "iana",
+        extensions: ["uvu", "uvvu"]
+      },
+      "video/vnd.vivo": {
+        source: "iana",
+        extensions: ["viv"]
+      },
+      "video/vnd.youtube.yt": {
+        source: "iana"
+      },
+      "video/vp8": {
+        source: "iana"
+      },
+      "video/vp9": {
+        source: "iana"
+      },
+      "video/webm": {
+        source: "apache",
+        compressible: false,
+        extensions: ["webm"]
+      },
+      "video/x-f4v": {
+        source: "apache",
+        extensions: ["f4v"]
+      },
+      "video/x-fli": {
+        source: "apache",
+        extensions: ["fli"]
+      },
+      "video/x-flv": {
+        source: "apache",
+        compressible: false,
+        extensions: ["flv"]
+      },
+      "video/x-m4v": {
+        source: "apache",
+        extensions: ["m4v"]
+      },
+      "video/x-matroska": {
+        source: "apache",
+        compressible: false,
+        extensions: ["mkv", "mk3d", "mks"]
+      },
+      "video/x-mng": {
+        source: "apache",
+        extensions: ["mng"]
+      },
+      "video/x-ms-asf": {
+        source: "apache",
+        extensions: ["asf", "asx"]
+      },
+      "video/x-ms-vob": {
+        source: "apache",
+        extensions: ["vob"]
+      },
+      "video/x-ms-wm": {
+        source: "apache",
+        extensions: ["wm"]
+      },
+      "video/x-ms-wmv": {
+        source: "apache",
+        compressible: false,
+        extensions: ["wmv"]
+      },
+      "video/x-ms-wmx": {
+        source: "apache",
+        extensions: ["wmx"]
+      },
+      "video/x-ms-wvx": {
+        source: "apache",
+        extensions: ["wvx"]
+      },
+      "video/x-msvideo": {
+        source: "apache",
+        extensions: ["avi"]
+      },
+      "video/x-sgi-movie": {
+        source: "apache",
+        extensions: ["movie"]
+      },
+      "video/x-smv": {
+        source: "apache",
+        extensions: ["smv"]
+      },
+      "x-conference/x-cooltalk": {
+        source: "apache",
+        extensions: ["ice"]
+      },
+      "x-shader/x-fragment": {
+        compressible: true
+      },
+      "x-shader/x-vertex": {
+        compressible: true
+      }
+    };
+  }
+});
+
+// node_modules/mime-db/index.js
+var require_mime_db = __commonJS({
+  "node_modules/mime-db/index.js"(exports2, module2) {
+    module2.exports = require_db();
+  }
+});
+
+// node_modules/mime-types/index.js
+var require_mime_types = __commonJS({
+  "node_modules/mime-types/index.js"(exports2) {
+    "use strict";
+    var db = require_mime_db();
+    var extname = require("path").extname;
+    var EXTRACT_TYPE_REGEXP = /^\s*([^;\s]*)(?:;|\s|$)/;
+    var TEXT_TYPE_REGEXP = /^text\//i;
+    exports2.charset = charset;
+    exports2.charsets = { lookup: charset };
+    exports2.contentType = contentType;
+    exports2.extension = extension;
+    exports2.extensions = /* @__PURE__ */ Object.create(null);
+    exports2.lookup = lookup;
+    exports2.types = /* @__PURE__ */ Object.create(null);
+    populateMaps(exports2.extensions, exports2.types);
+    function charset(type) {
+      if (!type || typeof type !== "string") {
+        return false;
+      }
+      var match = EXTRACT_TYPE_REGEXP.exec(type);
+      var mime = match && db[match[1].toLowerCase()];
+      if (mime && mime.charset) {
+        return mime.charset;
+      }
+      if (match && TEXT_TYPE_REGEXP.test(match[1])) {
+        return "UTF-8";
+      }
+      return false;
+    }
+    function contentType(str) {
+      if (!str || typeof str !== "string") {
+        return false;
+      }
+      var mime = str.indexOf("/") === -1 ? exports2.lookup(str) : str;
+      if (!mime) {
+        return false;
+      }
+      if (mime.indexOf("charset") === -1) {
+        var charset2 = exports2.charset(mime);
+        if (charset2) mime += "; charset=" + charset2.toLowerCase();
+      }
+      return mime;
+    }
+    function extension(type) {
+      if (!type || typeof type !== "string") {
+        return false;
+      }
+      var match = EXTRACT_TYPE_REGEXP.exec(type);
+      var exts = match && exports2.extensions[match[1].toLowerCase()];
+      if (!exts || !exts.length) {
+        return false;
+      }
+      return exts[0];
+    }
+    function lookup(path8) {
+      if (!path8 || typeof path8 !== "string") {
+        return false;
+      }
+      var extension2 = extname("x." + path8).toLowerCase().substr(1);
+      if (!extension2) {
+        return false;
+      }
+      return exports2.types[extension2] || false;
+    }
+    function populateMaps(extensions, types) {
+      var preference = ["nginx", "apache", void 0, "iana"];
+      Object.keys(db).forEach(function forEachMimeType(type) {
+        var mime = db[type];
+        var exts = mime.extensions;
+        if (!exts || !exts.length) {
+          return;
+        }
+        extensions[type] = exts;
+        for (var i = 0; i < exts.length; i++) {
+          var extension2 = exts[i];
+          if (types[extension2]) {
+            var from = preference.indexOf(db[types[extension2]].source);
+            var to = preference.indexOf(mime.source);
+            if (types[extension2] !== "application/octet-stream" && (from > to || from === to && types[extension2].substr(0, 12) === "application/")) {
+              continue;
+            }
+          }
+          types[extension2] = type;
+        }
+      });
+    }
+  }
+});
+
+// node_modules/asynckit/lib/defer.js
+var require_defer = __commonJS({
+  "node_modules/asynckit/lib/defer.js"(exports2, module2) {
+    module2.exports = defer2;
+    function defer2(fn) {
+      var nextTick = typeof setImmediate == "function" ? setImmediate : typeof process == "object" && typeof process.nextTick == "function" ? process.nextTick : null;
+      if (nextTick) {
+        nextTick(fn);
+      } else {
+        setTimeout(fn, 0);
+      }
+    }
+  }
+});
+
+// node_modules/asynckit/lib/async.js
+var require_async2 = __commonJS({
+  "node_modules/asynckit/lib/async.js"(exports2, module2) {
+    var defer2 = require_defer();
+    module2.exports = async;
+    function async(callback) {
+      var isAsync = false;
+      defer2(function() {
+        isAsync = true;
+      });
+      return function async_callback(err, result) {
+        if (isAsync) {
+          callback(err, result);
+        } else {
+          defer2(function nextTick_callback() {
+            callback(err, result);
+          });
+        }
+      };
+    }
+  }
+});
+
+// node_modules/asynckit/lib/abort.js
+var require_abort = __commonJS({
+  "node_modules/asynckit/lib/abort.js"(exports2, module2) {
+    module2.exports = abort;
+    function abort(state) {
+      Object.keys(state.jobs).forEach(clean.bind(state));
+      state.jobs = {};
+    }
+    function clean(key) {
+      if (typeof this.jobs[key] == "function") {
+        this.jobs[key]();
+      }
+    }
+  }
+});
+
+// node_modules/asynckit/lib/iterate.js
+var require_iterate = __commonJS({
+  "node_modules/asynckit/lib/iterate.js"(exports2, module2) {
+    var async = require_async2();
+    var abort = require_abort();
+    module2.exports = iterate;
+    function iterate(list2, iterator2, state, callback) {
+      var key = state["keyedList"] ? state["keyedList"][state.index] : state.index;
+      state.jobs[key] = runJob(iterator2, key, list2[key], function(error, output) {
+        if (!(key in state.jobs)) {
+          return;
+        }
+        delete state.jobs[key];
+        if (error) {
+          abort(state);
+        } else {
+          state.results[key] = output;
+        }
+        callback(error, state.results);
+      });
+    }
+    function runJob(iterator2, key, item, callback) {
+      var aborter;
+      if (iterator2.length == 2) {
+        aborter = iterator2(item, async(callback));
+      } else {
+        aborter = iterator2(item, key, async(callback));
+      }
+      return aborter;
+    }
+  }
+});
+
+// node_modules/asynckit/lib/state.js
+var require_state = __commonJS({
+  "node_modules/asynckit/lib/state.js"(exports2, module2) {
+    module2.exports = state;
+    function state(list2, sortMethod) {
+      var isNamedList = !Array.isArray(list2), initState = {
+        index: 0,
+        keyedList: isNamedList || sortMethod ? Object.keys(list2) : null,
+        jobs: {},
+        results: isNamedList ? {} : [],
+        size: isNamedList ? Object.keys(list2).length : list2.length
+      };
+      if (sortMethod) {
+        initState.keyedList.sort(isNamedList ? sortMethod : function(a, b) {
+          return sortMethod(list2[a], list2[b]);
+        });
+      }
+      return initState;
+    }
+  }
+});
+
+// node_modules/asynckit/lib/terminator.js
+var require_terminator = __commonJS({
+  "node_modules/asynckit/lib/terminator.js"(exports2, module2) {
+    var abort = require_abort();
+    var async = require_async2();
+    module2.exports = terminator;
+    function terminator(callback) {
+      if (!Object.keys(this.jobs).length) {
+        return;
+      }
+      this.index = this.size;
+      abort(this);
+      async(callback)(null, this.results);
+    }
+  }
+});
+
+// node_modules/asynckit/parallel.js
+var require_parallel = __commonJS({
+  "node_modules/asynckit/parallel.js"(exports2, module2) {
+    var iterate = require_iterate();
+    var initState = require_state();
+    var terminator = require_terminator();
+    module2.exports = parallel;
+    function parallel(list2, iterator2, callback) {
+      var state = initState(list2);
+      while (state.index < (state["keyedList"] || list2).length) {
+        iterate(list2, iterator2, state, function(error, result) {
+          if (error) {
+            callback(error, result);
+            return;
+          }
+          if (Object.keys(state.jobs).length === 0) {
+            callback(null, state.results);
+            return;
+          }
+        });
+        state.index++;
+      }
+      return terminator.bind(state, callback);
+    }
+  }
+});
+
+// node_modules/asynckit/serialOrdered.js
+var require_serialOrdered = __commonJS({
+  "node_modules/asynckit/serialOrdered.js"(exports2, module2) {
+    var iterate = require_iterate();
+    var initState = require_state();
+    var terminator = require_terminator();
+    module2.exports = serialOrdered;
+    module2.exports.ascending = ascending;
+    module2.exports.descending = descending;
+    function serialOrdered(list2, iterator2, sortMethod, callback) {
+      var state = initState(list2, sortMethod);
+      iterate(list2, iterator2, state, function iteratorHandler(error, result) {
+        if (error) {
+          callback(error, result);
+          return;
+        }
+        state.index++;
+        if (state.index < (state["keyedList"] || list2).length) {
+          iterate(list2, iterator2, state, iteratorHandler);
+          return;
+        }
+        callback(null, state.results);
+      });
+      return terminator.bind(state, callback);
+    }
+    function ascending(a, b) {
+      return a < b ? -1 : a > b ? 1 : 0;
+    }
+    function descending(a, b) {
+      return -1 * ascending(a, b);
+    }
+  }
+});
+
+// node_modules/asynckit/serial.js
+var require_serial = __commonJS({
+  "node_modules/asynckit/serial.js"(exports2, module2) {
+    var serialOrdered = require_serialOrdered();
+    module2.exports = serial;
+    function serial(list2, iterator2, callback) {
+      return serialOrdered(list2, iterator2, null, callback);
+    }
+  }
+});
+
+// node_modules/asynckit/index.js
+var require_asynckit = __commonJS({
+  "node_modules/asynckit/index.js"(exports2, module2) {
+    module2.exports = {
+      parallel: require_parallel(),
+      serial: require_serial(),
+      serialOrdered: require_serialOrdered()
+    };
+  }
+});
+
+// node_modules/es-object-atoms/index.js
+var require_es_object_atoms = __commonJS({
+  "node_modules/es-object-atoms/index.js"(exports2, module2) {
+    "use strict";
+    module2.exports = Object;
+  }
+});
+
+// node_modules/es-errors/index.js
+var require_es_errors = __commonJS({
+  "node_modules/es-errors/index.js"(exports2, module2) {
+    "use strict";
+    module2.exports = Error;
+  }
+});
+
+// node_modules/es-errors/eval.js
+var require_eval = __commonJS({
+  "node_modules/es-errors/eval.js"(exports2, module2) {
+    "use strict";
+    module2.exports = EvalError;
+  }
+});
+
+// node_modules/es-errors/range.js
+var require_range2 = __commonJS({
+  "node_modules/es-errors/range.js"(exports2, module2) {
+    "use strict";
+    module2.exports = RangeError;
+  }
+});
+
+// node_modules/es-errors/ref.js
+var require_ref = __commonJS({
+  "node_modules/es-errors/ref.js"(exports2, module2) {
+    "use strict";
+    module2.exports = ReferenceError;
+  }
+});
+
+// node_modules/es-errors/syntax.js
+var require_syntax = __commonJS({
+  "node_modules/es-errors/syntax.js"(exports2, module2) {
+    "use strict";
+    module2.exports = SyntaxError;
+  }
+});
+
+// node_modules/es-errors/type.js
+var require_type = __commonJS({
+  "node_modules/es-errors/type.js"(exports2, module2) {
+    "use strict";
+    module2.exports = TypeError;
+  }
+});
+
+// node_modules/es-errors/uri.js
+var require_uri = __commonJS({
+  "node_modules/es-errors/uri.js"(exports2, module2) {
+    "use strict";
+    module2.exports = URIError;
+  }
+});
+
+// node_modules/math-intrinsics/abs.js
+var require_abs = __commonJS({
+  "node_modules/math-intrinsics/abs.js"(exports2, module2) {
+    "use strict";
+    module2.exports = Math.abs;
+  }
+});
+
+// node_modules/math-intrinsics/floor.js
+var require_floor = __commonJS({
+  "node_modules/math-intrinsics/floor.js"(exports2, module2) {
+    "use strict";
+    module2.exports = Math.floor;
+  }
+});
+
+// node_modules/math-intrinsics/max.js
+var require_max = __commonJS({
+  "node_modules/math-intrinsics/max.js"(exports2, module2) {
+    "use strict";
+    module2.exports = Math.max;
+  }
+});
+
+// node_modules/math-intrinsics/min.js
+var require_min = __commonJS({
+  "node_modules/math-intrinsics/min.js"(exports2, module2) {
+    "use strict";
+    module2.exports = Math.min;
+  }
+});
+
+// node_modules/math-intrinsics/pow.js
+var require_pow = __commonJS({
+  "node_modules/math-intrinsics/pow.js"(exports2, module2) {
+    "use strict";
+    module2.exports = Math.pow;
+  }
+});
+
+// node_modules/math-intrinsics/round.js
+var require_round = __commonJS({
+  "node_modules/math-intrinsics/round.js"(exports2, module2) {
+    "use strict";
+    module2.exports = Math.round;
+  }
+});
+
+// node_modules/math-intrinsics/isNaN.js
+var require_isNaN = __commonJS({
+  "node_modules/math-intrinsics/isNaN.js"(exports2, module2) {
+    "use strict";
+    module2.exports = Number.isNaN || function isNaN2(a) {
+      return a !== a;
+    };
+  }
+});
+
+// node_modules/math-intrinsics/sign.js
+var require_sign = __commonJS({
+  "node_modules/math-intrinsics/sign.js"(exports2, module2) {
+    "use strict";
+    var $isNaN = require_isNaN();
+    module2.exports = function sign(number) {
+      if ($isNaN(number) || number === 0) {
+        return number;
+      }
+      return number < 0 ? -1 : 1;
+    };
+  }
+});
+
+// node_modules/gopd/gOPD.js
+var require_gOPD = __commonJS({
+  "node_modules/gopd/gOPD.js"(exports2, module2) {
+    "use strict";
+    module2.exports = Object.getOwnPropertyDescriptor;
+  }
+});
+
+// node_modules/gopd/index.js
+var require_gopd = __commonJS({
+  "node_modules/gopd/index.js"(exports2, module2) {
+    "use strict";
+    var $gOPD = require_gOPD();
+    if ($gOPD) {
+      try {
+        $gOPD([], "length");
+      } catch (e) {
+        $gOPD = null;
+      }
+    }
+    module2.exports = $gOPD;
+  }
+});
+
+// node_modules/es-define-property/index.js
+var require_es_define_property = __commonJS({
+  "node_modules/es-define-property/index.js"(exports2, module2) {
+    "use strict";
+    var $defineProperty = Object.defineProperty || false;
+    if ($defineProperty) {
+      try {
+        $defineProperty({}, "a", { value: 1 });
+      } catch (e) {
+        $defineProperty = false;
+      }
+    }
+    module2.exports = $defineProperty;
+  }
+});
+
+// node_modules/has-symbols/shams.js
+var require_shams = __commonJS({
+  "node_modules/has-symbols/shams.js"(exports2, module2) {
+    "use strict";
+    module2.exports = function hasSymbols() {
+      if (typeof Symbol !== "function" || typeof Object.getOwnPropertySymbols !== "function") {
+        return false;
+      }
+      if (typeof Symbol.iterator === "symbol") {
+        return true;
+      }
+      var obj = {};
+      var sym = Symbol("test");
+      var symObj = Object(sym);
+      if (typeof sym === "string") {
+        return false;
+      }
+      if (Object.prototype.toString.call(sym) !== "[object Symbol]") {
+        return false;
+      }
+      if (Object.prototype.toString.call(symObj) !== "[object Symbol]") {
+        return false;
+      }
+      var symVal = 42;
+      obj[sym] = symVal;
+      for (var _ in obj) {
+        return false;
+      }
+      if (typeof Object.keys === "function" && Object.keys(obj).length !== 0) {
+        return false;
+      }
+      if (typeof Object.getOwnPropertyNames === "function" && Object.getOwnPropertyNames(obj).length !== 0) {
+        return false;
+      }
+      var syms = Object.getOwnPropertySymbols(obj);
+      if (syms.length !== 1 || syms[0] !== sym) {
+        return false;
+      }
+      if (!Object.prototype.propertyIsEnumerable.call(obj, sym)) {
+        return false;
+      }
+      if (typeof Object.getOwnPropertyDescriptor === "function") {
+        var descriptor = (
+          /** @type {PropertyDescriptor} */
+          Object.getOwnPropertyDescriptor(obj, sym)
+        );
+        if (descriptor.value !== symVal || descriptor.enumerable !== true) {
+          return false;
+        }
+      }
+      return true;
+    };
+  }
+});
+
+// node_modules/has-symbols/index.js
+var require_has_symbols = __commonJS({
+  "node_modules/has-symbols/index.js"(exports2, module2) {
+    "use strict";
+    var origSymbol = typeof Symbol !== "undefined" && Symbol;
+    var hasSymbolSham = require_shams();
+    module2.exports = function hasNativeSymbols() {
+      if (typeof origSymbol !== "function") {
+        return false;
+      }
+      if (typeof Symbol !== "function") {
+        return false;
+      }
+      if (typeof origSymbol("foo") !== "symbol") {
+        return false;
+      }
+      if (typeof Symbol("bar") !== "symbol") {
+        return false;
+      }
+      return hasSymbolSham();
+    };
+  }
+});
+
+// node_modules/get-proto/Reflect.getPrototypeOf.js
+var require_Reflect_getPrototypeOf = __commonJS({
+  "node_modules/get-proto/Reflect.getPrototypeOf.js"(exports2, module2) {
+    "use strict";
+    module2.exports = typeof Reflect !== "undefined" && Reflect.getPrototypeOf || null;
+  }
+});
+
+// node_modules/get-proto/Object.getPrototypeOf.js
+var require_Object_getPrototypeOf = __commonJS({
+  "node_modules/get-proto/Object.getPrototypeOf.js"(exports2, module2) {
+    "use strict";
+    var $Object = require_es_object_atoms();
+    module2.exports = $Object.getPrototypeOf || null;
+  }
+});
+
+// node_modules/function-bind/implementation.js
+var require_implementation2 = __commonJS({
+  "node_modules/function-bind/implementation.js"(exports2, module2) {
+    "use strict";
+    var ERROR_MESSAGE = "Function.prototype.bind called on incompatible ";
+    var toStr = Object.prototype.toString;
+    var max = Math.max;
+    var funcType = "[object Function]";
+    var concatty = function concatty2(a, b) {
+      var arr = [];
+      for (var i = 0; i < a.length; i += 1) {
+        arr[i] = a[i];
+      }
+      for (var j = 0; j < b.length; j += 1) {
+        arr[j + a.length] = b[j];
+      }
+      return arr;
+    };
+    var slicy = function slicy2(arrLike, offset) {
+      var arr = [];
+      for (var i = offset || 0, j = 0; i < arrLike.length; i += 1, j += 1) {
+        arr[j] = arrLike[i];
+      }
+      return arr;
+    };
+    var joiny = function(arr, joiner) {
+      var str = "";
+      for (var i = 0; i < arr.length; i += 1) {
+        str += arr[i];
+        if (i + 1 < arr.length) {
+          str += joiner;
+        }
+      }
+      return str;
+    };
+    module2.exports = function bind2(that) {
+      var target = this;
+      if (typeof target !== "function" || toStr.apply(target) !== funcType) {
+        throw new TypeError(ERROR_MESSAGE + target);
+      }
+      var args = slicy(arguments, 1);
+      var bound;
+      var binder = function() {
+        if (this instanceof bound) {
+          var result = target.apply(
+            this,
+            concatty(args, arguments)
+          );
+          if (Object(result) === result) {
+            return result;
+          }
+          return this;
+        }
+        return target.apply(
+          that,
+          concatty(args, arguments)
+        );
+      };
+      var boundLength = max(0, target.length - args.length);
+      var boundArgs = [];
+      for (var i = 0; i < boundLength; i++) {
+        boundArgs[i] = "$" + i;
+      }
+      bound = Function("binder", "return function (" + joiny(boundArgs, ",") + "){ return binder.apply(this,arguments); }")(binder);
+      if (target.prototype) {
+        var Empty = function Empty2() {
+        };
+        Empty.prototype = target.prototype;
+        bound.prototype = new Empty();
+        Empty.prototype = null;
+      }
+      return bound;
+    };
+  }
+});
+
+// node_modules/function-bind/index.js
+var require_function_bind = __commonJS({
+  "node_modules/function-bind/index.js"(exports2, module2) {
+    "use strict";
+    var implementation = require_implementation2();
+    module2.exports = Function.prototype.bind || implementation;
+  }
+});
+
+// node_modules/call-bind-apply-helpers/functionCall.js
+var require_functionCall = __commonJS({
+  "node_modules/call-bind-apply-helpers/functionCall.js"(exports2, module2) {
+    "use strict";
+    module2.exports = Function.prototype.call;
+  }
+});
+
+// node_modules/call-bind-apply-helpers/functionApply.js
+var require_functionApply = __commonJS({
+  "node_modules/call-bind-apply-helpers/functionApply.js"(exports2, module2) {
+    "use strict";
+    module2.exports = Function.prototype.apply;
+  }
+});
+
+// node_modules/call-bind-apply-helpers/reflectApply.js
+var require_reflectApply = __commonJS({
+  "node_modules/call-bind-apply-helpers/reflectApply.js"(exports2, module2) {
+    "use strict";
+    module2.exports = typeof Reflect !== "undefined" && Reflect && Reflect.apply;
+  }
+});
+
+// node_modules/call-bind-apply-helpers/actualApply.js
+var require_actualApply = __commonJS({
+  "node_modules/call-bind-apply-helpers/actualApply.js"(exports2, module2) {
+    "use strict";
+    var bind2 = require_function_bind();
+    var $apply = require_functionApply();
+    var $call = require_functionCall();
+    var $reflectApply = require_reflectApply();
+    module2.exports = $reflectApply || bind2.call($call, $apply);
+  }
+});
+
+// node_modules/call-bind-apply-helpers/index.js
+var require_call_bind_apply_helpers = __commonJS({
+  "node_modules/call-bind-apply-helpers/index.js"(exports2, module2) {
+    "use strict";
+    var bind2 = require_function_bind();
+    var $TypeError = require_type();
+    var $call = require_functionCall();
+    var $actualApply = require_actualApply();
+    module2.exports = function callBindBasic(args) {
+      if (args.length < 1 || typeof args[0] !== "function") {
+        throw new $TypeError("a function is required");
+      }
+      return $actualApply(bind2, $call, args);
+    };
+  }
+});
+
+// node_modules/dunder-proto/get.js
+var require_get = __commonJS({
+  "node_modules/dunder-proto/get.js"(exports2, module2) {
+    "use strict";
+    var callBind = require_call_bind_apply_helpers();
+    var gOPD = require_gopd();
+    var hasProtoAccessor;
+    try {
+      hasProtoAccessor = /** @type {{ __proto__?: typeof Array.prototype }} */
+      [].__proto__ === Array.prototype;
+    } catch (e) {
+      if (!e || typeof e !== "object" || !("code" in e) || e.code !== "ERR_PROTO_ACCESS") {
+        throw e;
+      }
+    }
+    var desc2 = !!hasProtoAccessor && gOPD && gOPD(
+      Object.prototype,
+      /** @type {keyof typeof Object.prototype} */
+      "__proto__"
+    );
+    var $Object = Object;
+    var $getPrototypeOf = $Object.getPrototypeOf;
+    module2.exports = desc2 && typeof desc2.get === "function" ? callBind([desc2.get]) : typeof $getPrototypeOf === "function" ? (
+      /** @type {import('./get')} */
+      function getDunder(value) {
+        return $getPrototypeOf(value == null ? value : $Object(value));
+      }
+    ) : false;
+  }
+});
+
+// node_modules/get-proto/index.js
+var require_get_proto = __commonJS({
+  "node_modules/get-proto/index.js"(exports2, module2) {
+    "use strict";
+    var reflectGetProto = require_Reflect_getPrototypeOf();
+    var originalGetProto = require_Object_getPrototypeOf();
+    var getDunderProto = require_get();
+    module2.exports = reflectGetProto ? function getProto(O) {
+      return reflectGetProto(O);
+    } : originalGetProto ? function getProto(O) {
+      if (!O || typeof O !== "object" && typeof O !== "function") {
+        throw new TypeError("getProto: not an object");
+      }
+      return originalGetProto(O);
+    } : getDunderProto ? function getProto(O) {
+      return getDunderProto(O);
+    } : null;
+  }
+});
+
+// node_modules/hasown/index.js
+var require_hasown = __commonJS({
+  "node_modules/hasown/index.js"(exports2, module2) {
+    "use strict";
+    var call = Function.prototype.call;
+    var $hasOwn = Object.prototype.hasOwnProperty;
+    var bind2 = require_function_bind();
+    module2.exports = bind2.call(call, $hasOwn);
+  }
+});
+
+// node_modules/get-intrinsic/index.js
+var require_get_intrinsic = __commonJS({
+  "node_modules/get-intrinsic/index.js"(exports2, module2) {
+    "use strict";
+    var undefined2;
+    var $Object = require_es_object_atoms();
+    var $Error = require_es_errors();
+    var $EvalError = require_eval();
+    var $RangeError = require_range2();
+    var $ReferenceError = require_ref();
+    var $SyntaxError = require_syntax();
+    var $TypeError = require_type();
+    var $URIError = require_uri();
+    var abs = require_abs();
+    var floor = require_floor();
+    var max = require_max();
+    var min = require_min();
+    var pow = require_pow();
+    var round = require_round();
+    var sign = require_sign();
+    var $Function = Function;
+    var getEvalledConstructor = function(expressionSyntax) {
+      try {
+        return $Function('"use strict"; return (' + expressionSyntax + ").constructor;")();
+      } catch (e) {
+      }
+    };
+    var $gOPD = require_gopd();
+    var $defineProperty = require_es_define_property();
+    var throwTypeError = function() {
+      throw new $TypeError();
+    };
+    var ThrowTypeError = $gOPD ? function() {
+      try {
+        arguments.callee;
+        return throwTypeError;
+      } catch (calleeThrows) {
+        try {
+          return $gOPD(arguments, "callee").get;
+        } catch (gOPDthrows) {
+          return throwTypeError;
+        }
+      }
+    }() : throwTypeError;
+    var hasSymbols = require_has_symbols()();
+    var getProto = require_get_proto();
+    var $ObjectGPO = require_Object_getPrototypeOf();
+    var $ReflectGPO = require_Reflect_getPrototypeOf();
+    var $apply = require_functionApply();
+    var $call = require_functionCall();
+    var needsEval = {};
+    var TypedArray = typeof Uint8Array === "undefined" || !getProto ? undefined2 : getProto(Uint8Array);
+    var INTRINSICS = {
+      __proto__: null,
+      "%AggregateError%": typeof AggregateError === "undefined" ? undefined2 : AggregateError,
+      "%Array%": Array,
+      "%ArrayBuffer%": typeof ArrayBuffer === "undefined" ? undefined2 : ArrayBuffer,
+      "%ArrayIteratorPrototype%": hasSymbols && getProto ? getProto([][Symbol.iterator]()) : undefined2,
+      "%AsyncFromSyncIteratorPrototype%": undefined2,
+      "%AsyncFunction%": needsEval,
+      "%AsyncGenerator%": needsEval,
+      "%AsyncGeneratorFunction%": needsEval,
+      "%AsyncIteratorPrototype%": needsEval,
+      "%Atomics%": typeof Atomics === "undefined" ? undefined2 : Atomics,
+      "%BigInt%": typeof BigInt === "undefined" ? undefined2 : BigInt,
+      "%BigInt64Array%": typeof BigInt64Array === "undefined" ? undefined2 : BigInt64Array,
+      "%BigUint64Array%": typeof BigUint64Array === "undefined" ? undefined2 : BigUint64Array,
+      "%Boolean%": Boolean,
+      "%DataView%": typeof DataView === "undefined" ? undefined2 : DataView,
+      "%Date%": Date,
+      "%decodeURI%": decodeURI,
+      "%decodeURIComponent%": decodeURIComponent,
+      "%encodeURI%": encodeURI,
+      "%encodeURIComponent%": encodeURIComponent,
+      "%Error%": $Error,
+      "%eval%": eval,
+      // eslint-disable-line no-eval
+      "%EvalError%": $EvalError,
+      "%Float16Array%": typeof Float16Array === "undefined" ? undefined2 : Float16Array,
+      "%Float32Array%": typeof Float32Array === "undefined" ? undefined2 : Float32Array,
+      "%Float64Array%": typeof Float64Array === "undefined" ? undefined2 : Float64Array,
+      "%FinalizationRegistry%": typeof FinalizationRegistry === "undefined" ? undefined2 : FinalizationRegistry,
+      "%Function%": $Function,
+      "%GeneratorFunction%": needsEval,
+      "%Int8Array%": typeof Int8Array === "undefined" ? undefined2 : Int8Array,
+      "%Int16Array%": typeof Int16Array === "undefined" ? undefined2 : Int16Array,
+      "%Int32Array%": typeof Int32Array === "undefined" ? undefined2 : Int32Array,
+      "%isFinite%": isFinite,
+      "%isNaN%": isNaN,
+      "%IteratorPrototype%": hasSymbols && getProto ? getProto(getProto([][Symbol.iterator]())) : undefined2,
+      "%JSON%": typeof JSON === "object" ? JSON : undefined2,
+      "%Map%": typeof Map === "undefined" ? undefined2 : Map,
+      "%MapIteratorPrototype%": typeof Map === "undefined" || !hasSymbols || !getProto ? undefined2 : getProto((/* @__PURE__ */ new Map())[Symbol.iterator]()),
+      "%Math%": Math,
+      "%Number%": Number,
+      "%Object%": $Object,
+      "%Object.getOwnPropertyDescriptor%": $gOPD,
+      "%parseFloat%": parseFloat,
+      "%parseInt%": parseInt,
+      "%Promise%": typeof Promise === "undefined" ? undefined2 : Promise,
+      "%Proxy%": typeof Proxy === "undefined" ? undefined2 : Proxy,
+      "%RangeError%": $RangeError,
+      "%ReferenceError%": $ReferenceError,
+      "%Reflect%": typeof Reflect === "undefined" ? undefined2 : Reflect,
+      "%RegExp%": RegExp,
+      "%Set%": typeof Set === "undefined" ? undefined2 : Set,
+      "%SetIteratorPrototype%": typeof Set === "undefined" || !hasSymbols || !getProto ? undefined2 : getProto((/* @__PURE__ */ new Set())[Symbol.iterator]()),
+      "%SharedArrayBuffer%": typeof SharedArrayBuffer === "undefined" ? undefined2 : SharedArrayBuffer,
+      "%String%": String,
+      "%StringIteratorPrototype%": hasSymbols && getProto ? getProto(""[Symbol.iterator]()) : undefined2,
+      "%Symbol%": hasSymbols ? Symbol : undefined2,
+      "%SyntaxError%": $SyntaxError,
+      "%ThrowTypeError%": ThrowTypeError,
+      "%TypedArray%": TypedArray,
+      "%TypeError%": $TypeError,
+      "%Uint8Array%": typeof Uint8Array === "undefined" ? undefined2 : Uint8Array,
+      "%Uint8ClampedArray%": typeof Uint8ClampedArray === "undefined" ? undefined2 : Uint8ClampedArray,
+      "%Uint16Array%": typeof Uint16Array === "undefined" ? undefined2 : Uint16Array,
+      "%Uint32Array%": typeof Uint32Array === "undefined" ? undefined2 : Uint32Array,
+      "%URIError%": $URIError,
+      "%WeakMap%": typeof WeakMap === "undefined" ? undefined2 : WeakMap,
+      "%WeakRef%": typeof WeakRef === "undefined" ? undefined2 : WeakRef,
+      "%WeakSet%": typeof WeakSet === "undefined" ? undefined2 : WeakSet,
+      "%Function.prototype.call%": $call,
+      "%Function.prototype.apply%": $apply,
+      "%Object.defineProperty%": $defineProperty,
+      "%Object.getPrototypeOf%": $ObjectGPO,
+      "%Math.abs%": abs,
+      "%Math.floor%": floor,
+      "%Math.max%": max,
+      "%Math.min%": min,
+      "%Math.pow%": pow,
+      "%Math.round%": round,
+      "%Math.sign%": sign,
+      "%Reflect.getPrototypeOf%": $ReflectGPO
+    };
+    if (getProto) {
+      try {
+        null.error;
+      } catch (e) {
+        errorProto = getProto(getProto(e));
+        INTRINSICS["%Error.prototype%"] = errorProto;
+      }
+    }
+    var errorProto;
+    var doEval = function doEval2(name2) {
+      var value;
+      if (name2 === "%AsyncFunction%") {
+        value = getEvalledConstructor("async function () {}");
+      } else if (name2 === "%GeneratorFunction%") {
+        value = getEvalledConstructor("function* () {}");
+      } else if (name2 === "%AsyncGeneratorFunction%") {
+        value = getEvalledConstructor("async function* () {}");
+      } else if (name2 === "%AsyncGenerator%") {
+        var fn = doEval2("%AsyncGeneratorFunction%");
+        if (fn) {
+          value = fn.prototype;
+        }
+      } else if (name2 === "%AsyncIteratorPrototype%") {
+        var gen = doEval2("%AsyncGenerator%");
+        if (gen && getProto) {
+          value = getProto(gen.prototype);
+        }
+      }
+      INTRINSICS[name2] = value;
+      return value;
+    };
+    var LEGACY_ALIASES = {
+      __proto__: null,
+      "%ArrayBufferPrototype%": ["ArrayBuffer", "prototype"],
+      "%ArrayPrototype%": ["Array", "prototype"],
+      "%ArrayProto_entries%": ["Array", "prototype", "entries"],
+      "%ArrayProto_forEach%": ["Array", "prototype", "forEach"],
+      "%ArrayProto_keys%": ["Array", "prototype", "keys"],
+      "%ArrayProto_values%": ["Array", "prototype", "values"],
+      "%AsyncFunctionPrototype%": ["AsyncFunction", "prototype"],
+      "%AsyncGenerator%": ["AsyncGeneratorFunction", "prototype"],
+      "%AsyncGeneratorPrototype%": ["AsyncGeneratorFunction", "prototype", "prototype"],
+      "%BooleanPrototype%": ["Boolean", "prototype"],
+      "%DataViewPrototype%": ["DataView", "prototype"],
+      "%DatePrototype%": ["Date", "prototype"],
+      "%ErrorPrototype%": ["Error", "prototype"],
+      "%EvalErrorPrototype%": ["EvalError", "prototype"],
+      "%Float32ArrayPrototype%": ["Float32Array", "prototype"],
+      "%Float64ArrayPrototype%": ["Float64Array", "prototype"],
+      "%FunctionPrototype%": ["Function", "prototype"],
+      "%Generator%": ["GeneratorFunction", "prototype"],
+      "%GeneratorPrototype%": ["GeneratorFunction", "prototype", "prototype"],
+      "%Int8ArrayPrototype%": ["Int8Array", "prototype"],
+      "%Int16ArrayPrototype%": ["Int16Array", "prototype"],
+      "%Int32ArrayPrototype%": ["Int32Array", "prototype"],
+      "%JSONParse%": ["JSON", "parse"],
+      "%JSONStringify%": ["JSON", "stringify"],
+      "%MapPrototype%": ["Map", "prototype"],
+      "%NumberPrototype%": ["Number", "prototype"],
+      "%ObjectPrototype%": ["Object", "prototype"],
+      "%ObjProto_toString%": ["Object", "prototype", "toString"],
+      "%ObjProto_valueOf%": ["Object", "prototype", "valueOf"],
+      "%PromisePrototype%": ["Promise", "prototype"],
+      "%PromiseProto_then%": ["Promise", "prototype", "then"],
+      "%Promise_all%": ["Promise", "all"],
+      "%Promise_reject%": ["Promise", "reject"],
+      "%Promise_resolve%": ["Promise", "resolve"],
+      "%RangeErrorPrototype%": ["RangeError", "prototype"],
+      "%ReferenceErrorPrototype%": ["ReferenceError", "prototype"],
+      "%RegExpPrototype%": ["RegExp", "prototype"],
+      "%SetPrototype%": ["Set", "prototype"],
+      "%SharedArrayBufferPrototype%": ["SharedArrayBuffer", "prototype"],
+      "%StringPrototype%": ["String", "prototype"],
+      "%SymbolPrototype%": ["Symbol", "prototype"],
+      "%SyntaxErrorPrototype%": ["SyntaxError", "prototype"],
+      "%TypedArrayPrototype%": ["TypedArray", "prototype"],
+      "%TypeErrorPrototype%": ["TypeError", "prototype"],
+      "%Uint8ArrayPrototype%": ["Uint8Array", "prototype"],
+      "%Uint8ClampedArrayPrototype%": ["Uint8ClampedArray", "prototype"],
+      "%Uint16ArrayPrototype%": ["Uint16Array", "prototype"],
+      "%Uint32ArrayPrototype%": ["Uint32Array", "prototype"],
+      "%URIErrorPrototype%": ["URIError", "prototype"],
+      "%WeakMapPrototype%": ["WeakMap", "prototype"],
+      "%WeakSetPrototype%": ["WeakSet", "prototype"]
+    };
+    var bind2 = require_function_bind();
+    var hasOwn = require_hasown();
+    var $concat = bind2.call($call, Array.prototype.concat);
+    var $spliceApply = bind2.call($apply, Array.prototype.splice);
+    var $replace = bind2.call($call, String.prototype.replace);
+    var $strSlice = bind2.call($call, String.prototype.slice);
+    var $exec = bind2.call($call, RegExp.prototype.exec);
+    var rePropName = /[^%.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|%$))/g;
+    var reEscapeChar = /\\(\\)?/g;
+    var stringToPath = function stringToPath2(string) {
+      var first = $strSlice(string, 0, 1);
+      var last = $strSlice(string, -1);
+      if (first === "%" && last !== "%") {
+        throw new $SyntaxError("invalid intrinsic syntax, expected closing `%`");
+      } else if (last === "%" && first !== "%") {
+        throw new $SyntaxError("invalid intrinsic syntax, expected opening `%`");
+      }
+      var result = [];
+      $replace(string, rePropName, function(match, number, quote, subString) {
+        result[result.length] = quote ? $replace(subString, reEscapeChar, "$1") : number || match;
+      });
+      return result;
+    };
+    var getBaseIntrinsic = function getBaseIntrinsic2(name2, allowMissing) {
+      var intrinsicName = name2;
+      var alias;
+      if (hasOwn(LEGACY_ALIASES, intrinsicName)) {
+        alias = LEGACY_ALIASES[intrinsicName];
+        intrinsicName = "%" + alias[0] + "%";
+      }
+      if (hasOwn(INTRINSICS, intrinsicName)) {
+        var value = INTRINSICS[intrinsicName];
+        if (value === needsEval) {
+          value = doEval(intrinsicName);
+        }
+        if (typeof value === "undefined" && !allowMissing) {
+          throw new $TypeError("intrinsic " + name2 + " exists, but is not available. Please file an issue!");
+        }
+        return {
+          alias,
+          name: intrinsicName,
+          value
+        };
+      }
+      throw new $SyntaxError("intrinsic " + name2 + " does not exist!");
+    };
+    module2.exports = function GetIntrinsic(name2, allowMissing) {
+      if (typeof name2 !== "string" || name2.length === 0) {
+        throw new $TypeError("intrinsic name must be a non-empty string");
+      }
+      if (arguments.length > 1 && typeof allowMissing !== "boolean") {
+        throw new $TypeError('"allowMissing" argument must be a boolean');
+      }
+      if ($exec(/^%?[^%]*%?$/, name2) === null) {
+        throw new $SyntaxError("`%` may not be present anywhere but at the beginning and end of the intrinsic name");
+      }
+      var parts = stringToPath(name2);
+      var intrinsicBaseName = parts.length > 0 ? parts[0] : "";
+      var intrinsic = getBaseIntrinsic("%" + intrinsicBaseName + "%", allowMissing);
+      var intrinsicRealName = intrinsic.name;
+      var value = intrinsic.value;
+      var skipFurtherCaching = false;
+      var alias = intrinsic.alias;
+      if (alias) {
+        intrinsicBaseName = alias[0];
+        $spliceApply(parts, $concat([0, 1], alias));
+      }
+      for (var i = 1, isOwn = true; i < parts.length; i += 1) {
+        var part = parts[i];
+        var first = $strSlice(part, 0, 1);
+        var last = $strSlice(part, -1);
+        if ((first === '"' || first === "'" || first === "`" || (last === '"' || last === "'" || last === "`")) && first !== last) {
+          throw new $SyntaxError("property names with quotes must have matching quotes");
+        }
+        if (part === "constructor" || !isOwn) {
+          skipFurtherCaching = true;
+        }
+        intrinsicBaseName += "." + part;
+        intrinsicRealName = "%" + intrinsicBaseName + "%";
+        if (hasOwn(INTRINSICS, intrinsicRealName)) {
+          value = INTRINSICS[intrinsicRealName];
+        } else if (value != null) {
+          if (!(part in value)) {
+            if (!allowMissing) {
+              throw new $TypeError("base intrinsic for " + name2 + " exists, but the property is not available.");
+            }
+            return void undefined2;
+          }
+          if ($gOPD && i + 1 >= parts.length) {
+            var desc2 = $gOPD(value, part);
+            isOwn = !!desc2;
+            if (isOwn && "get" in desc2 && !("originalValue" in desc2.get)) {
+              value = desc2.get;
+            } else {
+              value = value[part];
+            }
+          } else {
+            isOwn = hasOwn(value, part);
+            value = value[part];
+          }
+          if (isOwn && !skipFurtherCaching) {
+            INTRINSICS[intrinsicRealName] = value;
+          }
+        }
+      }
+      return value;
+    };
+  }
+});
+
+// node_modules/has-tostringtag/shams.js
+var require_shams2 = __commonJS({
+  "node_modules/has-tostringtag/shams.js"(exports2, module2) {
+    "use strict";
+    var hasSymbols = require_shams();
+    module2.exports = function hasToStringTagShams() {
+      return hasSymbols() && !!Symbol.toStringTag;
+    };
+  }
+});
+
+// node_modules/es-set-tostringtag/index.js
+var require_es_set_tostringtag = __commonJS({
+  "node_modules/es-set-tostringtag/index.js"(exports2, module2) {
+    "use strict";
+    var GetIntrinsic = require_get_intrinsic();
+    var $defineProperty = GetIntrinsic("%Object.defineProperty%", true);
+    var hasToStringTag = require_shams2()();
+    var hasOwn = require_hasown();
+    var $TypeError = require_type();
+    var toStringTag2 = hasToStringTag ? Symbol.toStringTag : null;
+    module2.exports = function setToStringTag(object, value) {
+      var overrideIfSet = arguments.length > 2 && !!arguments[2] && arguments[2].force;
+      var nonConfigurable = arguments.length > 2 && !!arguments[2] && arguments[2].nonConfigurable;
+      if (typeof overrideIfSet !== "undefined" && typeof overrideIfSet !== "boolean" || typeof nonConfigurable !== "undefined" && typeof nonConfigurable !== "boolean") {
+        throw new $TypeError("if provided, the `overrideIfSet` and `nonConfigurable` options must be booleans");
+      }
+      if (toStringTag2 && (overrideIfSet || !hasOwn(object, toStringTag2))) {
+        if ($defineProperty) {
+          $defineProperty(object, toStringTag2, {
+            configurable: !nonConfigurable,
+            enumerable: false,
+            value,
+            writable: false
+          });
+        } else {
+          object[toStringTag2] = value;
+        }
+      }
+    };
+  }
+});
+
+// node_modules/form-data/lib/populate.js
+var require_populate = __commonJS({
+  "node_modules/form-data/lib/populate.js"(exports2, module2) {
+    "use strict";
+    module2.exports = function(dst, src) {
+      Object.keys(src).forEach(function(prop) {
+        dst[prop] = dst[prop] || src[prop];
+      });
+      return dst;
+    };
+  }
+});
+
+// node_modules/form-data/lib/form_data.js
+var require_form_data = __commonJS({
+  "node_modules/form-data/lib/form_data.js"(exports2, module2) {
+    "use strict";
+    var CombinedStream = require_combined_stream();
+    var util3 = require("util");
+    var path8 = require("path");
+    var http2 = require("http");
+    var https2 = require("https");
+    var parseUrl = require("url").parse;
+    var fs12 = require("fs");
+    var Stream2 = require("stream").Stream;
+    var crypto2 = require("crypto");
+    var mime = require_mime_types();
+    var asynckit = require_asynckit();
+    var setToStringTag = require_es_set_tostringtag();
+    var hasOwn = require_hasown();
+    var populate = require_populate();
+    function FormData3(options) {
+      if (!(this instanceof FormData3)) {
+        return new FormData3(options);
+      }
+      this._overheadLength = 0;
+      this._valueLength = 0;
+      this._valuesToMeasure = [];
+      CombinedStream.call(this);
+      options = options || {};
+      for (var option in options) {
+        this[option] = options[option];
+      }
+    }
+    util3.inherits(FormData3, CombinedStream);
+    FormData3.LINE_BREAK = "\r\n";
+    FormData3.DEFAULT_CONTENT_TYPE = "application/octet-stream";
+    FormData3.prototype.append = function(field, value, options) {
+      options = options || {};
+      if (typeof options === "string") {
+        options = { filename: options };
+      }
+      var append2 = CombinedStream.prototype.append.bind(this);
+      if (typeof value === "number" || value == null) {
+        value = String(value);
+      }
+      if (Array.isArray(value)) {
+        this._error(new Error("Arrays are not supported."));
+        return;
+      }
+      var header = this._multiPartHeader(field, value, options);
+      var footer = this._multiPartFooter();
+      append2(header);
+      append2(value);
+      append2(footer);
+      this._trackLength(header, value, options);
+    };
+    FormData3.prototype._trackLength = function(header, value, options) {
+      var valueLength = 0;
+      if (options.knownLength != null) {
+        valueLength += Number(options.knownLength);
+      } else if (Buffer.isBuffer(value)) {
+        valueLength = value.length;
+      } else if (typeof value === "string") {
+        valueLength = Buffer.byteLength(value);
+      }
+      this._valueLength += valueLength;
+      this._overheadLength += Buffer.byteLength(header) + FormData3.LINE_BREAK.length;
+      if (!value || !value.path && !(value.readable && hasOwn(value, "httpVersion")) && !(value instanceof Stream2)) {
+        return;
+      }
+      if (!options.knownLength) {
+        this._valuesToMeasure.push(value);
+      }
+    };
+    FormData3.prototype._lengthRetriever = function(value, callback) {
+      if (hasOwn(value, "fd")) {
+        if (value.end != void 0 && value.end != Infinity && value.start != void 0) {
+          callback(null, value.end + 1 - (value.start ? value.start : 0));
+        } else {
+          fs12.stat(value.path, function(err, stat) {
+            if (err) {
+              callback(err);
+              return;
+            }
+            var fileSize = stat.size - (value.start ? value.start : 0);
+            callback(null, fileSize);
+          });
+        }
+      } else if (hasOwn(value, "httpVersion")) {
+        callback(null, Number(value.headers["content-length"]));
+      } else if (hasOwn(value, "httpModule")) {
+        value.on("response", function(response) {
+          value.pause();
+          callback(null, Number(response.headers["content-length"]));
+        });
+        value.resume();
+      } else {
+        callback("Unknown stream");
+      }
+    };
+    FormData3.prototype._multiPartHeader = function(field, value, options) {
+      if (typeof options.header === "string") {
+        return options.header;
+      }
+      var contentDisposition = this._getContentDisposition(value, options);
+      var contentType = this._getContentType(value, options);
+      var contents = "";
+      var headers = {
+        // add custom disposition as third element or keep it two elements if not
+        "Content-Disposition": ["form-data", 'name="' + field + '"'].concat(contentDisposition || []),
+        // if no content type. allow it to be empty array
+        "Content-Type": [].concat(contentType || [])
+      };
+      if (typeof options.header === "object") {
+        populate(headers, options.header);
+      }
+      var header;
+      for (var prop in headers) {
+        if (hasOwn(headers, prop)) {
+          header = headers[prop];
+          if (header == null) {
+            continue;
+          }
+          if (!Array.isArray(header)) {
+            header = [header];
+          }
+          if (header.length) {
+            contents += prop + ": " + header.join("; ") + FormData3.LINE_BREAK;
+          }
+        }
+      }
+      return "--" + this.getBoundary() + FormData3.LINE_BREAK + contents + FormData3.LINE_BREAK;
+    };
+    FormData3.prototype._getContentDisposition = function(value, options) {
+      var filename;
+      if (typeof options.filepath === "string") {
+        filename = path8.normalize(options.filepath).replace(/\\/g, "/");
+      } else if (options.filename || value && (value.name || value.path)) {
+        filename = path8.basename(options.filename || value && (value.name || value.path));
+      } else if (value && value.readable && hasOwn(value, "httpVersion")) {
+        filename = path8.basename(value.client._httpMessage.path || "");
+      }
+      if (filename) {
+        return 'filename="' + filename + '"';
+      }
+    };
+    FormData3.prototype._getContentType = function(value, options) {
+      var contentType = options.contentType;
+      if (!contentType && value && value.name) {
+        contentType = mime.lookup(value.name);
+      }
+      if (!contentType && value && value.path) {
+        contentType = mime.lookup(value.path);
+      }
+      if (!contentType && value && value.readable && hasOwn(value, "httpVersion")) {
+        contentType = value.headers["content-type"];
+      }
+      if (!contentType && (options.filepath || options.filename)) {
+        contentType = mime.lookup(options.filepath || options.filename);
+      }
+      if (!contentType && value && typeof value === "object") {
+        contentType = FormData3.DEFAULT_CONTENT_TYPE;
+      }
+      return contentType;
+    };
+    FormData3.prototype._multiPartFooter = function() {
+      return function(next) {
+        var footer = FormData3.LINE_BREAK;
+        var lastPart = this._streams.length === 0;
+        if (lastPart) {
+          footer += this._lastBoundary();
+        }
+        next(footer);
+      }.bind(this);
+    };
+    FormData3.prototype._lastBoundary = function() {
+      return "--" + this.getBoundary() + "--" + FormData3.LINE_BREAK;
+    };
+    FormData3.prototype.getHeaders = function(userHeaders) {
+      var header;
+      var formHeaders = {
+        "content-type": "multipart/form-data; boundary=" + this.getBoundary()
+      };
+      for (header in userHeaders) {
+        if (hasOwn(userHeaders, header)) {
+          formHeaders[header.toLowerCase()] = userHeaders[header];
+        }
+      }
+      return formHeaders;
+    };
+    FormData3.prototype.setBoundary = function(boundary) {
+      if (typeof boundary !== "string") {
+        throw new TypeError("FormData boundary must be a string");
+      }
+      this._boundary = boundary;
+    };
+    FormData3.prototype.getBoundary = function() {
+      if (!this._boundary) {
+        this._generateBoundary();
+      }
+      return this._boundary;
+    };
+    FormData3.prototype.getBuffer = function() {
+      var dataBuffer = new Buffer.alloc(0);
+      var boundary = this.getBoundary();
+      for (var i = 0, len = this._streams.length; i < len; i++) {
+        if (typeof this._streams[i] !== "function") {
+          if (Buffer.isBuffer(this._streams[i])) {
+            dataBuffer = Buffer.concat([dataBuffer, this._streams[i]]);
+          } else {
+            dataBuffer = Buffer.concat([dataBuffer, Buffer.from(this._streams[i])]);
+          }
+          if (typeof this._streams[i] !== "string" || this._streams[i].substring(2, boundary.length + 2) !== boundary) {
+            dataBuffer = Buffer.concat([dataBuffer, Buffer.from(FormData3.LINE_BREAK)]);
+          }
+        }
+      }
+      return Buffer.concat([dataBuffer, Buffer.from(this._lastBoundary())]);
+    };
+    FormData3.prototype._generateBoundary = function() {
+      this._boundary = "--------------------------" + crypto2.randomBytes(12).toString("hex");
+    };
+    FormData3.prototype.getLengthSync = function() {
+      var knownLength = this._overheadLength + this._valueLength;
+      if (this._streams.length) {
+        knownLength += this._lastBoundary().length;
+      }
+      if (!this.hasKnownLength()) {
+        this._error(new Error("Cannot calculate proper length in synchronous way."));
+      }
+      return knownLength;
+    };
+    FormData3.prototype.hasKnownLength = function() {
+      var hasKnownLength = true;
+      if (this._valuesToMeasure.length) {
+        hasKnownLength = false;
+      }
+      return hasKnownLength;
+    };
+    FormData3.prototype.getLength = function(cb) {
+      var knownLength = this._overheadLength + this._valueLength;
+      if (this._streams.length) {
+        knownLength += this._lastBoundary().length;
+      }
+      if (!this._valuesToMeasure.length) {
+        process.nextTick(cb.bind(this, null, knownLength));
+        return;
+      }
+      asynckit.parallel(this._valuesToMeasure, this._lengthRetriever, function(err, values) {
+        if (err) {
+          cb(err);
+          return;
+        }
+        values.forEach(function(length) {
+          knownLength += length;
+        });
+        cb(null, knownLength);
+      });
+    };
+    FormData3.prototype.submit = function(params, cb) {
+      var request;
+      var options;
+      var defaults2 = { method: "post" };
+      if (typeof params === "string") {
+        params = parseUrl(params);
+        options = populate({
+          port: params.port,
+          path: params.pathname,
+          host: params.hostname,
+          protocol: params.protocol
+        }, defaults2);
+      } else {
+        options = populate(params, defaults2);
+        if (!options.port) {
+          options.port = options.protocol === "https:" ? 443 : 80;
+        }
+      }
+      options.headers = this.getHeaders(params.headers);
+      if (options.protocol === "https:") {
+        request = https2.request(options);
+      } else {
+        request = http2.request(options);
+      }
+      this.getLength(function(err, length) {
+        if (err && err !== "Unknown stream") {
+          this._error(err);
+          return;
+        }
+        if (length) {
+          request.setHeader("Content-Length", length);
+        }
+        this.pipe(request);
+        if (cb) {
+          var onResponse;
+          var callback = function(error, responce) {
+            request.removeListener("error", callback);
+            request.removeListener("response", onResponse);
+            return cb.call(this, error, responce);
+          };
+          onResponse = callback.bind(this, null);
+          request.on("error", callback);
+          request.on("response", onResponse);
+        }
+      }.bind(this));
+      return request;
+    };
+    FormData3.prototype._error = function(err) {
+      if (!this.error) {
+        this.error = err;
+        this.pause();
+        this.emit("error", err);
+      }
+    };
+    FormData3.prototype.toString = function() {
+      return "[object FormData]";
+    };
+    setToStringTag(FormData3, "FormData");
+    module2.exports = FormData3;
+  }
+});
+
+// node_modules/proxy-from-env/index.js
+var require_proxy_from_env = __commonJS({
+  "node_modules/proxy-from-env/index.js"(exports2) {
+    "use strict";
+    var parseUrl = require("url").parse;
+    var DEFAULT_PORTS = {
+      ftp: 21,
+      gopher: 70,
+      http: 80,
+      https: 443,
+      ws: 80,
+      wss: 443
+    };
+    var stringEndsWith = String.prototype.endsWith || function(s) {
+      return s.length <= this.length && this.indexOf(s, this.length - s.length) !== -1;
+    };
+    function getProxyForUrl(url2) {
+      var parsedUrl = typeof url2 === "string" ? parseUrl(url2) : url2 || {};
+      var proto = parsedUrl.protocol;
+      var hostname = parsedUrl.host;
+      var port = parsedUrl.port;
+      if (typeof hostname !== "string" || !hostname || typeof proto !== "string") {
+        return "";
+      }
+      proto = proto.split(":", 1)[0];
+      hostname = hostname.replace(/:\d*$/, "");
+      port = parseInt(port) || DEFAULT_PORTS[proto] || 0;
+      if (!shouldProxy(hostname, port)) {
+        return "";
+      }
+      var proxy = getEnv("npm_config_" + proto + "_proxy") || getEnv(proto + "_proxy") || getEnv("npm_config_proxy") || getEnv("all_proxy");
+      if (proxy && proxy.indexOf("://") === -1) {
+        proxy = proto + "://" + proxy;
+      }
+      return proxy;
+    }
+    function shouldProxy(hostname, port) {
+      var NO_PROXY = (getEnv("npm_config_no_proxy") || getEnv("no_proxy")).toLowerCase();
+      if (!NO_PROXY) {
+        return true;
+      }
+      if (NO_PROXY === "*") {
+        return false;
+      }
+      return NO_PROXY.split(/[,\s]/).every(function(proxy) {
+        if (!proxy) {
+          return true;
+        }
+        var parsedProxy = proxy.match(/^(.+):(\d+)$/);
+        var parsedProxyHostname = parsedProxy ? parsedProxy[1] : proxy;
+        var parsedProxyPort = parsedProxy ? parseInt(parsedProxy[2]) : 0;
+        if (parsedProxyPort && parsedProxyPort !== port) {
+          return true;
+        }
+        if (!/^[.*]/.test(parsedProxyHostname)) {
+          return hostname !== parsedProxyHostname;
+        }
+        if (parsedProxyHostname.charAt(0) === "*") {
+          parsedProxyHostname = parsedProxyHostname.slice(1);
+        }
+        return !stringEndsWith.call(hostname, parsedProxyHostname);
+      });
+    }
+    function getEnv(key) {
+      return process.env[key.toLowerCase()] || process.env[key.toUpperCase()] || "";
+    }
+    exports2.getProxyForUrl = getProxyForUrl;
+  }
+});
+
+// node_modules/follow-redirects/debug.js
+var require_debug2 = __commonJS({
+  "node_modules/follow-redirects/debug.js"(exports2, module2) {
+    var debug;
+    module2.exports = function() {
+      if (!debug) {
+        try {
+          debug = require("debug")("follow-redirects");
+        } catch (error) {
+        }
+        if (typeof debug !== "function") {
+          debug = function() {
+          };
+        }
+      }
+      debug.apply(null, arguments);
+    };
+  }
+});
+
+// node_modules/follow-redirects/index.js
+var require_follow_redirects = __commonJS({
+  "node_modules/follow-redirects/index.js"(exports2, module2) {
+    var url2 = require("url");
+    var URL2 = url2.URL;
+    var http2 = require("http");
+    var https2 = require("https");
+    var Writable = require("stream").Writable;
+    var assert3 = require("assert");
+    var debug = require_debug2();
+    (function detectUnsupportedEnvironment() {
+      var looksLikeNode = typeof process !== "undefined";
+      var looksLikeBrowser = typeof window !== "undefined" && typeof document !== "undefined";
+      var looksLikeV8 = isFunction3(Error.captureStackTrace);
+      if (!looksLikeNode && (looksLikeBrowser || !looksLikeV8)) {
+        console.warn("The follow-redirects package should be excluded from browser builds.");
+      }
+    })();
+    var useNativeURL = false;
+    try {
+      assert3(new URL2(""));
+    } catch (error) {
+      useNativeURL = error.code === "ERR_INVALID_URL";
+    }
+    var preservedUrlFields = [
+      "auth",
+      "host",
+      "hostname",
+      "href",
+      "path",
+      "pathname",
+      "port",
+      "protocol",
+      "query",
+      "search",
+      "hash"
+    ];
+    var events = ["abort", "aborted", "connect", "error", "socket", "timeout"];
+    var eventHandlers = /* @__PURE__ */ Object.create(null);
+    events.forEach(function(event) {
+      eventHandlers[event] = function(arg1, arg2, arg3) {
+        this._redirectable.emit(event, arg1, arg2, arg3);
+      };
+    });
+    var InvalidUrlError = createErrorType(
+      "ERR_INVALID_URL",
+      "Invalid URL",
+      TypeError
+    );
+    var RedirectionError = createErrorType(
+      "ERR_FR_REDIRECTION_FAILURE",
+      "Redirected request failed"
+    );
+    var TooManyRedirectsError = createErrorType(
+      "ERR_FR_TOO_MANY_REDIRECTS",
+      "Maximum number of redirects exceeded",
+      RedirectionError
+    );
+    var MaxBodyLengthExceededError = createErrorType(
+      "ERR_FR_MAX_BODY_LENGTH_EXCEEDED",
+      "Request body larger than maxBodyLength limit"
+    );
+    var WriteAfterEndError = createErrorType(
+      "ERR_STREAM_WRITE_AFTER_END",
+      "write after end"
+    );
+    var destroy = Writable.prototype.destroy || noop4;
+    function RedirectableRequest(options, responseCallback) {
+      Writable.call(this);
+      this._sanitizeOptions(options);
+      this._options = options;
+      this._ended = false;
+      this._ending = false;
+      this._redirectCount = 0;
+      this._redirects = [];
+      this._requestBodyLength = 0;
+      this._requestBodyBuffers = [];
+      if (responseCallback) {
+        this.on("response", responseCallback);
+      }
+      var self2 = this;
+      this._onNativeResponse = function(response) {
+        try {
+          self2._processResponse(response);
+        } catch (cause) {
+          self2.emit("error", cause instanceof RedirectionError ? cause : new RedirectionError({ cause }));
+        }
+      };
+      this._performRequest();
+    }
+    RedirectableRequest.prototype = Object.create(Writable.prototype);
+    RedirectableRequest.prototype.abort = function() {
+      destroyRequest(this._currentRequest);
+      this._currentRequest.abort();
+      this.emit("abort");
+    };
+    RedirectableRequest.prototype.destroy = function(error) {
+      destroyRequest(this._currentRequest, error);
+      destroy.call(this, error);
+      return this;
+    };
+    RedirectableRequest.prototype.write = function(data, encoding, callback) {
+      if (this._ending) {
+        throw new WriteAfterEndError();
+      }
+      if (!isString2(data) && !isBuffer2(data)) {
+        throw new TypeError("data should be a string, Buffer or Uint8Array");
+      }
+      if (isFunction3(encoding)) {
+        callback = encoding;
+        encoding = null;
+      }
+      if (data.length === 0) {
+        if (callback) {
+          callback();
+        }
+        return;
+      }
+      if (this._requestBodyLength + data.length <= this._options.maxBodyLength) {
+        this._requestBodyLength += data.length;
+        this._requestBodyBuffers.push({ data, encoding });
+        this._currentRequest.write(data, encoding, callback);
+      } else {
+        this.emit("error", new MaxBodyLengthExceededError());
+        this.abort();
+      }
+    };
+    RedirectableRequest.prototype.end = function(data, encoding, callback) {
+      if (isFunction3(data)) {
+        callback = data;
+        data = encoding = null;
+      } else if (isFunction3(encoding)) {
+        callback = encoding;
+        encoding = null;
+      }
+      if (!data) {
+        this._ended = this._ending = true;
+        this._currentRequest.end(null, null, callback);
+      } else {
+        var self2 = this;
+        var currentRequest = this._currentRequest;
+        this.write(data, encoding, function() {
+          self2._ended = true;
+          currentRequest.end(null, null, callback);
+        });
+        this._ending = true;
+      }
+    };
+    RedirectableRequest.prototype.setHeader = function(name2, value) {
+      this._options.headers[name2] = value;
+      this._currentRequest.setHeader(name2, value);
+    };
+    RedirectableRequest.prototype.removeHeader = function(name2) {
+      delete this._options.headers[name2];
+      this._currentRequest.removeHeader(name2);
+    };
+    RedirectableRequest.prototype.setTimeout = function(msecs, callback) {
+      var self2 = this;
+      function destroyOnTimeout(socket) {
+        socket.setTimeout(msecs);
+        socket.removeListener("timeout", socket.destroy);
+        socket.addListener("timeout", socket.destroy);
+      }
+      function startTimer(socket) {
+        if (self2._timeout) {
+          clearTimeout(self2._timeout);
+        }
+        self2._timeout = setTimeout(function() {
+          self2.emit("timeout");
+          clearTimer();
+        }, msecs);
+        destroyOnTimeout(socket);
+      }
+      function clearTimer() {
+        if (self2._timeout) {
+          clearTimeout(self2._timeout);
+          self2._timeout = null;
+        }
+        self2.removeListener("abort", clearTimer);
+        self2.removeListener("error", clearTimer);
+        self2.removeListener("response", clearTimer);
+        self2.removeListener("close", clearTimer);
+        if (callback) {
+          self2.removeListener("timeout", callback);
+        }
+        if (!self2.socket) {
+          self2._currentRequest.removeListener("socket", startTimer);
+        }
+      }
+      if (callback) {
+        this.on("timeout", callback);
+      }
+      if (this.socket) {
+        startTimer(this.socket);
+      } else {
+        this._currentRequest.once("socket", startTimer);
+      }
+      this.on("socket", destroyOnTimeout);
+      this.on("abort", clearTimer);
+      this.on("error", clearTimer);
+      this.on("response", clearTimer);
+      this.on("close", clearTimer);
+      return this;
+    };
+    [
+      "flushHeaders",
+      "getHeader",
+      "setNoDelay",
+      "setSocketKeepAlive"
+    ].forEach(function(method) {
+      RedirectableRequest.prototype[method] = function(a, b) {
+        return this._currentRequest[method](a, b);
+      };
+    });
+    ["aborted", "connection", "socket"].forEach(function(property) {
+      Object.defineProperty(RedirectableRequest.prototype, property, {
+        get: function() {
+          return this._currentRequest[property];
+        }
+      });
+    });
+    RedirectableRequest.prototype._sanitizeOptions = function(options) {
+      if (!options.headers) {
+        options.headers = {};
+      }
+      if (options.host) {
+        if (!options.hostname) {
+          options.hostname = options.host;
+        }
+        delete options.host;
+      }
+      if (!options.pathname && options.path) {
+        var searchPos = options.path.indexOf("?");
+        if (searchPos < 0) {
+          options.pathname = options.path;
+        } else {
+          options.pathname = options.path.substring(0, searchPos);
+          options.search = options.path.substring(searchPos);
+        }
+      }
+    };
+    RedirectableRequest.prototype._performRequest = function() {
+      var protocol = this._options.protocol;
+      var nativeProtocol = this._options.nativeProtocols[protocol];
+      if (!nativeProtocol) {
+        throw new TypeError("Unsupported protocol " + protocol);
+      }
+      if (this._options.agents) {
+        var scheme = protocol.slice(0, -1);
+        this._options.agent = this._options.agents[scheme];
+      }
+      var request = this._currentRequest = nativeProtocol.request(this._options, this._onNativeResponse);
+      request._redirectable = this;
+      for (var event of events) {
+        request.on(event, eventHandlers[event]);
+      }
+      this._currentUrl = /^\//.test(this._options.path) ? url2.format(this._options) : (
+        // When making a request to a proxy, […]
+        // a client MUST send the target URI in absolute-form […].
+        this._options.path
+      );
+      if (this._isRedirect) {
+        var i = 0;
+        var self2 = this;
+        var buffers = this._requestBodyBuffers;
+        (function writeNext(error) {
+          if (request === self2._currentRequest) {
+            if (error) {
+              self2.emit("error", error);
+            } else if (i < buffers.length) {
+              var buffer = buffers[i++];
+              if (!request.finished) {
+                request.write(buffer.data, buffer.encoding, writeNext);
+              }
+            } else if (self2._ended) {
+              request.end();
+            }
+          }
+        })();
+      }
+    };
+    RedirectableRequest.prototype._processResponse = function(response) {
+      var statusCode = response.statusCode;
+      if (this._options.trackRedirects) {
+        this._redirects.push({
+          url: this._currentUrl,
+          headers: response.headers,
+          statusCode
+        });
+      }
+      var location = response.headers.location;
+      if (!location || this._options.followRedirects === false || statusCode < 300 || statusCode >= 400) {
+        response.responseUrl = this._currentUrl;
+        response.redirects = this._redirects;
+        this.emit("response", response);
+        this._requestBodyBuffers = [];
+        return;
+      }
+      destroyRequest(this._currentRequest);
+      response.destroy();
+      if (++this._redirectCount > this._options.maxRedirects) {
+        throw new TooManyRedirectsError();
+      }
+      var requestHeaders;
+      var beforeRedirect = this._options.beforeRedirect;
+      if (beforeRedirect) {
+        requestHeaders = Object.assign({
+          // The Host header was set by nativeProtocol.request
+          Host: response.req.getHeader("host")
+        }, this._options.headers);
+      }
+      var method = this._options.method;
+      if ((statusCode === 301 || statusCode === 302) && this._options.method === "POST" || // RFC7231§6.4.4: The 303 (See Other) status code indicates that
+      // the server is redirecting the user agent to a different resource […]
+      // A user agent can perform a retrieval request targeting that URI
+      // (a GET or HEAD request if using HTTP) […]
+      statusCode === 303 && !/^(?:GET|HEAD)$/.test(this._options.method)) {
+        this._options.method = "GET";
+        this._requestBodyBuffers = [];
+        removeMatchingHeaders(/^content-/i, this._options.headers);
+      }
+      var currentHostHeader = removeMatchingHeaders(/^host$/i, this._options.headers);
+      var currentUrlParts = parseUrl(this._currentUrl);
+      var currentHost = currentHostHeader || currentUrlParts.host;
+      var currentUrl = /^\w+:/.test(location) ? this._currentUrl : url2.format(Object.assign(currentUrlParts, { host: currentHost }));
+      var redirectUrl = resolveUrl(location, currentUrl);
+      debug("redirecting to", redirectUrl.href);
+      this._isRedirect = true;
+      spreadUrlObject(redirectUrl, this._options);
+      if (redirectUrl.protocol !== currentUrlParts.protocol && redirectUrl.protocol !== "https:" || redirectUrl.host !== currentHost && !isSubdomain(redirectUrl.host, currentHost)) {
+        removeMatchingHeaders(/^(?:(?:proxy-)?authorization|cookie)$/i, this._options.headers);
+      }
+      if (isFunction3(beforeRedirect)) {
+        var responseDetails = {
+          headers: response.headers,
+          statusCode
+        };
+        var requestDetails = {
+          url: currentUrl,
+          method,
+          headers: requestHeaders
+        };
+        beforeRedirect(this._options, responseDetails, requestDetails);
+        this._sanitizeOptions(this._options);
+      }
+      this._performRequest();
+    };
+    function wrap(protocols) {
+      var exports3 = {
+        maxRedirects: 21,
+        maxBodyLength: 10 * 1024 * 1024
+      };
+      var nativeProtocols = {};
+      Object.keys(protocols).forEach(function(scheme) {
+        var protocol = scheme + ":";
+        var nativeProtocol = nativeProtocols[protocol] = protocols[scheme];
+        var wrappedProtocol = exports3[scheme] = Object.create(nativeProtocol);
+        function request(input, options, callback) {
+          if (isURL(input)) {
+            input = spreadUrlObject(input);
+          } else if (isString2(input)) {
+            input = spreadUrlObject(parseUrl(input));
+          } else {
+            callback = options;
+            options = validateUrl(input);
+            input = { protocol };
+          }
+          if (isFunction3(options)) {
+            callback = options;
+            options = null;
+          }
+          options = Object.assign({
+            maxRedirects: exports3.maxRedirects,
+            maxBodyLength: exports3.maxBodyLength
+          }, input, options);
+          options.nativeProtocols = nativeProtocols;
+          if (!isString2(options.host) && !isString2(options.hostname)) {
+            options.hostname = "::1";
+          }
+          assert3.equal(options.protocol, protocol, "protocol mismatch");
+          debug("options", options);
+          return new RedirectableRequest(options, callback);
+        }
+        function get(input, options, callback) {
+          var wrappedRequest = wrappedProtocol.request(input, options, callback);
+          wrappedRequest.end();
+          return wrappedRequest;
+        }
+        Object.defineProperties(wrappedProtocol, {
+          request: { value: request, configurable: true, enumerable: true, writable: true },
+          get: { value: get, configurable: true, enumerable: true, writable: true }
+        });
+      });
+      return exports3;
+    }
+    function noop4() {
+    }
+    function parseUrl(input) {
+      var parsed;
+      if (useNativeURL) {
+        parsed = new URL2(input);
+      } else {
+        parsed = validateUrl(url2.parse(input));
+        if (!isString2(parsed.protocol)) {
+          throw new InvalidUrlError({ input });
+        }
+      }
+      return parsed;
+    }
+    function resolveUrl(relative, base) {
+      return useNativeURL ? new URL2(relative, base) : parseUrl(url2.resolve(base, relative));
+    }
+    function validateUrl(input) {
+      if (/^\[/.test(input.hostname) && !/^\[[:0-9a-f]+\]$/i.test(input.hostname)) {
+        throw new InvalidUrlError({ input: input.href || input });
+      }
+      if (/^\[/.test(input.host) && !/^\[[:0-9a-f]+\](:\d+)?$/i.test(input.host)) {
+        throw new InvalidUrlError({ input: input.href || input });
+      }
+      return input;
+    }
+    function spreadUrlObject(urlObject, target) {
+      var spread3 = target || {};
+      for (var key of preservedUrlFields) {
+        spread3[key] = urlObject[key];
+      }
+      if (spread3.hostname.startsWith("[")) {
+        spread3.hostname = spread3.hostname.slice(1, -1);
+      }
+      if (spread3.port !== "") {
+        spread3.port = Number(spread3.port);
+      }
+      spread3.path = spread3.search ? spread3.pathname + spread3.search : spread3.pathname;
+      return spread3;
+    }
+    function removeMatchingHeaders(regex, headers) {
+      var lastValue;
+      for (var header in headers) {
+        if (regex.test(header)) {
+          lastValue = headers[header];
+          delete headers[header];
+        }
+      }
+      return lastValue === null || typeof lastValue === "undefined" ? void 0 : String(lastValue).trim();
+    }
+    function createErrorType(code2, message, baseClass) {
+      function CustomError(properties) {
+        if (isFunction3(Error.captureStackTrace)) {
+          Error.captureStackTrace(this, this.constructor);
+        }
+        Object.assign(this, properties || {});
+        this.code = code2;
+        this.message = this.cause ? message + ": " + this.cause.message : message;
+      }
+      CustomError.prototype = new (baseClass || Error)();
+      Object.defineProperties(CustomError.prototype, {
+        constructor: {
+          value: CustomError,
+          enumerable: false
+        },
+        name: {
+          value: "Error [" + code2 + "]",
+          enumerable: false
+        }
+      });
+      return CustomError;
+    }
+    function destroyRequest(request, error) {
+      for (var event of events) {
+        request.removeListener(event, eventHandlers[event]);
+      }
+      request.on("error", noop4);
+      request.destroy(error);
+    }
+    function isSubdomain(subdomain, domain) {
+      assert3(isString2(subdomain) && isString2(domain));
+      var dot = subdomain.length - domain.length - 1;
+      return dot > 0 && subdomain[dot] === "." && subdomain.endsWith(domain);
+    }
+    function isString2(value) {
+      return typeof value === "string" || value instanceof String;
+    }
+    function isFunction3(value) {
+      return typeof value === "function";
+    }
+    function isBuffer2(value) {
+      return typeof value === "object" && "length" in value;
+    }
+    function isURL(value) {
+      return URL2 && value instanceof URL2;
+    }
+    module2.exports = wrap({ http: http2, https: https2 });
+    module2.exports.wrap = wrap;
+  }
+});
+
+// src/extension.ts
 var extension_exports = {};
 __export(extension_exports, {
   activate: () => activate,
   deactivate: () => deactivate
 });
 module.exports = __toCommonJS(extension_exports);
-var import_vscode = require("vscode");
+var import_vscode2 = require("vscode");
 var import_net = require("net");
-var import_node = __toESM(require_node3());
+var import_node2 = __toESM(require_node3());
+var import_which = __toESM(require_lib());
+
+// src/downloadServer.ts
+var import_vscode = require("vscode");
 var import_os = require("os");
+
+// node_modules/axios/lib/helpers/bind.js
+function bind(fn, thisArg) {
+  return function wrap() {
+    return fn.apply(thisArg, arguments);
+  };
+}
+
+// node_modules/axios/lib/utils.js
+var { toString } = Object.prototype;
+var { getPrototypeOf } = Object;
+var { iterator, toStringTag } = Symbol;
+var kindOf = /* @__PURE__ */ ((cache2) => (thing) => {
+  const str = toString.call(thing);
+  return cache2[str] || (cache2[str] = str.slice(8, -1).toLowerCase());
+})(/* @__PURE__ */ Object.create(null));
+var kindOfTest = (type) => {
+  type = type.toLowerCase();
+  return (thing) => kindOf(thing) === type;
+};
+var typeOfTest = (type) => (thing) => typeof thing === type;
+var { isArray } = Array;
+var isUndefined = typeOfTest("undefined");
+function isBuffer(val) {
+  return val !== null && !isUndefined(val) && val.constructor !== null && !isUndefined(val.constructor) && isFunction(val.constructor.isBuffer) && val.constructor.isBuffer(val);
+}
+var isArrayBuffer = kindOfTest("ArrayBuffer");
+function isArrayBufferView(val) {
+  let result;
+  if (typeof ArrayBuffer !== "undefined" && ArrayBuffer.isView) {
+    result = ArrayBuffer.isView(val);
+  } else {
+    result = val && val.buffer && isArrayBuffer(val.buffer);
+  }
+  return result;
+}
+var isString = typeOfTest("string");
+var isFunction = typeOfTest("function");
+var isNumber = typeOfTest("number");
+var isObject = (thing) => thing !== null && typeof thing === "object";
+var isBoolean = (thing) => thing === true || thing === false;
+var isPlainObject = (val) => {
+  if (kindOf(val) !== "object") {
+    return false;
+  }
+  const prototype3 = getPrototypeOf(val);
+  return (prototype3 === null || prototype3 === Object.prototype || Object.getPrototypeOf(prototype3) === null) && !(toStringTag in val) && !(iterator in val);
+};
+var isEmptyObject = (val) => {
+  if (!isObject(val) || isBuffer(val)) {
+    return false;
+  }
+  try {
+    return Object.keys(val).length === 0 && Object.getPrototypeOf(val) === Object.prototype;
+  } catch (e) {
+    return false;
+  }
+};
+var isDate = kindOfTest("Date");
+var isFile = kindOfTest("File");
+var isBlob = kindOfTest("Blob");
+var isFileList = kindOfTest("FileList");
+var isStream = (val) => isObject(val) && isFunction(val.pipe);
+var isFormData = (thing) => {
+  let kind;
+  return thing && (typeof FormData === "function" && thing instanceof FormData || isFunction(thing.append) && ((kind = kindOf(thing)) === "formdata" || // detect form-data instance
+  kind === "object" && isFunction(thing.toString) && thing.toString() === "[object FormData]"));
+};
+var isURLSearchParams = kindOfTest("URLSearchParams");
+var [isReadableStream, isRequest, isResponse, isHeaders] = ["ReadableStream", "Request", "Response", "Headers"].map(kindOfTest);
+var trim = (str) => str.trim ? str.trim() : str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "");
+function forEach(obj, fn, { allOwnKeys = false } = {}) {
+  if (obj === null || typeof obj === "undefined") {
+    return;
+  }
+  let i;
+  let l;
+  if (typeof obj !== "object") {
+    obj = [obj];
+  }
+  if (isArray(obj)) {
+    for (i = 0, l = obj.length; i < l; i++) {
+      fn.call(null, obj[i], i, obj);
+    }
+  } else {
+    if (isBuffer(obj)) {
+      return;
+    }
+    const keys = allOwnKeys ? Object.getOwnPropertyNames(obj) : Object.keys(obj);
+    const len = keys.length;
+    let key;
+    for (i = 0; i < len; i++) {
+      key = keys[i];
+      fn.call(null, obj[key], key, obj);
+    }
+  }
+}
+function findKey(obj, key) {
+  if (isBuffer(obj)) {
+    return null;
+  }
+  key = key.toLowerCase();
+  const keys = Object.keys(obj);
+  let i = keys.length;
+  let _key;
+  while (i-- > 0) {
+    _key = keys[i];
+    if (key === _key.toLowerCase()) {
+      return _key;
+    }
+  }
+  return null;
+}
+var _global = (() => {
+  if (typeof globalThis !== "undefined") return globalThis;
+  return typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : global;
+})();
+var isContextDefined = (context) => !isUndefined(context) && context !== _global;
+function merge() {
+  const { caseless, skipUndefined } = isContextDefined(this) && this || {};
+  const result = {};
+  const assignValue = (val, key) => {
+    const targetKey = caseless && findKey(result, key) || key;
+    if (isPlainObject(result[targetKey]) && isPlainObject(val)) {
+      result[targetKey] = merge(result[targetKey], val);
+    } else if (isPlainObject(val)) {
+      result[targetKey] = merge({}, val);
+    } else if (isArray(val)) {
+      result[targetKey] = val.slice();
+    } else if (!skipUndefined || !isUndefined(val)) {
+      result[targetKey] = val;
+    }
+  };
+  for (let i = 0, l = arguments.length; i < l; i++) {
+    arguments[i] && forEach(arguments[i], assignValue);
+  }
+  return result;
+}
+var extend = (a, b, thisArg, { allOwnKeys } = {}) => {
+  forEach(b, (val, key) => {
+    if (thisArg && isFunction(val)) {
+      a[key] = bind(val, thisArg);
+    } else {
+      a[key] = val;
+    }
+  }, { allOwnKeys });
+  return a;
+};
+var stripBOM = (content) => {
+  if (content.charCodeAt(0) === 65279) {
+    content = content.slice(1);
+  }
+  return content;
+};
+var inherits = (constructor, superConstructor, props, descriptors2) => {
+  constructor.prototype = Object.create(superConstructor.prototype, descriptors2);
+  constructor.prototype.constructor = constructor;
+  Object.defineProperty(constructor, "super", {
+    value: superConstructor.prototype
+  });
+  props && Object.assign(constructor.prototype, props);
+};
+var toFlatObject = (sourceObj, destObj, filter2, propFilter) => {
+  let props;
+  let i;
+  let prop;
+  const merged = {};
+  destObj = destObj || {};
+  if (sourceObj == null) return destObj;
+  do {
+    props = Object.getOwnPropertyNames(sourceObj);
+    i = props.length;
+    while (i-- > 0) {
+      prop = props[i];
+      if ((!propFilter || propFilter(prop, sourceObj, destObj)) && !merged[prop]) {
+        destObj[prop] = sourceObj[prop];
+        merged[prop] = true;
+      }
+    }
+    sourceObj = filter2 !== false && getPrototypeOf(sourceObj);
+  } while (sourceObj && (!filter2 || filter2(sourceObj, destObj)) && sourceObj !== Object.prototype);
+  return destObj;
+};
+var endsWith = (str, searchString, position) => {
+  str = String(str);
+  if (position === void 0 || position > str.length) {
+    position = str.length;
+  }
+  position -= searchString.length;
+  const lastIndex = str.indexOf(searchString, position);
+  return lastIndex !== -1 && lastIndex === position;
+};
+var toArray = (thing) => {
+  if (!thing) return null;
+  if (isArray(thing)) return thing;
+  let i = thing.length;
+  if (!isNumber(i)) return null;
+  const arr = new Array(i);
+  while (i-- > 0) {
+    arr[i] = thing[i];
+  }
+  return arr;
+};
+var isTypedArray = /* @__PURE__ */ ((TypedArray) => {
+  return (thing) => {
+    return TypedArray && thing instanceof TypedArray;
+  };
+})(typeof Uint8Array !== "undefined" && getPrototypeOf(Uint8Array));
+var forEachEntry = (obj, fn) => {
+  const generator = obj && obj[iterator];
+  const _iterator = generator.call(obj);
+  let result;
+  while ((result = _iterator.next()) && !result.done) {
+    const pair = result.value;
+    fn.call(obj, pair[0], pair[1]);
+  }
+};
+var matchAll = (regExp, str) => {
+  let matches;
+  const arr = [];
+  while ((matches = regExp.exec(str)) !== null) {
+    arr.push(matches);
+  }
+  return arr;
+};
+var isHTMLForm = kindOfTest("HTMLFormElement");
+var toCamelCase = (str) => {
+  return str.toLowerCase().replace(
+    /[-_\s]([a-z\d])(\w*)/g,
+    function replacer(m, p1, p2) {
+      return p1.toUpperCase() + p2;
+    }
+  );
+};
+var hasOwnProperty = (({ hasOwnProperty: hasOwnProperty2 }) => (obj, prop) => hasOwnProperty2.call(obj, prop))(Object.prototype);
+var isRegExp = kindOfTest("RegExp");
+var reduceDescriptors = (obj, reducer) => {
+  const descriptors2 = Object.getOwnPropertyDescriptors(obj);
+  const reducedDescriptors = {};
+  forEach(descriptors2, (descriptor, name2) => {
+    let ret;
+    if ((ret = reducer(descriptor, name2, obj)) !== false) {
+      reducedDescriptors[name2] = ret || descriptor;
+    }
+  });
+  Object.defineProperties(obj, reducedDescriptors);
+};
+var freezeMethods = (obj) => {
+  reduceDescriptors(obj, (descriptor, name2) => {
+    if (isFunction(obj) && ["arguments", "caller", "callee"].indexOf(name2) !== -1) {
+      return false;
+    }
+    const value = obj[name2];
+    if (!isFunction(value)) return;
+    descriptor.enumerable = false;
+    if ("writable" in descriptor) {
+      descriptor.writable = false;
+      return;
+    }
+    if (!descriptor.set) {
+      descriptor.set = () => {
+        throw Error("Can not rewrite read-only method '" + name2 + "'");
+      };
+    }
+  });
+};
+var toObjectSet = (arrayOrString, delimiter) => {
+  const obj = {};
+  const define2 = (arr) => {
+    arr.forEach((value) => {
+      obj[value] = true;
+    });
+  };
+  isArray(arrayOrString) ? define2(arrayOrString) : define2(String(arrayOrString).split(delimiter));
+  return obj;
+};
+var noop = () => {
+};
+var toFiniteNumber = (value, defaultValue) => {
+  return value != null && Number.isFinite(value = +value) ? value : defaultValue;
+};
+function isSpecCompliantForm(thing) {
+  return !!(thing && isFunction(thing.append) && thing[toStringTag] === "FormData" && thing[iterator]);
+}
+var toJSONObject = (obj) => {
+  const stack = new Array(10);
+  const visit = (source, i) => {
+    if (isObject(source)) {
+      if (stack.indexOf(source) >= 0) {
+        return;
+      }
+      if (isBuffer(source)) {
+        return source;
+      }
+      if (!("toJSON" in source)) {
+        stack[i] = source;
+        const target = isArray(source) ? [] : {};
+        forEach(source, (value, key) => {
+          const reducedValue = visit(value, i + 1);
+          !isUndefined(reducedValue) && (target[key] = reducedValue);
+        });
+        stack[i] = void 0;
+        return target;
+      }
+    }
+    return source;
+  };
+  return visit(obj, 0);
+};
+var isAsyncFn = kindOfTest("AsyncFunction");
+var isThenable = (thing) => thing && (isObject(thing) || isFunction(thing)) && isFunction(thing.then) && isFunction(thing.catch);
+var _setImmediate = ((setImmediateSupported, postMessageSupported) => {
+  if (setImmediateSupported) {
+    return setImmediate;
+  }
+  return postMessageSupported ? ((token, callbacks) => {
+    _global.addEventListener("message", ({ source, data }) => {
+      if (source === _global && data === token) {
+        callbacks.length && callbacks.shift()();
+      }
+    }, false);
+    return (cb) => {
+      callbacks.push(cb);
+      _global.postMessage(token, "*");
+    };
+  })(`axios@${Math.random()}`, []) : (cb) => setTimeout(cb);
+})(
+  typeof setImmediate === "function",
+  isFunction(_global.postMessage)
+);
+var asap = typeof queueMicrotask !== "undefined" ? queueMicrotask.bind(_global) : typeof process !== "undefined" && process.nextTick || _setImmediate;
+var isIterable = (thing) => thing != null && isFunction(thing[iterator]);
+var utils_default = {
+  isArray,
+  isArrayBuffer,
+  isBuffer,
+  isFormData,
+  isArrayBufferView,
+  isString,
+  isNumber,
+  isBoolean,
+  isObject,
+  isPlainObject,
+  isEmptyObject,
+  isReadableStream,
+  isRequest,
+  isResponse,
+  isHeaders,
+  isUndefined,
+  isDate,
+  isFile,
+  isBlob,
+  isRegExp,
+  isFunction,
+  isStream,
+  isURLSearchParams,
+  isTypedArray,
+  isFileList,
+  forEach,
+  merge,
+  extend,
+  trim,
+  stripBOM,
+  inherits,
+  toFlatObject,
+  kindOf,
+  kindOfTest,
+  endsWith,
+  toArray,
+  forEachEntry,
+  matchAll,
+  isHTMLForm,
+  hasOwnProperty,
+  hasOwnProp: hasOwnProperty,
+  // an alias to avoid ESLint no-prototype-builtins detection
+  reduceDescriptors,
+  freezeMethods,
+  toObjectSet,
+  toCamelCase,
+  noop,
+  toFiniteNumber,
+  findKey,
+  global: _global,
+  isContextDefined,
+  isSpecCompliantForm,
+  toJSONObject,
+  isAsyncFn,
+  isThenable,
+  setImmediate: _setImmediate,
+  asap,
+  isIterable
+};
+
+// node_modules/axios/lib/core/AxiosError.js
+function AxiosError(message, code2, config, request, response) {
+  Error.call(this);
+  if (Error.captureStackTrace) {
+    Error.captureStackTrace(this, this.constructor);
+  } else {
+    this.stack = new Error().stack;
+  }
+  this.message = message;
+  this.name = "AxiosError";
+  code2 && (this.code = code2);
+  config && (this.config = config);
+  request && (this.request = request);
+  if (response) {
+    this.response = response;
+    this.status = response.status ? response.status : null;
+  }
+}
+utils_default.inherits(AxiosError, Error, {
+  toJSON: function toJSON() {
+    return {
+      // Standard
+      message: this.message,
+      name: this.name,
+      // Microsoft
+      description: this.description,
+      number: this.number,
+      // Mozilla
+      fileName: this.fileName,
+      lineNumber: this.lineNumber,
+      columnNumber: this.columnNumber,
+      stack: this.stack,
+      // Axios
+      config: utils_default.toJSONObject(this.config),
+      code: this.code,
+      status: this.status
+    };
+  }
+});
+var prototype = AxiosError.prototype;
+var descriptors = {};
+[
+  "ERR_BAD_OPTION_VALUE",
+  "ERR_BAD_OPTION",
+  "ECONNABORTED",
+  "ETIMEDOUT",
+  "ERR_NETWORK",
+  "ERR_FR_TOO_MANY_REDIRECTS",
+  "ERR_DEPRECATED",
+  "ERR_BAD_RESPONSE",
+  "ERR_BAD_REQUEST",
+  "ERR_CANCELED",
+  "ERR_NOT_SUPPORT",
+  "ERR_INVALID_URL"
+  // eslint-disable-next-line func-names
+].forEach((code2) => {
+  descriptors[code2] = { value: code2 };
+});
+Object.defineProperties(AxiosError, descriptors);
+Object.defineProperty(prototype, "isAxiosError", { value: true });
+AxiosError.from = (error, code2, config, request, response, customProps) => {
+  const axiosError = Object.create(prototype);
+  utils_default.toFlatObject(error, axiosError, function filter2(obj) {
+    return obj !== Error.prototype;
+  }, (prop) => {
+    return prop !== "isAxiosError";
+  });
+  const msg = error && error.message ? error.message : "Error";
+  const errCode = code2 == null && error ? error.code : code2;
+  AxiosError.call(axiosError, msg, errCode, config, request, response);
+  if (error && axiosError.cause == null) {
+    Object.defineProperty(axiosError, "cause", { value: error, configurable: true });
+  }
+  axiosError.name = error && error.name || "Error";
+  customProps && Object.assign(axiosError, customProps);
+  return axiosError;
+};
+var AxiosError_default = AxiosError;
+
+// node_modules/axios/lib/platform/node/classes/FormData.js
+var import_form_data = __toESM(require_form_data(), 1);
+var FormData_default = import_form_data.default;
+
+// node_modules/axios/lib/helpers/toFormData.js
+function isVisitable(thing) {
+  return utils_default.isPlainObject(thing) || utils_default.isArray(thing);
+}
+function removeBrackets(key) {
+  return utils_default.endsWith(key, "[]") ? key.slice(0, -2) : key;
+}
+function renderKey(path8, key, dots) {
+  if (!path8) return key;
+  return path8.concat(key).map(function each(token, i) {
+    token = removeBrackets(token);
+    return !dots && i ? "[" + token + "]" : token;
+  }).join(dots ? "." : "");
+}
+function isFlatArray(arr) {
+  return utils_default.isArray(arr) && !arr.some(isVisitable);
+}
+var predicates = utils_default.toFlatObject(utils_default, {}, null, function filter(prop) {
+  return /^is[A-Z]/.test(prop);
+});
+function toFormData(obj, formData, options) {
+  if (!utils_default.isObject(obj)) {
+    throw new TypeError("target must be an object");
+  }
+  formData = formData || new (FormData_default || FormData)();
+  options = utils_default.toFlatObject(options, {
+    metaTokens: true,
+    dots: false,
+    indexes: false
+  }, false, function defined(option, source) {
+    return !utils_default.isUndefined(source[option]);
+  });
+  const metaTokens = options.metaTokens;
+  const visitor = options.visitor || defaultVisitor;
+  const dots = options.dots;
+  const indexes = options.indexes;
+  const _Blob = options.Blob || typeof Blob !== "undefined" && Blob;
+  const useBlob = _Blob && utils_default.isSpecCompliantForm(formData);
+  if (!utils_default.isFunction(visitor)) {
+    throw new TypeError("visitor must be a function");
+  }
+  function convertValue(value) {
+    if (value === null) return "";
+    if (utils_default.isDate(value)) {
+      return value.toISOString();
+    }
+    if (utils_default.isBoolean(value)) {
+      return value.toString();
+    }
+    if (!useBlob && utils_default.isBlob(value)) {
+      throw new AxiosError_default("Blob is not supported. Use a Buffer instead.");
+    }
+    if (utils_default.isArrayBuffer(value) || utils_default.isTypedArray(value)) {
+      return useBlob && typeof Blob === "function" ? new Blob([value]) : Buffer.from(value);
+    }
+    return value;
+  }
+  function defaultVisitor(value, key, path8) {
+    let arr = value;
+    if (value && !path8 && typeof value === "object") {
+      if (utils_default.endsWith(key, "{}")) {
+        key = metaTokens ? key : key.slice(0, -2);
+        value = JSON.stringify(value);
+      } else if (utils_default.isArray(value) && isFlatArray(value) || (utils_default.isFileList(value) || utils_default.endsWith(key, "[]")) && (arr = utils_default.toArray(value))) {
+        key = removeBrackets(key);
+        arr.forEach(function each(el, index) {
+          !(utils_default.isUndefined(el) || el === null) && formData.append(
+            // eslint-disable-next-line no-nested-ternary
+            indexes === true ? renderKey([key], index, dots) : indexes === null ? key : key + "[]",
+            convertValue(el)
+          );
+        });
+        return false;
+      }
+    }
+    if (isVisitable(value)) {
+      return true;
+    }
+    formData.append(renderKey(path8, key, dots), convertValue(value));
+    return false;
+  }
+  const stack = [];
+  const exposedHelpers = Object.assign(predicates, {
+    defaultVisitor,
+    convertValue,
+    isVisitable
+  });
+  function build(value, path8) {
+    if (utils_default.isUndefined(value)) return;
+    if (stack.indexOf(value) !== -1) {
+      throw Error("Circular reference detected in " + path8.join("."));
+    }
+    stack.push(value);
+    utils_default.forEach(value, function each(el, key) {
+      const result = !(utils_default.isUndefined(el) || el === null) && visitor.call(
+        formData,
+        el,
+        utils_default.isString(key) ? key.trim() : key,
+        path8,
+        exposedHelpers
+      );
+      if (result === true) {
+        build(el, path8 ? path8.concat(key) : [key]);
+      }
+    });
+    stack.pop();
+  }
+  if (!utils_default.isObject(obj)) {
+    throw new TypeError("data must be an object");
+  }
+  build(obj);
+  return formData;
+}
+var toFormData_default = toFormData;
+
+// node_modules/axios/lib/helpers/AxiosURLSearchParams.js
+function encode(str) {
+  const charMap = {
+    "!": "%21",
+    "'": "%27",
+    "(": "%28",
+    ")": "%29",
+    "~": "%7E",
+    "%20": "+",
+    "%00": "\0"
+  };
+  return encodeURIComponent(str).replace(/[!'()~]|%20|%00/g, function replacer(match) {
+    return charMap[match];
+  });
+}
+function AxiosURLSearchParams(params, options) {
+  this._pairs = [];
+  params && toFormData_default(params, this, options);
+}
+var prototype2 = AxiosURLSearchParams.prototype;
+prototype2.append = function append(name2, value) {
+  this._pairs.push([name2, value]);
+};
+prototype2.toString = function toString2(encoder) {
+  const _encode = encoder ? function(value) {
+    return encoder.call(this, value, encode);
+  } : encode;
+  return this._pairs.map(function each(pair) {
+    return _encode(pair[0]) + "=" + _encode(pair[1]);
+  }, "").join("&");
+};
+var AxiosURLSearchParams_default = AxiosURLSearchParams;
+
+// node_modules/axios/lib/helpers/buildURL.js
+function encode2(val) {
+  return encodeURIComponent(val).replace(/%3A/gi, ":").replace(/%24/g, "$").replace(/%2C/gi, ",").replace(/%20/g, "+");
+}
+function buildURL(url2, params, options) {
+  if (!params) {
+    return url2;
+  }
+  const _encode = options && options.encode || encode2;
+  if (utils_default.isFunction(options)) {
+    options = {
+      serialize: options
+    };
+  }
+  const serializeFn = options && options.serialize;
+  let serializedParams;
+  if (serializeFn) {
+    serializedParams = serializeFn(params, options);
+  } else {
+    serializedParams = utils_default.isURLSearchParams(params) ? params.toString() : new AxiosURLSearchParams_default(params, options).toString(_encode);
+  }
+  if (serializedParams) {
+    const hashmarkIndex = url2.indexOf("#");
+    if (hashmarkIndex !== -1) {
+      url2 = url2.slice(0, hashmarkIndex);
+    }
+    url2 += (url2.indexOf("?") === -1 ? "?" : "&") + serializedParams;
+  }
+  return url2;
+}
+
+// node_modules/axios/lib/core/InterceptorManager.js
+var InterceptorManager = class {
+  constructor() {
+    this.handlers = [];
+  }
+  /**
+   * Add a new interceptor to the stack
+   *
+   * @param {Function} fulfilled The function to handle `then` for a `Promise`
+   * @param {Function} rejected The function to handle `reject` for a `Promise`
+   *
+   * @return {Number} An ID used to remove interceptor later
+   */
+  use(fulfilled, rejected, options) {
+    this.handlers.push({
+      fulfilled,
+      rejected,
+      synchronous: options ? options.synchronous : false,
+      runWhen: options ? options.runWhen : null
+    });
+    return this.handlers.length - 1;
+  }
+  /**
+   * Remove an interceptor from the stack
+   *
+   * @param {Number} id The ID that was returned by `use`
+   *
+   * @returns {Boolean} `true` if the interceptor was removed, `false` otherwise
+   */
+  eject(id) {
+    if (this.handlers[id]) {
+      this.handlers[id] = null;
+    }
+  }
+  /**
+   * Clear all interceptors from the stack
+   *
+   * @returns {void}
+   */
+  clear() {
+    if (this.handlers) {
+      this.handlers = [];
+    }
+  }
+  /**
+   * Iterate over all the registered interceptors
+   *
+   * This method is particularly useful for skipping over any
+   * interceptors that may have become `null` calling `eject`.
+   *
+   * @param {Function} fn The function to call for each interceptor
+   *
+   * @returns {void}
+   */
+  forEach(fn) {
+    utils_default.forEach(this.handlers, function forEachHandler(h) {
+      if (h !== null) {
+        fn(h);
+      }
+    });
+  }
+};
+var InterceptorManager_default = InterceptorManager;
+
+// node_modules/axios/lib/defaults/transitional.js
+var transitional_default = {
+  silentJSONParsing: true,
+  forcedJSONParsing: true,
+  clarifyTimeoutError: false
+};
+
+// node_modules/axios/lib/platform/node/index.js
+var import_crypto = __toESM(require("crypto"), 1);
+
+// node_modules/axios/lib/platform/node/classes/URLSearchParams.js
+var import_url = __toESM(require("url"), 1);
+var URLSearchParams_default = import_url.default.URLSearchParams;
+
+// node_modules/axios/lib/platform/node/index.js
+var ALPHA = "abcdefghijklmnopqrstuvwxyz";
+var DIGIT = "0123456789";
+var ALPHABET = {
+  DIGIT,
+  ALPHA,
+  ALPHA_DIGIT: ALPHA + ALPHA.toUpperCase() + DIGIT
+};
+var generateString = (size = 16, alphabet = ALPHABET.ALPHA_DIGIT) => {
+  let str = "";
+  const { length } = alphabet;
+  const randomValues = new Uint32Array(size);
+  import_crypto.default.randomFillSync(randomValues);
+  for (let i = 0; i < size; i++) {
+    str += alphabet[randomValues[i] % length];
+  }
+  return str;
+};
+var node_default = {
+  isNode: true,
+  classes: {
+    URLSearchParams: URLSearchParams_default,
+    FormData: FormData_default,
+    Blob: typeof Blob !== "undefined" && Blob || null
+  },
+  ALPHABET,
+  generateString,
+  protocols: ["http", "https", "file", "data"]
+};
+
+// node_modules/axios/lib/platform/common/utils.js
+var utils_exports = {};
+__export(utils_exports, {
+  hasBrowserEnv: () => hasBrowserEnv,
+  hasStandardBrowserEnv: () => hasStandardBrowserEnv,
+  hasStandardBrowserWebWorkerEnv: () => hasStandardBrowserWebWorkerEnv,
+  navigator: () => _navigator,
+  origin: () => origin
+});
+var hasBrowserEnv = typeof window !== "undefined" && typeof document !== "undefined";
+var _navigator = typeof navigator === "object" && navigator || void 0;
+var hasStandardBrowserEnv = hasBrowserEnv && (!_navigator || ["ReactNative", "NativeScript", "NS"].indexOf(_navigator.product) < 0);
+var hasStandardBrowserWebWorkerEnv = (() => {
+  return typeof WorkerGlobalScope !== "undefined" && // eslint-disable-next-line no-undef
+  self instanceof WorkerGlobalScope && typeof self.importScripts === "function";
+})();
+var origin = hasBrowserEnv && window.location.href || "http://localhost";
+
+// node_modules/axios/lib/platform/index.js
+var platform_default = {
+  ...utils_exports,
+  ...node_default
+};
+
+// node_modules/axios/lib/helpers/toURLEncodedForm.js
+function toURLEncodedForm(data, options) {
+  return toFormData_default(data, new platform_default.classes.URLSearchParams(), {
+    visitor: function(value, key, path8, helpers) {
+      if (platform_default.isNode && utils_default.isBuffer(value)) {
+        this.append(key, value.toString("base64"));
+        return false;
+      }
+      return helpers.defaultVisitor.apply(this, arguments);
+    },
+    ...options
+  });
+}
+
+// node_modules/axios/lib/helpers/formDataToJSON.js
+function parsePropPath(name2) {
+  return utils_default.matchAll(/\w+|\[(\w*)]/g, name2).map((match) => {
+    return match[0] === "[]" ? "" : match[1] || match[0];
+  });
+}
+function arrayToObject(arr) {
+  const obj = {};
+  const keys = Object.keys(arr);
+  let i;
+  const len = keys.length;
+  let key;
+  for (i = 0; i < len; i++) {
+    key = keys[i];
+    obj[key] = arr[key];
+  }
+  return obj;
+}
+function formDataToJSON(formData) {
+  function buildPath(path8, value, target, index) {
+    let name2 = path8[index++];
+    if (name2 === "__proto__") return true;
+    const isNumericKey = Number.isFinite(+name2);
+    const isLast = index >= path8.length;
+    name2 = !name2 && utils_default.isArray(target) ? target.length : name2;
+    if (isLast) {
+      if (utils_default.hasOwnProp(target, name2)) {
+        target[name2] = [target[name2], value];
+      } else {
+        target[name2] = value;
+      }
+      return !isNumericKey;
+    }
+    if (!target[name2] || !utils_default.isObject(target[name2])) {
+      target[name2] = [];
+    }
+    const result = buildPath(path8, value, target[name2], index);
+    if (result && utils_default.isArray(target[name2])) {
+      target[name2] = arrayToObject(target[name2]);
+    }
+    return !isNumericKey;
+  }
+  if (utils_default.isFormData(formData) && utils_default.isFunction(formData.entries)) {
+    const obj = {};
+    utils_default.forEachEntry(formData, (name2, value) => {
+      buildPath(parsePropPath(name2), value, obj, 0);
+    });
+    return obj;
+  }
+  return null;
+}
+var formDataToJSON_default = formDataToJSON;
+
+// node_modules/axios/lib/defaults/index.js
+function stringifySafely(rawValue, parser, encoder) {
+  if (utils_default.isString(rawValue)) {
+    try {
+      (parser || JSON.parse)(rawValue);
+      return utils_default.trim(rawValue);
+    } catch (e) {
+      if (e.name !== "SyntaxError") {
+        throw e;
+      }
+    }
+  }
+  return (encoder || JSON.stringify)(rawValue);
+}
+var defaults = {
+  transitional: transitional_default,
+  adapter: ["xhr", "http", "fetch"],
+  transformRequest: [function transformRequest(data, headers) {
+    const contentType = headers.getContentType() || "";
+    const hasJSONContentType = contentType.indexOf("application/json") > -1;
+    const isObjectPayload = utils_default.isObject(data);
+    if (isObjectPayload && utils_default.isHTMLForm(data)) {
+      data = new FormData(data);
+    }
+    const isFormData2 = utils_default.isFormData(data);
+    if (isFormData2) {
+      return hasJSONContentType ? JSON.stringify(formDataToJSON_default(data)) : data;
+    }
+    if (utils_default.isArrayBuffer(data) || utils_default.isBuffer(data) || utils_default.isStream(data) || utils_default.isFile(data) || utils_default.isBlob(data) || utils_default.isReadableStream(data)) {
+      return data;
+    }
+    if (utils_default.isArrayBufferView(data)) {
+      return data.buffer;
+    }
+    if (utils_default.isURLSearchParams(data)) {
+      headers.setContentType("application/x-www-form-urlencoded;charset=utf-8", false);
+      return data.toString();
+    }
+    let isFileList2;
+    if (isObjectPayload) {
+      if (contentType.indexOf("application/x-www-form-urlencoded") > -1) {
+        return toURLEncodedForm(data, this.formSerializer).toString();
+      }
+      if ((isFileList2 = utils_default.isFileList(data)) || contentType.indexOf("multipart/form-data") > -1) {
+        const _FormData = this.env && this.env.FormData;
+        return toFormData_default(
+          isFileList2 ? { "files[]": data } : data,
+          _FormData && new _FormData(),
+          this.formSerializer
+        );
+      }
+    }
+    if (isObjectPayload || hasJSONContentType) {
+      headers.setContentType("application/json", false);
+      return stringifySafely(data);
+    }
+    return data;
+  }],
+  transformResponse: [function transformResponse(data) {
+    const transitional2 = this.transitional || defaults.transitional;
+    const forcedJSONParsing = transitional2 && transitional2.forcedJSONParsing;
+    const JSONRequested = this.responseType === "json";
+    if (utils_default.isResponse(data) || utils_default.isReadableStream(data)) {
+      return data;
+    }
+    if (data && utils_default.isString(data) && (forcedJSONParsing && !this.responseType || JSONRequested)) {
+      const silentJSONParsing = transitional2 && transitional2.silentJSONParsing;
+      const strictJSONParsing = !silentJSONParsing && JSONRequested;
+      try {
+        return JSON.parse(data, this.parseReviver);
+      } catch (e) {
+        if (strictJSONParsing) {
+          if (e.name === "SyntaxError") {
+            throw AxiosError_default.from(e, AxiosError_default.ERR_BAD_RESPONSE, this, null, this.response);
+          }
+          throw e;
+        }
+      }
+    }
+    return data;
+  }],
+  /**
+   * A timeout in milliseconds to abort a request. If set to 0 (default) a
+   * timeout is not created.
+   */
+  timeout: 0,
+  xsrfCookieName: "XSRF-TOKEN",
+  xsrfHeaderName: "X-XSRF-TOKEN",
+  maxContentLength: -1,
+  maxBodyLength: -1,
+  env: {
+    FormData: platform_default.classes.FormData,
+    Blob: platform_default.classes.Blob
+  },
+  validateStatus: function validateStatus(status) {
+    return status >= 200 && status < 300;
+  },
+  headers: {
+    common: {
+      "Accept": "application/json, text/plain, */*",
+      "Content-Type": void 0
+    }
+  }
+};
+utils_default.forEach(["delete", "get", "head", "post", "put", "patch"], (method) => {
+  defaults.headers[method] = {};
+});
+var defaults_default = defaults;
+
+// node_modules/axios/lib/helpers/parseHeaders.js
+var ignoreDuplicateOf = utils_default.toObjectSet([
+  "age",
+  "authorization",
+  "content-length",
+  "content-type",
+  "etag",
+  "expires",
+  "from",
+  "host",
+  "if-modified-since",
+  "if-unmodified-since",
+  "last-modified",
+  "location",
+  "max-forwards",
+  "proxy-authorization",
+  "referer",
+  "retry-after",
+  "user-agent"
+]);
+var parseHeaders_default = (rawHeaders) => {
+  const parsed = {};
+  let key;
+  let val;
+  let i;
+  rawHeaders && rawHeaders.split("\n").forEach(function parser(line) {
+    i = line.indexOf(":");
+    key = line.substring(0, i).trim().toLowerCase();
+    val = line.substring(i + 1).trim();
+    if (!key || parsed[key] && ignoreDuplicateOf[key]) {
+      return;
+    }
+    if (key === "set-cookie") {
+      if (parsed[key]) {
+        parsed[key].push(val);
+      } else {
+        parsed[key] = [val];
+      }
+    } else {
+      parsed[key] = parsed[key] ? parsed[key] + ", " + val : val;
+    }
+  });
+  return parsed;
+};
+
+// node_modules/axios/lib/core/AxiosHeaders.js
+var $internals = Symbol("internals");
+function normalizeHeader(header) {
+  return header && String(header).trim().toLowerCase();
+}
+function normalizeValue(value) {
+  if (value === false || value == null) {
+    return value;
+  }
+  return utils_default.isArray(value) ? value.map(normalizeValue) : String(value);
+}
+function parseTokens(str) {
+  const tokens = /* @__PURE__ */ Object.create(null);
+  const tokensRE = /([^\s,;=]+)\s*(?:=\s*([^,;]+))?/g;
+  let match;
+  while (match = tokensRE.exec(str)) {
+    tokens[match[1]] = match[2];
+  }
+  return tokens;
+}
+var isValidHeaderName = (str) => /^[-_a-zA-Z0-9^`|~,!#$%&'*+.]+$/.test(str.trim());
+function matchHeaderValue(context, value, header, filter2, isHeaderNameFilter) {
+  if (utils_default.isFunction(filter2)) {
+    return filter2.call(this, value, header);
+  }
+  if (isHeaderNameFilter) {
+    value = header;
+  }
+  if (!utils_default.isString(value)) return;
+  if (utils_default.isString(filter2)) {
+    return value.indexOf(filter2) !== -1;
+  }
+  if (utils_default.isRegExp(filter2)) {
+    return filter2.test(value);
+  }
+}
+function formatHeader(header) {
+  return header.trim().toLowerCase().replace(/([a-z\d])(\w*)/g, (w, char, str) => {
+    return char.toUpperCase() + str;
+  });
+}
+function buildAccessors(obj, header) {
+  const accessorName = utils_default.toCamelCase(" " + header);
+  ["get", "set", "has"].forEach((methodName) => {
+    Object.defineProperty(obj, methodName + accessorName, {
+      value: function(arg1, arg2, arg3) {
+        return this[methodName].call(this, header, arg1, arg2, arg3);
+      },
+      configurable: true
+    });
+  });
+}
+var AxiosHeaders = class {
+  constructor(headers) {
+    headers && this.set(headers);
+  }
+  set(header, valueOrRewrite, rewrite) {
+    const self2 = this;
+    function setHeader(_value, _header, _rewrite) {
+      const lHeader = normalizeHeader(_header);
+      if (!lHeader) {
+        throw new Error("header name must be a non-empty string");
+      }
+      const key = utils_default.findKey(self2, lHeader);
+      if (!key || self2[key] === void 0 || _rewrite === true || _rewrite === void 0 && self2[key] !== false) {
+        self2[key || _header] = normalizeValue(_value);
+      }
+    }
+    const setHeaders = (headers, _rewrite) => utils_default.forEach(headers, (_value, _header) => setHeader(_value, _header, _rewrite));
+    if (utils_default.isPlainObject(header) || header instanceof this.constructor) {
+      setHeaders(header, valueOrRewrite);
+    } else if (utils_default.isString(header) && (header = header.trim()) && !isValidHeaderName(header)) {
+      setHeaders(parseHeaders_default(header), valueOrRewrite);
+    } else if (utils_default.isObject(header) && utils_default.isIterable(header)) {
+      let obj = {}, dest, key;
+      for (const entry of header) {
+        if (!utils_default.isArray(entry)) {
+          throw TypeError("Object iterator must return a key-value pair");
+        }
+        obj[key = entry[0]] = (dest = obj[key]) ? utils_default.isArray(dest) ? [...dest, entry[1]] : [dest, entry[1]] : entry[1];
+      }
+      setHeaders(obj, valueOrRewrite);
+    } else {
+      header != null && setHeader(valueOrRewrite, header, rewrite);
+    }
+    return this;
+  }
+  get(header, parser) {
+    header = normalizeHeader(header);
+    if (header) {
+      const key = utils_default.findKey(this, header);
+      if (key) {
+        const value = this[key];
+        if (!parser) {
+          return value;
+        }
+        if (parser === true) {
+          return parseTokens(value);
+        }
+        if (utils_default.isFunction(parser)) {
+          return parser.call(this, value, key);
+        }
+        if (utils_default.isRegExp(parser)) {
+          return parser.exec(value);
+        }
+        throw new TypeError("parser must be boolean|regexp|function");
+      }
+    }
+  }
+  has(header, matcher) {
+    header = normalizeHeader(header);
+    if (header) {
+      const key = utils_default.findKey(this, header);
+      return !!(key && this[key] !== void 0 && (!matcher || matchHeaderValue(this, this[key], key, matcher)));
+    }
+    return false;
+  }
+  delete(header, matcher) {
+    const self2 = this;
+    let deleted = false;
+    function deleteHeader(_header) {
+      _header = normalizeHeader(_header);
+      if (_header) {
+        const key = utils_default.findKey(self2, _header);
+        if (key && (!matcher || matchHeaderValue(self2, self2[key], key, matcher))) {
+          delete self2[key];
+          deleted = true;
+        }
+      }
+    }
+    if (utils_default.isArray(header)) {
+      header.forEach(deleteHeader);
+    } else {
+      deleteHeader(header);
+    }
+    return deleted;
+  }
+  clear(matcher) {
+    const keys = Object.keys(this);
+    let i = keys.length;
+    let deleted = false;
+    while (i--) {
+      const key = keys[i];
+      if (!matcher || matchHeaderValue(this, this[key], key, matcher, true)) {
+        delete this[key];
+        deleted = true;
+      }
+    }
+    return deleted;
+  }
+  normalize(format) {
+    const self2 = this;
+    const headers = {};
+    utils_default.forEach(this, (value, header) => {
+      const key = utils_default.findKey(headers, header);
+      if (key) {
+        self2[key] = normalizeValue(value);
+        delete self2[header];
+        return;
+      }
+      const normalized = format ? formatHeader(header) : String(header).trim();
+      if (normalized !== header) {
+        delete self2[header];
+      }
+      self2[normalized] = normalizeValue(value);
+      headers[normalized] = true;
+    });
+    return this;
+  }
+  concat(...targets) {
+    return this.constructor.concat(this, ...targets);
+  }
+  toJSON(asStrings) {
+    const obj = /* @__PURE__ */ Object.create(null);
+    utils_default.forEach(this, (value, header) => {
+      value != null && value !== false && (obj[header] = asStrings && utils_default.isArray(value) ? value.join(", ") : value);
+    });
+    return obj;
+  }
+  [Symbol.iterator]() {
+    return Object.entries(this.toJSON())[Symbol.iterator]();
+  }
+  toString() {
+    return Object.entries(this.toJSON()).map(([header, value]) => header + ": " + value).join("\n");
+  }
+  getSetCookie() {
+    return this.get("set-cookie") || [];
+  }
+  get [Symbol.toStringTag]() {
+    return "AxiosHeaders";
+  }
+  static from(thing) {
+    return thing instanceof this ? thing : new this(thing);
+  }
+  static concat(first, ...targets) {
+    const computed = new this(first);
+    targets.forEach((target) => computed.set(target));
+    return computed;
+  }
+  static accessor(header) {
+    const internals = this[$internals] = this[$internals] = {
+      accessors: {}
+    };
+    const accessors = internals.accessors;
+    const prototype3 = this.prototype;
+    function defineAccessor(_header) {
+      const lHeader = normalizeHeader(_header);
+      if (!accessors[lHeader]) {
+        buildAccessors(prototype3, _header);
+        accessors[lHeader] = true;
+      }
+    }
+    utils_default.isArray(header) ? header.forEach(defineAccessor) : defineAccessor(header);
+    return this;
+  }
+};
+AxiosHeaders.accessor(["Content-Type", "Content-Length", "Accept", "Accept-Encoding", "User-Agent", "Authorization"]);
+utils_default.reduceDescriptors(AxiosHeaders.prototype, ({ value }, key) => {
+  let mapped = key[0].toUpperCase() + key.slice(1);
+  return {
+    get: () => value,
+    set(headerValue) {
+      this[mapped] = headerValue;
+    }
+  };
+});
+utils_default.freezeMethods(AxiosHeaders);
+var AxiosHeaders_default = AxiosHeaders;
+
+// node_modules/axios/lib/core/transformData.js
+function transformData(fns, response) {
+  const config = this || defaults_default;
+  const context = response || config;
+  const headers = AxiosHeaders_default.from(context.headers);
+  let data = context.data;
+  utils_default.forEach(fns, function transform(fn) {
+    data = fn.call(config, data, headers.normalize(), response ? response.status : void 0);
+  });
+  headers.normalize();
+  return data;
+}
+
+// node_modules/axios/lib/cancel/isCancel.js
+function isCancel(value) {
+  return !!(value && value.__CANCEL__);
+}
+
+// node_modules/axios/lib/cancel/CanceledError.js
+function CanceledError(message, config, request) {
+  AxiosError_default.call(this, message == null ? "canceled" : message, AxiosError_default.ERR_CANCELED, config, request);
+  this.name = "CanceledError";
+}
+utils_default.inherits(CanceledError, AxiosError_default, {
+  __CANCEL__: true
+});
+var CanceledError_default = CanceledError;
+
+// node_modules/axios/lib/core/settle.js
+function settle(resolve, reject, response) {
+  const validateStatus2 = response.config.validateStatus;
+  if (!response.status || !validateStatus2 || validateStatus2(response.status)) {
+    resolve(response);
+  } else {
+    reject(new AxiosError_default(
+      "Request failed with status code " + response.status,
+      [AxiosError_default.ERR_BAD_REQUEST, AxiosError_default.ERR_BAD_RESPONSE][Math.floor(response.status / 100) - 4],
+      response.config,
+      response.request,
+      response
+    ));
+  }
+}
+
+// node_modules/axios/lib/helpers/isAbsoluteURL.js
+function isAbsoluteURL(url2) {
+  return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(url2);
+}
+
+// node_modules/axios/lib/helpers/combineURLs.js
+function combineURLs(baseURL, relativeURL) {
+  return relativeURL ? baseURL.replace(/\/?\/$/, "") + "/" + relativeURL.replace(/^\/+/, "") : baseURL;
+}
+
+// node_modules/axios/lib/core/buildFullPath.js
+function buildFullPath(baseURL, requestedURL, allowAbsoluteUrls) {
+  let isRelativeUrl = !isAbsoluteURL(requestedURL);
+  if (baseURL && (isRelativeUrl || allowAbsoluteUrls == false)) {
+    return combineURLs(baseURL, requestedURL);
+  }
+  return requestedURL;
+}
+
+// node_modules/axios/lib/adapters/http.js
+var import_proxy_from_env = __toESM(require_proxy_from_env(), 1);
+var import_http = __toESM(require("http"), 1);
+var import_https = __toESM(require("https"), 1);
+var import_util2 = __toESM(require("util"), 1);
+var import_follow_redirects = __toESM(require_follow_redirects(), 1);
+var import_zlib = __toESM(require("zlib"), 1);
+
+// node_modules/axios/lib/env/data.js
+var VERSION = "1.12.2";
+
+// node_modules/axios/lib/helpers/parseProtocol.js
+function parseProtocol(url2) {
+  const match = /^([-+\w]{1,25})(:?\/\/|:)/.exec(url2);
+  return match && match[1] || "";
+}
+
+// node_modules/axios/lib/helpers/fromDataURI.js
+var DATA_URL_PATTERN = /^(?:([^;]+);)?(?:[^;]+;)?(base64|),([\s\S]*)$/;
+function fromDataURI(uri, asBlob, options) {
+  const _Blob = options && options.Blob || platform_default.classes.Blob;
+  const protocol = parseProtocol(uri);
+  if (asBlob === void 0 && _Blob) {
+    asBlob = true;
+  }
+  if (protocol === "data") {
+    uri = protocol.length ? uri.slice(protocol.length + 1) : uri;
+    const match = DATA_URL_PATTERN.exec(uri);
+    if (!match) {
+      throw new AxiosError_default("Invalid URL", AxiosError_default.ERR_INVALID_URL);
+    }
+    const mime = match[1];
+    const isBase64 = match[2];
+    const body = match[3];
+    const buffer = Buffer.from(decodeURIComponent(body), isBase64 ? "base64" : "utf8");
+    if (asBlob) {
+      if (!_Blob) {
+        throw new AxiosError_default("Blob is not supported", AxiosError_default.ERR_NOT_SUPPORT);
+      }
+      return new _Blob([buffer], { type: mime });
+    }
+    return buffer;
+  }
+  throw new AxiosError_default("Unsupported protocol " + protocol, AxiosError_default.ERR_NOT_SUPPORT);
+}
+
+// node_modules/axios/lib/adapters/http.js
+var import_stream4 = __toESM(require("stream"), 1);
+
+// node_modules/axios/lib/helpers/AxiosTransformStream.js
+var import_stream = __toESM(require("stream"), 1);
+var kInternals = Symbol("internals");
+var AxiosTransformStream = class extends import_stream.default.Transform {
+  constructor(options) {
+    options = utils_default.toFlatObject(options, {
+      maxRate: 0,
+      chunkSize: 64 * 1024,
+      minChunkSize: 100,
+      timeWindow: 500,
+      ticksRate: 2,
+      samplesCount: 15
+    }, null, (prop, source) => {
+      return !utils_default.isUndefined(source[prop]);
+    });
+    super({
+      readableHighWaterMark: options.chunkSize
+    });
+    const internals = this[kInternals] = {
+      timeWindow: options.timeWindow,
+      chunkSize: options.chunkSize,
+      maxRate: options.maxRate,
+      minChunkSize: options.minChunkSize,
+      bytesSeen: 0,
+      isCaptured: false,
+      notifiedBytesLoaded: 0,
+      ts: Date.now(),
+      bytes: 0,
+      onReadCallback: null
+    };
+    this.on("newListener", (event) => {
+      if (event === "progress") {
+        if (!internals.isCaptured) {
+          internals.isCaptured = true;
+        }
+      }
+    });
+  }
+  _read(size) {
+    const internals = this[kInternals];
+    if (internals.onReadCallback) {
+      internals.onReadCallback();
+    }
+    return super._read(size);
+  }
+  _transform(chunk, encoding, callback) {
+    const internals = this[kInternals];
+    const maxRate = internals.maxRate;
+    const readableHighWaterMark = this.readableHighWaterMark;
+    const timeWindow = internals.timeWindow;
+    const divider = 1e3 / timeWindow;
+    const bytesThreshold = maxRate / divider;
+    const minChunkSize = internals.minChunkSize !== false ? Math.max(internals.minChunkSize, bytesThreshold * 0.01) : 0;
+    const pushChunk = (_chunk, _callback) => {
+      const bytes = Buffer.byteLength(_chunk);
+      internals.bytesSeen += bytes;
+      internals.bytes += bytes;
+      internals.isCaptured && this.emit("progress", internals.bytesSeen);
+      if (this.push(_chunk)) {
+        process.nextTick(_callback);
+      } else {
+        internals.onReadCallback = () => {
+          internals.onReadCallback = null;
+          process.nextTick(_callback);
+        };
+      }
+    };
+    const transformChunk = (_chunk, _callback) => {
+      const chunkSize = Buffer.byteLength(_chunk);
+      let chunkRemainder = null;
+      let maxChunkSize = readableHighWaterMark;
+      let bytesLeft;
+      let passed = 0;
+      if (maxRate) {
+        const now = Date.now();
+        if (!internals.ts || (passed = now - internals.ts) >= timeWindow) {
+          internals.ts = now;
+          bytesLeft = bytesThreshold - internals.bytes;
+          internals.bytes = bytesLeft < 0 ? -bytesLeft : 0;
+          passed = 0;
+        }
+        bytesLeft = bytesThreshold - internals.bytes;
+      }
+      if (maxRate) {
+        if (bytesLeft <= 0) {
+          return setTimeout(() => {
+            _callback(null, _chunk);
+          }, timeWindow - passed);
+        }
+        if (bytesLeft < maxChunkSize) {
+          maxChunkSize = bytesLeft;
+        }
+      }
+      if (maxChunkSize && chunkSize > maxChunkSize && chunkSize - maxChunkSize > minChunkSize) {
+        chunkRemainder = _chunk.subarray(maxChunkSize);
+        _chunk = _chunk.subarray(0, maxChunkSize);
+      }
+      pushChunk(_chunk, chunkRemainder ? () => {
+        process.nextTick(_callback, null, chunkRemainder);
+      } : _callback);
+    };
+    transformChunk(chunk, function transformNextChunk(err, _chunk) {
+      if (err) {
+        return callback(err);
+      }
+      if (_chunk) {
+        transformChunk(_chunk, transformNextChunk);
+      } else {
+        callback(null);
+      }
+    });
+  }
+};
+var AxiosTransformStream_default = AxiosTransformStream;
+
+// node_modules/axios/lib/adapters/http.js
+var import_events = require("events");
+
+// node_modules/axios/lib/helpers/formDataToStream.js
+var import_util = __toESM(require("util"), 1);
+var import_stream2 = require("stream");
+
+// node_modules/axios/lib/helpers/readBlob.js
+var { asyncIterator } = Symbol;
+var readBlob = async function* (blob) {
+  if (blob.stream) {
+    yield* blob.stream();
+  } else if (blob.arrayBuffer) {
+    yield await blob.arrayBuffer();
+  } else if (blob[asyncIterator]) {
+    yield* blob[asyncIterator]();
+  } else {
+    yield blob;
+  }
+};
+var readBlob_default = readBlob;
+
+// node_modules/axios/lib/helpers/formDataToStream.js
+var BOUNDARY_ALPHABET = platform_default.ALPHABET.ALPHA_DIGIT + "-_";
+var textEncoder = typeof TextEncoder === "function" ? new TextEncoder() : new import_util.default.TextEncoder();
+var CRLF = "\r\n";
+var CRLF_BYTES = textEncoder.encode(CRLF);
+var CRLF_BYTES_COUNT = 2;
+var FormDataPart = class {
+  constructor(name2, value) {
+    const { escapeName } = this.constructor;
+    const isStringValue = utils_default.isString(value);
+    let headers = `Content-Disposition: form-data; name="${escapeName(name2)}"${!isStringValue && value.name ? `; filename="${escapeName(value.name)}"` : ""}${CRLF}`;
+    if (isStringValue) {
+      value = textEncoder.encode(String(value).replace(/\r?\n|\r\n?/g, CRLF));
+    } else {
+      headers += `Content-Type: ${value.type || "application/octet-stream"}${CRLF}`;
+    }
+    this.headers = textEncoder.encode(headers + CRLF);
+    this.contentLength = isStringValue ? value.byteLength : value.size;
+    this.size = this.headers.byteLength + this.contentLength + CRLF_BYTES_COUNT;
+    this.name = name2;
+    this.value = value;
+  }
+  async *encode() {
+    yield this.headers;
+    const { value } = this;
+    if (utils_default.isTypedArray(value)) {
+      yield value;
+    } else {
+      yield* readBlob_default(value);
+    }
+    yield CRLF_BYTES;
+  }
+  static escapeName(name2) {
+    return String(name2).replace(/[\r\n"]/g, (match) => ({
+      "\r": "%0D",
+      "\n": "%0A",
+      '"': "%22"
+    })[match]);
+  }
+};
+var formDataToStream = (form, headersHandler, options) => {
+  const {
+    tag = "form-data-boundary",
+    size = 25,
+    boundary = tag + "-" + platform_default.generateString(size, BOUNDARY_ALPHABET)
+  } = options || {};
+  if (!utils_default.isFormData(form)) {
+    throw TypeError("FormData instance required");
+  }
+  if (boundary.length < 1 || boundary.length > 70) {
+    throw Error("boundary must be 10-70 characters long");
+  }
+  const boundaryBytes = textEncoder.encode("--" + boundary + CRLF);
+  const footerBytes = textEncoder.encode("--" + boundary + "--" + CRLF);
+  let contentLength = footerBytes.byteLength;
+  const parts = Array.from(form.entries()).map(([name2, value]) => {
+    const part = new FormDataPart(name2, value);
+    contentLength += part.size;
+    return part;
+  });
+  contentLength += boundaryBytes.byteLength * parts.length;
+  contentLength = utils_default.toFiniteNumber(contentLength);
+  const computedHeaders = {
+    "Content-Type": `multipart/form-data; boundary=${boundary}`
+  };
+  if (Number.isFinite(contentLength)) {
+    computedHeaders["Content-Length"] = contentLength;
+  }
+  headersHandler && headersHandler(computedHeaders);
+  return import_stream2.Readable.from(async function* () {
+    for (const part of parts) {
+      yield boundaryBytes;
+      yield* part.encode();
+    }
+    yield footerBytes;
+  }());
+};
+var formDataToStream_default = formDataToStream;
+
+// node_modules/axios/lib/helpers/ZlibHeaderTransformStream.js
+var import_stream3 = __toESM(require("stream"), 1);
+var ZlibHeaderTransformStream = class extends import_stream3.default.Transform {
+  __transform(chunk, encoding, callback) {
+    this.push(chunk);
+    callback();
+  }
+  _transform(chunk, encoding, callback) {
+    if (chunk.length !== 0) {
+      this._transform = this.__transform;
+      if (chunk[0] !== 120) {
+        const header = Buffer.alloc(2);
+        header[0] = 120;
+        header[1] = 156;
+        this.push(header, encoding);
+      }
+    }
+    this.__transform(chunk, encoding, callback);
+  }
+};
+var ZlibHeaderTransformStream_default = ZlibHeaderTransformStream;
+
+// node_modules/axios/lib/helpers/callbackify.js
+var callbackify = (fn, reducer) => {
+  return utils_default.isAsyncFn(fn) ? function(...args) {
+    const cb = args.pop();
+    fn.apply(this, args).then((value) => {
+      try {
+        reducer ? cb(null, ...reducer(value)) : cb(null, value);
+      } catch (err) {
+        cb(err);
+      }
+    }, cb);
+  } : fn;
+};
+var callbackify_default = callbackify;
+
+// node_modules/axios/lib/helpers/speedometer.js
+function speedometer(samplesCount, min) {
+  samplesCount = samplesCount || 10;
+  const bytes = new Array(samplesCount);
+  const timestamps = new Array(samplesCount);
+  let head = 0;
+  let tail = 0;
+  let firstSampleTS;
+  min = min !== void 0 ? min : 1e3;
+  return function push2(chunkLength) {
+    const now = Date.now();
+    const startedAt = timestamps[tail];
+    if (!firstSampleTS) {
+      firstSampleTS = now;
+    }
+    bytes[head] = chunkLength;
+    timestamps[head] = now;
+    let i = tail;
+    let bytesCount = 0;
+    while (i !== head) {
+      bytesCount += bytes[i++];
+      i = i % samplesCount;
+    }
+    head = (head + 1) % samplesCount;
+    if (head === tail) {
+      tail = (tail + 1) % samplesCount;
+    }
+    if (now - firstSampleTS < min) {
+      return;
+    }
+    const passed = startedAt && now - startedAt;
+    return passed ? Math.round(bytesCount * 1e3 / passed) : void 0;
+  };
+}
+var speedometer_default = speedometer;
+
+// node_modules/axios/lib/helpers/throttle.js
+function throttle(fn, freq) {
+  let timestamp = 0;
+  let threshold = 1e3 / freq;
+  let lastArgs;
+  let timer;
+  const invoke = (args, now = Date.now()) => {
+    timestamp = now;
+    lastArgs = null;
+    if (timer) {
+      clearTimeout(timer);
+      timer = null;
+    }
+    fn(...args);
+  };
+  const throttled = (...args) => {
+    const now = Date.now();
+    const passed = now - timestamp;
+    if (passed >= threshold) {
+      invoke(args, now);
+    } else {
+      lastArgs = args;
+      if (!timer) {
+        timer = setTimeout(() => {
+          timer = null;
+          invoke(lastArgs);
+        }, threshold - passed);
+      }
+    }
+  };
+  const flush = () => lastArgs && invoke(lastArgs);
+  return [throttled, flush];
+}
+var throttle_default = throttle;
+
+// node_modules/axios/lib/helpers/progressEventReducer.js
+var progressEventReducer = (listener, isDownloadStream, freq = 3) => {
+  let bytesNotified = 0;
+  const _speedometer = speedometer_default(50, 250);
+  return throttle_default((e) => {
+    const loaded = e.loaded;
+    const total = e.lengthComputable ? e.total : void 0;
+    const progressBytes = loaded - bytesNotified;
+    const rate = _speedometer(progressBytes);
+    const inRange = loaded <= total;
+    bytesNotified = loaded;
+    const data = {
+      loaded,
+      total,
+      progress: total ? loaded / total : void 0,
+      bytes: progressBytes,
+      rate: rate ? rate : void 0,
+      estimated: rate && total && inRange ? (total - loaded) / rate : void 0,
+      event: e,
+      lengthComputable: total != null,
+      [isDownloadStream ? "download" : "upload"]: true
+    };
+    listener(data);
+  }, freq);
+};
+var progressEventDecorator = (total, throttled) => {
+  const lengthComputable = total != null;
+  return [(loaded) => throttled[0]({
+    lengthComputable,
+    total,
+    loaded
+  }), throttled[1]];
+};
+var asyncDecorator = (fn) => (...args) => utils_default.asap(() => fn(...args));
+
+// node_modules/axios/lib/helpers/estimateDataURLDecodedBytes.js
+function estimateDataURLDecodedBytes(url2) {
+  if (!url2 || typeof url2 !== "string") return 0;
+  if (!url2.startsWith("data:")) return 0;
+  const comma = url2.indexOf(",");
+  if (comma < 0) return 0;
+  const meta = url2.slice(5, comma);
+  const body = url2.slice(comma + 1);
+  const isBase64 = /;base64/i.test(meta);
+  if (isBase64) {
+    let effectiveLen = body.length;
+    const len = body.length;
+    for (let i = 0; i < len; i++) {
+      if (body.charCodeAt(i) === 37 && i + 2 < len) {
+        const a = body.charCodeAt(i + 1);
+        const b = body.charCodeAt(i + 2);
+        const isHex = (a >= 48 && a <= 57 || a >= 65 && a <= 70 || a >= 97 && a <= 102) && (b >= 48 && b <= 57 || b >= 65 && b <= 70 || b >= 97 && b <= 102);
+        if (isHex) {
+          effectiveLen -= 2;
+          i += 2;
+        }
+      }
+    }
+    let pad = 0;
+    let idx = len - 1;
+    const tailIsPct3D = (j) => j >= 2 && body.charCodeAt(j - 2) === 37 && // '%'
+    body.charCodeAt(j - 1) === 51 && // '3'
+    (body.charCodeAt(j) === 68 || body.charCodeAt(j) === 100);
+    if (idx >= 0) {
+      if (body.charCodeAt(idx) === 61) {
+        pad++;
+        idx--;
+      } else if (tailIsPct3D(idx)) {
+        pad++;
+        idx -= 3;
+      }
+    }
+    if (pad === 1 && idx >= 0) {
+      if (body.charCodeAt(idx) === 61) {
+        pad++;
+      } else if (tailIsPct3D(idx)) {
+        pad++;
+      }
+    }
+    const groups = Math.floor(effectiveLen / 4);
+    const bytes = groups * 3 - (pad || 0);
+    return bytes > 0 ? bytes : 0;
+  }
+  return Buffer.byteLength(body, "utf8");
+}
+
+// node_modules/axios/lib/adapters/http.js
+var zlibOptions = {
+  flush: import_zlib.default.constants.Z_SYNC_FLUSH,
+  finishFlush: import_zlib.default.constants.Z_SYNC_FLUSH
+};
+var brotliOptions = {
+  flush: import_zlib.default.constants.BROTLI_OPERATION_FLUSH,
+  finishFlush: import_zlib.default.constants.BROTLI_OPERATION_FLUSH
+};
+var isBrotliSupported = utils_default.isFunction(import_zlib.default.createBrotliDecompress);
+var { http: httpFollow, https: httpsFollow } = import_follow_redirects.default;
+var isHttps = /https:?/;
+var supportedProtocols = platform_default.protocols.map((protocol) => {
+  return protocol + ":";
+});
+var flushOnFinish = (stream4, [throttled, flush]) => {
+  stream4.on("end", flush).on("error", flush);
+  return throttled;
+};
+function dispatchBeforeRedirect(options, responseDetails) {
+  if (options.beforeRedirects.proxy) {
+    options.beforeRedirects.proxy(options);
+  }
+  if (options.beforeRedirects.config) {
+    options.beforeRedirects.config(options, responseDetails);
+  }
+}
+function setProxy(options, configProxy, location) {
+  let proxy = configProxy;
+  if (!proxy && proxy !== false) {
+    const proxyUrl = import_proxy_from_env.default.getProxyForUrl(location);
+    if (proxyUrl) {
+      proxy = new URL(proxyUrl);
+    }
+  }
+  if (proxy) {
+    if (proxy.username) {
+      proxy.auth = (proxy.username || "") + ":" + (proxy.password || "");
+    }
+    if (proxy.auth) {
+      if (proxy.auth.username || proxy.auth.password) {
+        proxy.auth = (proxy.auth.username || "") + ":" + (proxy.auth.password || "");
+      }
+      const base64 = Buffer.from(proxy.auth, "utf8").toString("base64");
+      options.headers["Proxy-Authorization"] = "Basic " + base64;
+    }
+    options.headers.host = options.hostname + (options.port ? ":" + options.port : "");
+    const proxyHost = proxy.hostname || proxy.host;
+    options.hostname = proxyHost;
+    options.host = proxyHost;
+    options.port = proxy.port;
+    options.path = location;
+    if (proxy.protocol) {
+      options.protocol = proxy.protocol.includes(":") ? proxy.protocol : `${proxy.protocol}:`;
+    }
+  }
+  options.beforeRedirects.proxy = function beforeRedirect(redirectOptions) {
+    setProxy(redirectOptions, configProxy, redirectOptions.href);
+  };
+}
+var isHttpAdapterSupported = typeof process !== "undefined" && utils_default.kindOf(process) === "process";
+var wrapAsync = (asyncExecutor) => {
+  return new Promise((resolve, reject) => {
+    let onDone;
+    let isDone;
+    const done = (value, isRejected) => {
+      if (isDone) return;
+      isDone = true;
+      onDone && onDone(value, isRejected);
+    };
+    const _resolve = (value) => {
+      done(value);
+      resolve(value);
+    };
+    const _reject = (reason) => {
+      done(reason, true);
+      reject(reason);
+    };
+    asyncExecutor(_resolve, _reject, (onDoneHandler) => onDone = onDoneHandler).catch(_reject);
+  });
+};
+var resolveFamily = ({ address, family }) => {
+  if (!utils_default.isString(address)) {
+    throw TypeError("address must be a string");
+  }
+  return {
+    address,
+    family: family || (address.indexOf(".") < 0 ? 6 : 4)
+  };
+};
+var buildAddressEntry = (address, family) => resolveFamily(utils_default.isObject(address) ? address : { address, family });
+var http_default = isHttpAdapterSupported && function httpAdapter(config) {
+  return wrapAsync(async function dispatchHttpRequest(resolve, reject, onDone) {
+    let { data, lookup, family } = config;
+    const { responseType, responseEncoding } = config;
+    const method = config.method.toUpperCase();
+    let isDone;
+    let rejected = false;
+    let req;
+    if (lookup) {
+      const _lookup = callbackify_default(lookup, (value) => utils_default.isArray(value) ? value : [value]);
+      lookup = (hostname, opt, cb) => {
+        _lookup(hostname, opt, (err, arg0, arg1) => {
+          if (err) {
+            return cb(err);
+          }
+          const addresses = utils_default.isArray(arg0) ? arg0.map((addr) => buildAddressEntry(addr)) : [buildAddressEntry(arg0, arg1)];
+          opt.all ? cb(err, addresses) : cb(err, addresses[0].address, addresses[0].family);
+        });
+      };
+    }
+    const emitter = new import_events.EventEmitter();
+    const onFinished = () => {
+      if (config.cancelToken) {
+        config.cancelToken.unsubscribe(abort);
+      }
+      if (config.signal) {
+        config.signal.removeEventListener("abort", abort);
+      }
+      emitter.removeAllListeners();
+    };
+    onDone((value, isRejected) => {
+      isDone = true;
+      if (isRejected) {
+        rejected = true;
+        onFinished();
+      }
+    });
+    function abort(reason) {
+      emitter.emit("abort", !reason || reason.type ? new CanceledError_default(null, config, req) : reason);
+    }
+    emitter.once("abort", reject);
+    if (config.cancelToken || config.signal) {
+      config.cancelToken && config.cancelToken.subscribe(abort);
+      if (config.signal) {
+        config.signal.aborted ? abort() : config.signal.addEventListener("abort", abort);
+      }
+    }
+    const fullPath = buildFullPath(config.baseURL, config.url, config.allowAbsoluteUrls);
+    const parsed = new URL(fullPath, platform_default.hasBrowserEnv ? platform_default.origin : void 0);
+    const protocol = parsed.protocol || supportedProtocols[0];
+    if (protocol === "data:") {
+      if (config.maxContentLength > -1) {
+        const dataUrl = String(config.url || fullPath || "");
+        const estimated = estimateDataURLDecodedBytes(dataUrl);
+        if (estimated > config.maxContentLength) {
+          return reject(new AxiosError_default(
+            "maxContentLength size of " + config.maxContentLength + " exceeded",
+            AxiosError_default.ERR_BAD_RESPONSE,
+            config
+          ));
+        }
+      }
+      let convertedData;
+      if (method !== "GET") {
+        return settle(resolve, reject, {
+          status: 405,
+          statusText: "method not allowed",
+          headers: {},
+          config
+        });
+      }
+      try {
+        convertedData = fromDataURI(config.url, responseType === "blob", {
+          Blob: config.env && config.env.Blob
+        });
+      } catch (err) {
+        throw AxiosError_default.from(err, AxiosError_default.ERR_BAD_REQUEST, config);
+      }
+      if (responseType === "text") {
+        convertedData = convertedData.toString(responseEncoding);
+        if (!responseEncoding || responseEncoding === "utf8") {
+          convertedData = utils_default.stripBOM(convertedData);
+        }
+      } else if (responseType === "stream") {
+        convertedData = import_stream4.default.Readable.from(convertedData);
+      }
+      return settle(resolve, reject, {
+        data: convertedData,
+        status: 200,
+        statusText: "OK",
+        headers: new AxiosHeaders_default(),
+        config
+      });
+    }
+    if (supportedProtocols.indexOf(protocol) === -1) {
+      return reject(new AxiosError_default(
+        "Unsupported protocol " + protocol,
+        AxiosError_default.ERR_BAD_REQUEST,
+        config
+      ));
+    }
+    const headers = AxiosHeaders_default.from(config.headers).normalize();
+    headers.set("User-Agent", "axios/" + VERSION, false);
+    const { onUploadProgress, onDownloadProgress } = config;
+    const maxRate = config.maxRate;
+    let maxUploadRate = void 0;
+    let maxDownloadRate = void 0;
+    if (utils_default.isSpecCompliantForm(data)) {
+      const userBoundary = headers.getContentType(/boundary=([-_\w\d]{10,70})/i);
+      data = formDataToStream_default(data, (formHeaders) => {
+        headers.set(formHeaders);
+      }, {
+        tag: `axios-${VERSION}-boundary`,
+        boundary: userBoundary && userBoundary[1] || void 0
+      });
+    } else if (utils_default.isFormData(data) && utils_default.isFunction(data.getHeaders)) {
+      headers.set(data.getHeaders());
+      if (!headers.hasContentLength()) {
+        try {
+          const knownLength = await import_util2.default.promisify(data.getLength).call(data);
+          Number.isFinite(knownLength) && knownLength >= 0 && headers.setContentLength(knownLength);
+        } catch (e) {
+        }
+      }
+    } else if (utils_default.isBlob(data) || utils_default.isFile(data)) {
+      data.size && headers.setContentType(data.type || "application/octet-stream");
+      headers.setContentLength(data.size || 0);
+      data = import_stream4.default.Readable.from(readBlob_default(data));
+    } else if (data && !utils_default.isStream(data)) {
+      if (Buffer.isBuffer(data)) {
+      } else if (utils_default.isArrayBuffer(data)) {
+        data = Buffer.from(new Uint8Array(data));
+      } else if (utils_default.isString(data)) {
+        data = Buffer.from(data, "utf-8");
+      } else {
+        return reject(new AxiosError_default(
+          "Data after transformation must be a string, an ArrayBuffer, a Buffer, or a Stream",
+          AxiosError_default.ERR_BAD_REQUEST,
+          config
+        ));
+      }
+      headers.setContentLength(data.length, false);
+      if (config.maxBodyLength > -1 && data.length > config.maxBodyLength) {
+        return reject(new AxiosError_default(
+          "Request body larger than maxBodyLength limit",
+          AxiosError_default.ERR_BAD_REQUEST,
+          config
+        ));
+      }
+    }
+    const contentLength = utils_default.toFiniteNumber(headers.getContentLength());
+    if (utils_default.isArray(maxRate)) {
+      maxUploadRate = maxRate[0];
+      maxDownloadRate = maxRate[1];
+    } else {
+      maxUploadRate = maxDownloadRate = maxRate;
+    }
+    if (data && (onUploadProgress || maxUploadRate)) {
+      if (!utils_default.isStream(data)) {
+        data = import_stream4.default.Readable.from(data, { objectMode: false });
+      }
+      data = import_stream4.default.pipeline([data, new AxiosTransformStream_default({
+        maxRate: utils_default.toFiniteNumber(maxUploadRate)
+      })], utils_default.noop);
+      onUploadProgress && data.on("progress", flushOnFinish(
+        data,
+        progressEventDecorator(
+          contentLength,
+          progressEventReducer(asyncDecorator(onUploadProgress), false, 3)
+        )
+      ));
+    }
+    let auth = void 0;
+    if (config.auth) {
+      const username = config.auth.username || "";
+      const password = config.auth.password || "";
+      auth = username + ":" + password;
+    }
+    if (!auth && parsed.username) {
+      const urlUsername = parsed.username;
+      const urlPassword = parsed.password;
+      auth = urlUsername + ":" + urlPassword;
+    }
+    auth && headers.delete("authorization");
+    let path8;
+    try {
+      path8 = buildURL(
+        parsed.pathname + parsed.search,
+        config.params,
+        config.paramsSerializer
+      ).replace(/^\?/, "");
+    } catch (err) {
+      const customErr = new Error(err.message);
+      customErr.config = config;
+      customErr.url = config.url;
+      customErr.exists = true;
+      return reject(customErr);
+    }
+    headers.set(
+      "Accept-Encoding",
+      "gzip, compress, deflate" + (isBrotliSupported ? ", br" : ""),
+      false
+    );
+    const options = {
+      path: path8,
+      method,
+      headers: headers.toJSON(),
+      agents: { http: config.httpAgent, https: config.httpsAgent },
+      auth,
+      protocol,
+      family,
+      beforeRedirect: dispatchBeforeRedirect,
+      beforeRedirects: {}
+    };
+    !utils_default.isUndefined(lookup) && (options.lookup = lookup);
+    if (config.socketPath) {
+      options.socketPath = config.socketPath;
+    } else {
+      options.hostname = parsed.hostname.startsWith("[") ? parsed.hostname.slice(1, -1) : parsed.hostname;
+      options.port = parsed.port;
+      setProxy(options, config.proxy, protocol + "//" + parsed.hostname + (parsed.port ? ":" + parsed.port : "") + options.path);
+    }
+    let transport;
+    const isHttpsRequest = isHttps.test(options.protocol);
+    options.agent = isHttpsRequest ? config.httpsAgent : config.httpAgent;
+    if (config.transport) {
+      transport = config.transport;
+    } else if (config.maxRedirects === 0) {
+      transport = isHttpsRequest ? import_https.default : import_http.default;
+    } else {
+      if (config.maxRedirects) {
+        options.maxRedirects = config.maxRedirects;
+      }
+      if (config.beforeRedirect) {
+        options.beforeRedirects.config = config.beforeRedirect;
+      }
+      transport = isHttpsRequest ? httpsFollow : httpFollow;
+    }
+    if (config.maxBodyLength > -1) {
+      options.maxBodyLength = config.maxBodyLength;
+    } else {
+      options.maxBodyLength = Infinity;
+    }
+    if (config.insecureHTTPParser) {
+      options.insecureHTTPParser = config.insecureHTTPParser;
+    }
+    req = transport.request(options, function handleResponse(res) {
+      if (req.destroyed) return;
+      const streams = [res];
+      const responseLength = +res.headers["content-length"];
+      if (onDownloadProgress || maxDownloadRate) {
+        const transformStream = new AxiosTransformStream_default({
+          maxRate: utils_default.toFiniteNumber(maxDownloadRate)
+        });
+        onDownloadProgress && transformStream.on("progress", flushOnFinish(
+          transformStream,
+          progressEventDecorator(
+            responseLength,
+            progressEventReducer(asyncDecorator(onDownloadProgress), true, 3)
+          )
+        ));
+        streams.push(transformStream);
+      }
+      let responseStream = res;
+      const lastRequest = res.req || req;
+      if (config.decompress !== false && res.headers["content-encoding"]) {
+        if (method === "HEAD" || res.statusCode === 204) {
+          delete res.headers["content-encoding"];
+        }
+        switch ((res.headers["content-encoding"] || "").toLowerCase()) {
+          /*eslint default-case:0*/
+          case "gzip":
+          case "x-gzip":
+          case "compress":
+          case "x-compress":
+            streams.push(import_zlib.default.createUnzip(zlibOptions));
+            delete res.headers["content-encoding"];
+            break;
+          case "deflate":
+            streams.push(new ZlibHeaderTransformStream_default());
+            streams.push(import_zlib.default.createUnzip(zlibOptions));
+            delete res.headers["content-encoding"];
+            break;
+          case "br":
+            if (isBrotliSupported) {
+              streams.push(import_zlib.default.createBrotliDecompress(brotliOptions));
+              delete res.headers["content-encoding"];
+            }
+        }
+      }
+      responseStream = streams.length > 1 ? import_stream4.default.pipeline(streams, utils_default.noop) : streams[0];
+      const offListeners = import_stream4.default.finished(responseStream, () => {
+        offListeners();
+        onFinished();
+      });
+      const response = {
+        status: res.statusCode,
+        statusText: res.statusMessage,
+        headers: new AxiosHeaders_default(res.headers),
+        config,
+        request: lastRequest
+      };
+      if (responseType === "stream") {
+        response.data = responseStream;
+        settle(resolve, reject, response);
+      } else {
+        const responseBuffer = [];
+        let totalResponseBytes = 0;
+        responseStream.on("data", function handleStreamData(chunk) {
+          responseBuffer.push(chunk);
+          totalResponseBytes += chunk.length;
+          if (config.maxContentLength > -1 && totalResponseBytes > config.maxContentLength) {
+            rejected = true;
+            responseStream.destroy();
+            reject(new AxiosError_default(
+              "maxContentLength size of " + config.maxContentLength + " exceeded",
+              AxiosError_default.ERR_BAD_RESPONSE,
+              config,
+              lastRequest
+            ));
+          }
+        });
+        responseStream.on("aborted", function handlerStreamAborted() {
+          if (rejected) {
+            return;
+          }
+          const err = new AxiosError_default(
+            "stream has been aborted",
+            AxiosError_default.ERR_BAD_RESPONSE,
+            config,
+            lastRequest
+          );
+          responseStream.destroy(err);
+          reject(err);
+        });
+        responseStream.on("error", function handleStreamError(err) {
+          if (req.destroyed) return;
+          reject(AxiosError_default.from(err, null, config, lastRequest));
+        });
+        responseStream.on("end", function handleStreamEnd() {
+          try {
+            let responseData = responseBuffer.length === 1 ? responseBuffer[0] : Buffer.concat(responseBuffer);
+            if (responseType !== "arraybuffer") {
+              responseData = responseData.toString(responseEncoding);
+              if (!responseEncoding || responseEncoding === "utf8") {
+                responseData = utils_default.stripBOM(responseData);
+              }
+            }
+            response.data = responseData;
+          } catch (err) {
+            return reject(AxiosError_default.from(err, null, config, response.request, response));
+          }
+          settle(resolve, reject, response);
+        });
+      }
+      emitter.once("abort", (err) => {
+        if (!responseStream.destroyed) {
+          responseStream.emit("error", err);
+          responseStream.destroy();
+        }
+      });
+    });
+    emitter.once("abort", (err) => {
+      reject(err);
+      req.destroy(err);
+    });
+    req.on("error", function handleRequestError(err) {
+      reject(AxiosError_default.from(err, null, config, req));
+    });
+    req.on("socket", function handleRequestSocket(socket) {
+      socket.setKeepAlive(true, 1e3 * 60);
+    });
+    if (config.timeout) {
+      const timeout = parseInt(config.timeout, 10);
+      if (Number.isNaN(timeout)) {
+        reject(new AxiosError_default(
+          "error trying to parse `config.timeout` to int",
+          AxiosError_default.ERR_BAD_OPTION_VALUE,
+          config,
+          req
+        ));
+        return;
+      }
+      req.setTimeout(timeout, function handleRequestTimeout() {
+        if (isDone) return;
+        let timeoutErrorMessage = config.timeout ? "timeout of " + config.timeout + "ms exceeded" : "timeout exceeded";
+        const transitional2 = config.transitional || transitional_default;
+        if (config.timeoutErrorMessage) {
+          timeoutErrorMessage = config.timeoutErrorMessage;
+        }
+        reject(new AxiosError_default(
+          timeoutErrorMessage,
+          transitional2.clarifyTimeoutError ? AxiosError_default.ETIMEDOUT : AxiosError_default.ECONNABORTED,
+          config,
+          req
+        ));
+        abort();
+      });
+    }
+    if (utils_default.isStream(data)) {
+      let ended = false;
+      let errored = false;
+      data.on("end", () => {
+        ended = true;
+      });
+      data.once("error", (err) => {
+        errored = true;
+        req.destroy(err);
+      });
+      data.on("close", () => {
+        if (!ended && !errored) {
+          abort(new CanceledError_default("Request stream has been aborted", config, req));
+        }
+      });
+      data.pipe(req);
+    } else {
+      req.end(data);
+    }
+  });
+};
+
+// node_modules/axios/lib/helpers/isURLSameOrigin.js
+var isURLSameOrigin_default = platform_default.hasStandardBrowserEnv ? /* @__PURE__ */ ((origin2, isMSIE) => (url2) => {
+  url2 = new URL(url2, platform_default.origin);
+  return origin2.protocol === url2.protocol && origin2.host === url2.host && (isMSIE || origin2.port === url2.port);
+})(
+  new URL(platform_default.origin),
+  platform_default.navigator && /(msie|trident)/i.test(platform_default.navigator.userAgent)
+) : () => true;
+
+// node_modules/axios/lib/helpers/cookies.js
+var cookies_default = platform_default.hasStandardBrowserEnv ? (
+  // Standard browser envs support document.cookie
+  {
+    write(name2, value, expires, path8, domain, secure) {
+      const cookie = [name2 + "=" + encodeURIComponent(value)];
+      utils_default.isNumber(expires) && cookie.push("expires=" + new Date(expires).toGMTString());
+      utils_default.isString(path8) && cookie.push("path=" + path8);
+      utils_default.isString(domain) && cookie.push("domain=" + domain);
+      secure === true && cookie.push("secure");
+      document.cookie = cookie.join("; ");
+    },
+    read(name2) {
+      const match = document.cookie.match(new RegExp("(^|;\\s*)(" + name2 + ")=([^;]*)"));
+      return match ? decodeURIComponent(match[3]) : null;
+    },
+    remove(name2) {
+      this.write(name2, "", Date.now() - 864e5);
+    }
+  }
+) : (
+  // Non-standard browser env (web workers, react-native) lack needed support.
+  {
+    write() {
+    },
+    read() {
+      return null;
+    },
+    remove() {
+    }
+  }
+);
+
+// node_modules/axios/lib/core/mergeConfig.js
+var headersToObject = (thing) => thing instanceof AxiosHeaders_default ? { ...thing } : thing;
+function mergeConfig(config1, config2) {
+  config2 = config2 || {};
+  const config = {};
+  function getMergedValue(target, source, prop, caseless) {
+    if (utils_default.isPlainObject(target) && utils_default.isPlainObject(source)) {
+      return utils_default.merge.call({ caseless }, target, source);
+    } else if (utils_default.isPlainObject(source)) {
+      return utils_default.merge({}, source);
+    } else if (utils_default.isArray(source)) {
+      return source.slice();
+    }
+    return source;
+  }
+  function mergeDeepProperties(a, b, prop, caseless) {
+    if (!utils_default.isUndefined(b)) {
+      return getMergedValue(a, b, prop, caseless);
+    } else if (!utils_default.isUndefined(a)) {
+      return getMergedValue(void 0, a, prop, caseless);
+    }
+  }
+  function valueFromConfig2(a, b) {
+    if (!utils_default.isUndefined(b)) {
+      return getMergedValue(void 0, b);
+    }
+  }
+  function defaultToConfig2(a, b) {
+    if (!utils_default.isUndefined(b)) {
+      return getMergedValue(void 0, b);
+    } else if (!utils_default.isUndefined(a)) {
+      return getMergedValue(void 0, a);
+    }
+  }
+  function mergeDirectKeys(a, b, prop) {
+    if (prop in config2) {
+      return getMergedValue(a, b);
+    } else if (prop in config1) {
+      return getMergedValue(void 0, a);
+    }
+  }
+  const mergeMap = {
+    url: valueFromConfig2,
+    method: valueFromConfig2,
+    data: valueFromConfig2,
+    baseURL: defaultToConfig2,
+    transformRequest: defaultToConfig2,
+    transformResponse: defaultToConfig2,
+    paramsSerializer: defaultToConfig2,
+    timeout: defaultToConfig2,
+    timeoutMessage: defaultToConfig2,
+    withCredentials: defaultToConfig2,
+    withXSRFToken: defaultToConfig2,
+    adapter: defaultToConfig2,
+    responseType: defaultToConfig2,
+    xsrfCookieName: defaultToConfig2,
+    xsrfHeaderName: defaultToConfig2,
+    onUploadProgress: defaultToConfig2,
+    onDownloadProgress: defaultToConfig2,
+    decompress: defaultToConfig2,
+    maxContentLength: defaultToConfig2,
+    maxBodyLength: defaultToConfig2,
+    beforeRedirect: defaultToConfig2,
+    transport: defaultToConfig2,
+    httpAgent: defaultToConfig2,
+    httpsAgent: defaultToConfig2,
+    cancelToken: defaultToConfig2,
+    socketPath: defaultToConfig2,
+    responseEncoding: defaultToConfig2,
+    validateStatus: mergeDirectKeys,
+    headers: (a, b, prop) => mergeDeepProperties(headersToObject(a), headersToObject(b), prop, true)
+  };
+  utils_default.forEach(Object.keys({ ...config1, ...config2 }), function computeConfigValue(prop) {
+    const merge3 = mergeMap[prop] || mergeDeepProperties;
+    const configValue = merge3(config1[prop], config2[prop], prop);
+    utils_default.isUndefined(configValue) && merge3 !== mergeDirectKeys || (config[prop] = configValue);
+  });
+  return config;
+}
+
+// node_modules/axios/lib/helpers/resolveConfig.js
+var resolveConfig_default = (config) => {
+  const newConfig = mergeConfig({}, config);
+  let { data, withXSRFToken, xsrfHeaderName, xsrfCookieName, headers, auth } = newConfig;
+  newConfig.headers = headers = AxiosHeaders_default.from(headers);
+  newConfig.url = buildURL(buildFullPath(newConfig.baseURL, newConfig.url, newConfig.allowAbsoluteUrls), config.params, config.paramsSerializer);
+  if (auth) {
+    headers.set(
+      "Authorization",
+      "Basic " + btoa((auth.username || "") + ":" + (auth.password ? unescape(encodeURIComponent(auth.password)) : ""))
+    );
+  }
+  if (utils_default.isFormData(data)) {
+    if (platform_default.hasStandardBrowserEnv || platform_default.hasStandardBrowserWebWorkerEnv) {
+      headers.setContentType(void 0);
+    } else if (utils_default.isFunction(data.getHeaders)) {
+      const formHeaders = data.getHeaders();
+      const allowedHeaders = ["content-type", "content-length"];
+      Object.entries(formHeaders).forEach(([key, val]) => {
+        if (allowedHeaders.includes(key.toLowerCase())) {
+          headers.set(key, val);
+        }
+      });
+    }
+  }
+  if (platform_default.hasStandardBrowserEnv) {
+    withXSRFToken && utils_default.isFunction(withXSRFToken) && (withXSRFToken = withXSRFToken(newConfig));
+    if (withXSRFToken || withXSRFToken !== false && isURLSameOrigin_default(newConfig.url)) {
+      const xsrfValue = xsrfHeaderName && xsrfCookieName && cookies_default.read(xsrfCookieName);
+      if (xsrfValue) {
+        headers.set(xsrfHeaderName, xsrfValue);
+      }
+    }
+  }
+  return newConfig;
+};
+
+// node_modules/axios/lib/adapters/xhr.js
+var isXHRAdapterSupported = typeof XMLHttpRequest !== "undefined";
+var xhr_default = isXHRAdapterSupported && function(config) {
+  return new Promise(function dispatchXhrRequest(resolve, reject) {
+    const _config = resolveConfig_default(config);
+    let requestData = _config.data;
+    const requestHeaders = AxiosHeaders_default.from(_config.headers).normalize();
+    let { responseType, onUploadProgress, onDownloadProgress } = _config;
+    let onCanceled;
+    let uploadThrottled, downloadThrottled;
+    let flushUpload, flushDownload;
+    function done() {
+      flushUpload && flushUpload();
+      flushDownload && flushDownload();
+      _config.cancelToken && _config.cancelToken.unsubscribe(onCanceled);
+      _config.signal && _config.signal.removeEventListener("abort", onCanceled);
+    }
+    let request = new XMLHttpRequest();
+    request.open(_config.method.toUpperCase(), _config.url, true);
+    request.timeout = _config.timeout;
+    function onloadend() {
+      if (!request) {
+        return;
+      }
+      const responseHeaders = AxiosHeaders_default.from(
+        "getAllResponseHeaders" in request && request.getAllResponseHeaders()
+      );
+      const responseData = !responseType || responseType === "text" || responseType === "json" ? request.responseText : request.response;
+      const response = {
+        data: responseData,
+        status: request.status,
+        statusText: request.statusText,
+        headers: responseHeaders,
+        config,
+        request
+      };
+      settle(function _resolve(value) {
+        resolve(value);
+        done();
+      }, function _reject(err) {
+        reject(err);
+        done();
+      }, response);
+      request = null;
+    }
+    if ("onloadend" in request) {
+      request.onloadend = onloadend;
+    } else {
+      request.onreadystatechange = function handleLoad() {
+        if (!request || request.readyState !== 4) {
+          return;
+        }
+        if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf("file:") === 0)) {
+          return;
+        }
+        setTimeout(onloadend);
+      };
+    }
+    request.onabort = function handleAbort() {
+      if (!request) {
+        return;
+      }
+      reject(new AxiosError_default("Request aborted", AxiosError_default.ECONNABORTED, config, request));
+      request = null;
+    };
+    request.onerror = function handleError(event) {
+      const msg = event && event.message ? event.message : "Network Error";
+      const err = new AxiosError_default(msg, AxiosError_default.ERR_NETWORK, config, request);
+      err.event = event || null;
+      reject(err);
+      request = null;
+    };
+    request.ontimeout = function handleTimeout() {
+      let timeoutErrorMessage = _config.timeout ? "timeout of " + _config.timeout + "ms exceeded" : "timeout exceeded";
+      const transitional2 = _config.transitional || transitional_default;
+      if (_config.timeoutErrorMessage) {
+        timeoutErrorMessage = _config.timeoutErrorMessage;
+      }
+      reject(new AxiosError_default(
+        timeoutErrorMessage,
+        transitional2.clarifyTimeoutError ? AxiosError_default.ETIMEDOUT : AxiosError_default.ECONNABORTED,
+        config,
+        request
+      ));
+      request = null;
+    };
+    requestData === void 0 && requestHeaders.setContentType(null);
+    if ("setRequestHeader" in request) {
+      utils_default.forEach(requestHeaders.toJSON(), function setRequestHeader(val, key) {
+        request.setRequestHeader(key, val);
+      });
+    }
+    if (!utils_default.isUndefined(_config.withCredentials)) {
+      request.withCredentials = !!_config.withCredentials;
+    }
+    if (responseType && responseType !== "json") {
+      request.responseType = _config.responseType;
+    }
+    if (onDownloadProgress) {
+      [downloadThrottled, flushDownload] = progressEventReducer(onDownloadProgress, true);
+      request.addEventListener("progress", downloadThrottled);
+    }
+    if (onUploadProgress && request.upload) {
+      [uploadThrottled, flushUpload] = progressEventReducer(onUploadProgress);
+      request.upload.addEventListener("progress", uploadThrottled);
+      request.upload.addEventListener("loadend", flushUpload);
+    }
+    if (_config.cancelToken || _config.signal) {
+      onCanceled = (cancel) => {
+        if (!request) {
+          return;
+        }
+        reject(!cancel || cancel.type ? new CanceledError_default(null, config, request) : cancel);
+        request.abort();
+        request = null;
+      };
+      _config.cancelToken && _config.cancelToken.subscribe(onCanceled);
+      if (_config.signal) {
+        _config.signal.aborted ? onCanceled() : _config.signal.addEventListener("abort", onCanceled);
+      }
+    }
+    const protocol = parseProtocol(_config.url);
+    if (protocol && platform_default.protocols.indexOf(protocol) === -1) {
+      reject(new AxiosError_default("Unsupported protocol " + protocol + ":", AxiosError_default.ERR_BAD_REQUEST, config));
+      return;
+    }
+    request.send(requestData || null);
+  });
+};
+
+// node_modules/axios/lib/helpers/composeSignals.js
+var composeSignals = (signals, timeout) => {
+  const { length } = signals = signals ? signals.filter(Boolean) : [];
+  if (timeout || length) {
+    let controller = new AbortController();
+    let aborted;
+    const onabort = function(reason) {
+      if (!aborted) {
+        aborted = true;
+        unsubscribe();
+        const err = reason instanceof Error ? reason : this.reason;
+        controller.abort(err instanceof AxiosError_default ? err : new CanceledError_default(err instanceof Error ? err.message : err));
+      }
+    };
+    let timer = timeout && setTimeout(() => {
+      timer = null;
+      onabort(new AxiosError_default(`timeout ${timeout} of ms exceeded`, AxiosError_default.ETIMEDOUT));
+    }, timeout);
+    const unsubscribe = () => {
+      if (signals) {
+        timer && clearTimeout(timer);
+        timer = null;
+        signals.forEach((signal2) => {
+          signal2.unsubscribe ? signal2.unsubscribe(onabort) : signal2.removeEventListener("abort", onabort);
+        });
+        signals = null;
+      }
+    };
+    signals.forEach((signal2) => signal2.addEventListener("abort", onabort));
+    const { signal } = controller;
+    signal.unsubscribe = () => utils_default.asap(unsubscribe);
+    return signal;
+  }
+};
+var composeSignals_default = composeSignals;
+
+// node_modules/axios/lib/helpers/trackStream.js
+var streamChunk = function* (chunk, chunkSize) {
+  let len = chunk.byteLength;
+  if (!chunkSize || len < chunkSize) {
+    yield chunk;
+    return;
+  }
+  let pos2 = 0;
+  let end;
+  while (pos2 < len) {
+    end = pos2 + chunkSize;
+    yield chunk.slice(pos2, end);
+    pos2 = end;
+  }
+};
+var readBytes = async function* (iterable, chunkSize) {
+  for await (const chunk of readStream(iterable)) {
+    yield* streamChunk(chunk, chunkSize);
+  }
+};
+var readStream = async function* (stream4) {
+  if (stream4[Symbol.asyncIterator]) {
+    yield* stream4;
+    return;
+  }
+  const reader = stream4.getReader();
+  try {
+    for (; ; ) {
+      const { done, value } = await reader.read();
+      if (done) {
+        break;
+      }
+      yield value;
+    }
+  } finally {
+    await reader.cancel();
+  }
+};
+var trackStream = (stream4, chunkSize, onProgress, onFinish) => {
+  const iterator2 = readBytes(stream4, chunkSize);
+  let bytes = 0;
+  let done;
+  let _onFinish = (e) => {
+    if (!done) {
+      done = true;
+      onFinish && onFinish(e);
+    }
+  };
+  return new ReadableStream({
+    async pull(controller) {
+      try {
+        const { done: done2, value } = await iterator2.next();
+        if (done2) {
+          _onFinish();
+          controller.close();
+          return;
+        }
+        let len = value.byteLength;
+        if (onProgress) {
+          let loadedBytes = bytes += len;
+          onProgress(loadedBytes);
+        }
+        controller.enqueue(new Uint8Array(value));
+      } catch (err) {
+        _onFinish(err);
+        throw err;
+      }
+    },
+    cancel(reason) {
+      _onFinish(reason);
+      return iterator2.return();
+    }
+  }, {
+    highWaterMark: 2
+  });
+};
+
+// node_modules/axios/lib/adapters/fetch.js
+var DEFAULT_CHUNK_SIZE = 64 * 1024;
+var { isFunction: isFunction2 } = utils_default;
+var globalFetchAPI = (({ Request, Response }) => ({
+  Request,
+  Response
+}))(utils_default.global);
+var {
+  ReadableStream: ReadableStream2,
+  TextEncoder: TextEncoder2
+} = utils_default.global;
+var test = (fn, ...args) => {
+  try {
+    return !!fn(...args);
+  } catch (e) {
+    return false;
+  }
+};
+var factory = (env) => {
+  env = utils_default.merge.call({
+    skipUndefined: true
+  }, globalFetchAPI, env);
+  const { fetch: envFetch, Request, Response } = env;
+  const isFetchSupported = envFetch ? isFunction2(envFetch) : typeof fetch === "function";
+  const isRequestSupported = isFunction2(Request);
+  const isResponseSupported = isFunction2(Response);
+  if (!isFetchSupported) {
+    return false;
+  }
+  const isReadableStreamSupported = isFetchSupported && isFunction2(ReadableStream2);
+  const encodeText = isFetchSupported && (typeof TextEncoder2 === "function" ? /* @__PURE__ */ ((encoder) => (str) => encoder.encode(str))(new TextEncoder2()) : async (str) => new Uint8Array(await new Request(str).arrayBuffer()));
+  const supportsRequestStream = isRequestSupported && isReadableStreamSupported && test(() => {
+    let duplexAccessed = false;
+    const hasContentType = new Request(platform_default.origin, {
+      body: new ReadableStream2(),
+      method: "POST",
+      get duplex() {
+        duplexAccessed = true;
+        return "half";
+      }
+    }).headers.has("Content-Type");
+    return duplexAccessed && !hasContentType;
+  });
+  const supportsResponseStream = isResponseSupported && isReadableStreamSupported && test(() => utils_default.isReadableStream(new Response("").body));
+  const resolvers = {
+    stream: supportsResponseStream && ((res) => res.body)
+  };
+  isFetchSupported && (() => {
+    ["text", "arrayBuffer", "blob", "formData", "stream"].forEach((type) => {
+      !resolvers[type] && (resolvers[type] = (res, config) => {
+        let method = res && res[type];
+        if (method) {
+          return method.call(res);
+        }
+        throw new AxiosError_default(`Response type '${type}' is not supported`, AxiosError_default.ERR_NOT_SUPPORT, config);
+      });
+    });
+  })();
+  const getBodyLength = async (body) => {
+    if (body == null) {
+      return 0;
+    }
+    if (utils_default.isBlob(body)) {
+      return body.size;
+    }
+    if (utils_default.isSpecCompliantForm(body)) {
+      const _request = new Request(platform_default.origin, {
+        method: "POST",
+        body
+      });
+      return (await _request.arrayBuffer()).byteLength;
+    }
+    if (utils_default.isArrayBufferView(body) || utils_default.isArrayBuffer(body)) {
+      return body.byteLength;
+    }
+    if (utils_default.isURLSearchParams(body)) {
+      body = body + "";
+    }
+    if (utils_default.isString(body)) {
+      return (await encodeText(body)).byteLength;
+    }
+  };
+  const resolveBodyLength = async (headers, body) => {
+    const length = utils_default.toFiniteNumber(headers.getContentLength());
+    return length == null ? getBodyLength(body) : length;
+  };
+  return async (config) => {
+    let {
+      url: url2,
+      method,
+      data,
+      signal,
+      cancelToken,
+      timeout,
+      onDownloadProgress,
+      onUploadProgress,
+      responseType,
+      headers,
+      withCredentials = "same-origin",
+      fetchOptions
+    } = resolveConfig_default(config);
+    let _fetch = envFetch || fetch;
+    responseType = responseType ? (responseType + "").toLowerCase() : "text";
+    let composedSignal = composeSignals_default([signal, cancelToken && cancelToken.toAbortSignal()], timeout);
+    let request = null;
+    const unsubscribe = composedSignal && composedSignal.unsubscribe && (() => {
+      composedSignal.unsubscribe();
+    });
+    let requestContentLength;
+    try {
+      if (onUploadProgress && supportsRequestStream && method !== "get" && method !== "head" && (requestContentLength = await resolveBodyLength(headers, data)) !== 0) {
+        let _request = new Request(url2, {
+          method: "POST",
+          body: data,
+          duplex: "half"
+        });
+        let contentTypeHeader;
+        if (utils_default.isFormData(data) && (contentTypeHeader = _request.headers.get("content-type"))) {
+          headers.setContentType(contentTypeHeader);
+        }
+        if (_request.body) {
+          const [onProgress, flush] = progressEventDecorator(
+            requestContentLength,
+            progressEventReducer(asyncDecorator(onUploadProgress))
+          );
+          data = trackStream(_request.body, DEFAULT_CHUNK_SIZE, onProgress, flush);
+        }
+      }
+      if (!utils_default.isString(withCredentials)) {
+        withCredentials = withCredentials ? "include" : "omit";
+      }
+      const isCredentialsSupported = isRequestSupported && "credentials" in Request.prototype;
+      const resolvedOptions = {
+        ...fetchOptions,
+        signal: composedSignal,
+        method: method.toUpperCase(),
+        headers: headers.normalize().toJSON(),
+        body: data,
+        duplex: "half",
+        credentials: isCredentialsSupported ? withCredentials : void 0
+      };
+      request = isRequestSupported && new Request(url2, resolvedOptions);
+      let response = await (isRequestSupported ? _fetch(request, fetchOptions) : _fetch(url2, resolvedOptions));
+      const isStreamResponse = supportsResponseStream && (responseType === "stream" || responseType === "response");
+      if (supportsResponseStream && (onDownloadProgress || isStreamResponse && unsubscribe)) {
+        const options = {};
+        ["status", "statusText", "headers"].forEach((prop) => {
+          options[prop] = response[prop];
+        });
+        const responseContentLength = utils_default.toFiniteNumber(response.headers.get("content-length"));
+        const [onProgress, flush] = onDownloadProgress && progressEventDecorator(
+          responseContentLength,
+          progressEventReducer(asyncDecorator(onDownloadProgress), true)
+        ) || [];
+        response = new Response(
+          trackStream(response.body, DEFAULT_CHUNK_SIZE, onProgress, () => {
+            flush && flush();
+            unsubscribe && unsubscribe();
+          }),
+          options
+        );
+      }
+      responseType = responseType || "text";
+      let responseData = await resolvers[utils_default.findKey(resolvers, responseType) || "text"](response, config);
+      !isStreamResponse && unsubscribe && unsubscribe();
+      return await new Promise((resolve, reject) => {
+        settle(resolve, reject, {
+          data: responseData,
+          headers: AxiosHeaders_default.from(response.headers),
+          status: response.status,
+          statusText: response.statusText,
+          config,
+          request
+        });
+      });
+    } catch (err) {
+      unsubscribe && unsubscribe();
+      if (err && err.name === "TypeError" && /Load failed|fetch/i.test(err.message)) {
+        throw Object.assign(
+          new AxiosError_default("Network Error", AxiosError_default.ERR_NETWORK, config, request),
+          {
+            cause: err.cause || err
+          }
+        );
+      }
+      throw AxiosError_default.from(err, err && err.code, config, request);
+    }
+  };
+};
+var seedCache = /* @__PURE__ */ new Map();
+var getFetch = (config) => {
+  let env = config ? config.env : {};
+  const { fetch: fetch2, Request, Response } = env;
+  const seeds = [
+    Request,
+    Response,
+    fetch2
+  ];
+  let len = seeds.length, i = len, seed, target, map = seedCache;
+  while (i--) {
+    seed = seeds[i];
+    target = map.get(seed);
+    target === void 0 && map.set(seed, target = i ? /* @__PURE__ */ new Map() : factory(env));
+    map = target;
+  }
+  return target;
+};
+var adapter = getFetch();
+
+// node_modules/axios/lib/adapters/adapters.js
+var knownAdapters = {
+  http: http_default,
+  xhr: xhr_default,
+  fetch: {
+    get: getFetch
+  }
+};
+utils_default.forEach(knownAdapters, (fn, value) => {
+  if (fn) {
+    try {
+      Object.defineProperty(fn, "name", { value });
+    } catch (e) {
+    }
+    Object.defineProperty(fn, "adapterName", { value });
+  }
+});
+var renderReason = (reason) => `- ${reason}`;
+var isResolvedHandle = (adapter2) => utils_default.isFunction(adapter2) || adapter2 === null || adapter2 === false;
+var adapters_default = {
+  getAdapter: (adapters, config) => {
+    adapters = utils_default.isArray(adapters) ? adapters : [adapters];
+    const { length } = adapters;
+    let nameOrAdapter;
+    let adapter2;
+    const rejectedReasons = {};
+    for (let i = 0; i < length; i++) {
+      nameOrAdapter = adapters[i];
+      let id;
+      adapter2 = nameOrAdapter;
+      if (!isResolvedHandle(nameOrAdapter)) {
+        adapter2 = knownAdapters[(id = String(nameOrAdapter)).toLowerCase()];
+        if (adapter2 === void 0) {
+          throw new AxiosError_default(`Unknown adapter '${id}'`);
+        }
+      }
+      if (adapter2 && (utils_default.isFunction(adapter2) || (adapter2 = adapter2.get(config)))) {
+        break;
+      }
+      rejectedReasons[id || "#" + i] = adapter2;
+    }
+    if (!adapter2) {
+      const reasons = Object.entries(rejectedReasons).map(
+        ([id, state]) => `adapter ${id} ` + (state === false ? "is not supported by the environment" : "is not available in the build")
+      );
+      let s = length ? reasons.length > 1 ? "since :\n" + reasons.map(renderReason).join("\n") : " " + renderReason(reasons[0]) : "as no adapter specified";
+      throw new AxiosError_default(
+        `There is no suitable adapter to dispatch the request ` + s,
+        "ERR_NOT_SUPPORT"
+      );
+    }
+    return adapter2;
+  },
+  adapters: knownAdapters
+};
+
+// node_modules/axios/lib/core/dispatchRequest.js
+function throwIfCancellationRequested(config) {
+  if (config.cancelToken) {
+    config.cancelToken.throwIfRequested();
+  }
+  if (config.signal && config.signal.aborted) {
+    throw new CanceledError_default(null, config);
+  }
+}
+function dispatchRequest(config) {
+  throwIfCancellationRequested(config);
+  config.headers = AxiosHeaders_default.from(config.headers);
+  config.data = transformData.call(
+    config,
+    config.transformRequest
+  );
+  if (["post", "put", "patch"].indexOf(config.method) !== -1) {
+    config.headers.setContentType("application/x-www-form-urlencoded", false);
+  }
+  const adapter2 = adapters_default.getAdapter(config.adapter || defaults_default.adapter, config);
+  return adapter2(config).then(function onAdapterResolution(response) {
+    throwIfCancellationRequested(config);
+    response.data = transformData.call(
+      config,
+      config.transformResponse,
+      response
+    );
+    response.headers = AxiosHeaders_default.from(response.headers);
+    return response;
+  }, function onAdapterRejection(reason) {
+    if (!isCancel(reason)) {
+      throwIfCancellationRequested(config);
+      if (reason && reason.response) {
+        reason.response.data = transformData.call(
+          config,
+          config.transformResponse,
+          reason.response
+        );
+        reason.response.headers = AxiosHeaders_default.from(reason.response.headers);
+      }
+    }
+    return Promise.reject(reason);
+  });
+}
+
+// node_modules/axios/lib/helpers/validator.js
+var validators = {};
+["object", "boolean", "number", "function", "string", "symbol"].forEach((type, i) => {
+  validators[type] = function validator(thing) {
+    return typeof thing === type || "a" + (i < 1 ? "n " : " ") + type;
+  };
+});
+var deprecatedWarnings = {};
+validators.transitional = function transitional(validator, version, message) {
+  function formatMessage(opt, desc2) {
+    return "[Axios v" + VERSION + "] Transitional option '" + opt + "'" + desc2 + (message ? ". " + message : "");
+  }
+  return (value, opt, opts) => {
+    if (validator === false) {
+      throw new AxiosError_default(
+        formatMessage(opt, " has been removed" + (version ? " in " + version : "")),
+        AxiosError_default.ERR_DEPRECATED
+      );
+    }
+    if (version && !deprecatedWarnings[opt]) {
+      deprecatedWarnings[opt] = true;
+      console.warn(
+        formatMessage(
+          opt,
+          " has been deprecated since v" + version + " and will be removed in the near future"
+        )
+      );
+    }
+    return validator ? validator(value, opt, opts) : true;
+  };
+};
+validators.spelling = function spelling(correctSpelling) {
+  return (value, opt) => {
+    console.warn(`${opt} is likely a misspelling of ${correctSpelling}`);
+    return true;
+  };
+};
+function assertOptions(options, schema, allowUnknown) {
+  if (typeof options !== "object") {
+    throw new AxiosError_default("options must be an object", AxiosError_default.ERR_BAD_OPTION_VALUE);
+  }
+  const keys = Object.keys(options);
+  let i = keys.length;
+  while (i-- > 0) {
+    const opt = keys[i];
+    const validator = schema[opt];
+    if (validator) {
+      const value = options[opt];
+      const result = value === void 0 || validator(value, opt, options);
+      if (result !== true) {
+        throw new AxiosError_default("option " + opt + " must be " + result, AxiosError_default.ERR_BAD_OPTION_VALUE);
+      }
+      continue;
+    }
+    if (allowUnknown !== true) {
+      throw new AxiosError_default("Unknown option " + opt, AxiosError_default.ERR_BAD_OPTION);
+    }
+  }
+}
+var validator_default = {
+  assertOptions,
+  validators
+};
+
+// node_modules/axios/lib/core/Axios.js
+var validators2 = validator_default.validators;
+var Axios = class {
+  constructor(instanceConfig) {
+    this.defaults = instanceConfig || {};
+    this.interceptors = {
+      request: new InterceptorManager_default(),
+      response: new InterceptorManager_default()
+    };
+  }
+  /**
+   * Dispatch a request
+   *
+   * @param {String|Object} configOrUrl The config specific for this request (merged with this.defaults)
+   * @param {?Object} config
+   *
+   * @returns {Promise} The Promise to be fulfilled
+   */
+  async request(configOrUrl, config) {
+    try {
+      return await this._request(configOrUrl, config);
+    } catch (err) {
+      if (err instanceof Error) {
+        let dummy = {};
+        Error.captureStackTrace ? Error.captureStackTrace(dummy) : dummy = new Error();
+        const stack = dummy.stack ? dummy.stack.replace(/^.+\n/, "") : "";
+        try {
+          if (!err.stack) {
+            err.stack = stack;
+          } else if (stack && !String(err.stack).endsWith(stack.replace(/^.+\n.+\n/, ""))) {
+            err.stack += "\n" + stack;
+          }
+        } catch (e) {
+        }
+      }
+      throw err;
+    }
+  }
+  _request(configOrUrl, config) {
+    if (typeof configOrUrl === "string") {
+      config = config || {};
+      config.url = configOrUrl;
+    } else {
+      config = configOrUrl || {};
+    }
+    config = mergeConfig(this.defaults, config);
+    const { transitional: transitional2, paramsSerializer, headers } = config;
+    if (transitional2 !== void 0) {
+      validator_default.assertOptions(transitional2, {
+        silentJSONParsing: validators2.transitional(validators2.boolean),
+        forcedJSONParsing: validators2.transitional(validators2.boolean),
+        clarifyTimeoutError: validators2.transitional(validators2.boolean)
+      }, false);
+    }
+    if (paramsSerializer != null) {
+      if (utils_default.isFunction(paramsSerializer)) {
+        config.paramsSerializer = {
+          serialize: paramsSerializer
+        };
+      } else {
+        validator_default.assertOptions(paramsSerializer, {
+          encode: validators2.function,
+          serialize: validators2.function
+        }, true);
+      }
+    }
+    if (config.allowAbsoluteUrls !== void 0) {
+    } else if (this.defaults.allowAbsoluteUrls !== void 0) {
+      config.allowAbsoluteUrls = this.defaults.allowAbsoluteUrls;
+    } else {
+      config.allowAbsoluteUrls = true;
+    }
+    validator_default.assertOptions(config, {
+      baseUrl: validators2.spelling("baseURL"),
+      withXsrfToken: validators2.spelling("withXSRFToken")
+    }, true);
+    config.method = (config.method || this.defaults.method || "get").toLowerCase();
+    let contextHeaders = headers && utils_default.merge(
+      headers.common,
+      headers[config.method]
+    );
+    headers && utils_default.forEach(
+      ["delete", "get", "head", "post", "put", "patch", "common"],
+      (method) => {
+        delete headers[method];
+      }
+    );
+    config.headers = AxiosHeaders_default.concat(contextHeaders, headers);
+    const requestInterceptorChain = [];
+    let synchronousRequestInterceptors = true;
+    this.interceptors.request.forEach(function unshiftRequestInterceptors(interceptor) {
+      if (typeof interceptor.runWhen === "function" && interceptor.runWhen(config) === false) {
+        return;
+      }
+      synchronousRequestInterceptors = synchronousRequestInterceptors && interceptor.synchronous;
+      requestInterceptorChain.unshift(interceptor.fulfilled, interceptor.rejected);
+    });
+    const responseInterceptorChain = [];
+    this.interceptors.response.forEach(function pushResponseInterceptors(interceptor) {
+      responseInterceptorChain.push(interceptor.fulfilled, interceptor.rejected);
+    });
+    let promise;
+    let i = 0;
+    let len;
+    if (!synchronousRequestInterceptors) {
+      const chain = [dispatchRequest.bind(this), void 0];
+      chain.unshift(...requestInterceptorChain);
+      chain.push(...responseInterceptorChain);
+      len = chain.length;
+      promise = Promise.resolve(config);
+      while (i < len) {
+        promise = promise.then(chain[i++], chain[i++]);
+      }
+      return promise;
+    }
+    len = requestInterceptorChain.length;
+    let newConfig = config;
+    while (i < len) {
+      const onFulfilled = requestInterceptorChain[i++];
+      const onRejected = requestInterceptorChain[i++];
+      try {
+        newConfig = onFulfilled(newConfig);
+      } catch (error) {
+        onRejected.call(this, error);
+        break;
+      }
+    }
+    try {
+      promise = dispatchRequest.call(this, newConfig);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+    i = 0;
+    len = responseInterceptorChain.length;
+    while (i < len) {
+      promise = promise.then(responseInterceptorChain[i++], responseInterceptorChain[i++]);
+    }
+    return promise;
+  }
+  getUri(config) {
+    config = mergeConfig(this.defaults, config);
+    const fullPath = buildFullPath(config.baseURL, config.url, config.allowAbsoluteUrls);
+    return buildURL(fullPath, config.params, config.paramsSerializer);
+  }
+};
+utils_default.forEach(["delete", "get", "head", "options"], function forEachMethodNoData(method) {
+  Axios.prototype[method] = function(url2, config) {
+    return this.request(mergeConfig(config || {}, {
+      method,
+      url: url2,
+      data: (config || {}).data
+    }));
+  };
+});
+utils_default.forEach(["post", "put", "patch"], function forEachMethodWithData(method) {
+  function generateHTTPMethod(isForm) {
+    return function httpMethod(url2, data, config) {
+      return this.request(mergeConfig(config || {}, {
+        method,
+        headers: isForm ? {
+          "Content-Type": "multipart/form-data"
+        } : {},
+        url: url2,
+        data
+      }));
+    };
+  }
+  Axios.prototype[method] = generateHTTPMethod();
+  Axios.prototype[method + "Form"] = generateHTTPMethod(true);
+});
+var Axios_default = Axios;
+
+// node_modules/axios/lib/cancel/CancelToken.js
+var CancelToken = class _CancelToken {
+  constructor(executor) {
+    if (typeof executor !== "function") {
+      throw new TypeError("executor must be a function.");
+    }
+    let resolvePromise;
+    this.promise = new Promise(function promiseExecutor(resolve) {
+      resolvePromise = resolve;
+    });
+    const token = this;
+    this.promise.then((cancel) => {
+      if (!token._listeners) return;
+      let i = token._listeners.length;
+      while (i-- > 0) {
+        token._listeners[i](cancel);
+      }
+      token._listeners = null;
+    });
+    this.promise.then = (onfulfilled) => {
+      let _resolve;
+      const promise = new Promise((resolve) => {
+        token.subscribe(resolve);
+        _resolve = resolve;
+      }).then(onfulfilled);
+      promise.cancel = function reject() {
+        token.unsubscribe(_resolve);
+      };
+      return promise;
+    };
+    executor(function cancel(message, config, request) {
+      if (token.reason) {
+        return;
+      }
+      token.reason = new CanceledError_default(message, config, request);
+      resolvePromise(token.reason);
+    });
+  }
+  /**
+   * Throws a `CanceledError` if cancellation has been requested.
+   */
+  throwIfRequested() {
+    if (this.reason) {
+      throw this.reason;
+    }
+  }
+  /**
+   * Subscribe to the cancel signal
+   */
+  subscribe(listener) {
+    if (this.reason) {
+      listener(this.reason);
+      return;
+    }
+    if (this._listeners) {
+      this._listeners.push(listener);
+    } else {
+      this._listeners = [listener];
+    }
+  }
+  /**
+   * Unsubscribe from the cancel signal
+   */
+  unsubscribe(listener) {
+    if (!this._listeners) {
+      return;
+    }
+    const index = this._listeners.indexOf(listener);
+    if (index !== -1) {
+      this._listeners.splice(index, 1);
+    }
+  }
+  toAbortSignal() {
+    const controller = new AbortController();
+    const abort = (err) => {
+      controller.abort(err);
+    };
+    this.subscribe(abort);
+    controller.signal.unsubscribe = () => this.unsubscribe(abort);
+    return controller.signal;
+  }
+  /**
+   * Returns an object that contains a new `CancelToken` and a function that, when called,
+   * cancels the `CancelToken`.
+   */
+  static source() {
+    let cancel;
+    const token = new _CancelToken(function executor(c) {
+      cancel = c;
+    });
+    return {
+      token,
+      cancel
+    };
+  }
+};
+var CancelToken_default = CancelToken;
+
+// node_modules/axios/lib/helpers/spread.js
+function spread(callback) {
+  return function wrap(arr) {
+    return callback.apply(null, arr);
+  };
+}
+
+// node_modules/axios/lib/helpers/isAxiosError.js
+function isAxiosError(payload) {
+  return utils_default.isObject(payload) && payload.isAxiosError === true;
+}
+
+// node_modules/axios/lib/helpers/HttpStatusCode.js
+var HttpStatusCode = {
+  Continue: 100,
+  SwitchingProtocols: 101,
+  Processing: 102,
+  EarlyHints: 103,
+  Ok: 200,
+  Created: 201,
+  Accepted: 202,
+  NonAuthoritativeInformation: 203,
+  NoContent: 204,
+  ResetContent: 205,
+  PartialContent: 206,
+  MultiStatus: 207,
+  AlreadyReported: 208,
+  ImUsed: 226,
+  MultipleChoices: 300,
+  MovedPermanently: 301,
+  Found: 302,
+  SeeOther: 303,
+  NotModified: 304,
+  UseProxy: 305,
+  Unused: 306,
+  TemporaryRedirect: 307,
+  PermanentRedirect: 308,
+  BadRequest: 400,
+  Unauthorized: 401,
+  PaymentRequired: 402,
+  Forbidden: 403,
+  NotFound: 404,
+  MethodNotAllowed: 405,
+  NotAcceptable: 406,
+  ProxyAuthenticationRequired: 407,
+  RequestTimeout: 408,
+  Conflict: 409,
+  Gone: 410,
+  LengthRequired: 411,
+  PreconditionFailed: 412,
+  PayloadTooLarge: 413,
+  UriTooLong: 414,
+  UnsupportedMediaType: 415,
+  RangeNotSatisfiable: 416,
+  ExpectationFailed: 417,
+  ImATeapot: 418,
+  MisdirectedRequest: 421,
+  UnprocessableEntity: 422,
+  Locked: 423,
+  FailedDependency: 424,
+  TooEarly: 425,
+  UpgradeRequired: 426,
+  PreconditionRequired: 428,
+  TooManyRequests: 429,
+  RequestHeaderFieldsTooLarge: 431,
+  UnavailableForLegalReasons: 451,
+  InternalServerError: 500,
+  NotImplemented: 501,
+  BadGateway: 502,
+  ServiceUnavailable: 503,
+  GatewayTimeout: 504,
+  HttpVersionNotSupported: 505,
+  VariantAlsoNegotiates: 506,
+  InsufficientStorage: 507,
+  LoopDetected: 508,
+  NotExtended: 510,
+  NetworkAuthenticationRequired: 511
+};
+Object.entries(HttpStatusCode).forEach(([key, value]) => {
+  HttpStatusCode[value] = key;
+});
+var HttpStatusCode_default = HttpStatusCode;
+
+// node_modules/axios/lib/axios.js
+function createInstance(defaultConfig) {
+  const context = new Axios_default(defaultConfig);
+  const instance = bind(Axios_default.prototype.request, context);
+  utils_default.extend(instance, Axios_default.prototype, context, { allOwnKeys: true });
+  utils_default.extend(instance, context, null, { allOwnKeys: true });
+  instance.create = function create2(instanceConfig) {
+    return createInstance(mergeConfig(defaultConfig, instanceConfig));
+  };
+  return instance;
+}
+var axios = createInstance(defaults_default);
+axios.Axios = Axios_default;
+axios.CanceledError = CanceledError_default;
+axios.CancelToken = CancelToken_default;
+axios.isCancel = isCancel;
+axios.VERSION = VERSION;
+axios.toFormData = toFormData_default;
+axios.AxiosError = AxiosError_default;
+axios.Cancel = axios.CanceledError;
+axios.all = function all(promises) {
+  return Promise.all(promises);
+};
+axios.spread = spread;
+axios.isAxiosError = isAxiosError;
+axios.mergeConfig = mergeConfig;
+axios.AxiosHeaders = AxiosHeaders_default;
+axios.formToJSON = (thing) => formDataToJSON_default(utils_default.isHTMLForm(thing) ? new FormData(thing) : thing);
+axios.getAdapter = adapters_default.getAdapter;
+axios.HttpStatusCode = HttpStatusCode_default;
+axios.default = axios;
+var axios_default = axios;
+
+// node_modules/axios/index.js
+var {
+  Axios: Axios2,
+  AxiosError: AxiosError2,
+  CanceledError: CanceledError2,
+  isCancel: isCancel2,
+  CancelToken: CancelToken2,
+  VERSION: VERSION2,
+  all: all2,
+  Cancel,
+  isAxiosError: isAxiosError2,
+  spread: spread2,
+  toFormData: toFormData2,
+  AxiosHeaders: AxiosHeaders2,
+  HttpStatusCode: HttpStatusCode2,
+  formToJSON,
+  getAdapter,
+  mergeConfig: mergeConfig2
+} = axios_default;
+
+// node_modules/@isaacs/fs-minipass/dist/esm/index.js
+var import_events2 = __toESM(require("events"), 1);
+var import_fs = __toESM(require("fs"), 1);
+
+// node_modules/minipass/dist/esm/index.js
+var import_node_events = require("node:events");
+var import_node_stream = __toESM(require("node:stream"), 1);
+var import_node_string_decoder = require("node:string_decoder");
+var proc = typeof process === "object" && process ? process : {
+  stdout: null,
+  stderr: null
+};
+var isStream2 = (s) => !!s && typeof s === "object" && (s instanceof Minipass || s instanceof import_node_stream.default || isReadable(s) || isWritable(s));
+var isReadable = (s) => !!s && typeof s === "object" && s instanceof import_node_events.EventEmitter && typeof s.pipe === "function" && // node core Writable streams have a pipe() method, but it throws
+s.pipe !== import_node_stream.default.Writable.prototype.pipe;
+var isWritable = (s) => !!s && typeof s === "object" && s instanceof import_node_events.EventEmitter && typeof s.write === "function" && typeof s.end === "function";
+var EOF = Symbol("EOF");
+var MAYBE_EMIT_END = Symbol("maybeEmitEnd");
+var EMITTED_END = Symbol("emittedEnd");
+var EMITTING_END = Symbol("emittingEnd");
+var EMITTED_ERROR = Symbol("emittedError");
+var CLOSED = Symbol("closed");
+var READ = Symbol("read");
+var FLUSH = Symbol("flush");
+var FLUSHCHUNK = Symbol("flushChunk");
+var ENCODING = Symbol("encoding");
+var DECODER = Symbol("decoder");
+var FLOWING = Symbol("flowing");
+var PAUSED = Symbol("paused");
+var RESUME = Symbol("resume");
+var BUFFER = Symbol("buffer");
+var PIPES = Symbol("pipes");
+var BUFFERLENGTH = Symbol("bufferLength");
+var BUFFERPUSH = Symbol("bufferPush");
+var BUFFERSHIFT = Symbol("bufferShift");
+var OBJECTMODE = Symbol("objectMode");
+var DESTROYED = Symbol("destroyed");
+var ERROR = Symbol("error");
+var EMITDATA = Symbol("emitData");
+var EMITEND = Symbol("emitEnd");
+var EMITEND2 = Symbol("emitEnd2");
+var ASYNC = Symbol("async");
+var ABORT = Symbol("abort");
+var ABORTED = Symbol("aborted");
+var SIGNAL = Symbol("signal");
+var DATALISTENERS = Symbol("dataListeners");
+var DISCARDED = Symbol("discarded");
+var defer = (fn) => Promise.resolve().then(fn);
+var nodefer = (fn) => fn();
+var isEndish = (ev) => ev === "end" || ev === "finish" || ev === "prefinish";
+var isArrayBufferLike = (b) => b instanceof ArrayBuffer || !!b && typeof b === "object" && b.constructor && b.constructor.name === "ArrayBuffer" && b.byteLength >= 0;
+var isArrayBufferView2 = (b) => !Buffer.isBuffer(b) && ArrayBuffer.isView(b);
+var Pipe = class {
+  src;
+  dest;
+  opts;
+  ondrain;
+  constructor(src, dest, opts) {
+    this.src = src;
+    this.dest = dest;
+    this.opts = opts;
+    this.ondrain = () => src[RESUME]();
+    this.dest.on("drain", this.ondrain);
+  }
+  unpipe() {
+    this.dest.removeListener("drain", this.ondrain);
+  }
+  // only here for the prototype
+  /* c8 ignore start */
+  proxyErrors(_er) {
+  }
+  /* c8 ignore stop */
+  end() {
+    this.unpipe();
+    if (this.opts.end)
+      this.dest.end();
+  }
+};
+var PipeProxyErrors = class extends Pipe {
+  unpipe() {
+    this.src.removeListener("error", this.proxyErrors);
+    super.unpipe();
+  }
+  constructor(src, dest, opts) {
+    super(src, dest, opts);
+    this.proxyErrors = (er) => dest.emit("error", er);
+    src.on("error", this.proxyErrors);
+  }
+};
+var isObjectModeOptions = (o) => !!o.objectMode;
+var isEncodingOptions = (o) => !o.objectMode && !!o.encoding && o.encoding !== "buffer";
+var Minipass = class extends import_node_events.EventEmitter {
+  [FLOWING] = false;
+  [PAUSED] = false;
+  [PIPES] = [];
+  [BUFFER] = [];
+  [OBJECTMODE];
+  [ENCODING];
+  [ASYNC];
+  [DECODER];
+  [EOF] = false;
+  [EMITTED_END] = false;
+  [EMITTING_END] = false;
+  [CLOSED] = false;
+  [EMITTED_ERROR] = null;
+  [BUFFERLENGTH] = 0;
+  [DESTROYED] = false;
+  [SIGNAL];
+  [ABORTED] = false;
+  [DATALISTENERS] = 0;
+  [DISCARDED] = false;
+  /**
+   * true if the stream can be written
+   */
+  writable = true;
+  /**
+   * true if the stream can be read
+   */
+  readable = true;
+  /**
+   * If `RType` is Buffer, then options do not need to be provided.
+   * Otherwise, an options object must be provided to specify either
+   * {@link Minipass.SharedOptions.objectMode} or
+   * {@link Minipass.SharedOptions.encoding}, as appropriate.
+   */
+  constructor(...args) {
+    const options = args[0] || {};
+    super();
+    if (options.objectMode && typeof options.encoding === "string") {
+      throw new TypeError("Encoding and objectMode may not be used together");
+    }
+    if (isObjectModeOptions(options)) {
+      this[OBJECTMODE] = true;
+      this[ENCODING] = null;
+    } else if (isEncodingOptions(options)) {
+      this[ENCODING] = options.encoding;
+      this[OBJECTMODE] = false;
+    } else {
+      this[OBJECTMODE] = false;
+      this[ENCODING] = null;
+    }
+    this[ASYNC] = !!options.async;
+    this[DECODER] = this[ENCODING] ? new import_node_string_decoder.StringDecoder(this[ENCODING]) : null;
+    if (options && options.debugExposeBuffer === true) {
+      Object.defineProperty(this, "buffer", { get: () => this[BUFFER] });
+    }
+    if (options && options.debugExposePipes === true) {
+      Object.defineProperty(this, "pipes", { get: () => this[PIPES] });
+    }
+    const { signal } = options;
+    if (signal) {
+      this[SIGNAL] = signal;
+      if (signal.aborted) {
+        this[ABORT]();
+      } else {
+        signal.addEventListener("abort", () => this[ABORT]());
+      }
+    }
+  }
+  /**
+   * The amount of data stored in the buffer waiting to be read.
+   *
+   * For Buffer strings, this will be the total byte length.
+   * For string encoding streams, this will be the string character length,
+   * according to JavaScript's `string.length` logic.
+   * For objectMode streams, this is a count of the items waiting to be
+   * emitted.
+   */
+  get bufferLength() {
+    return this[BUFFERLENGTH];
+  }
+  /**
+   * The `BufferEncoding` currently in use, or `null`
+   */
+  get encoding() {
+    return this[ENCODING];
+  }
+  /**
+   * @deprecated - This is a read only property
+   */
+  set encoding(_enc) {
+    throw new Error("Encoding must be set at instantiation time");
+  }
+  /**
+   * @deprecated - Encoding may only be set at instantiation time
+   */
+  setEncoding(_enc) {
+    throw new Error("Encoding must be set at instantiation time");
+  }
+  /**
+   * True if this is an objectMode stream
+   */
+  get objectMode() {
+    return this[OBJECTMODE];
+  }
+  /**
+   * @deprecated - This is a read-only property
+   */
+  set objectMode(_om) {
+    throw new Error("objectMode must be set at instantiation time");
+  }
+  /**
+   * true if this is an async stream
+   */
+  get ["async"]() {
+    return this[ASYNC];
+  }
+  /**
+   * Set to true to make this stream async.
+   *
+   * Once set, it cannot be unset, as this would potentially cause incorrect
+   * behavior.  Ie, a sync stream can be made async, but an async stream
+   * cannot be safely made sync.
+   */
+  set ["async"](a) {
+    this[ASYNC] = this[ASYNC] || !!a;
+  }
+  // drop everything and get out of the flow completely
+  [ABORT]() {
+    this[ABORTED] = true;
+    this.emit("abort", this[SIGNAL]?.reason);
+    this.destroy(this[SIGNAL]?.reason);
+  }
+  /**
+   * True if the stream has been aborted.
+   */
+  get aborted() {
+    return this[ABORTED];
+  }
+  /**
+   * No-op setter. Stream aborted status is set via the AbortSignal provided
+   * in the constructor options.
+   */
+  set aborted(_) {
+  }
+  write(chunk, encoding, cb) {
+    if (this[ABORTED])
+      return false;
+    if (this[EOF])
+      throw new Error("write after end");
+    if (this[DESTROYED]) {
+      this.emit("error", Object.assign(new Error("Cannot call write after a stream was destroyed"), { code: "ERR_STREAM_DESTROYED" }));
+      return true;
+    }
+    if (typeof encoding === "function") {
+      cb = encoding;
+      encoding = "utf8";
+    }
+    if (!encoding)
+      encoding = "utf8";
+    const fn = this[ASYNC] ? defer : nodefer;
+    if (!this[OBJECTMODE] && !Buffer.isBuffer(chunk)) {
+      if (isArrayBufferView2(chunk)) {
+        chunk = Buffer.from(chunk.buffer, chunk.byteOffset, chunk.byteLength);
+      } else if (isArrayBufferLike(chunk)) {
+        chunk = Buffer.from(chunk);
+      } else if (typeof chunk !== "string") {
+        throw new Error("Non-contiguous data written to non-objectMode stream");
+      }
+    }
+    if (this[OBJECTMODE]) {
+      if (this[FLOWING] && this[BUFFERLENGTH] !== 0)
+        this[FLUSH](true);
+      if (this[FLOWING])
+        this.emit("data", chunk);
+      else
+        this[BUFFERPUSH](chunk);
+      if (this[BUFFERLENGTH] !== 0)
+        this.emit("readable");
+      if (cb)
+        fn(cb);
+      return this[FLOWING];
+    }
+    if (!chunk.length) {
+      if (this[BUFFERLENGTH] !== 0)
+        this.emit("readable");
+      if (cb)
+        fn(cb);
+      return this[FLOWING];
+    }
+    if (typeof chunk === "string" && // unless it is a string already ready for us to use
+    !(encoding === this[ENCODING] && !this[DECODER]?.lastNeed)) {
+      chunk = Buffer.from(chunk, encoding);
+    }
+    if (Buffer.isBuffer(chunk) && this[ENCODING]) {
+      chunk = this[DECODER].write(chunk);
+    }
+    if (this[FLOWING] && this[BUFFERLENGTH] !== 0)
+      this[FLUSH](true);
+    if (this[FLOWING])
+      this.emit("data", chunk);
+    else
+      this[BUFFERPUSH](chunk);
+    if (this[BUFFERLENGTH] !== 0)
+      this.emit("readable");
+    if (cb)
+      fn(cb);
+    return this[FLOWING];
+  }
+  /**
+   * Low-level explicit read method.
+   *
+   * In objectMode, the argument is ignored, and one item is returned if
+   * available.
+   *
+   * `n` is the number of bytes (or in the case of encoding streams,
+   * characters) to consume. If `n` is not provided, then the entire buffer
+   * is returned, or `null` is returned if no data is available.
+   *
+   * If `n` is greater that the amount of data in the internal buffer,
+   * then `null` is returned.
+   */
+  read(n) {
+    if (this[DESTROYED])
+      return null;
+    this[DISCARDED] = false;
+    if (this[BUFFERLENGTH] === 0 || n === 0 || n && n > this[BUFFERLENGTH]) {
+      this[MAYBE_EMIT_END]();
+      return null;
+    }
+    if (this[OBJECTMODE])
+      n = null;
+    if (this[BUFFER].length > 1 && !this[OBJECTMODE]) {
+      this[BUFFER] = [
+        this[ENCODING] ? this[BUFFER].join("") : Buffer.concat(this[BUFFER], this[BUFFERLENGTH])
+      ];
+    }
+    const ret = this[READ](n || null, this[BUFFER][0]);
+    this[MAYBE_EMIT_END]();
+    return ret;
+  }
+  [READ](n, chunk) {
+    if (this[OBJECTMODE])
+      this[BUFFERSHIFT]();
+    else {
+      const c = chunk;
+      if (n === c.length || n === null)
+        this[BUFFERSHIFT]();
+      else if (typeof c === "string") {
+        this[BUFFER][0] = c.slice(n);
+        chunk = c.slice(0, n);
+        this[BUFFERLENGTH] -= n;
+      } else {
+        this[BUFFER][0] = c.subarray(n);
+        chunk = c.subarray(0, n);
+        this[BUFFERLENGTH] -= n;
+      }
+    }
+    this.emit("data", chunk);
+    if (!this[BUFFER].length && !this[EOF])
+      this.emit("drain");
+    return chunk;
+  }
+  end(chunk, encoding, cb) {
+    if (typeof chunk === "function") {
+      cb = chunk;
+      chunk = void 0;
+    }
+    if (typeof encoding === "function") {
+      cb = encoding;
+      encoding = "utf8";
+    }
+    if (chunk !== void 0)
+      this.write(chunk, encoding);
+    if (cb)
+      this.once("end", cb);
+    this[EOF] = true;
+    this.writable = false;
+    if (this[FLOWING] || !this[PAUSED])
+      this[MAYBE_EMIT_END]();
+    return this;
+  }
+  // don't let the internal resume be overwritten
+  [RESUME]() {
+    if (this[DESTROYED])
+      return;
+    if (!this[DATALISTENERS] && !this[PIPES].length) {
+      this[DISCARDED] = true;
+    }
+    this[PAUSED] = false;
+    this[FLOWING] = true;
+    this.emit("resume");
+    if (this[BUFFER].length)
+      this[FLUSH]();
+    else if (this[EOF])
+      this[MAYBE_EMIT_END]();
+    else
+      this.emit("drain");
+  }
+  /**
+   * Resume the stream if it is currently in a paused state
+   *
+   * If called when there are no pipe destinations or `data` event listeners,
+   * this will place the stream in a "discarded" state, where all data will
+   * be thrown away. The discarded state is removed if a pipe destination or
+   * data handler is added, if pause() is called, or if any synchronous or
+   * asynchronous iteration is started.
+   */
+  resume() {
+    return this[RESUME]();
+  }
+  /**
+   * Pause the stream
+   */
+  pause() {
+    this[FLOWING] = false;
+    this[PAUSED] = true;
+    this[DISCARDED] = false;
+  }
+  /**
+   * true if the stream has been forcibly destroyed
+   */
+  get destroyed() {
+    return this[DESTROYED];
+  }
+  /**
+   * true if the stream is currently in a flowing state, meaning that
+   * any writes will be immediately emitted.
+   */
+  get flowing() {
+    return this[FLOWING];
+  }
+  /**
+   * true if the stream is currently in a paused state
+   */
+  get paused() {
+    return this[PAUSED];
+  }
+  [BUFFERPUSH](chunk) {
+    if (this[OBJECTMODE])
+      this[BUFFERLENGTH] += 1;
+    else
+      this[BUFFERLENGTH] += chunk.length;
+    this[BUFFER].push(chunk);
+  }
+  [BUFFERSHIFT]() {
+    if (this[OBJECTMODE])
+      this[BUFFERLENGTH] -= 1;
+    else
+      this[BUFFERLENGTH] -= this[BUFFER][0].length;
+    return this[BUFFER].shift();
+  }
+  [FLUSH](noDrain = false) {
+    do {
+    } while (this[FLUSHCHUNK](this[BUFFERSHIFT]()) && this[BUFFER].length);
+    if (!noDrain && !this[BUFFER].length && !this[EOF])
+      this.emit("drain");
+  }
+  [FLUSHCHUNK](chunk) {
+    this.emit("data", chunk);
+    return this[FLOWING];
+  }
+  /**
+   * Pipe all data emitted by this stream into the destination provided.
+   *
+   * Triggers the flow of data.
+   */
+  pipe(dest, opts) {
+    if (this[DESTROYED])
+      return dest;
+    this[DISCARDED] = false;
+    const ended = this[EMITTED_END];
+    opts = opts || {};
+    if (dest === proc.stdout || dest === proc.stderr)
+      opts.end = false;
+    else
+      opts.end = opts.end !== false;
+    opts.proxyErrors = !!opts.proxyErrors;
+    if (ended) {
+      if (opts.end)
+        dest.end();
+    } else {
+      this[PIPES].push(!opts.proxyErrors ? new Pipe(this, dest, opts) : new PipeProxyErrors(this, dest, opts));
+      if (this[ASYNC])
+        defer(() => this[RESUME]());
+      else
+        this[RESUME]();
+    }
+    return dest;
+  }
+  /**
+   * Fully unhook a piped destination stream.
+   *
+   * If the destination stream was the only consumer of this stream (ie,
+   * there are no other piped destinations or `'data'` event listeners)
+   * then the flow of data will stop until there is another consumer or
+   * {@link Minipass#resume} is explicitly called.
+   */
+  unpipe(dest) {
+    const p = this[PIPES].find((p2) => p2.dest === dest);
+    if (p) {
+      if (this[PIPES].length === 1) {
+        if (this[FLOWING] && this[DATALISTENERS] === 0) {
+          this[FLOWING] = false;
+        }
+        this[PIPES] = [];
+      } else
+        this[PIPES].splice(this[PIPES].indexOf(p), 1);
+      p.unpipe();
+    }
+  }
+  /**
+   * Alias for {@link Minipass#on}
+   */
+  addListener(ev, handler) {
+    return this.on(ev, handler);
+  }
+  /**
+   * Mostly identical to `EventEmitter.on`, with the following
+   * behavior differences to prevent data loss and unnecessary hangs:
+   *
+   * - Adding a 'data' event handler will trigger the flow of data
+   *
+   * - Adding a 'readable' event handler when there is data waiting to be read
+   *   will cause 'readable' to be emitted immediately.
+   *
+   * - Adding an 'endish' event handler ('end', 'finish', etc.) which has
+   *   already passed will cause the event to be emitted immediately and all
+   *   handlers removed.
+   *
+   * - Adding an 'error' event handler after an error has been emitted will
+   *   cause the event to be re-emitted immediately with the error previously
+   *   raised.
+   */
+  on(ev, handler) {
+    const ret = super.on(ev, handler);
+    if (ev === "data") {
+      this[DISCARDED] = false;
+      this[DATALISTENERS]++;
+      if (!this[PIPES].length && !this[FLOWING]) {
+        this[RESUME]();
+      }
+    } else if (ev === "readable" && this[BUFFERLENGTH] !== 0) {
+      super.emit("readable");
+    } else if (isEndish(ev) && this[EMITTED_END]) {
+      super.emit(ev);
+      this.removeAllListeners(ev);
+    } else if (ev === "error" && this[EMITTED_ERROR]) {
+      const h = handler;
+      if (this[ASYNC])
+        defer(() => h.call(this, this[EMITTED_ERROR]));
+      else
+        h.call(this, this[EMITTED_ERROR]);
+    }
+    return ret;
+  }
+  /**
+   * Alias for {@link Minipass#off}
+   */
+  removeListener(ev, handler) {
+    return this.off(ev, handler);
+  }
+  /**
+   * Mostly identical to `EventEmitter.off`
+   *
+   * If a 'data' event handler is removed, and it was the last consumer
+   * (ie, there are no pipe destinations or other 'data' event listeners),
+   * then the flow of data will stop until there is another consumer or
+   * {@link Minipass#resume} is explicitly called.
+   */
+  off(ev, handler) {
+    const ret = super.off(ev, handler);
+    if (ev === "data") {
+      this[DATALISTENERS] = this.listeners("data").length;
+      if (this[DATALISTENERS] === 0 && !this[DISCARDED] && !this[PIPES].length) {
+        this[FLOWING] = false;
+      }
+    }
+    return ret;
+  }
+  /**
+   * Mostly identical to `EventEmitter.removeAllListeners`
+   *
+   * If all 'data' event handlers are removed, and they were the last consumer
+   * (ie, there are no pipe destinations), then the flow of data will stop
+   * until there is another consumer or {@link Minipass#resume} is explicitly
+   * called.
+   */
+  removeAllListeners(ev) {
+    const ret = super.removeAllListeners(ev);
+    if (ev === "data" || ev === void 0) {
+      this[DATALISTENERS] = 0;
+      if (!this[DISCARDED] && !this[PIPES].length) {
+        this[FLOWING] = false;
+      }
+    }
+    return ret;
+  }
+  /**
+   * true if the 'end' event has been emitted
+   */
+  get emittedEnd() {
+    return this[EMITTED_END];
+  }
+  [MAYBE_EMIT_END]() {
+    if (!this[EMITTING_END] && !this[EMITTED_END] && !this[DESTROYED] && this[BUFFER].length === 0 && this[EOF]) {
+      this[EMITTING_END] = true;
+      this.emit("end");
+      this.emit("prefinish");
+      this.emit("finish");
+      if (this[CLOSED])
+        this.emit("close");
+      this[EMITTING_END] = false;
+    }
+  }
+  /**
+   * Mostly identical to `EventEmitter.emit`, with the following
+   * behavior differences to prevent data loss and unnecessary hangs:
+   *
+   * If the stream has been destroyed, and the event is something other
+   * than 'close' or 'error', then `false` is returned and no handlers
+   * are called.
+   *
+   * If the event is 'end', and has already been emitted, then the event
+   * is ignored. If the stream is in a paused or non-flowing state, then
+   * the event will be deferred until data flow resumes. If the stream is
+   * async, then handlers will be called on the next tick rather than
+   * immediately.
+   *
+   * If the event is 'close', and 'end' has not yet been emitted, then
+   * the event will be deferred until after 'end' is emitted.
+   *
+   * If the event is 'error', and an AbortSignal was provided for the stream,
+   * and there are no listeners, then the event is ignored, matching the
+   * behavior of node core streams in the presense of an AbortSignal.
+   *
+   * If the event is 'finish' or 'prefinish', then all listeners will be
+   * removed after emitting the event, to prevent double-firing.
+   */
+  emit(ev, ...args) {
+    const data = args[0];
+    if (ev !== "error" && ev !== "close" && ev !== DESTROYED && this[DESTROYED]) {
+      return false;
+    } else if (ev === "data") {
+      return !this[OBJECTMODE] && !data ? false : this[ASYNC] ? (defer(() => this[EMITDATA](data)), true) : this[EMITDATA](data);
+    } else if (ev === "end") {
+      return this[EMITEND]();
+    } else if (ev === "close") {
+      this[CLOSED] = true;
+      if (!this[EMITTED_END] && !this[DESTROYED])
+        return false;
+      const ret2 = super.emit("close");
+      this.removeAllListeners("close");
+      return ret2;
+    } else if (ev === "error") {
+      this[EMITTED_ERROR] = data;
+      super.emit(ERROR, data);
+      const ret2 = !this[SIGNAL] || this.listeners("error").length ? super.emit("error", data) : false;
+      this[MAYBE_EMIT_END]();
+      return ret2;
+    } else if (ev === "resume") {
+      const ret2 = super.emit("resume");
+      this[MAYBE_EMIT_END]();
+      return ret2;
+    } else if (ev === "finish" || ev === "prefinish") {
+      const ret2 = super.emit(ev);
+      this.removeAllListeners(ev);
+      return ret2;
+    }
+    const ret = super.emit(ev, ...args);
+    this[MAYBE_EMIT_END]();
+    return ret;
+  }
+  [EMITDATA](data) {
+    for (const p of this[PIPES]) {
+      if (p.dest.write(data) === false)
+        this.pause();
+    }
+    const ret = this[DISCARDED] ? false : super.emit("data", data);
+    this[MAYBE_EMIT_END]();
+    return ret;
+  }
+  [EMITEND]() {
+    if (this[EMITTED_END])
+      return false;
+    this[EMITTED_END] = true;
+    this.readable = false;
+    return this[ASYNC] ? (defer(() => this[EMITEND2]()), true) : this[EMITEND2]();
+  }
+  [EMITEND2]() {
+    if (this[DECODER]) {
+      const data = this[DECODER].end();
+      if (data) {
+        for (const p of this[PIPES]) {
+          p.dest.write(data);
+        }
+        if (!this[DISCARDED])
+          super.emit("data", data);
+      }
+    }
+    for (const p of this[PIPES]) {
+      p.end();
+    }
+    const ret = super.emit("end");
+    this.removeAllListeners("end");
+    return ret;
+  }
+  /**
+   * Return a Promise that resolves to an array of all emitted data once
+   * the stream ends.
+   */
+  async collect() {
+    const buf = Object.assign([], {
+      dataLength: 0
+    });
+    if (!this[OBJECTMODE])
+      buf.dataLength = 0;
+    const p = this.promise();
+    this.on("data", (c) => {
+      buf.push(c);
+      if (!this[OBJECTMODE])
+        buf.dataLength += c.length;
+    });
+    await p;
+    return buf;
+  }
+  /**
+   * Return a Promise that resolves to the concatenation of all emitted data
+   * once the stream ends.
+   *
+   * Not allowed on objectMode streams.
+   */
+  async concat() {
+    if (this[OBJECTMODE]) {
+      throw new Error("cannot concat in objectMode");
+    }
+    const buf = await this.collect();
+    return this[ENCODING] ? buf.join("") : Buffer.concat(buf, buf.dataLength);
+  }
+  /**
+   * Return a void Promise that resolves once the stream ends.
+   */
+  async promise() {
+    return new Promise((resolve, reject) => {
+      this.on(DESTROYED, () => reject(new Error("stream destroyed")));
+      this.on("error", (er) => reject(er));
+      this.on("end", () => resolve());
+    });
+  }
+  /**
+   * Asynchronous `for await of` iteration.
+   *
+   * This will continue emitting all chunks until the stream terminates.
+   */
+  [Symbol.asyncIterator]() {
+    this[DISCARDED] = false;
+    let stopped = false;
+    const stop = async () => {
+      this.pause();
+      stopped = true;
+      return { value: void 0, done: true };
+    };
+    const next = () => {
+      if (stopped)
+        return stop();
+      const res = this.read();
+      if (res !== null)
+        return Promise.resolve({ done: false, value: res });
+      if (this[EOF])
+        return stop();
+      let resolve;
+      let reject;
+      const onerr = (er) => {
+        this.off("data", ondata);
+        this.off("end", onend);
+        this.off(DESTROYED, ondestroy);
+        stop();
+        reject(er);
+      };
+      const ondata = (value) => {
+        this.off("error", onerr);
+        this.off("end", onend);
+        this.off(DESTROYED, ondestroy);
+        this.pause();
+        resolve({ value, done: !!this[EOF] });
+      };
+      const onend = () => {
+        this.off("error", onerr);
+        this.off("data", ondata);
+        this.off(DESTROYED, ondestroy);
+        stop();
+        resolve({ done: true, value: void 0 });
+      };
+      const ondestroy = () => onerr(new Error("stream destroyed"));
+      return new Promise((res2, rej) => {
+        reject = rej;
+        resolve = res2;
+        this.once(DESTROYED, ondestroy);
+        this.once("error", onerr);
+        this.once("end", onend);
+        this.once("data", ondata);
+      });
+    };
+    return {
+      next,
+      throw: stop,
+      return: stop,
+      [Symbol.asyncIterator]() {
+        return this;
+      }
+    };
+  }
+  /**
+   * Synchronous `for of` iteration.
+   *
+   * The iteration will terminate when the internal buffer runs out, even
+   * if the stream has not yet terminated.
+   */
+  [Symbol.iterator]() {
+    this[DISCARDED] = false;
+    let stopped = false;
+    const stop = () => {
+      this.pause();
+      this.off(ERROR, stop);
+      this.off(DESTROYED, stop);
+      this.off("end", stop);
+      stopped = true;
+      return { done: true, value: void 0 };
+    };
+    const next = () => {
+      if (stopped)
+        return stop();
+      const value = this.read();
+      return value === null ? stop() : { done: false, value };
+    };
+    this.once("end", stop);
+    this.once(ERROR, stop);
+    this.once(DESTROYED, stop);
+    return {
+      next,
+      throw: stop,
+      return: stop,
+      [Symbol.iterator]() {
+        return this;
+      }
+    };
+  }
+  /**
+   * Destroy a stream, preventing it from being used for any further purpose.
+   *
+   * If the stream has a `close()` method, then it will be called on
+   * destruction.
+   *
+   * After destruction, any attempt to write data, read data, or emit most
+   * events will be ignored.
+   *
+   * If an error argument is provided, then it will be emitted in an
+   * 'error' event.
+   */
+  destroy(er) {
+    if (this[DESTROYED]) {
+      if (er)
+        this.emit("error", er);
+      else
+        this.emit(DESTROYED);
+      return this;
+    }
+    this[DESTROYED] = true;
+    this[DISCARDED] = true;
+    this[BUFFER].length = 0;
+    this[BUFFERLENGTH] = 0;
+    const wc = this;
+    if (typeof wc.close === "function" && !this[CLOSED])
+      wc.close();
+    if (er)
+      this.emit("error", er);
+    else
+      this.emit(DESTROYED);
+    return this;
+  }
+  /**
+   * Alias for {@link isStream}
+   *
+   * Former export location, maintained for backwards compatibility.
+   *
+   * @deprecated
+   */
+  static get isStream() {
+    return isStream2;
+  }
+};
+
+// node_modules/@isaacs/fs-minipass/dist/esm/index.js
+var writev = import_fs.default.writev;
+var _autoClose = Symbol("_autoClose");
+var _close = Symbol("_close");
+var _ended = Symbol("_ended");
+var _fd = Symbol("_fd");
+var _finished = Symbol("_finished");
+var _flags = Symbol("_flags");
+var _flush = Symbol("_flush");
+var _handleChunk = Symbol("_handleChunk");
+var _makeBuf = Symbol("_makeBuf");
+var _mode = Symbol("_mode");
+var _needDrain = Symbol("_needDrain");
+var _onerror = Symbol("_onerror");
+var _onopen = Symbol("_onopen");
+var _onread = Symbol("_onread");
+var _onwrite = Symbol("_onwrite");
+var _open = Symbol("_open");
+var _path = Symbol("_path");
+var _pos = Symbol("_pos");
+var _queue = Symbol("_queue");
+var _read = Symbol("_read");
+var _readSize = Symbol("_readSize");
+var _reading = Symbol("_reading");
+var _remain = Symbol("_remain");
+var _size = Symbol("_size");
+var _write = Symbol("_write");
+var _writing = Symbol("_writing");
+var _defaultFlag = Symbol("_defaultFlag");
+var _errored = Symbol("_errored");
+var ReadStream = class extends Minipass {
+  [_errored] = false;
+  [_fd];
+  [_path];
+  [_readSize];
+  [_reading] = false;
+  [_size];
+  [_remain];
+  [_autoClose];
+  constructor(path8, opt) {
+    opt = opt || {};
+    super(opt);
+    this.readable = true;
+    this.writable = false;
+    if (typeof path8 !== "string") {
+      throw new TypeError("path must be a string");
+    }
+    this[_errored] = false;
+    this[_fd] = typeof opt.fd === "number" ? opt.fd : void 0;
+    this[_path] = path8;
+    this[_readSize] = opt.readSize || 16 * 1024 * 1024;
+    this[_reading] = false;
+    this[_size] = typeof opt.size === "number" ? opt.size : Infinity;
+    this[_remain] = this[_size];
+    this[_autoClose] = typeof opt.autoClose === "boolean" ? opt.autoClose : true;
+    if (typeof this[_fd] === "number") {
+      this[_read]();
+    } else {
+      this[_open]();
+    }
+  }
+  get fd() {
+    return this[_fd];
+  }
+  get path() {
+    return this[_path];
+  }
+  //@ts-ignore
+  write() {
+    throw new TypeError("this is a readable stream");
+  }
+  //@ts-ignore
+  end() {
+    throw new TypeError("this is a readable stream");
+  }
+  [_open]() {
+    import_fs.default.open(this[_path], "r", (er, fd) => this[_onopen](er, fd));
+  }
+  [_onopen](er, fd) {
+    if (er) {
+      this[_onerror](er);
+    } else {
+      this[_fd] = fd;
+      this.emit("open", fd);
+      this[_read]();
+    }
+  }
+  [_makeBuf]() {
+    return Buffer.allocUnsafe(Math.min(this[_readSize], this[_remain]));
+  }
+  [_read]() {
+    if (!this[_reading]) {
+      this[_reading] = true;
+      const buf = this[_makeBuf]();
+      if (buf.length === 0) {
+        return process.nextTick(() => this[_onread](null, 0, buf));
+      }
+      import_fs.default.read(this[_fd], buf, 0, buf.length, null, (er, br, b) => this[_onread](er, br, b));
+    }
+  }
+  [_onread](er, br, buf) {
+    this[_reading] = false;
+    if (er) {
+      this[_onerror](er);
+    } else if (this[_handleChunk](br, buf)) {
+      this[_read]();
+    }
+  }
+  [_close]() {
+    if (this[_autoClose] && typeof this[_fd] === "number") {
+      const fd = this[_fd];
+      this[_fd] = void 0;
+      import_fs.default.close(fd, (er) => er ? this.emit("error", er) : this.emit("close"));
+    }
+  }
+  [_onerror](er) {
+    this[_reading] = true;
+    this[_close]();
+    this.emit("error", er);
+  }
+  [_handleChunk](br, buf) {
+    let ret = false;
+    this[_remain] -= br;
+    if (br > 0) {
+      ret = super.write(br < buf.length ? buf.subarray(0, br) : buf);
+    }
+    if (br === 0 || this[_remain] <= 0) {
+      ret = false;
+      this[_close]();
+      super.end();
+    }
+    return ret;
+  }
+  emit(ev, ...args) {
+    switch (ev) {
+      case "prefinish":
+      case "finish":
+        return false;
+      case "drain":
+        if (typeof this[_fd] === "number") {
+          this[_read]();
+        }
+        return false;
+      case "error":
+        if (this[_errored]) {
+          return false;
+        }
+        this[_errored] = true;
+        return super.emit(ev, ...args);
+      default:
+        return super.emit(ev, ...args);
+    }
+  }
+};
+var ReadStreamSync = class extends ReadStream {
+  [_open]() {
+    let threw = true;
+    try {
+      this[_onopen](null, import_fs.default.openSync(this[_path], "r"));
+      threw = false;
+    } finally {
+      if (threw) {
+        this[_close]();
+      }
+    }
+  }
+  [_read]() {
+    let threw = true;
+    try {
+      if (!this[_reading]) {
+        this[_reading] = true;
+        do {
+          const buf = this[_makeBuf]();
+          const br = buf.length === 0 ? 0 : import_fs.default.readSync(this[_fd], buf, 0, buf.length, null);
+          if (!this[_handleChunk](br, buf)) {
+            break;
+          }
+        } while (true);
+        this[_reading] = false;
+      }
+      threw = false;
+    } finally {
+      if (threw) {
+        this[_close]();
+      }
+    }
+  }
+  [_close]() {
+    if (this[_autoClose] && typeof this[_fd] === "number") {
+      const fd = this[_fd];
+      this[_fd] = void 0;
+      import_fs.default.closeSync(fd);
+      this.emit("close");
+    }
+  }
+};
+var WriteStream = class extends import_events2.default {
+  readable = false;
+  writable = true;
+  [_errored] = false;
+  [_writing] = false;
+  [_ended] = false;
+  [_queue] = [];
+  [_needDrain] = false;
+  [_path];
+  [_mode];
+  [_autoClose];
+  [_fd];
+  [_defaultFlag];
+  [_flags];
+  [_finished] = false;
+  [_pos];
+  constructor(path8, opt) {
+    opt = opt || {};
+    super(opt);
+    this[_path] = path8;
+    this[_fd] = typeof opt.fd === "number" ? opt.fd : void 0;
+    this[_mode] = opt.mode === void 0 ? 438 : opt.mode;
+    this[_pos] = typeof opt.start === "number" ? opt.start : void 0;
+    this[_autoClose] = typeof opt.autoClose === "boolean" ? opt.autoClose : true;
+    const defaultFlag = this[_pos] !== void 0 ? "r+" : "w";
+    this[_defaultFlag] = opt.flags === void 0;
+    this[_flags] = opt.flags === void 0 ? defaultFlag : opt.flags;
+    if (this[_fd] === void 0) {
+      this[_open]();
+    }
+  }
+  emit(ev, ...args) {
+    if (ev === "error") {
+      if (this[_errored]) {
+        return false;
+      }
+      this[_errored] = true;
+    }
+    return super.emit(ev, ...args);
+  }
+  get fd() {
+    return this[_fd];
+  }
+  get path() {
+    return this[_path];
+  }
+  [_onerror](er) {
+    this[_close]();
+    this[_writing] = true;
+    this.emit("error", er);
+  }
+  [_open]() {
+    import_fs.default.open(this[_path], this[_flags], this[_mode], (er, fd) => this[_onopen](er, fd));
+  }
+  [_onopen](er, fd) {
+    if (this[_defaultFlag] && this[_flags] === "r+" && er && er.code === "ENOENT") {
+      this[_flags] = "w";
+      this[_open]();
+    } else if (er) {
+      this[_onerror](er);
+    } else {
+      this[_fd] = fd;
+      this.emit("open", fd);
+      if (!this[_writing]) {
+        this[_flush]();
+      }
+    }
+  }
+  end(buf, enc) {
+    if (buf) {
+      this.write(buf, enc);
+    }
+    this[_ended] = true;
+    if (!this[_writing] && !this[_queue].length && typeof this[_fd] === "number") {
+      this[_onwrite](null, 0);
+    }
+    return this;
+  }
+  write(buf, enc) {
+    if (typeof buf === "string") {
+      buf = Buffer.from(buf, enc);
+    }
+    if (this[_ended]) {
+      this.emit("error", new Error("write() after end()"));
+      return false;
+    }
+    if (this[_fd] === void 0 || this[_writing] || this[_queue].length) {
+      this[_queue].push(buf);
+      this[_needDrain] = true;
+      return false;
+    }
+    this[_writing] = true;
+    this[_write](buf);
+    return true;
+  }
+  [_write](buf) {
+    import_fs.default.write(this[_fd], buf, 0, buf.length, this[_pos], (er, bw) => this[_onwrite](er, bw));
+  }
+  [_onwrite](er, bw) {
+    if (er) {
+      this[_onerror](er);
+    } else {
+      if (this[_pos] !== void 0 && typeof bw === "number") {
+        this[_pos] += bw;
+      }
+      if (this[_queue].length) {
+        this[_flush]();
+      } else {
+        this[_writing] = false;
+        if (this[_ended] && !this[_finished]) {
+          this[_finished] = true;
+          this[_close]();
+          this.emit("finish");
+        } else if (this[_needDrain]) {
+          this[_needDrain] = false;
+          this.emit("drain");
+        }
+      }
+    }
+  }
+  [_flush]() {
+    if (this[_queue].length === 0) {
+      if (this[_ended]) {
+        this[_onwrite](null, 0);
+      }
+    } else if (this[_queue].length === 1) {
+      this[_write](this[_queue].pop());
+    } else {
+      const iovec = this[_queue];
+      this[_queue] = [];
+      writev(this[_fd], iovec, this[_pos], (er, bw) => this[_onwrite](er, bw));
+    }
+  }
+  [_close]() {
+    if (this[_autoClose] && typeof this[_fd] === "number") {
+      const fd = this[_fd];
+      this[_fd] = void 0;
+      import_fs.default.close(fd, (er) => er ? this.emit("error", er) : this.emit("close"));
+    }
+  }
+};
+var WriteStreamSync = class extends WriteStream {
+  [_open]() {
+    let fd;
+    if (this[_defaultFlag] && this[_flags] === "r+") {
+      try {
+        fd = import_fs.default.openSync(this[_path], this[_flags], this[_mode]);
+      } catch (er) {
+        if (er?.code === "ENOENT") {
+          this[_flags] = "w";
+          return this[_open]();
+        } else {
+          throw er;
+        }
+      }
+    } else {
+      fd = import_fs.default.openSync(this[_path], this[_flags], this[_mode]);
+    }
+    this[_onopen](null, fd);
+  }
+  [_close]() {
+    if (this[_autoClose] && typeof this[_fd] === "number") {
+      const fd = this[_fd];
+      this[_fd] = void 0;
+      import_fs.default.closeSync(fd);
+      this.emit("close");
+    }
+  }
+  [_write](buf) {
+    let threw = true;
+    try {
+      this[_onwrite](null, import_fs.default.writeSync(this[_fd], buf, 0, buf.length, this[_pos]));
+      threw = false;
+    } finally {
+      if (threw) {
+        try {
+          this[_close]();
+        } catch {
+        }
+      }
+    }
+  }
+};
+
+// node_modules/tar/dist/esm/create.js
+var import_node_path4 = __toESM(require("node:path"), 1);
+
+// node_modules/tar/dist/esm/list.js
+var import_node_fs = __toESM(require("node:fs"), 1);
+var import_path = require("path");
+
+// node_modules/tar/dist/esm/options.js
+var argmap = /* @__PURE__ */ new Map([
+  ["C", "cwd"],
+  ["f", "file"],
+  ["z", "gzip"],
+  ["P", "preservePaths"],
+  ["U", "unlink"],
+  ["strip-components", "strip"],
+  ["stripComponents", "strip"],
+  ["keep-newer", "newer"],
+  ["keepNewer", "newer"],
+  ["keep-newer-files", "newer"],
+  ["keepNewerFiles", "newer"],
+  ["k", "keep"],
+  ["keep-existing", "keep"],
+  ["keepExisting", "keep"],
+  ["m", "noMtime"],
+  ["no-mtime", "noMtime"],
+  ["p", "preserveOwner"],
+  ["L", "follow"],
+  ["h", "follow"],
+  ["onentry", "onReadEntry"]
+]);
+var isSyncFile = (o) => !!o.sync && !!o.file;
+var isAsyncFile = (o) => !o.sync && !!o.file;
+var isSyncNoFile = (o) => !!o.sync && !o.file;
+var isAsyncNoFile = (o) => !o.sync && !o.file;
+var isFile2 = (o) => !!o.file;
+var dealiasKey = (k) => {
+  const d = argmap.get(k);
+  if (d)
+    return d;
+  return k;
+};
+var dealias = (opt = {}) => {
+  if (!opt)
+    return {};
+  const result = {};
+  for (const [key, v] of Object.entries(opt)) {
+    const k = dealiasKey(key);
+    result[k] = v;
+  }
+  if (result.chmod === void 0 && result.noChmod === false) {
+    result.chmod = true;
+  }
+  delete result.noChmod;
+  return result;
+};
+
+// node_modules/tar/dist/esm/make-command.js
+var makeCommand = (syncFile, asyncFile, syncNoFile, asyncNoFile, validate) => {
+  return Object.assign((opt_ = [], entries, cb) => {
+    if (Array.isArray(opt_)) {
+      entries = opt_;
+      opt_ = {};
+    }
+    if (typeof entries === "function") {
+      cb = entries;
+      entries = void 0;
+    }
+    if (!entries) {
+      entries = [];
+    } else {
+      entries = Array.from(entries);
+    }
+    const opt = dealias(opt_);
+    validate?.(opt, entries);
+    if (isSyncFile(opt)) {
+      if (typeof cb === "function") {
+        throw new TypeError("callback not supported for sync tar functions");
+      }
+      return syncFile(opt, entries);
+    } else if (isAsyncFile(opt)) {
+      const p = asyncFile(opt, entries);
+      const c = cb ? cb : void 0;
+      return c ? p.then(() => c(), c) : p;
+    } else if (isSyncNoFile(opt)) {
+      if (typeof cb === "function") {
+        throw new TypeError("callback not supported for sync tar functions");
+      }
+      return syncNoFile(opt, entries);
+    } else if (isAsyncNoFile(opt)) {
+      if (typeof cb === "function") {
+        throw new TypeError("callback only supported with file option");
+      }
+      return asyncNoFile(opt, entries);
+    } else {
+      throw new Error("impossible options??");
+    }
+  }, {
+    syncFile,
+    asyncFile,
+    syncNoFile,
+    asyncNoFile,
+    validate
+  });
+};
+
+// node_modules/tar/dist/esm/parse.js
+var import_events3 = require("events");
+
+// node_modules/minizlib/dist/esm/index.js
+var import_assert = __toESM(require("assert"), 1);
+var import_buffer = require("buffer");
+var realZlib2 = __toESM(require("zlib"), 1);
+
+// node_modules/minizlib/dist/esm/constants.js
+var import_zlib2 = __toESM(require("zlib"), 1);
+var realZlibConstants = import_zlib2.default.constants || { ZLIB_VERNUM: 4736 };
+var constants = Object.freeze(Object.assign(/* @__PURE__ */ Object.create(null), {
+  Z_NO_FLUSH: 0,
+  Z_PARTIAL_FLUSH: 1,
+  Z_SYNC_FLUSH: 2,
+  Z_FULL_FLUSH: 3,
+  Z_FINISH: 4,
+  Z_BLOCK: 5,
+  Z_OK: 0,
+  Z_STREAM_END: 1,
+  Z_NEED_DICT: 2,
+  Z_ERRNO: -1,
+  Z_STREAM_ERROR: -2,
+  Z_DATA_ERROR: -3,
+  Z_MEM_ERROR: -4,
+  Z_BUF_ERROR: -5,
+  Z_VERSION_ERROR: -6,
+  Z_NO_COMPRESSION: 0,
+  Z_BEST_SPEED: 1,
+  Z_BEST_COMPRESSION: 9,
+  Z_DEFAULT_COMPRESSION: -1,
+  Z_FILTERED: 1,
+  Z_HUFFMAN_ONLY: 2,
+  Z_RLE: 3,
+  Z_FIXED: 4,
+  Z_DEFAULT_STRATEGY: 0,
+  DEFLATE: 1,
+  INFLATE: 2,
+  GZIP: 3,
+  GUNZIP: 4,
+  DEFLATERAW: 5,
+  INFLATERAW: 6,
+  UNZIP: 7,
+  BROTLI_DECODE: 8,
+  BROTLI_ENCODE: 9,
+  Z_MIN_WINDOWBITS: 8,
+  Z_MAX_WINDOWBITS: 15,
+  Z_DEFAULT_WINDOWBITS: 15,
+  Z_MIN_CHUNK: 64,
+  Z_MAX_CHUNK: Infinity,
+  Z_DEFAULT_CHUNK: 16384,
+  Z_MIN_MEMLEVEL: 1,
+  Z_MAX_MEMLEVEL: 9,
+  Z_DEFAULT_MEMLEVEL: 8,
+  Z_MIN_LEVEL: -1,
+  Z_MAX_LEVEL: 9,
+  Z_DEFAULT_LEVEL: -1,
+  BROTLI_OPERATION_PROCESS: 0,
+  BROTLI_OPERATION_FLUSH: 1,
+  BROTLI_OPERATION_FINISH: 2,
+  BROTLI_OPERATION_EMIT_METADATA: 3,
+  BROTLI_MODE_GENERIC: 0,
+  BROTLI_MODE_TEXT: 1,
+  BROTLI_MODE_FONT: 2,
+  BROTLI_DEFAULT_MODE: 0,
+  BROTLI_MIN_QUALITY: 0,
+  BROTLI_MAX_QUALITY: 11,
+  BROTLI_DEFAULT_QUALITY: 11,
+  BROTLI_MIN_WINDOW_BITS: 10,
+  BROTLI_MAX_WINDOW_BITS: 24,
+  BROTLI_LARGE_MAX_WINDOW_BITS: 30,
+  BROTLI_DEFAULT_WINDOW: 22,
+  BROTLI_MIN_INPUT_BLOCK_BITS: 16,
+  BROTLI_MAX_INPUT_BLOCK_BITS: 24,
+  BROTLI_PARAM_MODE: 0,
+  BROTLI_PARAM_QUALITY: 1,
+  BROTLI_PARAM_LGWIN: 2,
+  BROTLI_PARAM_LGBLOCK: 3,
+  BROTLI_PARAM_DISABLE_LITERAL_CONTEXT_MODELING: 4,
+  BROTLI_PARAM_SIZE_HINT: 5,
+  BROTLI_PARAM_LARGE_WINDOW: 6,
+  BROTLI_PARAM_NPOSTFIX: 7,
+  BROTLI_PARAM_NDIRECT: 8,
+  BROTLI_DECODER_RESULT_ERROR: 0,
+  BROTLI_DECODER_RESULT_SUCCESS: 1,
+  BROTLI_DECODER_RESULT_NEEDS_MORE_INPUT: 2,
+  BROTLI_DECODER_RESULT_NEEDS_MORE_OUTPUT: 3,
+  BROTLI_DECODER_PARAM_DISABLE_RING_BUFFER_REALLOCATION: 0,
+  BROTLI_DECODER_PARAM_LARGE_WINDOW: 1,
+  BROTLI_DECODER_NO_ERROR: 0,
+  BROTLI_DECODER_SUCCESS: 1,
+  BROTLI_DECODER_NEEDS_MORE_INPUT: 2,
+  BROTLI_DECODER_NEEDS_MORE_OUTPUT: 3,
+  BROTLI_DECODER_ERROR_FORMAT_EXUBERANT_NIBBLE: -1,
+  BROTLI_DECODER_ERROR_FORMAT_RESERVED: -2,
+  BROTLI_DECODER_ERROR_FORMAT_EXUBERANT_META_NIBBLE: -3,
+  BROTLI_DECODER_ERROR_FORMAT_SIMPLE_HUFFMAN_ALPHABET: -4,
+  BROTLI_DECODER_ERROR_FORMAT_SIMPLE_HUFFMAN_SAME: -5,
+  BROTLI_DECODER_ERROR_FORMAT_CL_SPACE: -6,
+  BROTLI_DECODER_ERROR_FORMAT_HUFFMAN_SPACE: -7,
+  BROTLI_DECODER_ERROR_FORMAT_CONTEXT_MAP_REPEAT: -8,
+  BROTLI_DECODER_ERROR_FORMAT_BLOCK_LENGTH_1: -9,
+  BROTLI_DECODER_ERROR_FORMAT_BLOCK_LENGTH_2: -10,
+  BROTLI_DECODER_ERROR_FORMAT_TRANSFORM: -11,
+  BROTLI_DECODER_ERROR_FORMAT_DICTIONARY: -12,
+  BROTLI_DECODER_ERROR_FORMAT_WINDOW_BITS: -13,
+  BROTLI_DECODER_ERROR_FORMAT_PADDING_1: -14,
+  BROTLI_DECODER_ERROR_FORMAT_PADDING_2: -15,
+  BROTLI_DECODER_ERROR_FORMAT_DISTANCE: -16,
+  BROTLI_DECODER_ERROR_DICTIONARY_NOT_SET: -19,
+  BROTLI_DECODER_ERROR_INVALID_ARGUMENTS: -20,
+  BROTLI_DECODER_ERROR_ALLOC_CONTEXT_MODES: -21,
+  BROTLI_DECODER_ERROR_ALLOC_TREE_GROUPS: -22,
+  BROTLI_DECODER_ERROR_ALLOC_CONTEXT_MAP: -25,
+  BROTLI_DECODER_ERROR_ALLOC_RING_BUFFER_1: -26,
+  BROTLI_DECODER_ERROR_ALLOC_RING_BUFFER_2: -27,
+  BROTLI_DECODER_ERROR_ALLOC_BLOCK_TYPE_TREES: -30,
+  BROTLI_DECODER_ERROR_UNREACHABLE: -31
+}, realZlibConstants));
+
+// node_modules/minizlib/dist/esm/index.js
+var OriginalBufferConcat = import_buffer.Buffer.concat;
+var desc = Object.getOwnPropertyDescriptor(import_buffer.Buffer, "concat");
+var noop2 = (args) => args;
+var passthroughBufferConcat = desc?.writable === true || desc?.set !== void 0 ? (makeNoOp) => {
+  import_buffer.Buffer.concat = makeNoOp ? noop2 : OriginalBufferConcat;
+} : (_) => {
+};
+var _superWrite = Symbol("_superWrite");
+var ZlibError = class extends Error {
+  code;
+  errno;
+  constructor(err, origin2) {
+    super("zlib: " + err.message, { cause: err });
+    this.code = err.code;
+    this.errno = err.errno;
+    if (!this.code)
+      this.code = "ZLIB_ERROR";
+    this.message = "zlib: " + err.message;
+    Error.captureStackTrace(this, origin2 ?? this.constructor);
+  }
+  get name() {
+    return "ZlibError";
+  }
+};
+var _flushFlag = Symbol("flushFlag");
+var ZlibBase = class extends Minipass {
+  #sawError = false;
+  #ended = false;
+  #flushFlag;
+  #finishFlushFlag;
+  #fullFlushFlag;
+  #handle;
+  #onError;
+  get sawError() {
+    return this.#sawError;
+  }
+  get handle() {
+    return this.#handle;
+  }
+  /* c8 ignore start */
+  get flushFlag() {
+    return this.#flushFlag;
+  }
+  /* c8 ignore stop */
+  constructor(opts, mode) {
+    if (!opts || typeof opts !== "object")
+      throw new TypeError("invalid options for ZlibBase constructor");
+    super(opts);
+    this.#flushFlag = opts.flush ?? 0;
+    this.#finishFlushFlag = opts.finishFlush ?? 0;
+    this.#fullFlushFlag = opts.fullFlushFlag ?? 0;
+    if (typeof realZlib2[mode] !== "function") {
+      throw new TypeError("Compression method not supported: " + mode);
+    }
+    try {
+      this.#handle = new realZlib2[mode](opts);
+    } catch (er) {
+      throw new ZlibError(er, this.constructor);
+    }
+    this.#onError = (err) => {
+      if (this.#sawError)
+        return;
+      this.#sawError = true;
+      this.close();
+      this.emit("error", err);
+    };
+    this.#handle?.on("error", (er) => this.#onError(new ZlibError(er)));
+    this.once("end", () => this.close);
+  }
+  close() {
+    if (this.#handle) {
+      this.#handle.close();
+      this.#handle = void 0;
+      this.emit("close");
+    }
+  }
+  reset() {
+    if (!this.#sawError) {
+      (0, import_assert.default)(this.#handle, "zlib binding closed");
+      return this.#handle.reset?.();
+    }
+  }
+  flush(flushFlag) {
+    if (this.ended)
+      return;
+    if (typeof flushFlag !== "number")
+      flushFlag = this.#fullFlushFlag;
+    this.write(Object.assign(import_buffer.Buffer.alloc(0), { [_flushFlag]: flushFlag }));
+  }
+  end(chunk, encoding, cb) {
+    if (typeof chunk === "function") {
+      cb = chunk;
+      encoding = void 0;
+      chunk = void 0;
+    }
+    if (typeof encoding === "function") {
+      cb = encoding;
+      encoding = void 0;
+    }
+    if (chunk) {
+      if (encoding)
+        this.write(chunk, encoding);
+      else
+        this.write(chunk);
+    }
+    this.flush(this.#finishFlushFlag);
+    this.#ended = true;
+    return super.end(cb);
+  }
+  get ended() {
+    return this.#ended;
+  }
+  // overridden in the gzip classes to do portable writes
+  [_superWrite](data) {
+    return super.write(data);
+  }
+  write(chunk, encoding, cb) {
+    if (typeof encoding === "function")
+      cb = encoding, encoding = "utf8";
+    if (typeof chunk === "string")
+      chunk = import_buffer.Buffer.from(chunk, encoding);
+    if (this.#sawError)
+      return;
+    (0, import_assert.default)(this.#handle, "zlib binding closed");
+    const nativeHandle = this.#handle._handle;
+    const originalNativeClose = nativeHandle.close;
+    nativeHandle.close = () => {
+    };
+    const originalClose = this.#handle.close;
+    this.#handle.close = () => {
+    };
+    passthroughBufferConcat(true);
+    let result = void 0;
+    try {
+      const flushFlag = typeof chunk[_flushFlag] === "number" ? chunk[_flushFlag] : this.#flushFlag;
+      result = this.#handle._processChunk(chunk, flushFlag);
+      passthroughBufferConcat(false);
+    } catch (err) {
+      passthroughBufferConcat(false);
+      this.#onError(new ZlibError(err, this.write));
+    } finally {
+      if (this.#handle) {
+        ;
+        this.#handle._handle = nativeHandle;
+        nativeHandle.close = originalNativeClose;
+        this.#handle.close = originalClose;
+        this.#handle.removeAllListeners("error");
+      }
+    }
+    if (this.#handle)
+      this.#handle.on("error", (er) => this.#onError(new ZlibError(er, this.write)));
+    let writeReturn;
+    if (result) {
+      if (Array.isArray(result) && result.length > 0) {
+        const r = result[0];
+        writeReturn = this[_superWrite](import_buffer.Buffer.from(r));
+        for (let i = 1; i < result.length; i++) {
+          writeReturn = this[_superWrite](result[i]);
+        }
+      } else {
+        writeReturn = this[_superWrite](import_buffer.Buffer.from(result));
+      }
+    }
+    if (cb)
+      cb();
+    return writeReturn;
+  }
+};
+var Zlib = class extends ZlibBase {
+  #level;
+  #strategy;
+  constructor(opts, mode) {
+    opts = opts || {};
+    opts.flush = opts.flush || constants.Z_NO_FLUSH;
+    opts.finishFlush = opts.finishFlush || constants.Z_FINISH;
+    opts.fullFlushFlag = constants.Z_FULL_FLUSH;
+    super(opts, mode);
+    this.#level = opts.level;
+    this.#strategy = opts.strategy;
+  }
+  params(level, strategy) {
+    if (this.sawError)
+      return;
+    if (!this.handle)
+      throw new Error("cannot switch params when binding is closed");
+    if (!this.handle.params)
+      throw new Error("not supported in this implementation");
+    if (this.#level !== level || this.#strategy !== strategy) {
+      this.flush(constants.Z_SYNC_FLUSH);
+      (0, import_assert.default)(this.handle, "zlib binding closed");
+      const origFlush = this.handle.flush;
+      this.handle.flush = (flushFlag, cb) => {
+        if (typeof flushFlag === "function") {
+          cb = flushFlag;
+          flushFlag = this.flushFlag;
+        }
+        this.flush(flushFlag);
+        cb?.();
+      };
+      try {
+        ;
+        this.handle.params(level, strategy);
+      } finally {
+        this.handle.flush = origFlush;
+      }
+      if (this.handle) {
+        this.#level = level;
+        this.#strategy = strategy;
+      }
+    }
+  }
+};
+var Gzip = class extends Zlib {
+  #portable;
+  constructor(opts) {
+    super(opts, "Gzip");
+    this.#portable = opts && !!opts.portable;
+  }
+  [_superWrite](data) {
+    if (!this.#portable)
+      return super[_superWrite](data);
+    this.#portable = false;
+    data[9] = 255;
+    return super[_superWrite](data);
+  }
+};
+var Unzip = class extends Zlib {
+  constructor(opts) {
+    super(opts, "Unzip");
+  }
+};
+var Brotli = class extends ZlibBase {
+  constructor(opts, mode) {
+    opts = opts || {};
+    opts.flush = opts.flush || constants.BROTLI_OPERATION_PROCESS;
+    opts.finishFlush = opts.finishFlush || constants.BROTLI_OPERATION_FINISH;
+    opts.fullFlushFlag = constants.BROTLI_OPERATION_FLUSH;
+    super(opts, mode);
+  }
+};
+var BrotliCompress = class extends Brotli {
+  constructor(opts) {
+    super(opts, "BrotliCompress");
+  }
+};
+var BrotliDecompress = class extends Brotli {
+  constructor(opts) {
+    super(opts, "BrotliDecompress");
+  }
+};
+var Zstd = class extends ZlibBase {
+  constructor(opts, mode) {
+    opts = opts || {};
+    opts.flush = opts.flush || constants.ZSTD_e_continue;
+    opts.finishFlush = opts.finishFlush || constants.ZSTD_e_end;
+    opts.fullFlushFlag = constants.ZSTD_e_flush;
+    super(opts, mode);
+  }
+};
+var ZstdCompress = class extends Zstd {
+  constructor(opts) {
+    super(opts, "ZstdCompress");
+  }
+};
+var ZstdDecompress = class extends Zstd {
+  constructor(opts) {
+    super(opts, "ZstdDecompress");
+  }
+};
+
+// node_modules/tar/dist/esm/header.js
+var import_node_path = require("node:path");
+
+// node_modules/tar/dist/esm/large-numbers.js
+var encode3 = (num, buf) => {
+  if (!Number.isSafeInteger(num)) {
+    throw Error("cannot encode number outside of javascript safe integer range");
+  } else if (num < 0) {
+    encodeNegative(num, buf);
+  } else {
+    encodePositive(num, buf);
+  }
+  return buf;
+};
+var encodePositive = (num, buf) => {
+  buf[0] = 128;
+  for (var i = buf.length; i > 1; i--) {
+    buf[i - 1] = num & 255;
+    num = Math.floor(num / 256);
+  }
+};
+var encodeNegative = (num, buf) => {
+  buf[0] = 255;
+  var flipped = false;
+  num = num * -1;
+  for (var i = buf.length; i > 1; i--) {
+    var byte = num & 255;
+    num = Math.floor(num / 256);
+    if (flipped) {
+      buf[i - 1] = onesComp(byte);
+    } else if (byte === 0) {
+      buf[i - 1] = 0;
+    } else {
+      flipped = true;
+      buf[i - 1] = twosComp(byte);
+    }
+  }
+};
+var parse = (buf) => {
+  const pre = buf[0];
+  const value = pre === 128 ? pos(buf.subarray(1, buf.length)) : pre === 255 ? twos(buf) : null;
+  if (value === null) {
+    throw Error("invalid base256 encoding");
+  }
+  if (!Number.isSafeInteger(value)) {
+    throw Error("parsed number outside of javascript safe integer range");
+  }
+  return value;
+};
+var twos = (buf) => {
+  var len = buf.length;
+  var sum = 0;
+  var flipped = false;
+  for (var i = len - 1; i > -1; i--) {
+    var byte = Number(buf[i]);
+    var f;
+    if (flipped) {
+      f = onesComp(byte);
+    } else if (byte === 0) {
+      f = byte;
+    } else {
+      flipped = true;
+      f = twosComp(byte);
+    }
+    if (f !== 0) {
+      sum -= f * Math.pow(256, len - i - 1);
+    }
+  }
+  return sum;
+};
+var pos = (buf) => {
+  var len = buf.length;
+  var sum = 0;
+  for (var i = len - 1; i > -1; i--) {
+    var byte = Number(buf[i]);
+    if (byte !== 0) {
+      sum += byte * Math.pow(256, len - i - 1);
+    }
+  }
+  return sum;
+};
+var onesComp = (byte) => (255 ^ byte) & 255;
+var twosComp = (byte) => (255 ^ byte) + 1 & 255;
+
+// node_modules/tar/dist/esm/types.js
+var isCode = (c) => name.has(c);
+var name = /* @__PURE__ */ new Map([
+  ["0", "File"],
+  // same as File
+  ["", "OldFile"],
+  ["1", "Link"],
+  ["2", "SymbolicLink"],
+  // Devices and FIFOs aren't fully supported
+  // they are parsed, but skipped when unpacking
+  ["3", "CharacterDevice"],
+  ["4", "BlockDevice"],
+  ["5", "Directory"],
+  ["6", "FIFO"],
+  // same as File
+  ["7", "ContiguousFile"],
+  // pax headers
+  ["g", "GlobalExtendedHeader"],
+  ["x", "ExtendedHeader"],
+  // vendor-specific stuff
+  // skip
+  ["A", "SolarisACL"],
+  // like 5, but with data, which should be skipped
+  ["D", "GNUDumpDir"],
+  // metadata only, skip
+  ["I", "Inode"],
+  // data = link path of next file
+  ["K", "NextFileHasLongLinkpath"],
+  // data = path of next file
+  ["L", "NextFileHasLongPath"],
+  // skip
+  ["M", "ContinuationFile"],
+  // like L
+  ["N", "OldGnuLongPath"],
+  // skip
+  ["S", "SparseFile"],
+  // skip
+  ["V", "TapeVolumeHeader"],
+  // like x
+  ["X", "OldExtendedHeader"]
+]);
+var code = new Map(Array.from(name).map((kv) => [kv[1], kv[0]]));
+
+// node_modules/tar/dist/esm/header.js
+var Header = class {
+  cksumValid = false;
+  needPax = false;
+  nullBlock = false;
+  block;
+  path;
+  mode;
+  uid;
+  gid;
+  size;
+  cksum;
+  #type = "Unsupported";
+  linkpath;
+  uname;
+  gname;
+  devmaj = 0;
+  devmin = 0;
+  atime;
+  ctime;
+  mtime;
+  charset;
+  comment;
+  constructor(data, off = 0, ex, gex) {
+    if (Buffer.isBuffer(data)) {
+      this.decode(data, off || 0, ex, gex);
+    } else if (data) {
+      this.#slurp(data);
+    }
+  }
+  decode(buf, off, ex, gex) {
+    if (!off) {
+      off = 0;
+    }
+    if (!buf || !(buf.length >= off + 512)) {
+      throw new Error("need 512 bytes for header");
+    }
+    this.path = decString(buf, off, 100);
+    this.mode = decNumber(buf, off + 100, 8);
+    this.uid = decNumber(buf, off + 108, 8);
+    this.gid = decNumber(buf, off + 116, 8);
+    this.size = decNumber(buf, off + 124, 12);
+    this.mtime = decDate(buf, off + 136, 12);
+    this.cksum = decNumber(buf, off + 148, 12);
+    if (gex)
+      this.#slurp(gex, true);
+    if (ex)
+      this.#slurp(ex);
+    const t = decString(buf, off + 156, 1);
+    if (isCode(t)) {
+      this.#type = t || "0";
+    }
+    if (this.#type === "0" && this.path.slice(-1) === "/") {
+      this.#type = "5";
+    }
+    if (this.#type === "5") {
+      this.size = 0;
+    }
+    this.linkpath = decString(buf, off + 157, 100);
+    if (buf.subarray(off + 257, off + 265).toString() === "ustar\x0000") {
+      this.uname = decString(buf, off + 265, 32);
+      this.gname = decString(buf, off + 297, 32);
+      this.devmaj = decNumber(buf, off + 329, 8) ?? 0;
+      this.devmin = decNumber(buf, off + 337, 8) ?? 0;
+      if (buf[off + 475] !== 0) {
+        const prefix = decString(buf, off + 345, 155);
+        this.path = prefix + "/" + this.path;
+      } else {
+        const prefix = decString(buf, off + 345, 130);
+        if (prefix) {
+          this.path = prefix + "/" + this.path;
+        }
+        this.atime = decDate(buf, off + 476, 12);
+        this.ctime = decDate(buf, off + 488, 12);
+      }
+    }
+    let sum = 8 * 32;
+    for (let i = off; i < off + 148; i++) {
+      sum += buf[i];
+    }
+    for (let i = off + 156; i < off + 512; i++) {
+      sum += buf[i];
+    }
+    this.cksumValid = sum === this.cksum;
+    if (this.cksum === void 0 && sum === 8 * 32) {
+      this.nullBlock = true;
+    }
+  }
+  #slurp(ex, gex = false) {
+    Object.assign(this, Object.fromEntries(Object.entries(ex).filter(([k, v]) => {
+      return !(v === null || v === void 0 || k === "path" && gex || k === "linkpath" && gex || k === "global");
+    })));
+  }
+  encode(buf, off = 0) {
+    if (!buf) {
+      buf = this.block = Buffer.alloc(512);
+    }
+    if (this.#type === "Unsupported") {
+      this.#type = "0";
+    }
+    if (!(buf.length >= off + 512)) {
+      throw new Error("need 512 bytes for header");
+    }
+    const prefixSize = this.ctime || this.atime ? 130 : 155;
+    const split = splitPrefix(this.path || "", prefixSize);
+    const path8 = split[0];
+    const prefix = split[1];
+    this.needPax = !!split[2];
+    this.needPax = encString(buf, off, 100, path8) || this.needPax;
+    this.needPax = encNumber(buf, off + 100, 8, this.mode) || this.needPax;
+    this.needPax = encNumber(buf, off + 108, 8, this.uid) || this.needPax;
+    this.needPax = encNumber(buf, off + 116, 8, this.gid) || this.needPax;
+    this.needPax = encNumber(buf, off + 124, 12, this.size) || this.needPax;
+    this.needPax = encDate(buf, off + 136, 12, this.mtime) || this.needPax;
+    buf[off + 156] = this.#type.charCodeAt(0);
+    this.needPax = encString(buf, off + 157, 100, this.linkpath) || this.needPax;
+    buf.write("ustar\x0000", off + 257, 8);
+    this.needPax = encString(buf, off + 265, 32, this.uname) || this.needPax;
+    this.needPax = encString(buf, off + 297, 32, this.gname) || this.needPax;
+    this.needPax = encNumber(buf, off + 329, 8, this.devmaj) || this.needPax;
+    this.needPax = encNumber(buf, off + 337, 8, this.devmin) || this.needPax;
+    this.needPax = encString(buf, off + 345, prefixSize, prefix) || this.needPax;
+    if (buf[off + 475] !== 0) {
+      this.needPax = encString(buf, off + 345, 155, prefix) || this.needPax;
+    } else {
+      this.needPax = encString(buf, off + 345, 130, prefix) || this.needPax;
+      this.needPax = encDate(buf, off + 476, 12, this.atime) || this.needPax;
+      this.needPax = encDate(buf, off + 488, 12, this.ctime) || this.needPax;
+    }
+    let sum = 8 * 32;
+    for (let i = off; i < off + 148; i++) {
+      sum += buf[i];
+    }
+    for (let i = off + 156; i < off + 512; i++) {
+      sum += buf[i];
+    }
+    this.cksum = sum;
+    encNumber(buf, off + 148, 8, this.cksum);
+    this.cksumValid = true;
+    return this.needPax;
+  }
+  get type() {
+    return this.#type === "Unsupported" ? this.#type : name.get(this.#type);
+  }
+  get typeKey() {
+    return this.#type;
+  }
+  set type(type) {
+    const c = String(code.get(type));
+    if (isCode(c) || c === "Unsupported") {
+      this.#type = c;
+    } else if (isCode(type)) {
+      this.#type = type;
+    } else {
+      throw new TypeError("invalid entry type: " + type);
+    }
+  }
+};
+var splitPrefix = (p, prefixSize) => {
+  const pathSize = 100;
+  let pp = p;
+  let prefix = "";
+  let ret = void 0;
+  const root = import_node_path.posix.parse(p).root || ".";
+  if (Buffer.byteLength(pp) < pathSize) {
+    ret = [pp, prefix, false];
+  } else {
+    prefix = import_node_path.posix.dirname(pp);
+    pp = import_node_path.posix.basename(pp);
+    do {
+      if (Buffer.byteLength(pp) <= pathSize && Buffer.byteLength(prefix) <= prefixSize) {
+        ret = [pp, prefix, false];
+      } else if (Buffer.byteLength(pp) > pathSize && Buffer.byteLength(prefix) <= prefixSize) {
+        ret = [pp.slice(0, pathSize - 1), prefix, true];
+      } else {
+        pp = import_node_path.posix.join(import_node_path.posix.basename(prefix), pp);
+        prefix = import_node_path.posix.dirname(prefix);
+      }
+    } while (prefix !== root && ret === void 0);
+    if (!ret) {
+      ret = [p.slice(0, pathSize - 1), "", true];
+    }
+  }
+  return ret;
+};
+var decString = (buf, off, size) => buf.subarray(off, off + size).toString("utf8").replace(/\0.*/, "");
+var decDate = (buf, off, size) => numToDate(decNumber(buf, off, size));
+var numToDate = (num) => num === void 0 ? void 0 : new Date(num * 1e3);
+var decNumber = (buf, off, size) => Number(buf[off]) & 128 ? parse(buf.subarray(off, off + size)) : decSmallNumber(buf, off, size);
+var nanUndef = (value) => isNaN(value) ? void 0 : value;
+var decSmallNumber = (buf, off, size) => nanUndef(parseInt(buf.subarray(off, off + size).toString("utf8").replace(/\0.*$/, "").trim(), 8));
+var MAXNUM = {
+  12: 8589934591,
+  8: 2097151
+};
+var encNumber = (buf, off, size, num) => num === void 0 ? false : num > MAXNUM[size] || num < 0 ? (encode3(num, buf.subarray(off, off + size)), true) : (encSmallNumber(buf, off, size, num), false);
+var encSmallNumber = (buf, off, size, num) => buf.write(octalString(num, size), off, size, "ascii");
+var octalString = (num, size) => padOctal(Math.floor(num).toString(8), size);
+var padOctal = (str, size) => (str.length === size - 1 ? str : new Array(size - str.length - 1).join("0") + str + " ") + "\0";
+var encDate = (buf, off, size, date) => date === void 0 ? false : encNumber(buf, off, size, date.getTime() / 1e3);
+var NULLS = new Array(156).join("\0");
+var encString = (buf, off, size, str) => str === void 0 ? false : (buf.write(str + NULLS, off, size, "utf8"), str.length !== Buffer.byteLength(str) || str.length > size);
+
+// node_modules/tar/dist/esm/pax.js
+var import_node_path2 = require("node:path");
+var Pax = class _Pax {
+  atime;
+  mtime;
+  ctime;
+  charset;
+  comment;
+  gid;
+  uid;
+  gname;
+  uname;
+  linkpath;
+  dev;
+  ino;
+  nlink;
+  path;
+  size;
+  mode;
+  global;
+  constructor(obj, global2 = false) {
+    this.atime = obj.atime;
+    this.charset = obj.charset;
+    this.comment = obj.comment;
+    this.ctime = obj.ctime;
+    this.dev = obj.dev;
+    this.gid = obj.gid;
+    this.global = global2;
+    this.gname = obj.gname;
+    this.ino = obj.ino;
+    this.linkpath = obj.linkpath;
+    this.mtime = obj.mtime;
+    this.nlink = obj.nlink;
+    this.path = obj.path;
+    this.size = obj.size;
+    this.uid = obj.uid;
+    this.uname = obj.uname;
+  }
+  encode() {
+    const body = this.encodeBody();
+    if (body === "") {
+      return Buffer.allocUnsafe(0);
+    }
+    const bodyLen = Buffer.byteLength(body);
+    const bufLen = 512 * Math.ceil(1 + bodyLen / 512);
+    const buf = Buffer.allocUnsafe(bufLen);
+    for (let i = 0; i < 512; i++) {
+      buf[i] = 0;
+    }
+    new Header({
+      // XXX split the path
+      // then the path should be PaxHeader + basename, but less than 99,
+      // prepend with the dirname
+      /* c8 ignore start */
+      path: ("PaxHeader/" + (0, import_node_path2.basename)(this.path ?? "")).slice(0, 99),
+      /* c8 ignore stop */
+      mode: this.mode || 420,
+      uid: this.uid,
+      gid: this.gid,
+      size: bodyLen,
+      mtime: this.mtime,
+      type: this.global ? "GlobalExtendedHeader" : "ExtendedHeader",
+      linkpath: "",
+      uname: this.uname || "",
+      gname: this.gname || "",
+      devmaj: 0,
+      devmin: 0,
+      atime: this.atime,
+      ctime: this.ctime
+    }).encode(buf);
+    buf.write(body, 512, bodyLen, "utf8");
+    for (let i = bodyLen + 512; i < buf.length; i++) {
+      buf[i] = 0;
+    }
+    return buf;
+  }
+  encodeBody() {
+    return this.encodeField("path") + this.encodeField("ctime") + this.encodeField("atime") + this.encodeField("dev") + this.encodeField("ino") + this.encodeField("nlink") + this.encodeField("charset") + this.encodeField("comment") + this.encodeField("gid") + this.encodeField("gname") + this.encodeField("linkpath") + this.encodeField("mtime") + this.encodeField("size") + this.encodeField("uid") + this.encodeField("uname");
+  }
+  encodeField(field) {
+    if (this[field] === void 0) {
+      return "";
+    }
+    const r = this[field];
+    const v = r instanceof Date ? r.getTime() / 1e3 : r;
+    const s = " " + (field === "dev" || field === "ino" || field === "nlink" ? "SCHILY." : "") + field + "=" + v + "\n";
+    const byteLen = Buffer.byteLength(s);
+    let digits = Math.floor(Math.log(byteLen) / Math.log(10)) + 1;
+    if (byteLen + digits >= Math.pow(10, digits)) {
+      digits += 1;
+    }
+    const len = digits + byteLen;
+    return len + s;
+  }
+  static parse(str, ex, g = false) {
+    return new _Pax(merge2(parseKV(str), ex), g);
+  }
+};
+var merge2 = (a, b) => b ? Object.assign({}, b, a) : a;
+var parseKV = (str) => str.replace(/\n$/, "").split("\n").reduce(parseKVLine, /* @__PURE__ */ Object.create(null));
+var parseKVLine = (set, line) => {
+  const n = parseInt(line, 10);
+  if (n !== Buffer.byteLength(line) + 1) {
+    return set;
+  }
+  line = line.slice((n + " ").length);
+  const kv = line.split("=");
+  const r = kv.shift();
+  if (!r) {
+    return set;
+  }
+  const k = r.replace(/^SCHILY\.(dev|ino|nlink)/, "$1");
+  const v = kv.join("=");
+  set[k] = /^([A-Z]+\.)?([mac]|birth|creation)time$/.test(k) ? new Date(Number(v) * 1e3) : /^[0-9]+$/.test(v) ? +v : v;
+  return set;
+};
+
+// node_modules/tar/dist/esm/normalize-windows-path.js
+var platform = process.env.TESTING_TAR_FAKE_PLATFORM || process.platform;
+var normalizeWindowsPath = platform !== "win32" ? (p) => p : (p) => p && p.replace(/\\/g, "/");
+
+// node_modules/tar/dist/esm/read-entry.js
+var ReadEntry = class extends Minipass {
+  extended;
+  globalExtended;
+  header;
+  startBlockSize;
+  blockRemain;
+  remain;
+  type;
+  meta = false;
+  ignore = false;
+  path;
+  mode;
+  uid;
+  gid;
+  uname;
+  gname;
+  size = 0;
+  mtime;
+  atime;
+  ctime;
+  linkpath;
+  dev;
+  ino;
+  nlink;
+  invalid = false;
+  absolute;
+  unsupported = false;
+  constructor(header, ex, gex) {
+    super({});
+    this.pause();
+    this.extended = ex;
+    this.globalExtended = gex;
+    this.header = header;
+    this.remain = header.size ?? 0;
+    this.startBlockSize = 512 * Math.ceil(this.remain / 512);
+    this.blockRemain = this.startBlockSize;
+    this.type = header.type;
+    switch (this.type) {
+      case "File":
+      case "OldFile":
+      case "Link":
+      case "SymbolicLink":
+      case "CharacterDevice":
+      case "BlockDevice":
+      case "Directory":
+      case "FIFO":
+      case "ContiguousFile":
+      case "GNUDumpDir":
+        break;
+      case "NextFileHasLongLinkpath":
+      case "NextFileHasLongPath":
+      case "OldGnuLongPath":
+      case "GlobalExtendedHeader":
+      case "ExtendedHeader":
+      case "OldExtendedHeader":
+        this.meta = true;
+        break;
+      // NOTE: gnutar and bsdtar treat unrecognized types as 'File'
+      // it may be worth doing the same, but with a warning.
+      default:
+        this.ignore = true;
+    }
+    if (!header.path) {
+      throw new Error("no path provided for tar.ReadEntry");
+    }
+    this.path = normalizeWindowsPath(header.path);
+    this.mode = header.mode;
+    if (this.mode) {
+      this.mode = this.mode & 4095;
+    }
+    this.uid = header.uid;
+    this.gid = header.gid;
+    this.uname = header.uname;
+    this.gname = header.gname;
+    this.size = this.remain;
+    this.mtime = header.mtime;
+    this.atime = header.atime;
+    this.ctime = header.ctime;
+    this.linkpath = header.linkpath ? normalizeWindowsPath(header.linkpath) : void 0;
+    this.uname = header.uname;
+    this.gname = header.gname;
+    if (ex) {
+      this.#slurp(ex);
+    }
+    if (gex) {
+      this.#slurp(gex, true);
+    }
+  }
+  write(data) {
+    const writeLen = data.length;
+    if (writeLen > this.blockRemain) {
+      throw new Error("writing more to entry than is appropriate");
+    }
+    const r = this.remain;
+    const br = this.blockRemain;
+    this.remain = Math.max(0, r - writeLen);
+    this.blockRemain = Math.max(0, br - writeLen);
+    if (this.ignore) {
+      return true;
+    }
+    if (r >= writeLen) {
+      return super.write(data);
+    }
+    return super.write(data.subarray(0, r));
+  }
+  #slurp(ex, gex = false) {
+    if (ex.path)
+      ex.path = normalizeWindowsPath(ex.path);
+    if (ex.linkpath)
+      ex.linkpath = normalizeWindowsPath(ex.linkpath);
+    Object.assign(this, Object.fromEntries(Object.entries(ex).filter(([k, v]) => {
+      return !(v === null || v === void 0 || k === "path" && gex);
+    })));
+  }
+};
+
+// node_modules/tar/dist/esm/warn-method.js
+var warnMethod = (self2, code2, message, data = {}) => {
+  if (self2.file) {
+    data.file = self2.file;
+  }
+  if (self2.cwd) {
+    data.cwd = self2.cwd;
+  }
+  data.code = message instanceof Error && message.code || code2;
+  data.tarCode = code2;
+  if (!self2.strict && data.recoverable !== false) {
+    if (message instanceof Error) {
+      data = Object.assign(message, data);
+      message = message.message;
+    }
+    self2.emit("warn", code2, message, data);
+  } else if (message instanceof Error) {
+    self2.emit("error", Object.assign(message, data));
+  } else {
+    self2.emit("error", Object.assign(new Error(`${code2}: ${message}`), data));
+  }
+};
+
+// node_modules/tar/dist/esm/parse.js
+var maxMetaEntrySize = 1024 * 1024;
+var gzipHeader = Buffer.from([31, 139]);
+var zstdHeader = Buffer.from([40, 181, 47, 253]);
+var ZIP_HEADER_LEN = Math.max(gzipHeader.length, zstdHeader.length);
+var STATE = Symbol("state");
+var WRITEENTRY = Symbol("writeEntry");
+var READENTRY = Symbol("readEntry");
+var NEXTENTRY = Symbol("nextEntry");
+var PROCESSENTRY = Symbol("processEntry");
+var EX = Symbol("extendedHeader");
+var GEX = Symbol("globalExtendedHeader");
+var META = Symbol("meta");
+var EMITMETA = Symbol("emitMeta");
+var BUFFER2 = Symbol("buffer");
+var QUEUE = Symbol("queue");
+var ENDED = Symbol("ended");
+var EMITTEDEND = Symbol("emittedEnd");
+var EMIT = Symbol("emit");
+var UNZIP = Symbol("unzip");
+var CONSUMECHUNK = Symbol("consumeChunk");
+var CONSUMECHUNKSUB = Symbol("consumeChunkSub");
+var CONSUMEBODY = Symbol("consumeBody");
+var CONSUMEMETA = Symbol("consumeMeta");
+var CONSUMEHEADER = Symbol("consumeHeader");
+var CONSUMING = Symbol("consuming");
+var BUFFERCONCAT = Symbol("bufferConcat");
+var MAYBEEND = Symbol("maybeEnd");
+var WRITING = Symbol("writing");
+var ABORTED2 = Symbol("aborted");
+var DONE = Symbol("onDone");
+var SAW_VALID_ENTRY = Symbol("sawValidEntry");
+var SAW_NULL_BLOCK = Symbol("sawNullBlock");
+var SAW_EOF = Symbol("sawEOF");
+var CLOSESTREAM = Symbol("closeStream");
+var noop3 = () => true;
+var Parser = class extends import_events3.EventEmitter {
+  file;
+  strict;
+  maxMetaEntrySize;
+  filter;
+  brotli;
+  zstd;
+  writable = true;
+  readable = false;
+  [QUEUE] = [];
+  [BUFFER2];
+  [READENTRY];
+  [WRITEENTRY];
+  [STATE] = "begin";
+  [META] = "";
+  [EX];
+  [GEX];
+  [ENDED] = false;
+  [UNZIP];
+  [ABORTED2] = false;
+  [SAW_VALID_ENTRY];
+  [SAW_NULL_BLOCK] = false;
+  [SAW_EOF] = false;
+  [WRITING] = false;
+  [CONSUMING] = false;
+  [EMITTEDEND] = false;
+  constructor(opt = {}) {
+    super();
+    this.file = opt.file || "";
+    this.on(DONE, () => {
+      if (this[STATE] === "begin" || this[SAW_VALID_ENTRY] === false) {
+        this.warn("TAR_BAD_ARCHIVE", "Unrecognized archive format");
+      }
+    });
+    if (opt.ondone) {
+      this.on(DONE, opt.ondone);
+    } else {
+      this.on(DONE, () => {
+        this.emit("prefinish");
+        this.emit("finish");
+        this.emit("end");
+      });
+    }
+    this.strict = !!opt.strict;
+    this.maxMetaEntrySize = opt.maxMetaEntrySize || maxMetaEntrySize;
+    this.filter = typeof opt.filter === "function" ? opt.filter : noop3;
+    const isTBR = opt.file && (opt.file.endsWith(".tar.br") || opt.file.endsWith(".tbr"));
+    this.brotli = !(opt.gzip || opt.zstd) && opt.brotli !== void 0 ? opt.brotli : isTBR ? void 0 : false;
+    const isTZST = opt.file && (opt.file.endsWith(".tar.zst") || opt.file.endsWith(".tzst"));
+    this.zstd = !(opt.gzip || opt.brotli) && opt.zstd !== void 0 ? opt.zstd : isTZST ? true : void 0;
+    this.on("end", () => this[CLOSESTREAM]());
+    if (typeof opt.onwarn === "function") {
+      this.on("warn", opt.onwarn);
+    }
+    if (typeof opt.onReadEntry === "function") {
+      this.on("entry", opt.onReadEntry);
+    }
+  }
+  warn(code2, message, data = {}) {
+    warnMethod(this, code2, message, data);
+  }
+  [CONSUMEHEADER](chunk, position) {
+    if (this[SAW_VALID_ENTRY] === void 0) {
+      this[SAW_VALID_ENTRY] = false;
+    }
+    let header;
+    try {
+      header = new Header(chunk, position, this[EX], this[GEX]);
+    } catch (er) {
+      return this.warn("TAR_ENTRY_INVALID", er);
+    }
+    if (header.nullBlock) {
+      if (this[SAW_NULL_BLOCK]) {
+        this[SAW_EOF] = true;
+        if (this[STATE] === "begin") {
+          this[STATE] = "header";
+        }
+        this[EMIT]("eof");
+      } else {
+        this[SAW_NULL_BLOCK] = true;
+        this[EMIT]("nullBlock");
+      }
+    } else {
+      this[SAW_NULL_BLOCK] = false;
+      if (!header.cksumValid) {
+        this.warn("TAR_ENTRY_INVALID", "checksum failure", { header });
+      } else if (!header.path) {
+        this.warn("TAR_ENTRY_INVALID", "path is required", { header });
+      } else {
+        const type = header.type;
+        if (/^(Symbolic)?Link$/.test(type) && !header.linkpath) {
+          this.warn("TAR_ENTRY_INVALID", "linkpath required", {
+            header
+          });
+        } else if (!/^(Symbolic)?Link$/.test(type) && !/^(Global)?ExtendedHeader$/.test(type) && header.linkpath) {
+          this.warn("TAR_ENTRY_INVALID", "linkpath forbidden", {
+            header
+          });
+        } else {
+          const entry = this[WRITEENTRY] = new ReadEntry(header, this[EX], this[GEX]);
+          if (!this[SAW_VALID_ENTRY]) {
+            if (entry.remain) {
+              const onend = () => {
+                if (!entry.invalid) {
+                  this[SAW_VALID_ENTRY] = true;
+                }
+              };
+              entry.on("end", onend);
+            } else {
+              this[SAW_VALID_ENTRY] = true;
+            }
+          }
+          if (entry.meta) {
+            if (entry.size > this.maxMetaEntrySize) {
+              entry.ignore = true;
+              this[EMIT]("ignoredEntry", entry);
+              this[STATE] = "ignore";
+              entry.resume();
+            } else if (entry.size > 0) {
+              this[META] = "";
+              entry.on("data", (c) => this[META] += c);
+              this[STATE] = "meta";
+            }
+          } else {
+            this[EX] = void 0;
+            entry.ignore = entry.ignore || !this.filter(entry.path, entry);
+            if (entry.ignore) {
+              this[EMIT]("ignoredEntry", entry);
+              this[STATE] = entry.remain ? "ignore" : "header";
+              entry.resume();
+            } else {
+              if (entry.remain) {
+                this[STATE] = "body";
+              } else {
+                this[STATE] = "header";
+                entry.end();
+              }
+              if (!this[READENTRY]) {
+                this[QUEUE].push(entry);
+                this[NEXTENTRY]();
+              } else {
+                this[QUEUE].push(entry);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  [CLOSESTREAM]() {
+    queueMicrotask(() => this.emit("close"));
+  }
+  [PROCESSENTRY](entry) {
+    let go = true;
+    if (!entry) {
+      this[READENTRY] = void 0;
+      go = false;
+    } else if (Array.isArray(entry)) {
+      const [ev, ...args] = entry;
+      this.emit(ev, ...args);
+    } else {
+      this[READENTRY] = entry;
+      this.emit("entry", entry);
+      if (!entry.emittedEnd) {
+        entry.on("end", () => this[NEXTENTRY]());
+        go = false;
+      }
+    }
+    return go;
+  }
+  [NEXTENTRY]() {
+    do {
+    } while (this[PROCESSENTRY](this[QUEUE].shift()));
+    if (!this[QUEUE].length) {
+      const re = this[READENTRY];
+      const drainNow = !re || re.flowing || re.size === re.remain;
+      if (drainNow) {
+        if (!this[WRITING]) {
+          this.emit("drain");
+        }
+      } else {
+        re.once("drain", () => this.emit("drain"));
+      }
+    }
+  }
+  [CONSUMEBODY](chunk, position) {
+    const entry = this[WRITEENTRY];
+    if (!entry) {
+      throw new Error("attempt to consume body without entry??");
+    }
+    const br = entry.blockRemain ?? 0;
+    const c = br >= chunk.length && position === 0 ? chunk : chunk.subarray(position, position + br);
+    entry.write(c);
+    if (!entry.blockRemain) {
+      this[STATE] = "header";
+      this[WRITEENTRY] = void 0;
+      entry.end();
+    }
+    return c.length;
+  }
+  [CONSUMEMETA](chunk, position) {
+    const entry = this[WRITEENTRY];
+    const ret = this[CONSUMEBODY](chunk, position);
+    if (!this[WRITEENTRY] && entry) {
+      this[EMITMETA](entry);
+    }
+    return ret;
+  }
+  [EMIT](ev, data, extra) {
+    if (!this[QUEUE].length && !this[READENTRY]) {
+      this.emit(ev, data, extra);
+    } else {
+      this[QUEUE].push([ev, data, extra]);
+    }
+  }
+  [EMITMETA](entry) {
+    this[EMIT]("meta", this[META]);
+    switch (entry.type) {
+      case "ExtendedHeader":
+      case "OldExtendedHeader":
+        this[EX] = Pax.parse(this[META], this[EX], false);
+        break;
+      case "GlobalExtendedHeader":
+        this[GEX] = Pax.parse(this[META], this[GEX], true);
+        break;
+      case "NextFileHasLongPath":
+      case "OldGnuLongPath": {
+        const ex = this[EX] ?? /* @__PURE__ */ Object.create(null);
+        this[EX] = ex;
+        ex.path = this[META].replace(/\0.*/, "");
+        break;
+      }
+      case "NextFileHasLongLinkpath": {
+        const ex = this[EX] || /* @__PURE__ */ Object.create(null);
+        this[EX] = ex;
+        ex.linkpath = this[META].replace(/\0.*/, "");
+        break;
+      }
+      /* c8 ignore start */
+      default:
+        throw new Error("unknown meta: " + entry.type);
+    }
+  }
+  abort(error) {
+    this[ABORTED2] = true;
+    this.emit("abort", error);
+    this.warn("TAR_ABORT", error, { recoverable: false });
+  }
+  write(chunk, encoding, cb) {
+    if (typeof encoding === "function") {
+      cb = encoding;
+      encoding = void 0;
+    }
+    if (typeof chunk === "string") {
+      chunk = Buffer.from(
+        chunk,
+        /* c8 ignore next */
+        typeof encoding === "string" ? encoding : "utf8"
+      );
+    }
+    if (this[ABORTED2]) {
+      cb?.();
+      return false;
+    }
+    const needSniff = this[UNZIP] === void 0 || this.brotli === void 0 && this[UNZIP] === false;
+    if (needSniff && chunk) {
+      if (this[BUFFER2]) {
+        chunk = Buffer.concat([this[BUFFER2], chunk]);
+        this[BUFFER2] = void 0;
+      }
+      if (chunk.length < ZIP_HEADER_LEN) {
+        this[BUFFER2] = chunk;
+        cb?.();
+        return true;
+      }
+      for (let i = 0; this[UNZIP] === void 0 && i < gzipHeader.length; i++) {
+        if (chunk[i] !== gzipHeader[i]) {
+          this[UNZIP] = false;
+        }
+      }
+      let isZstd = false;
+      if (this[UNZIP] === false && this.zstd !== false) {
+        isZstd = true;
+        for (let i = 0; i < zstdHeader.length; i++) {
+          if (chunk[i] !== zstdHeader[i]) {
+            isZstd = false;
+            break;
+          }
+        }
+      }
+      const maybeBrotli = this.brotli === void 0 && !isZstd;
+      if (this[UNZIP] === false && maybeBrotli) {
+        if (chunk.length < 512) {
+          if (this[ENDED]) {
+            this.brotli = true;
+          } else {
+            this[BUFFER2] = chunk;
+            cb?.();
+            return true;
+          }
+        } else {
+          try {
+            new Header(chunk.subarray(0, 512));
+            this.brotli = false;
+          } catch (_) {
+            this.brotli = true;
+          }
+        }
+      }
+      if (this[UNZIP] === void 0 || this[UNZIP] === false && (this.brotli || isZstd)) {
+        const ended = this[ENDED];
+        this[ENDED] = false;
+        this[UNZIP] = this[UNZIP] === void 0 ? new Unzip({}) : isZstd ? new ZstdDecompress({}) : new BrotliDecompress({});
+        this[UNZIP].on("data", (chunk2) => this[CONSUMECHUNK](chunk2));
+        this[UNZIP].on("error", (er) => this.abort(er));
+        this[UNZIP].on("end", () => {
+          this[ENDED] = true;
+          this[CONSUMECHUNK]();
+        });
+        this[WRITING] = true;
+        const ret2 = !!this[UNZIP][ended ? "end" : "write"](chunk);
+        this[WRITING] = false;
+        cb?.();
+        return ret2;
+      }
+    }
+    this[WRITING] = true;
+    if (this[UNZIP]) {
+      this[UNZIP].write(chunk);
+    } else {
+      this[CONSUMECHUNK](chunk);
+    }
+    this[WRITING] = false;
+    const ret = this[QUEUE].length ? false : this[READENTRY] ? this[READENTRY].flowing : true;
+    if (!ret && !this[QUEUE].length) {
+      this[READENTRY]?.once("drain", () => this.emit("drain"));
+    }
+    cb?.();
+    return ret;
+  }
+  [BUFFERCONCAT](c) {
+    if (c && !this[ABORTED2]) {
+      this[BUFFER2] = this[BUFFER2] ? Buffer.concat([this[BUFFER2], c]) : c;
+    }
+  }
+  [MAYBEEND]() {
+    if (this[ENDED] && !this[EMITTEDEND] && !this[ABORTED2] && !this[CONSUMING]) {
+      this[EMITTEDEND] = true;
+      const entry = this[WRITEENTRY];
+      if (entry && entry.blockRemain) {
+        const have = this[BUFFER2] ? this[BUFFER2].length : 0;
+        this.warn("TAR_BAD_ARCHIVE", `Truncated input (needed ${entry.blockRemain} more bytes, only ${have} available)`, { entry });
+        if (this[BUFFER2]) {
+          entry.write(this[BUFFER2]);
+        }
+        entry.end();
+      }
+      this[EMIT](DONE);
+    }
+  }
+  [CONSUMECHUNK](chunk) {
+    if (this[CONSUMING] && chunk) {
+      this[BUFFERCONCAT](chunk);
+    } else if (!chunk && !this[BUFFER2]) {
+      this[MAYBEEND]();
+    } else if (chunk) {
+      this[CONSUMING] = true;
+      if (this[BUFFER2]) {
+        this[BUFFERCONCAT](chunk);
+        const c = this[BUFFER2];
+        this[BUFFER2] = void 0;
+        this[CONSUMECHUNKSUB](c);
+      } else {
+        this[CONSUMECHUNKSUB](chunk);
+      }
+      while (this[BUFFER2] && this[BUFFER2]?.length >= 512 && !this[ABORTED2] && !this[SAW_EOF]) {
+        const c = this[BUFFER2];
+        this[BUFFER2] = void 0;
+        this[CONSUMECHUNKSUB](c);
+      }
+      this[CONSUMING] = false;
+    }
+    if (!this[BUFFER2] || this[ENDED]) {
+      this[MAYBEEND]();
+    }
+  }
+  [CONSUMECHUNKSUB](chunk) {
+    let position = 0;
+    const length = chunk.length;
+    while (position + 512 <= length && !this[ABORTED2] && !this[SAW_EOF]) {
+      switch (this[STATE]) {
+        case "begin":
+        case "header":
+          this[CONSUMEHEADER](chunk, position);
+          position += 512;
+          break;
+        case "ignore":
+        case "body":
+          position += this[CONSUMEBODY](chunk, position);
+          break;
+        case "meta":
+          position += this[CONSUMEMETA](chunk, position);
+          break;
+        /* c8 ignore start */
+        default:
+          throw new Error("invalid state: " + this[STATE]);
+      }
+    }
+    if (position < length) {
+      if (this[BUFFER2]) {
+        this[BUFFER2] = Buffer.concat([
+          chunk.subarray(position),
+          this[BUFFER2]
+        ]);
+      } else {
+        this[BUFFER2] = chunk.subarray(position);
+      }
+    }
+  }
+  end(chunk, encoding, cb) {
+    if (typeof chunk === "function") {
+      cb = chunk;
+      encoding = void 0;
+      chunk = void 0;
+    }
+    if (typeof encoding === "function") {
+      cb = encoding;
+      encoding = void 0;
+    }
+    if (typeof chunk === "string") {
+      chunk = Buffer.from(chunk, encoding);
+    }
+    if (cb)
+      this.once("finish", cb);
+    if (!this[ABORTED2]) {
+      if (this[UNZIP]) {
+        if (chunk)
+          this[UNZIP].write(chunk);
+        this[UNZIP].end();
+      } else {
+        this[ENDED] = true;
+        if (this.brotli === void 0 || this.zstd === void 0)
+          chunk = chunk || Buffer.alloc(0);
+        if (chunk)
+          this.write(chunk);
+        this[MAYBEEND]();
+      }
+    }
+    return this;
+  }
+};
+
+// node_modules/tar/dist/esm/strip-trailing-slashes.js
+var stripTrailingSlashes = (str) => {
+  let i = str.length - 1;
+  let slashesStart = -1;
+  while (i > -1 && str.charAt(i) === "/") {
+    slashesStart = i;
+    i--;
+  }
+  return slashesStart === -1 ? str : str.slice(0, slashesStart);
+};
+
+// node_modules/tar/dist/esm/list.js
+var onReadEntryFunction = (opt) => {
+  const onReadEntry = opt.onReadEntry;
+  opt.onReadEntry = onReadEntry ? (e) => {
+    onReadEntry(e);
+    e.resume();
+  } : (e) => e.resume();
+};
+var filesFilter = (opt, files) => {
+  const map = new Map(files.map((f) => [stripTrailingSlashes(f), true]));
+  const filter2 = opt.filter;
+  const mapHas = (file, r = "") => {
+    const root = r || (0, import_path.parse)(file).root || ".";
+    let ret;
+    if (file === root)
+      ret = false;
+    else {
+      const m = map.get(file);
+      if (m !== void 0) {
+        ret = m;
+      } else {
+        ret = mapHas((0, import_path.dirname)(file), root);
+      }
+    }
+    map.set(file, ret);
+    return ret;
+  };
+  opt.filter = filter2 ? (file, entry) => filter2(file, entry) && mapHas(stripTrailingSlashes(file)) : (file) => mapHas(stripTrailingSlashes(file));
+};
+var listFileSync = (opt) => {
+  const p = new Parser(opt);
+  const file = opt.file;
+  let fd;
+  try {
+    fd = import_node_fs.default.openSync(file, "r");
+    const stat = import_node_fs.default.fstatSync(fd);
+    const readSize = opt.maxReadSize || 16 * 1024 * 1024;
+    if (stat.size < readSize) {
+      const buf = Buffer.allocUnsafe(stat.size);
+      import_node_fs.default.readSync(fd, buf, 0, stat.size, 0);
+      p.end(buf);
+    } else {
+      let pos2 = 0;
+      const buf = Buffer.allocUnsafe(readSize);
+      while (pos2 < stat.size) {
+        const bytesRead = import_node_fs.default.readSync(fd, buf, 0, readSize, pos2);
+        pos2 += bytesRead;
+        p.write(buf.subarray(0, bytesRead));
+      }
+      p.end();
+    }
+  } finally {
+    if (typeof fd === "number") {
+      try {
+        import_node_fs.default.closeSync(fd);
+      } catch (er) {
+      }
+    }
+  }
+};
+var listFile = (opt, _files) => {
+  const parse4 = new Parser(opt);
+  const readSize = opt.maxReadSize || 16 * 1024 * 1024;
+  const file = opt.file;
+  const p = new Promise((resolve, reject) => {
+    parse4.on("error", reject);
+    parse4.on("end", resolve);
+    import_node_fs.default.stat(file, (er, stat) => {
+      if (er) {
+        reject(er);
+      } else {
+        const stream4 = new ReadStream(file, {
+          readSize,
+          size: stat.size
+        });
+        stream4.on("error", reject);
+        stream4.pipe(parse4);
+      }
+    });
+  });
+  return p;
+};
+var list = makeCommand(listFileSync, listFile, (opt) => new Parser(opt), (opt) => new Parser(opt), (opt, files) => {
+  if (files?.length)
+    filesFilter(opt, files);
+  if (!opt.noResume)
+    onReadEntryFunction(opt);
+});
+
+// node_modules/tar/dist/esm/pack.js
+var import_fs3 = __toESM(require("fs"), 1);
+
+// node_modules/tar/dist/esm/write-entry.js
+var import_fs2 = __toESM(require("fs"), 1);
+var import_path2 = __toESM(require("path"), 1);
+
+// node_modules/tar/dist/esm/mode-fix.js
+var modeFix = (mode, isDir, portable) => {
+  mode &= 4095;
+  if (portable) {
+    mode = (mode | 384) & ~18;
+  }
+  if (isDir) {
+    if (mode & 256) {
+      mode |= 64;
+    }
+    if (mode & 32) {
+      mode |= 8;
+    }
+    if (mode & 4) {
+      mode |= 1;
+    }
+  }
+  return mode;
+};
+
+// node_modules/tar/dist/esm/strip-absolute-path.js
+var import_node_path3 = require("node:path");
+var { isAbsolute, parse: parse3 } = import_node_path3.win32;
+var stripAbsolutePath = (path8) => {
+  let r = "";
+  let parsed = parse3(path8);
+  while (isAbsolute(path8) || parsed.root) {
+    const root = path8.charAt(0) === "/" && path8.slice(0, 4) !== "//?/" ? "/" : parsed.root;
+    path8 = path8.slice(root.length);
+    r += root;
+    parsed = parse3(path8);
+  }
+  return [r, path8];
+};
+
+// node_modules/tar/dist/esm/winchars.js
+var raw = ["|", "<", ">", "?", ":"];
+var win = raw.map((char) => String.fromCharCode(61440 + char.charCodeAt(0)));
+var toWin = new Map(raw.map((char, i) => [char, win[i]]));
+var toRaw = new Map(win.map((char, i) => [char, raw[i]]));
+var encode4 = (s) => raw.reduce((s2, c) => s2.split(c).join(toWin.get(c)), s);
+var decode = (s) => win.reduce((s2, c) => s2.split(c).join(toRaw.get(c)), s);
+
+// node_modules/tar/dist/esm/write-entry.js
+var prefixPath = (path8, prefix) => {
+  if (!prefix) {
+    return normalizeWindowsPath(path8);
+  }
+  path8 = normalizeWindowsPath(path8).replace(/^\.(\/|$)/, "");
+  return stripTrailingSlashes(prefix) + "/" + path8;
+};
+var maxReadSize = 16 * 1024 * 1024;
+var PROCESS = Symbol("process");
+var FILE = Symbol("file");
+var DIRECTORY = Symbol("directory");
+var SYMLINK = Symbol("symlink");
+var HARDLINK = Symbol("hardlink");
+var HEADER = Symbol("header");
+var READ2 = Symbol("read");
+var LSTAT = Symbol("lstat");
+var ONLSTAT = Symbol("onlstat");
+var ONREAD = Symbol("onread");
+var ONREADLINK = Symbol("onreadlink");
+var OPENFILE = Symbol("openfile");
+var ONOPENFILE = Symbol("onopenfile");
+var CLOSE = Symbol("close");
+var MODE = Symbol("mode");
+var AWAITDRAIN = Symbol("awaitDrain");
+var ONDRAIN = Symbol("ondrain");
+var PREFIX = Symbol("prefix");
+var WriteEntry = class extends Minipass {
+  path;
+  portable;
+  myuid = process.getuid && process.getuid() || 0;
+  // until node has builtin pwnam functions, this'll have to do
+  myuser = process.env.USER || "";
+  maxReadSize;
+  linkCache;
+  statCache;
+  preservePaths;
+  cwd;
+  strict;
+  mtime;
+  noPax;
+  noMtime;
+  prefix;
+  fd;
+  blockLen = 0;
+  blockRemain = 0;
+  buf;
+  pos = 0;
+  remain = 0;
+  length = 0;
+  offset = 0;
+  win32;
+  absolute;
+  header;
+  type;
+  linkpath;
+  stat;
+  onWriteEntry;
+  #hadError = false;
+  constructor(p, opt_ = {}) {
+    const opt = dealias(opt_);
+    super();
+    this.path = normalizeWindowsPath(p);
+    this.portable = !!opt.portable;
+    this.maxReadSize = opt.maxReadSize || maxReadSize;
+    this.linkCache = opt.linkCache || /* @__PURE__ */ new Map();
+    this.statCache = opt.statCache || /* @__PURE__ */ new Map();
+    this.preservePaths = !!opt.preservePaths;
+    this.cwd = normalizeWindowsPath(opt.cwd || process.cwd());
+    this.strict = !!opt.strict;
+    this.noPax = !!opt.noPax;
+    this.noMtime = !!opt.noMtime;
+    this.mtime = opt.mtime;
+    this.prefix = opt.prefix ? normalizeWindowsPath(opt.prefix) : void 0;
+    this.onWriteEntry = opt.onWriteEntry;
+    if (typeof opt.onwarn === "function") {
+      this.on("warn", opt.onwarn);
+    }
+    let pathWarn = false;
+    if (!this.preservePaths) {
+      const [root, stripped] = stripAbsolutePath(this.path);
+      if (root && typeof stripped === "string") {
+        this.path = stripped;
+        pathWarn = root;
+      }
+    }
+    this.win32 = !!opt.win32 || process.platform === "win32";
+    if (this.win32) {
+      this.path = decode(this.path.replace(/\\/g, "/"));
+      p = p.replace(/\\/g, "/");
+    }
+    this.absolute = normalizeWindowsPath(opt.absolute || import_path2.default.resolve(this.cwd, p));
+    if (this.path === "") {
+      this.path = "./";
+    }
+    if (pathWarn) {
+      this.warn("TAR_ENTRY_INFO", `stripping ${pathWarn} from absolute path`, {
+        entry: this,
+        path: pathWarn + this.path
+      });
+    }
+    const cs = this.statCache.get(this.absolute);
+    if (cs) {
+      this[ONLSTAT](cs);
+    } else {
+      this[LSTAT]();
+    }
+  }
+  warn(code2, message, data = {}) {
+    return warnMethod(this, code2, message, data);
+  }
+  emit(ev, ...data) {
+    if (ev === "error") {
+      this.#hadError = true;
+    }
+    return super.emit(ev, ...data);
+  }
+  [LSTAT]() {
+    import_fs2.default.lstat(this.absolute, (er, stat) => {
+      if (er) {
+        return this.emit("error", er);
+      }
+      this[ONLSTAT](stat);
+    });
+  }
+  [ONLSTAT](stat) {
+    this.statCache.set(this.absolute, stat);
+    this.stat = stat;
+    if (!stat.isFile()) {
+      stat.size = 0;
+    }
+    this.type = getType(stat);
+    this.emit("stat", stat);
+    this[PROCESS]();
+  }
+  [PROCESS]() {
+    switch (this.type) {
+      case "File":
+        return this[FILE]();
+      case "Directory":
+        return this[DIRECTORY]();
+      case "SymbolicLink":
+        return this[SYMLINK]();
+      // unsupported types are ignored.
+      default:
+        return this.end();
+    }
+  }
+  [MODE](mode) {
+    return modeFix(mode, this.type === "Directory", this.portable);
+  }
+  [PREFIX](path8) {
+    return prefixPath(path8, this.prefix);
+  }
+  [HEADER]() {
+    if (!this.stat) {
+      throw new Error("cannot write header before stat");
+    }
+    if (this.type === "Directory" && this.portable) {
+      this.noMtime = true;
+    }
+    this.onWriteEntry?.(this);
+    this.header = new Header({
+      path: this[PREFIX](this.path),
+      // only apply the prefix to hard links.
+      linkpath: this.type === "Link" && this.linkpath !== void 0 ? this[PREFIX](this.linkpath) : this.linkpath,
+      // only the permissions and setuid/setgid/sticky bitflags
+      // not the higher-order bits that specify file type
+      mode: this[MODE](this.stat.mode),
+      uid: this.portable ? void 0 : this.stat.uid,
+      gid: this.portable ? void 0 : this.stat.gid,
+      size: this.stat.size,
+      mtime: this.noMtime ? void 0 : this.mtime || this.stat.mtime,
+      /* c8 ignore next */
+      type: this.type === "Unsupported" ? void 0 : this.type,
+      uname: this.portable ? void 0 : this.stat.uid === this.myuid ? this.myuser : "",
+      atime: this.portable ? void 0 : this.stat.atime,
+      ctime: this.portable ? void 0 : this.stat.ctime
+    });
+    if (this.header.encode() && !this.noPax) {
+      super.write(new Pax({
+        atime: this.portable ? void 0 : this.header.atime,
+        ctime: this.portable ? void 0 : this.header.ctime,
+        gid: this.portable ? void 0 : this.header.gid,
+        mtime: this.noMtime ? void 0 : this.mtime || this.header.mtime,
+        path: this[PREFIX](this.path),
+        linkpath: this.type === "Link" && this.linkpath !== void 0 ? this[PREFIX](this.linkpath) : this.linkpath,
+        size: this.header.size,
+        uid: this.portable ? void 0 : this.header.uid,
+        uname: this.portable ? void 0 : this.header.uname,
+        dev: this.portable ? void 0 : this.stat.dev,
+        ino: this.portable ? void 0 : this.stat.ino,
+        nlink: this.portable ? void 0 : this.stat.nlink
+      }).encode());
+    }
+    const block = this.header?.block;
+    if (!block) {
+      throw new Error("failed to encode header");
+    }
+    super.write(block);
+  }
+  [DIRECTORY]() {
+    if (!this.stat) {
+      throw new Error("cannot create directory entry without stat");
+    }
+    if (this.path.slice(-1) !== "/") {
+      this.path += "/";
+    }
+    this.stat.size = 0;
+    this[HEADER]();
+    this.end();
+  }
+  [SYMLINK]() {
+    import_fs2.default.readlink(this.absolute, (er, linkpath) => {
+      if (er) {
+        return this.emit("error", er);
+      }
+      this[ONREADLINK](linkpath);
+    });
+  }
+  [ONREADLINK](linkpath) {
+    this.linkpath = normalizeWindowsPath(linkpath);
+    this[HEADER]();
+    this.end();
+  }
+  [HARDLINK](linkpath) {
+    if (!this.stat) {
+      throw new Error("cannot create link entry without stat");
+    }
+    this.type = "Link";
+    this.linkpath = normalizeWindowsPath(import_path2.default.relative(this.cwd, linkpath));
+    this.stat.size = 0;
+    this[HEADER]();
+    this.end();
+  }
+  [FILE]() {
+    if (!this.stat) {
+      throw new Error("cannot create file entry without stat");
+    }
+    if (this.stat.nlink > 1) {
+      const linkKey = `${this.stat.dev}:${this.stat.ino}`;
+      const linkpath = this.linkCache.get(linkKey);
+      if (linkpath?.indexOf(this.cwd) === 0) {
+        return this[HARDLINK](linkpath);
+      }
+      this.linkCache.set(linkKey, this.absolute);
+    }
+    this[HEADER]();
+    if (this.stat.size === 0) {
+      return this.end();
+    }
+    this[OPENFILE]();
+  }
+  [OPENFILE]() {
+    import_fs2.default.open(this.absolute, "r", (er, fd) => {
+      if (er) {
+        return this.emit("error", er);
+      }
+      this[ONOPENFILE](fd);
+    });
+  }
+  [ONOPENFILE](fd) {
+    this.fd = fd;
+    if (this.#hadError) {
+      return this[CLOSE]();
+    }
+    if (!this.stat) {
+      throw new Error("should stat before calling onopenfile");
+    }
+    this.blockLen = 512 * Math.ceil(this.stat.size / 512);
+    this.blockRemain = this.blockLen;
+    const bufLen = Math.min(this.blockLen, this.maxReadSize);
+    this.buf = Buffer.allocUnsafe(bufLen);
+    this.offset = 0;
+    this.pos = 0;
+    this.remain = this.stat.size;
+    this.length = this.buf.length;
+    this[READ2]();
+  }
+  [READ2]() {
+    const { fd, buf, offset, length, pos: pos2 } = this;
+    if (fd === void 0 || buf === void 0) {
+      throw new Error("cannot read file without first opening");
+    }
+    import_fs2.default.read(fd, buf, offset, length, pos2, (er, bytesRead) => {
+      if (er) {
+        return this[CLOSE](() => this.emit("error", er));
+      }
+      this[ONREAD](bytesRead);
+    });
+  }
+  /* c8 ignore start */
+  [CLOSE](cb = () => {
+  }) {
+    if (this.fd !== void 0)
+      import_fs2.default.close(this.fd, cb);
+  }
+  [ONREAD](bytesRead) {
+    if (bytesRead <= 0 && this.remain > 0) {
+      const er = Object.assign(new Error("encountered unexpected EOF"), {
+        path: this.absolute,
+        syscall: "read",
+        code: "EOF"
+      });
+      return this[CLOSE](() => this.emit("error", er));
+    }
+    if (bytesRead > this.remain) {
+      const er = Object.assign(new Error("did not encounter expected EOF"), {
+        path: this.absolute,
+        syscall: "read",
+        code: "EOF"
+      });
+      return this[CLOSE](() => this.emit("error", er));
+    }
+    if (!this.buf) {
+      throw new Error("should have created buffer prior to reading");
+    }
+    if (bytesRead === this.remain) {
+      for (let i = bytesRead; i < this.length && bytesRead < this.blockRemain; i++) {
+        this.buf[i + this.offset] = 0;
+        bytesRead++;
+        this.remain++;
+      }
+    }
+    const chunk = this.offset === 0 && bytesRead === this.buf.length ? this.buf : this.buf.subarray(this.offset, this.offset + bytesRead);
+    const flushed = this.write(chunk);
+    if (!flushed) {
+      this[AWAITDRAIN](() => this[ONDRAIN]());
+    } else {
+      this[ONDRAIN]();
+    }
+  }
+  [AWAITDRAIN](cb) {
+    this.once("drain", cb);
+  }
+  write(chunk, encoding, cb) {
+    if (typeof encoding === "function") {
+      cb = encoding;
+      encoding = void 0;
+    }
+    if (typeof chunk === "string") {
+      chunk = Buffer.from(chunk, typeof encoding === "string" ? encoding : "utf8");
+    }
+    if (this.blockRemain < chunk.length) {
+      const er = Object.assign(new Error("writing more data than expected"), {
+        path: this.absolute
+      });
+      return this.emit("error", er);
+    }
+    this.remain -= chunk.length;
+    this.blockRemain -= chunk.length;
+    this.pos += chunk.length;
+    this.offset += chunk.length;
+    return super.write(chunk, null, cb);
+  }
+  [ONDRAIN]() {
+    if (!this.remain) {
+      if (this.blockRemain) {
+        super.write(Buffer.alloc(this.blockRemain));
+      }
+      return this[CLOSE]((er) => er ? this.emit("error", er) : this.end());
+    }
+    if (!this.buf) {
+      throw new Error("buffer lost somehow in ONDRAIN");
+    }
+    if (this.offset >= this.length) {
+      this.buf = Buffer.allocUnsafe(Math.min(this.blockRemain, this.buf.length));
+      this.offset = 0;
+    }
+    this.length = this.buf.length - this.offset;
+    this[READ2]();
+  }
+};
+var WriteEntrySync = class extends WriteEntry {
+  sync = true;
+  [LSTAT]() {
+    this[ONLSTAT](import_fs2.default.lstatSync(this.absolute));
+  }
+  [SYMLINK]() {
+    this[ONREADLINK](import_fs2.default.readlinkSync(this.absolute));
+  }
+  [OPENFILE]() {
+    this[ONOPENFILE](import_fs2.default.openSync(this.absolute, "r"));
+  }
+  [READ2]() {
+    let threw = true;
+    try {
+      const { fd, buf, offset, length, pos: pos2 } = this;
+      if (fd === void 0 || buf === void 0) {
+        throw new Error("fd and buf must be set in READ method");
+      }
+      const bytesRead = import_fs2.default.readSync(fd, buf, offset, length, pos2);
+      this[ONREAD](bytesRead);
+      threw = false;
+    } finally {
+      if (threw) {
+        try {
+          this[CLOSE](() => {
+          });
+        } catch (er) {
+        }
+      }
+    }
+  }
+  [AWAITDRAIN](cb) {
+    cb();
+  }
+  /* c8 ignore start */
+  [CLOSE](cb = () => {
+  }) {
+    if (this.fd !== void 0)
+      import_fs2.default.closeSync(this.fd);
+    cb();
+  }
+};
+var WriteEntryTar = class extends Minipass {
+  blockLen = 0;
+  blockRemain = 0;
+  buf = 0;
+  pos = 0;
+  remain = 0;
+  length = 0;
+  preservePaths;
+  portable;
+  strict;
+  noPax;
+  noMtime;
+  readEntry;
+  type;
+  prefix;
+  path;
+  mode;
+  uid;
+  gid;
+  uname;
+  gname;
+  header;
+  mtime;
+  atime;
+  ctime;
+  linkpath;
+  size;
+  onWriteEntry;
+  warn(code2, message, data = {}) {
+    return warnMethod(this, code2, message, data);
+  }
+  constructor(readEntry, opt_ = {}) {
+    const opt = dealias(opt_);
+    super();
+    this.preservePaths = !!opt.preservePaths;
+    this.portable = !!opt.portable;
+    this.strict = !!opt.strict;
+    this.noPax = !!opt.noPax;
+    this.noMtime = !!opt.noMtime;
+    this.onWriteEntry = opt.onWriteEntry;
+    this.readEntry = readEntry;
+    const { type } = readEntry;
+    if (type === "Unsupported") {
+      throw new Error("writing entry that should be ignored");
+    }
+    this.type = type;
+    if (this.type === "Directory" && this.portable) {
+      this.noMtime = true;
+    }
+    this.prefix = opt.prefix;
+    this.path = normalizeWindowsPath(readEntry.path);
+    this.mode = readEntry.mode !== void 0 ? this[MODE](readEntry.mode) : void 0;
+    this.uid = this.portable ? void 0 : readEntry.uid;
+    this.gid = this.portable ? void 0 : readEntry.gid;
+    this.uname = this.portable ? void 0 : readEntry.uname;
+    this.gname = this.portable ? void 0 : readEntry.gname;
+    this.size = readEntry.size;
+    this.mtime = this.noMtime ? void 0 : opt.mtime || readEntry.mtime;
+    this.atime = this.portable ? void 0 : readEntry.atime;
+    this.ctime = this.portable ? void 0 : readEntry.ctime;
+    this.linkpath = readEntry.linkpath !== void 0 ? normalizeWindowsPath(readEntry.linkpath) : void 0;
+    if (typeof opt.onwarn === "function") {
+      this.on("warn", opt.onwarn);
+    }
+    let pathWarn = false;
+    if (!this.preservePaths) {
+      const [root, stripped] = stripAbsolutePath(this.path);
+      if (root && typeof stripped === "string") {
+        this.path = stripped;
+        pathWarn = root;
+      }
+    }
+    this.remain = readEntry.size;
+    this.blockRemain = readEntry.startBlockSize;
+    this.onWriteEntry?.(this);
+    this.header = new Header({
+      path: this[PREFIX](this.path),
+      linkpath: this.type === "Link" && this.linkpath !== void 0 ? this[PREFIX](this.linkpath) : this.linkpath,
+      // only the permissions and setuid/setgid/sticky bitflags
+      // not the higher-order bits that specify file type
+      mode: this.mode,
+      uid: this.portable ? void 0 : this.uid,
+      gid: this.portable ? void 0 : this.gid,
+      size: this.size,
+      mtime: this.noMtime ? void 0 : this.mtime,
+      type: this.type,
+      uname: this.portable ? void 0 : this.uname,
+      atime: this.portable ? void 0 : this.atime,
+      ctime: this.portable ? void 0 : this.ctime
+    });
+    if (pathWarn) {
+      this.warn("TAR_ENTRY_INFO", `stripping ${pathWarn} from absolute path`, {
+        entry: this,
+        path: pathWarn + this.path
+      });
+    }
+    if (this.header.encode() && !this.noPax) {
+      super.write(new Pax({
+        atime: this.portable ? void 0 : this.atime,
+        ctime: this.portable ? void 0 : this.ctime,
+        gid: this.portable ? void 0 : this.gid,
+        mtime: this.noMtime ? void 0 : this.mtime,
+        path: this[PREFIX](this.path),
+        linkpath: this.type === "Link" && this.linkpath !== void 0 ? this[PREFIX](this.linkpath) : this.linkpath,
+        size: this.size,
+        uid: this.portable ? void 0 : this.uid,
+        uname: this.portable ? void 0 : this.uname,
+        dev: this.portable ? void 0 : this.readEntry.dev,
+        ino: this.portable ? void 0 : this.readEntry.ino,
+        nlink: this.portable ? void 0 : this.readEntry.nlink
+      }).encode());
+    }
+    const b = this.header?.block;
+    if (!b)
+      throw new Error("failed to encode header");
+    super.write(b);
+    readEntry.pipe(this);
+  }
+  [PREFIX](path8) {
+    return prefixPath(path8, this.prefix);
+  }
+  [MODE](mode) {
+    return modeFix(mode, this.type === "Directory", this.portable);
+  }
+  write(chunk, encoding, cb) {
+    if (typeof encoding === "function") {
+      cb = encoding;
+      encoding = void 0;
+    }
+    if (typeof chunk === "string") {
+      chunk = Buffer.from(chunk, typeof encoding === "string" ? encoding : "utf8");
+    }
+    const writeLen = chunk.length;
+    if (writeLen > this.blockRemain) {
+      throw new Error("writing more to entry than is appropriate");
+    }
+    this.blockRemain -= writeLen;
+    return super.write(chunk, cb);
+  }
+  end(chunk, encoding, cb) {
+    if (this.blockRemain) {
+      super.write(Buffer.alloc(this.blockRemain));
+    }
+    if (typeof chunk === "function") {
+      cb = chunk;
+      encoding = void 0;
+      chunk = void 0;
+    }
+    if (typeof encoding === "function") {
+      cb = encoding;
+      encoding = void 0;
+    }
+    if (typeof chunk === "string") {
+      chunk = Buffer.from(chunk, encoding ?? "utf8");
+    }
+    if (cb)
+      this.once("finish", cb);
+    chunk ? super.end(chunk, cb) : super.end(cb);
+    return this;
+  }
+};
+var getType = (stat) => stat.isFile() ? "File" : stat.isDirectory() ? "Directory" : stat.isSymbolicLink() ? "SymbolicLink" : "Unsupported";
+
+// node_modules/yallist/dist/esm/index.js
+var Yallist = class _Yallist {
+  tail;
+  head;
+  length = 0;
+  static create(list2 = []) {
+    return new _Yallist(list2);
+  }
+  constructor(list2 = []) {
+    for (const item of list2) {
+      this.push(item);
+    }
+  }
+  *[Symbol.iterator]() {
+    for (let walker = this.head; walker; walker = walker.next) {
+      yield walker.value;
+    }
+  }
+  removeNode(node) {
+    if (node.list !== this) {
+      throw new Error("removing node which does not belong to this list");
+    }
+    const next = node.next;
+    const prev = node.prev;
+    if (next) {
+      next.prev = prev;
+    }
+    if (prev) {
+      prev.next = next;
+    }
+    if (node === this.head) {
+      this.head = next;
+    }
+    if (node === this.tail) {
+      this.tail = prev;
+    }
+    this.length--;
+    node.next = void 0;
+    node.prev = void 0;
+    node.list = void 0;
+    return next;
+  }
+  unshiftNode(node) {
+    if (node === this.head) {
+      return;
+    }
+    if (node.list) {
+      node.list.removeNode(node);
+    }
+    const head = this.head;
+    node.list = this;
+    node.next = head;
+    if (head) {
+      head.prev = node;
+    }
+    this.head = node;
+    if (!this.tail) {
+      this.tail = node;
+    }
+    this.length++;
+  }
+  pushNode(node) {
+    if (node === this.tail) {
+      return;
+    }
+    if (node.list) {
+      node.list.removeNode(node);
+    }
+    const tail = this.tail;
+    node.list = this;
+    node.prev = tail;
+    if (tail) {
+      tail.next = node;
+    }
+    this.tail = node;
+    if (!this.head) {
+      this.head = node;
+    }
+    this.length++;
+  }
+  push(...args) {
+    for (let i = 0, l = args.length; i < l; i++) {
+      push(this, args[i]);
+    }
+    return this.length;
+  }
+  unshift(...args) {
+    for (var i = 0, l = args.length; i < l; i++) {
+      unshift(this, args[i]);
+    }
+    return this.length;
+  }
+  pop() {
+    if (!this.tail) {
+      return void 0;
+    }
+    const res = this.tail.value;
+    const t = this.tail;
+    this.tail = this.tail.prev;
+    if (this.tail) {
+      this.tail.next = void 0;
+    } else {
+      this.head = void 0;
+    }
+    t.list = void 0;
+    this.length--;
+    return res;
+  }
+  shift() {
+    if (!this.head) {
+      return void 0;
+    }
+    const res = this.head.value;
+    const h = this.head;
+    this.head = this.head.next;
+    if (this.head) {
+      this.head.prev = void 0;
+    } else {
+      this.tail = void 0;
+    }
+    h.list = void 0;
+    this.length--;
+    return res;
+  }
+  forEach(fn, thisp) {
+    thisp = thisp || this;
+    for (let walker = this.head, i = 0; !!walker; i++) {
+      fn.call(thisp, walker.value, i, this);
+      walker = walker.next;
+    }
+  }
+  forEachReverse(fn, thisp) {
+    thisp = thisp || this;
+    for (let walker = this.tail, i = this.length - 1; !!walker; i--) {
+      fn.call(thisp, walker.value, i, this);
+      walker = walker.prev;
+    }
+  }
+  get(n) {
+    let i = 0;
+    let walker = this.head;
+    for (; !!walker && i < n; i++) {
+      walker = walker.next;
+    }
+    if (i === n && !!walker) {
+      return walker.value;
+    }
+  }
+  getReverse(n) {
+    let i = 0;
+    let walker = this.tail;
+    for (; !!walker && i < n; i++) {
+      walker = walker.prev;
+    }
+    if (i === n && !!walker) {
+      return walker.value;
+    }
+  }
+  map(fn, thisp) {
+    thisp = thisp || this;
+    const res = new _Yallist();
+    for (let walker = this.head; !!walker; ) {
+      res.push(fn.call(thisp, walker.value, this));
+      walker = walker.next;
+    }
+    return res;
+  }
+  mapReverse(fn, thisp) {
+    thisp = thisp || this;
+    var res = new _Yallist();
+    for (let walker = this.tail; !!walker; ) {
+      res.push(fn.call(thisp, walker.value, this));
+      walker = walker.prev;
+    }
+    return res;
+  }
+  reduce(fn, initial) {
+    let acc;
+    let walker = this.head;
+    if (arguments.length > 1) {
+      acc = initial;
+    } else if (this.head) {
+      walker = this.head.next;
+      acc = this.head.value;
+    } else {
+      throw new TypeError("Reduce of empty list with no initial value");
+    }
+    for (var i = 0; !!walker; i++) {
+      acc = fn(acc, walker.value, i);
+      walker = walker.next;
+    }
+    return acc;
+  }
+  reduceReverse(fn, initial) {
+    let acc;
+    let walker = this.tail;
+    if (arguments.length > 1) {
+      acc = initial;
+    } else if (this.tail) {
+      walker = this.tail.prev;
+      acc = this.tail.value;
+    } else {
+      throw new TypeError("Reduce of empty list with no initial value");
+    }
+    for (let i = this.length - 1; !!walker; i--) {
+      acc = fn(acc, walker.value, i);
+      walker = walker.prev;
+    }
+    return acc;
+  }
+  toArray() {
+    const arr = new Array(this.length);
+    for (let i = 0, walker = this.head; !!walker; i++) {
+      arr[i] = walker.value;
+      walker = walker.next;
+    }
+    return arr;
+  }
+  toArrayReverse() {
+    const arr = new Array(this.length);
+    for (let i = 0, walker = this.tail; !!walker; i++) {
+      arr[i] = walker.value;
+      walker = walker.prev;
+    }
+    return arr;
+  }
+  slice(from = 0, to = this.length) {
+    if (to < 0) {
+      to += this.length;
+    }
+    if (from < 0) {
+      from += this.length;
+    }
+    const ret = new _Yallist();
+    if (to < from || to < 0) {
+      return ret;
+    }
+    if (from < 0) {
+      from = 0;
+    }
+    if (to > this.length) {
+      to = this.length;
+    }
+    let walker = this.head;
+    let i = 0;
+    for (i = 0; !!walker && i < from; i++) {
+      walker = walker.next;
+    }
+    for (; !!walker && i < to; i++, walker = walker.next) {
+      ret.push(walker.value);
+    }
+    return ret;
+  }
+  sliceReverse(from = 0, to = this.length) {
+    if (to < 0) {
+      to += this.length;
+    }
+    if (from < 0) {
+      from += this.length;
+    }
+    const ret = new _Yallist();
+    if (to < from || to < 0) {
+      return ret;
+    }
+    if (from < 0) {
+      from = 0;
+    }
+    if (to > this.length) {
+      to = this.length;
+    }
+    let i = this.length;
+    let walker = this.tail;
+    for (; !!walker && i > to; i--) {
+      walker = walker.prev;
+    }
+    for (; !!walker && i > from; i--, walker = walker.prev) {
+      ret.push(walker.value);
+    }
+    return ret;
+  }
+  splice(start, deleteCount = 0, ...nodes) {
+    if (start > this.length) {
+      start = this.length - 1;
+    }
+    if (start < 0) {
+      start = this.length + start;
+    }
+    let walker = this.head;
+    for (let i = 0; !!walker && i < start; i++) {
+      walker = walker.next;
+    }
+    const ret = [];
+    for (let i = 0; !!walker && i < deleteCount; i++) {
+      ret.push(walker.value);
+      walker = this.removeNode(walker);
+    }
+    if (!walker) {
+      walker = this.tail;
+    } else if (walker !== this.tail) {
+      walker = walker.prev;
+    }
+    for (const v of nodes) {
+      walker = insertAfter(this, walker, v);
+    }
+    return ret;
+  }
+  reverse() {
+    const head = this.head;
+    const tail = this.tail;
+    for (let walker = head; !!walker; walker = walker.prev) {
+      const p = walker.prev;
+      walker.prev = walker.next;
+      walker.next = p;
+    }
+    this.head = tail;
+    this.tail = head;
+    return this;
+  }
+};
+function insertAfter(self2, node, value) {
+  const prev = node;
+  const next = node ? node.next : self2.head;
+  const inserted = new Node(value, prev, next, self2);
+  if (inserted.next === void 0) {
+    self2.tail = inserted;
+  }
+  if (inserted.prev === void 0) {
+    self2.head = inserted;
+  }
+  self2.length++;
+  return inserted;
+}
+function push(self2, item) {
+  self2.tail = new Node(item, self2.tail, void 0, self2);
+  if (!self2.head) {
+    self2.head = self2.tail;
+  }
+  self2.length++;
+}
+function unshift(self2, item) {
+  self2.head = new Node(item, void 0, self2.head, self2);
+  if (!self2.tail) {
+    self2.tail = self2.head;
+  }
+  self2.length++;
+}
+var Node = class {
+  list;
+  next;
+  prev;
+  value;
+  constructor(value, prev, next, list2) {
+    this.list = list2;
+    this.value = value;
+    if (prev) {
+      prev.next = this;
+      this.prev = prev;
+    } else {
+      this.prev = void 0;
+    }
+    if (next) {
+      next.prev = this;
+      this.next = next;
+    } else {
+      this.next = void 0;
+    }
+  }
+};
+
+// node_modules/tar/dist/esm/pack.js
+var import_path3 = __toESM(require("path"), 1);
+var PackJob = class {
+  path;
+  absolute;
+  entry;
+  stat;
+  readdir;
+  pending = false;
+  ignore = false;
+  piped = false;
+  constructor(path8, absolute) {
+    this.path = path8 || "./";
+    this.absolute = absolute;
+  }
+};
+var EOF2 = Buffer.alloc(1024);
+var ONSTAT = Symbol("onStat");
+var ENDED2 = Symbol("ended");
+var QUEUE2 = Symbol("queue");
+var CURRENT = Symbol("current");
+var PROCESS2 = Symbol("process");
+var PROCESSING = Symbol("processing");
+var PROCESSJOB = Symbol("processJob");
+var JOBS = Symbol("jobs");
+var JOBDONE = Symbol("jobDone");
+var ADDFSENTRY = Symbol("addFSEntry");
+var ADDTARENTRY = Symbol("addTarEntry");
+var STAT = Symbol("stat");
+var READDIR = Symbol("readdir");
+var ONREADDIR = Symbol("onreaddir");
+var PIPE = Symbol("pipe");
+var ENTRY = Symbol("entry");
+var ENTRYOPT = Symbol("entryOpt");
+var WRITEENTRYCLASS = Symbol("writeEntryClass");
+var WRITE = Symbol("write");
+var ONDRAIN2 = Symbol("ondrain");
+var Pack = class extends Minipass {
+  opt;
+  cwd;
+  maxReadSize;
+  preservePaths;
+  strict;
+  noPax;
+  prefix;
+  linkCache;
+  statCache;
+  file;
+  portable;
+  zip;
+  readdirCache;
+  noDirRecurse;
+  follow;
+  noMtime;
+  mtime;
+  filter;
+  jobs;
+  [WRITEENTRYCLASS];
+  onWriteEntry;
+  // Note: we actually DO need a linked list here, because we
+  // shift() to update the head of the list where we start, but still
+  // while that happens, need to know what the next item in the queue
+  // will be. Since we do multiple jobs in parallel, it's not as simple
+  // as just an Array.shift(), since that would lose the information about
+  // the next job in the list. We could add a .next field on the PackJob
+  // class, but then we'd have to be tracking the tail of the queue the
+  // whole time, and Yallist just does that for us anyway.
+  [QUEUE2];
+  [JOBS] = 0;
+  [PROCESSING] = false;
+  [ENDED2] = false;
+  constructor(opt = {}) {
+    super();
+    this.opt = opt;
+    this.file = opt.file || "";
+    this.cwd = opt.cwd || process.cwd();
+    this.maxReadSize = opt.maxReadSize;
+    this.preservePaths = !!opt.preservePaths;
+    this.strict = !!opt.strict;
+    this.noPax = !!opt.noPax;
+    this.prefix = normalizeWindowsPath(opt.prefix || "");
+    this.linkCache = opt.linkCache || /* @__PURE__ */ new Map();
+    this.statCache = opt.statCache || /* @__PURE__ */ new Map();
+    this.readdirCache = opt.readdirCache || /* @__PURE__ */ new Map();
+    this.onWriteEntry = opt.onWriteEntry;
+    this[WRITEENTRYCLASS] = WriteEntry;
+    if (typeof opt.onwarn === "function") {
+      this.on("warn", opt.onwarn);
+    }
+    this.portable = !!opt.portable;
+    if (opt.gzip || opt.brotli || opt.zstd) {
+      if ((opt.gzip ? 1 : 0) + (opt.brotli ? 1 : 0) + (opt.zstd ? 1 : 0) > 1) {
+        throw new TypeError("gzip, brotli, zstd are mutually exclusive");
+      }
+      if (opt.gzip) {
+        if (typeof opt.gzip !== "object") {
+          opt.gzip = {};
+        }
+        if (this.portable) {
+          opt.gzip.portable = true;
+        }
+        this.zip = new Gzip(opt.gzip);
+      }
+      if (opt.brotli) {
+        if (typeof opt.brotli !== "object") {
+          opt.brotli = {};
+        }
+        this.zip = new BrotliCompress(opt.brotli);
+      }
+      if (opt.zstd) {
+        if (typeof opt.zstd !== "object") {
+          opt.zstd = {};
+        }
+        this.zip = new ZstdCompress(opt.zstd);
+      }
+      if (!this.zip)
+        throw new Error("impossible");
+      const zip = this.zip;
+      zip.on("data", (chunk) => super.write(chunk));
+      zip.on("end", () => super.end());
+      zip.on("drain", () => this[ONDRAIN2]());
+      this.on("resume", () => zip.resume());
+    } else {
+      this.on("drain", this[ONDRAIN2]);
+    }
+    this.noDirRecurse = !!opt.noDirRecurse;
+    this.follow = !!opt.follow;
+    this.noMtime = !!opt.noMtime;
+    if (opt.mtime)
+      this.mtime = opt.mtime;
+    this.filter = typeof opt.filter === "function" ? opt.filter : () => true;
+    this[QUEUE2] = new Yallist();
+    this[JOBS] = 0;
+    this.jobs = Number(opt.jobs) || 4;
+    this[PROCESSING] = false;
+    this[ENDED2] = false;
+  }
+  [WRITE](chunk) {
+    return super.write(chunk);
+  }
+  add(path8) {
+    this.write(path8);
+    return this;
+  }
+  end(path8, encoding, cb) {
+    if (typeof path8 === "function") {
+      cb = path8;
+      path8 = void 0;
+    }
+    if (typeof encoding === "function") {
+      cb = encoding;
+      encoding = void 0;
+    }
+    if (path8) {
+      this.add(path8);
+    }
+    this[ENDED2] = true;
+    this[PROCESS2]();
+    if (cb)
+      cb();
+    return this;
+  }
+  write(path8) {
+    if (this[ENDED2]) {
+      throw new Error("write after end");
+    }
+    if (path8 instanceof ReadEntry) {
+      this[ADDTARENTRY](path8);
+    } else {
+      this[ADDFSENTRY](path8);
+    }
+    return this.flowing;
+  }
+  [ADDTARENTRY](p) {
+    const absolute = normalizeWindowsPath(import_path3.default.resolve(this.cwd, p.path));
+    if (!this.filter(p.path, p)) {
+      p.resume();
+    } else {
+      const job = new PackJob(p.path, absolute);
+      job.entry = new WriteEntryTar(p, this[ENTRYOPT](job));
+      job.entry.on("end", () => this[JOBDONE](job));
+      this[JOBS] += 1;
+      this[QUEUE2].push(job);
+    }
+    this[PROCESS2]();
+  }
+  [ADDFSENTRY](p) {
+    const absolute = normalizeWindowsPath(import_path3.default.resolve(this.cwd, p));
+    this[QUEUE2].push(new PackJob(p, absolute));
+    this[PROCESS2]();
+  }
+  [STAT](job) {
+    job.pending = true;
+    this[JOBS] += 1;
+    const stat = this.follow ? "stat" : "lstat";
+    import_fs3.default[stat](job.absolute, (er, stat2) => {
+      job.pending = false;
+      this[JOBS] -= 1;
+      if (er) {
+        this.emit("error", er);
+      } else {
+        this[ONSTAT](job, stat2);
+      }
+    });
+  }
+  [ONSTAT](job, stat) {
+    this.statCache.set(job.absolute, stat);
+    job.stat = stat;
+    if (!this.filter(job.path, stat)) {
+      job.ignore = true;
+    }
+    this[PROCESS2]();
+  }
+  [READDIR](job) {
+    job.pending = true;
+    this[JOBS] += 1;
+    import_fs3.default.readdir(job.absolute, (er, entries) => {
+      job.pending = false;
+      this[JOBS] -= 1;
+      if (er) {
+        return this.emit("error", er);
+      }
+      this[ONREADDIR](job, entries);
+    });
+  }
+  [ONREADDIR](job, entries) {
+    this.readdirCache.set(job.absolute, entries);
+    job.readdir = entries;
+    this[PROCESS2]();
+  }
+  [PROCESS2]() {
+    if (this[PROCESSING]) {
+      return;
+    }
+    this[PROCESSING] = true;
+    for (let w = this[QUEUE2].head; !!w && this[JOBS] < this.jobs; w = w.next) {
+      this[PROCESSJOB](w.value);
+      if (w.value.ignore) {
+        const p = w.next;
+        this[QUEUE2].removeNode(w);
+        w.next = p;
+      }
+    }
+    this[PROCESSING] = false;
+    if (this[ENDED2] && !this[QUEUE2].length && this[JOBS] === 0) {
+      if (this.zip) {
+        this.zip.end(EOF2);
+      } else {
+        super.write(EOF2);
+        super.end();
+      }
+    }
+  }
+  get [CURRENT]() {
+    return this[QUEUE2] && this[QUEUE2].head && this[QUEUE2].head.value;
+  }
+  [JOBDONE](_job) {
+    this[QUEUE2].shift();
+    this[JOBS] -= 1;
+    this[PROCESS2]();
+  }
+  [PROCESSJOB](job) {
+    if (job.pending) {
+      return;
+    }
+    if (job.entry) {
+      if (job === this[CURRENT] && !job.piped) {
+        this[PIPE](job);
+      }
+      return;
+    }
+    if (!job.stat) {
+      const sc = this.statCache.get(job.absolute);
+      if (sc) {
+        this[ONSTAT](job, sc);
+      } else {
+        this[STAT](job);
+      }
+    }
+    if (!job.stat) {
+      return;
+    }
+    if (job.ignore) {
+      return;
+    }
+    if (!this.noDirRecurse && job.stat.isDirectory() && !job.readdir) {
+      const rc = this.readdirCache.get(job.absolute);
+      if (rc) {
+        this[ONREADDIR](job, rc);
+      } else {
+        this[READDIR](job);
+      }
+      if (!job.readdir) {
+        return;
+      }
+    }
+    job.entry = this[ENTRY](job);
+    if (!job.entry) {
+      job.ignore = true;
+      return;
+    }
+    if (job === this[CURRENT] && !job.piped) {
+      this[PIPE](job);
+    }
+  }
+  [ENTRYOPT](job) {
+    return {
+      onwarn: (code2, msg, data) => this.warn(code2, msg, data),
+      noPax: this.noPax,
+      cwd: this.cwd,
+      absolute: job.absolute,
+      preservePaths: this.preservePaths,
+      maxReadSize: this.maxReadSize,
+      strict: this.strict,
+      portable: this.portable,
+      linkCache: this.linkCache,
+      statCache: this.statCache,
+      noMtime: this.noMtime,
+      mtime: this.mtime,
+      prefix: this.prefix,
+      onWriteEntry: this.onWriteEntry
+    };
+  }
+  [ENTRY](job) {
+    this[JOBS] += 1;
+    try {
+      const e = new this[WRITEENTRYCLASS](job.path, this[ENTRYOPT](job));
+      return e.on("end", () => this[JOBDONE](job)).on("error", (er) => this.emit("error", er));
+    } catch (er) {
+      this.emit("error", er);
+    }
+  }
+  [ONDRAIN2]() {
+    if (this[CURRENT] && this[CURRENT].entry) {
+      this[CURRENT].entry.resume();
+    }
+  }
+  // like .pipe() but using super, because our write() is special
+  [PIPE](job) {
+    job.piped = true;
+    if (job.readdir) {
+      job.readdir.forEach((entry) => {
+        const p = job.path;
+        const base = p === "./" ? "" : p.replace(/\/*$/, "/");
+        this[ADDFSENTRY](base + entry);
+      });
+    }
+    const source = job.entry;
+    const zip = this.zip;
+    if (!source)
+      throw new Error("cannot pipe without source");
+    if (zip) {
+      source.on("data", (chunk) => {
+        if (!zip.write(chunk)) {
+          source.pause();
+        }
+      });
+    } else {
+      source.on("data", (chunk) => {
+        if (!super.write(chunk)) {
+          source.pause();
+        }
+      });
+    }
+  }
+  pause() {
+    if (this.zip) {
+      this.zip.pause();
+    }
+    return super.pause();
+  }
+  warn(code2, message, data = {}) {
+    warnMethod(this, code2, message, data);
+  }
+};
+var PackSync = class extends Pack {
+  sync = true;
+  constructor(opt) {
+    super(opt);
+    this[WRITEENTRYCLASS] = WriteEntrySync;
+  }
+  // pause/resume are no-ops in sync streams.
+  pause() {
+  }
+  resume() {
+  }
+  [STAT](job) {
+    const stat = this.follow ? "statSync" : "lstatSync";
+    this[ONSTAT](job, import_fs3.default[stat](job.absolute));
+  }
+  [READDIR](job) {
+    this[ONREADDIR](job, import_fs3.default.readdirSync(job.absolute));
+  }
+  // gotta get it all in this tick
+  [PIPE](job) {
+    const source = job.entry;
+    const zip = this.zip;
+    if (job.readdir) {
+      job.readdir.forEach((entry) => {
+        const p = job.path;
+        const base = p === "./" ? "" : p.replace(/\/*$/, "/");
+        this[ADDFSENTRY](base + entry);
+      });
+    }
+    if (!source)
+      throw new Error("Cannot pipe without source");
+    if (zip) {
+      source.on("data", (chunk) => {
+        zip.write(chunk);
+      });
+    } else {
+      source.on("data", (chunk) => {
+        super[WRITE](chunk);
+      });
+    }
+  }
+};
+
+// node_modules/tar/dist/esm/create.js
+var createFileSync = (opt, files) => {
+  const p = new PackSync(opt);
+  const stream4 = new WriteStreamSync(opt.file, {
+    mode: opt.mode || 438
+  });
+  p.pipe(stream4);
+  addFilesSync(p, files);
+};
+var createFile = (opt, files) => {
+  const p = new Pack(opt);
+  const stream4 = new WriteStream(opt.file, {
+    mode: opt.mode || 438
+  });
+  p.pipe(stream4);
+  const promise = new Promise((res, rej) => {
+    stream4.on("error", rej);
+    stream4.on("close", res);
+    p.on("error", rej);
+  });
+  addFilesAsync(p, files);
+  return promise;
+};
+var addFilesSync = (p, files) => {
+  files.forEach((file) => {
+    if (file.charAt(0) === "@") {
+      list({
+        file: import_node_path4.default.resolve(p.cwd, file.slice(1)),
+        sync: true,
+        noResume: true,
+        onReadEntry: (entry) => p.add(entry)
+      });
+    } else {
+      p.add(file);
+    }
+  });
+  p.end();
+};
+var addFilesAsync = async (p, files) => {
+  for (let i = 0; i < files.length; i++) {
+    const file = String(files[i]);
+    if (file.charAt(0) === "@") {
+      await list({
+        file: import_node_path4.default.resolve(String(p.cwd), file.slice(1)),
+        noResume: true,
+        onReadEntry: (entry) => {
+          p.add(entry);
+        }
+      });
+    } else {
+      p.add(file);
+    }
+  }
+  p.end();
+};
+var createSync = (opt, files) => {
+  const p = new PackSync(opt);
+  addFilesSync(p, files);
+  return p;
+};
+var createAsync = (opt, files) => {
+  const p = new Pack(opt);
+  addFilesAsync(p, files);
+  return p;
+};
+var create = makeCommand(createFileSync, createFile, createSync, createAsync, (_opt, files) => {
+  if (!files?.length) {
+    throw new TypeError("no paths specified to add to archive");
+  }
+});
+
+// node_modules/tar/dist/esm/extract.js
+var import_node_fs5 = __toESM(require("node:fs"), 1);
+
+// node_modules/tar/dist/esm/unpack.js
+var import_node_assert = __toESM(require("node:assert"), 1);
+var import_node_crypto = require("node:crypto");
+var import_node_fs4 = __toESM(require("node:fs"), 1);
+var import_node_path8 = __toESM(require("node:path"), 1);
+
+// node_modules/tar/dist/esm/get-write-flag.js
+var import_fs4 = __toESM(require("fs"), 1);
+var platform2 = process.env.__FAKE_PLATFORM__ || process.platform;
+var isWindows = platform2 === "win32";
+var { O_CREAT, O_TRUNC, O_WRONLY } = import_fs4.default.constants;
+var UV_FS_O_FILEMAP = Number(process.env.__FAKE_FS_O_FILENAME__) || import_fs4.default.constants.UV_FS_O_FILEMAP || 0;
+var fMapEnabled = isWindows && !!UV_FS_O_FILEMAP;
+var fMapLimit = 512 * 1024;
+var fMapFlag = UV_FS_O_FILEMAP | O_TRUNC | O_CREAT | O_WRONLY;
+var getWriteFlag = !fMapEnabled ? () => "w" : (size) => size < fMapLimit ? fMapFlag : "w";
+
+// node_modules/chownr/dist/esm/index.js
+var import_node_fs2 = __toESM(require("node:fs"), 1);
+var import_node_path5 = __toESM(require("node:path"), 1);
+var lchownSync = (path8, uid, gid) => {
+  try {
+    return import_node_fs2.default.lchownSync(path8, uid, gid);
+  } catch (er) {
+    if (er?.code !== "ENOENT")
+      throw er;
+  }
+};
+var chown = (cpath, uid, gid, cb) => {
+  import_node_fs2.default.lchown(cpath, uid, gid, (er) => {
+    cb(er && er?.code !== "ENOENT" ? er : null);
+  });
+};
+var chownrKid = (p, child, uid, gid, cb) => {
+  if (child.isDirectory()) {
+    chownr(import_node_path5.default.resolve(p, child.name), uid, gid, (er) => {
+      if (er)
+        return cb(er);
+      const cpath = import_node_path5.default.resolve(p, child.name);
+      chown(cpath, uid, gid, cb);
+    });
+  } else {
+    const cpath = import_node_path5.default.resolve(p, child.name);
+    chown(cpath, uid, gid, cb);
+  }
+};
+var chownr = (p, uid, gid, cb) => {
+  import_node_fs2.default.readdir(p, { withFileTypes: true }, (er, children) => {
+    if (er) {
+      if (er.code === "ENOENT")
+        return cb();
+      else if (er.code !== "ENOTDIR" && er.code !== "ENOTSUP")
+        return cb(er);
+    }
+    if (er || !children.length)
+      return chown(p, uid, gid, cb);
+    let len = children.length;
+    let errState = null;
+    const then = (er2) => {
+      if (errState)
+        return;
+      if (er2)
+        return cb(errState = er2);
+      if (--len === 0)
+        return chown(p, uid, gid, cb);
+    };
+    for (const child of children) {
+      chownrKid(p, child, uid, gid, then);
+    }
+  });
+};
+var chownrKidSync = (p, child, uid, gid) => {
+  if (child.isDirectory())
+    chownrSync(import_node_path5.default.resolve(p, child.name), uid, gid);
+  lchownSync(import_node_path5.default.resolve(p, child.name), uid, gid);
+};
+var chownrSync = (p, uid, gid) => {
+  let children;
+  try {
+    children = import_node_fs2.default.readdirSync(p, { withFileTypes: true });
+  } catch (er) {
+    const e = er;
+    if (e?.code === "ENOENT")
+      return;
+    else if (e?.code === "ENOTDIR" || e?.code === "ENOTSUP")
+      return lchownSync(p, uid, gid);
+    else
+      throw e;
+  }
+  for (const child of children) {
+    chownrKidSync(p, child, uid, gid);
+  }
+  return lchownSync(p, uid, gid);
+};
+
+// node_modules/tar/dist/esm/mkdir.js
+var import_node_fs3 = __toESM(require("node:fs"), 1);
+var import_promises = __toESM(require("node:fs/promises"), 1);
+var import_node_path6 = __toESM(require("node:path"), 1);
+
+// node_modules/tar/dist/esm/cwd-error.js
+var CwdError = class extends Error {
+  path;
+  code;
+  syscall = "chdir";
+  constructor(path8, code2) {
+    super(`${code2}: Cannot cd into '${path8}'`);
+    this.path = path8;
+    this.code = code2;
+  }
+  get name() {
+    return "CwdError";
+  }
+};
+
+// node_modules/tar/dist/esm/symlink-error.js
+var SymlinkError = class extends Error {
+  path;
+  symlink;
+  syscall = "symlink";
+  code = "TAR_SYMLINK_ERROR";
+  constructor(symlink, path8) {
+    super("TAR_SYMLINK_ERROR: Cannot extract through symbolic link");
+    this.symlink = symlink;
+    this.path = path8;
+  }
+  get name() {
+    return "SymlinkError";
+  }
+};
+
+// node_modules/tar/dist/esm/mkdir.js
+var checkCwd = (dir, cb) => {
+  import_node_fs3.default.stat(dir, (er, st) => {
+    if (er || !st.isDirectory()) {
+      er = new CwdError(dir, er?.code || "ENOTDIR");
+    }
+    cb(er);
+  });
+};
+var mkdir = (dir, opt, cb) => {
+  dir = normalizeWindowsPath(dir);
+  const umask = opt.umask ?? 18;
+  const mode = opt.mode | 448;
+  const needChmod = (mode & umask) !== 0;
+  const uid = opt.uid;
+  const gid = opt.gid;
+  const doChown = typeof uid === "number" && typeof gid === "number" && (uid !== opt.processUid || gid !== opt.processGid);
+  const preserve = opt.preserve;
+  const unlink = opt.unlink;
+  const cwd = normalizeWindowsPath(opt.cwd);
+  const done = (er, created) => {
+    if (er) {
+      cb(er);
+    } else {
+      if (created && doChown) {
+        chownr(created, uid, gid, (er2) => done(er2));
+      } else if (needChmod) {
+        import_node_fs3.default.chmod(dir, mode, cb);
+      } else {
+        cb();
+      }
+    }
+  };
+  if (dir === cwd) {
+    return checkCwd(dir, done);
+  }
+  if (preserve) {
+    return import_promises.default.mkdir(dir, { mode, recursive: true }).then(
+      (made) => done(null, made ?? void 0),
+      // oh, ts
+      done
+    );
+  }
+  const sub = normalizeWindowsPath(import_node_path6.default.relative(cwd, dir));
+  const parts = sub.split("/");
+  mkdir_(cwd, parts, mode, unlink, cwd, void 0, done);
+};
+var mkdir_ = (base, parts, mode, unlink, cwd, created, cb) => {
+  if (!parts.length) {
+    return cb(null, created);
+  }
+  const p = parts.shift();
+  const part = normalizeWindowsPath(import_node_path6.default.resolve(base + "/" + p));
+  import_node_fs3.default.mkdir(part, mode, onmkdir(part, parts, mode, unlink, cwd, created, cb));
+};
+var onmkdir = (part, parts, mode, unlink, cwd, created, cb) => (er) => {
+  if (er) {
+    import_node_fs3.default.lstat(part, (statEr, st) => {
+      if (statEr) {
+        statEr.path = statEr.path && normalizeWindowsPath(statEr.path);
+        cb(statEr);
+      } else if (st.isDirectory()) {
+        mkdir_(part, parts, mode, unlink, cwd, created, cb);
+      } else if (unlink) {
+        import_node_fs3.default.unlink(part, (er2) => {
+          if (er2) {
+            return cb(er2);
+          }
+          import_node_fs3.default.mkdir(part, mode, onmkdir(part, parts, mode, unlink, cwd, created, cb));
+        });
+      } else if (st.isSymbolicLink()) {
+        return cb(new SymlinkError(part, part + "/" + parts.join("/")));
+      } else {
+        cb(er);
+      }
+    });
+  } else {
+    created = created || part;
+    mkdir_(part, parts, mode, unlink, cwd, created, cb);
+  }
+};
+var checkCwdSync = (dir) => {
+  let ok = false;
+  let code2 = void 0;
+  try {
+    ok = import_node_fs3.default.statSync(dir).isDirectory();
+  } catch (er) {
+    code2 = er?.code;
+  } finally {
+    if (!ok) {
+      throw new CwdError(dir, code2 ?? "ENOTDIR");
+    }
+  }
+};
+var mkdirSync = (dir, opt) => {
+  dir = normalizeWindowsPath(dir);
+  const umask = opt.umask ?? 18;
+  const mode = opt.mode | 448;
+  const needChmod = (mode & umask) !== 0;
+  const uid = opt.uid;
+  const gid = opt.gid;
+  const doChown = typeof uid === "number" && typeof gid === "number" && (uid !== opt.processUid || gid !== opt.processGid);
+  const preserve = opt.preserve;
+  const unlink = opt.unlink;
+  const cwd = normalizeWindowsPath(opt.cwd);
+  const done = (created2) => {
+    if (created2 && doChown) {
+      chownrSync(created2, uid, gid);
+    }
+    if (needChmod) {
+      import_node_fs3.default.chmodSync(dir, mode);
+    }
+  };
+  if (dir === cwd) {
+    checkCwdSync(cwd);
+    return done();
+  }
+  if (preserve) {
+    return done(import_node_fs3.default.mkdirSync(dir, { mode, recursive: true }) ?? void 0);
+  }
+  const sub = normalizeWindowsPath(import_node_path6.default.relative(cwd, dir));
+  const parts = sub.split("/");
+  let created = void 0;
+  for (let p = parts.shift(), part = cwd; p && (part += "/" + p); p = parts.shift()) {
+    part = normalizeWindowsPath(import_node_path6.default.resolve(part));
+    try {
+      import_node_fs3.default.mkdirSync(part, mode);
+      created = created || part;
+    } catch (er) {
+      const st = import_node_fs3.default.lstatSync(part);
+      if (st.isDirectory()) {
+        continue;
+      } else if (unlink) {
+        import_node_fs3.default.unlinkSync(part);
+        import_node_fs3.default.mkdirSync(part, mode);
+        created = created || part;
+        continue;
+      } else if (st.isSymbolicLink()) {
+        return new SymlinkError(part, part + "/" + parts.join("/"));
+      }
+    }
+  }
+  return done(created);
+};
+
+// node_modules/tar/dist/esm/path-reservations.js
+var import_node_path7 = require("node:path");
+
+// node_modules/tar/dist/esm/normalize-unicode.js
+var normalizeCache = /* @__PURE__ */ Object.create(null);
+var MAX = 1e4;
+var cache = /* @__PURE__ */ new Set();
+var normalizeUnicode = (s) => {
+  if (!cache.has(s)) {
+    normalizeCache[s] = s.normalize("NFD");
+  } else {
+    cache.delete(s);
+  }
+  cache.add(s);
+  const ret = normalizeCache[s];
+  let i = cache.size - MAX;
+  if (i > MAX / 10) {
+    for (const s2 of cache) {
+      cache.delete(s2);
+      delete normalizeCache[s2];
+      if (--i <= 0)
+        break;
+    }
+  }
+  return ret;
+};
+
+// node_modules/tar/dist/esm/path-reservations.js
+var platform3 = process.env.TESTING_TAR_FAKE_PLATFORM || process.platform;
+var isWindows2 = platform3 === "win32";
+var getDirs = (path8) => {
+  const dirs = path8.split("/").slice(0, -1).reduce((set, path9) => {
+    const s = set[set.length - 1];
+    if (s !== void 0) {
+      path9 = (0, import_node_path7.join)(s, path9);
+    }
+    set.push(path9 || "/");
+    return set;
+  }, []);
+  return dirs;
+};
+var PathReservations = class {
+  // path => [function or Set]
+  // A Set object means a directory reservation
+  // A fn is a direct reservation on that path
+  #queues = /* @__PURE__ */ new Map();
+  // fn => {paths:[path,...], dirs:[path, ...]}
+  #reservations = /* @__PURE__ */ new Map();
+  // functions currently running
+  #running = /* @__PURE__ */ new Set();
+  reserve(paths, fn) {
+    paths = isWindows2 ? ["win32 parallelization disabled"] : paths.map((p) => {
+      return stripTrailingSlashes((0, import_node_path7.join)(normalizeUnicode(p))).toLowerCase();
+    });
+    const dirs = new Set(paths.map((path8) => getDirs(path8)).reduce((a, b) => a.concat(b)));
+    this.#reservations.set(fn, { dirs, paths });
+    for (const p of paths) {
+      const q = this.#queues.get(p);
+      if (!q) {
+        this.#queues.set(p, [fn]);
+      } else {
+        q.push(fn);
+      }
+    }
+    for (const dir of dirs) {
+      const q = this.#queues.get(dir);
+      if (!q) {
+        this.#queues.set(dir, [/* @__PURE__ */ new Set([fn])]);
+      } else {
+        const l = q[q.length - 1];
+        if (l instanceof Set) {
+          l.add(fn);
+        } else {
+          q.push(/* @__PURE__ */ new Set([fn]));
+        }
+      }
+    }
+    return this.#run(fn);
+  }
+  // return the queues for each path the function cares about
+  // fn => {paths, dirs}
+  #getQueues(fn) {
+    const res = this.#reservations.get(fn);
+    if (!res) {
+      throw new Error("function does not have any path reservations");
+    }
+    return {
+      paths: res.paths.map((path8) => this.#queues.get(path8)),
+      dirs: [...res.dirs].map((path8) => this.#queues.get(path8))
+    };
+  }
+  // check if fn is first in line for all its paths, and is
+  // included in the first set for all its dir queues
+  check(fn) {
+    const { paths, dirs } = this.#getQueues(fn);
+    return paths.every((q) => q && q[0] === fn) && dirs.every((q) => q && q[0] instanceof Set && q[0].has(fn));
+  }
+  // run the function if it's first in line and not already running
+  #run(fn) {
+    if (this.#running.has(fn) || !this.check(fn)) {
+      return false;
+    }
+    this.#running.add(fn);
+    fn(() => this.#clear(fn));
+    return true;
+  }
+  #clear(fn) {
+    if (!this.#running.has(fn)) {
+      return false;
+    }
+    const res = this.#reservations.get(fn);
+    if (!res) {
+      throw new Error("invalid reservation");
+    }
+    const { paths, dirs } = res;
+    const next = /* @__PURE__ */ new Set();
+    for (const path8 of paths) {
+      const q = this.#queues.get(path8);
+      if (!q || q?.[0] !== fn) {
+        continue;
+      }
+      const q0 = q[1];
+      if (!q0) {
+        this.#queues.delete(path8);
+        continue;
+      }
+      q.shift();
+      if (typeof q0 === "function") {
+        next.add(q0);
+      } else {
+        for (const f of q0) {
+          next.add(f);
+        }
+      }
+    }
+    for (const dir of dirs) {
+      const q = this.#queues.get(dir);
+      const q0 = q?.[0];
+      if (!q || !(q0 instanceof Set))
+        continue;
+      if (q0.size === 1 && q.length === 1) {
+        this.#queues.delete(dir);
+        continue;
+      } else if (q0.size === 1) {
+        q.shift();
+        const n = q[0];
+        if (typeof n === "function") {
+          next.add(n);
+        }
+      } else {
+        q0.delete(fn);
+      }
+    }
+    this.#running.delete(fn);
+    next.forEach((fn2) => this.#run(fn2));
+    return true;
+  }
+};
+
+// node_modules/tar/dist/esm/unpack.js
+var ONENTRY = Symbol("onEntry");
+var CHECKFS = Symbol("checkFs");
+var CHECKFS2 = Symbol("checkFs2");
+var ISREUSABLE = Symbol("isReusable");
+var MAKEFS = Symbol("makeFs");
+var FILE2 = Symbol("file");
+var DIRECTORY2 = Symbol("directory");
+var LINK = Symbol("link");
+var SYMLINK2 = Symbol("symlink");
+var HARDLINK2 = Symbol("hardlink");
+var UNSUPPORTED = Symbol("unsupported");
+var CHECKPATH = Symbol("checkPath");
+var MKDIR = Symbol("mkdir");
+var ONERROR = Symbol("onError");
+var PENDING = Symbol("pending");
+var PEND = Symbol("pend");
+var UNPEND = Symbol("unpend");
+var ENDED3 = Symbol("ended");
+var MAYBECLOSE = Symbol("maybeClose");
+var SKIP = Symbol("skip");
+var DOCHOWN = Symbol("doChown");
+var UID = Symbol("uid");
+var GID = Symbol("gid");
+var CHECKED_CWD = Symbol("checkedCwd");
+var platform4 = process.env.TESTING_TAR_FAKE_PLATFORM || process.platform;
+var isWindows3 = platform4 === "win32";
+var DEFAULT_MAX_DEPTH = 1024;
+var unlinkFile = (path8, cb) => {
+  if (!isWindows3) {
+    return import_node_fs4.default.unlink(path8, cb);
+  }
+  const name2 = path8 + ".DELETE." + (0, import_node_crypto.randomBytes)(16).toString("hex");
+  import_node_fs4.default.rename(path8, name2, (er) => {
+    if (er) {
+      return cb(er);
+    }
+    import_node_fs4.default.unlink(name2, cb);
+  });
+};
+var unlinkFileSync = (path8) => {
+  if (!isWindows3) {
+    return import_node_fs4.default.unlinkSync(path8);
+  }
+  const name2 = path8 + ".DELETE." + (0, import_node_crypto.randomBytes)(16).toString("hex");
+  import_node_fs4.default.renameSync(path8, name2);
+  import_node_fs4.default.unlinkSync(name2);
+};
+var uint32 = (a, b, c) => a !== void 0 && a === a >>> 0 ? a : b !== void 0 && b === b >>> 0 ? b : c;
+var Unpack = class extends Parser {
+  [ENDED3] = false;
+  [CHECKED_CWD] = false;
+  [PENDING] = 0;
+  reservations = new PathReservations();
+  transform;
+  writable = true;
+  readable = false;
+  uid;
+  gid;
+  setOwner;
+  preserveOwner;
+  processGid;
+  processUid;
+  maxDepth;
+  forceChown;
+  win32;
+  newer;
+  keep;
+  noMtime;
+  preservePaths;
+  unlink;
+  cwd;
+  strip;
+  processUmask;
+  umask;
+  dmode;
+  fmode;
+  chmod;
+  constructor(opt = {}) {
+    opt.ondone = () => {
+      this[ENDED3] = true;
+      this[MAYBECLOSE]();
+    };
+    super(opt);
+    this.transform = opt.transform;
+    this.chmod = !!opt.chmod;
+    if (typeof opt.uid === "number" || typeof opt.gid === "number") {
+      if (typeof opt.uid !== "number" || typeof opt.gid !== "number") {
+        throw new TypeError("cannot set owner without number uid and gid");
+      }
+      if (opt.preserveOwner) {
+        throw new TypeError("cannot preserve owner in archive and also set owner explicitly");
+      }
+      this.uid = opt.uid;
+      this.gid = opt.gid;
+      this.setOwner = true;
+    } else {
+      this.uid = void 0;
+      this.gid = void 0;
+      this.setOwner = false;
+    }
+    if (opt.preserveOwner === void 0 && typeof opt.uid !== "number") {
+      this.preserveOwner = !!(process.getuid && process.getuid() === 0);
+    } else {
+      this.preserveOwner = !!opt.preserveOwner;
+    }
+    this.processUid = (this.preserveOwner || this.setOwner) && process.getuid ? process.getuid() : void 0;
+    this.processGid = (this.preserveOwner || this.setOwner) && process.getgid ? process.getgid() : void 0;
+    this.maxDepth = typeof opt.maxDepth === "number" ? opt.maxDepth : DEFAULT_MAX_DEPTH;
+    this.forceChown = opt.forceChown === true;
+    this.win32 = !!opt.win32 || isWindows3;
+    this.newer = !!opt.newer;
+    this.keep = !!opt.keep;
+    this.noMtime = !!opt.noMtime;
+    this.preservePaths = !!opt.preservePaths;
+    this.unlink = !!opt.unlink;
+    this.cwd = normalizeWindowsPath(import_node_path8.default.resolve(opt.cwd || process.cwd()));
+    this.strip = Number(opt.strip) || 0;
+    this.processUmask = !this.chmod ? 0 : typeof opt.processUmask === "number" ? opt.processUmask : process.umask();
+    this.umask = typeof opt.umask === "number" ? opt.umask : this.processUmask;
+    this.dmode = opt.dmode || 511 & ~this.umask;
+    this.fmode = opt.fmode || 438 & ~this.umask;
+    this.on("entry", (entry) => this[ONENTRY](entry));
+  }
+  // a bad or damaged archive is a warning for Parser, but an error
+  // when extracting.  Mark those errors as unrecoverable, because
+  // the Unpack contract cannot be met.
+  warn(code2, msg, data = {}) {
+    if (code2 === "TAR_BAD_ARCHIVE" || code2 === "TAR_ABORT") {
+      data.recoverable = false;
+    }
+    return super.warn(code2, msg, data);
+  }
+  [MAYBECLOSE]() {
+    if (this[ENDED3] && this[PENDING] === 0) {
+      this.emit("prefinish");
+      this.emit("finish");
+      this.emit("end");
+    }
+  }
+  [CHECKPATH](entry) {
+    const p = normalizeWindowsPath(entry.path);
+    const parts = p.split("/");
+    if (this.strip) {
+      if (parts.length < this.strip) {
+        return false;
+      }
+      if (entry.type === "Link") {
+        const linkparts = normalizeWindowsPath(String(entry.linkpath)).split("/");
+        if (linkparts.length >= this.strip) {
+          entry.linkpath = linkparts.slice(this.strip).join("/");
+        } else {
+          return false;
+        }
+      }
+      parts.splice(0, this.strip);
+      entry.path = parts.join("/");
+    }
+    if (isFinite(this.maxDepth) && parts.length > this.maxDepth) {
+      this.warn("TAR_ENTRY_ERROR", "path excessively deep", {
+        entry,
+        path: p,
+        depth: parts.length,
+        maxDepth: this.maxDepth
+      });
+      return false;
+    }
+    if (!this.preservePaths) {
+      if (parts.includes("..") || /* c8 ignore next */
+      isWindows3 && /^[a-z]:\.\.$/i.test(parts[0] ?? "")) {
+        this.warn("TAR_ENTRY_ERROR", `path contains '..'`, {
+          entry,
+          path: p
+        });
+        return false;
+      }
+      const [root, stripped] = stripAbsolutePath(p);
+      if (root) {
+        entry.path = String(stripped);
+        this.warn("TAR_ENTRY_INFO", `stripping ${root} from absolute path`, {
+          entry,
+          path: p
+        });
+      }
+    }
+    if (import_node_path8.default.isAbsolute(entry.path)) {
+      entry.absolute = normalizeWindowsPath(import_node_path8.default.resolve(entry.path));
+    } else {
+      entry.absolute = normalizeWindowsPath(import_node_path8.default.resolve(this.cwd, entry.path));
+    }
+    if (!this.preservePaths && typeof entry.absolute === "string" && entry.absolute.indexOf(this.cwd + "/") !== 0 && entry.absolute !== this.cwd) {
+      this.warn("TAR_ENTRY_ERROR", "path escaped extraction target", {
+        entry,
+        path: normalizeWindowsPath(entry.path),
+        resolvedPath: entry.absolute,
+        cwd: this.cwd
+      });
+      return false;
+    }
+    if (entry.absolute === this.cwd && entry.type !== "Directory" && entry.type !== "GNUDumpDir") {
+      return false;
+    }
+    if (this.win32) {
+      const { root: aRoot } = import_node_path8.default.win32.parse(String(entry.absolute));
+      entry.absolute = aRoot + encode4(String(entry.absolute).slice(aRoot.length));
+      const { root: pRoot } = import_node_path8.default.win32.parse(entry.path);
+      entry.path = pRoot + encode4(entry.path.slice(pRoot.length));
+    }
+    return true;
+  }
+  [ONENTRY](entry) {
+    if (!this[CHECKPATH](entry)) {
+      return entry.resume();
+    }
+    import_node_assert.default.equal(typeof entry.absolute, "string");
+    switch (entry.type) {
+      case "Directory":
+      case "GNUDumpDir":
+        if (entry.mode) {
+          entry.mode = entry.mode | 448;
+        }
+      // eslint-disable-next-line no-fallthrough
+      case "File":
+      case "OldFile":
+      case "ContiguousFile":
+      case "Link":
+      case "SymbolicLink":
+        return this[CHECKFS](entry);
+      case "CharacterDevice":
+      case "BlockDevice":
+      case "FIFO":
+      default:
+        return this[UNSUPPORTED](entry);
+    }
+  }
+  [ONERROR](er, entry) {
+    if (er.name === "CwdError") {
+      this.emit("error", er);
+    } else {
+      this.warn("TAR_ENTRY_ERROR", er, { entry });
+      this[UNPEND]();
+      entry.resume();
+    }
+  }
+  [MKDIR](dir, mode, cb) {
+    mkdir(normalizeWindowsPath(dir), {
+      uid: this.uid,
+      gid: this.gid,
+      processUid: this.processUid,
+      processGid: this.processGid,
+      umask: this.processUmask,
+      preserve: this.preservePaths,
+      unlink: this.unlink,
+      cwd: this.cwd,
+      mode
+    }, cb);
+  }
+  [DOCHOWN](entry) {
+    return this.forceChown || this.preserveOwner && (typeof entry.uid === "number" && entry.uid !== this.processUid || typeof entry.gid === "number" && entry.gid !== this.processGid) || typeof this.uid === "number" && this.uid !== this.processUid || typeof this.gid === "number" && this.gid !== this.processGid;
+  }
+  [UID](entry) {
+    return uint32(this.uid, entry.uid, this.processUid);
+  }
+  [GID](entry) {
+    return uint32(this.gid, entry.gid, this.processGid);
+  }
+  [FILE2](entry, fullyDone) {
+    const mode = typeof entry.mode === "number" ? entry.mode & 4095 : this.fmode;
+    const stream4 = new WriteStream(String(entry.absolute), {
+      // slight lie, but it can be numeric flags
+      flags: getWriteFlag(entry.size),
+      mode,
+      autoClose: false
+    });
+    stream4.on("error", (er) => {
+      if (stream4.fd) {
+        import_node_fs4.default.close(stream4.fd, () => {
+        });
+      }
+      stream4.write = () => true;
+      this[ONERROR](er, entry);
+      fullyDone();
+    });
+    let actions = 1;
+    const done = (er) => {
+      if (er) {
+        if (stream4.fd) {
+          import_node_fs4.default.close(stream4.fd, () => {
+          });
+        }
+        this[ONERROR](er, entry);
+        fullyDone();
+        return;
+      }
+      if (--actions === 0) {
+        if (stream4.fd !== void 0) {
+          import_node_fs4.default.close(stream4.fd, (er2) => {
+            if (er2) {
+              this[ONERROR](er2, entry);
+            } else {
+              this[UNPEND]();
+            }
+            fullyDone();
+          });
+        }
+      }
+    };
+    stream4.on("finish", () => {
+      const abs = String(entry.absolute);
+      const fd = stream4.fd;
+      if (typeof fd === "number" && entry.mtime && !this.noMtime) {
+        actions++;
+        const atime = entry.atime || /* @__PURE__ */ new Date();
+        const mtime = entry.mtime;
+        import_node_fs4.default.futimes(fd, atime, mtime, (er) => er ? import_node_fs4.default.utimes(abs, atime, mtime, (er2) => done(er2 && er)) : done());
+      }
+      if (typeof fd === "number" && this[DOCHOWN](entry)) {
+        actions++;
+        const uid = this[UID](entry);
+        const gid = this[GID](entry);
+        if (typeof uid === "number" && typeof gid === "number") {
+          import_node_fs4.default.fchown(fd, uid, gid, (er) => er ? import_node_fs4.default.chown(abs, uid, gid, (er2) => done(er2 && er)) : done());
+        }
+      }
+      done();
+    });
+    const tx = this.transform ? this.transform(entry) || entry : entry;
+    if (tx !== entry) {
+      tx.on("error", (er) => {
+        this[ONERROR](er, entry);
+        fullyDone();
+      });
+      entry.pipe(tx);
+    }
+    tx.pipe(stream4);
+  }
+  [DIRECTORY2](entry, fullyDone) {
+    const mode = typeof entry.mode === "number" ? entry.mode & 4095 : this.dmode;
+    this[MKDIR](String(entry.absolute), mode, (er) => {
+      if (er) {
+        this[ONERROR](er, entry);
+        fullyDone();
+        return;
+      }
+      let actions = 1;
+      const done = () => {
+        if (--actions === 0) {
+          fullyDone();
+          this[UNPEND]();
+          entry.resume();
+        }
+      };
+      if (entry.mtime && !this.noMtime) {
+        actions++;
+        import_node_fs4.default.utimes(String(entry.absolute), entry.atime || /* @__PURE__ */ new Date(), entry.mtime, done);
+      }
+      if (this[DOCHOWN](entry)) {
+        actions++;
+        import_node_fs4.default.chown(String(entry.absolute), Number(this[UID](entry)), Number(this[GID](entry)), done);
+      }
+      done();
+    });
+  }
+  [UNSUPPORTED](entry) {
+    entry.unsupported = true;
+    this.warn("TAR_ENTRY_UNSUPPORTED", `unsupported entry type: ${entry.type}`, { entry });
+    entry.resume();
+  }
+  [SYMLINK2](entry, done) {
+    this[LINK](entry, String(entry.linkpath), "symlink", done);
+  }
+  [HARDLINK2](entry, done) {
+    const linkpath = normalizeWindowsPath(import_node_path8.default.resolve(this.cwd, String(entry.linkpath)));
+    this[LINK](entry, linkpath, "link", done);
+  }
+  [PEND]() {
+    this[PENDING]++;
+  }
+  [UNPEND]() {
+    this[PENDING]--;
+    this[MAYBECLOSE]();
+  }
+  [SKIP](entry) {
+    this[UNPEND]();
+    entry.resume();
+  }
+  // Check if we can reuse an existing filesystem entry safely and
+  // overwrite it, rather than unlinking and recreating
+  // Windows doesn't report a useful nlink, so we just never reuse entries
+  [ISREUSABLE](entry, st) {
+    return entry.type === "File" && !this.unlink && st.isFile() && st.nlink <= 1 && !isWindows3;
+  }
+  // check if a thing is there, and if so, try to clobber it
+  [CHECKFS](entry) {
+    this[PEND]();
+    const paths = [entry.path];
+    if (entry.linkpath) {
+      paths.push(entry.linkpath);
+    }
+    this.reservations.reserve(paths, (done) => this[CHECKFS2](entry, done));
+  }
+  [CHECKFS2](entry, fullyDone) {
+    const done = (er) => {
+      fullyDone(er);
+    };
+    const checkCwd2 = () => {
+      this[MKDIR](this.cwd, this.dmode, (er) => {
+        if (er) {
+          this[ONERROR](er, entry);
+          done();
+          return;
+        }
+        this[CHECKED_CWD] = true;
+        start();
+      });
+    };
+    const start = () => {
+      if (entry.absolute !== this.cwd) {
+        const parent = normalizeWindowsPath(import_node_path8.default.dirname(String(entry.absolute)));
+        if (parent !== this.cwd) {
+          return this[MKDIR](parent, this.dmode, (er) => {
+            if (er) {
+              this[ONERROR](er, entry);
+              done();
+              return;
+            }
+            afterMakeParent();
+          });
+        }
+      }
+      afterMakeParent();
+    };
+    const afterMakeParent = () => {
+      import_node_fs4.default.lstat(String(entry.absolute), (lstatEr, st) => {
+        if (st && (this.keep || /* c8 ignore next */
+        this.newer && st.mtime > (entry.mtime ?? st.mtime))) {
+          this[SKIP](entry);
+          done();
+          return;
+        }
+        if (lstatEr || this[ISREUSABLE](entry, st)) {
+          return this[MAKEFS](null, entry, done);
+        }
+        if (st.isDirectory()) {
+          if (entry.type === "Directory") {
+            const needChmod = this.chmod && entry.mode && (st.mode & 4095) !== entry.mode;
+            const afterChmod = (er) => this[MAKEFS](er ?? null, entry, done);
+            if (!needChmod) {
+              return afterChmod();
+            }
+            return import_node_fs4.default.chmod(String(entry.absolute), Number(entry.mode), afterChmod);
+          }
+          if (entry.absolute !== this.cwd) {
+            return import_node_fs4.default.rmdir(String(entry.absolute), (er) => this[MAKEFS](er ?? null, entry, done));
+          }
+        }
+        if (entry.absolute === this.cwd) {
+          return this[MAKEFS](null, entry, done);
+        }
+        unlinkFile(String(entry.absolute), (er) => this[MAKEFS](er ?? null, entry, done));
+      });
+    };
+    if (this[CHECKED_CWD]) {
+      start();
+    } else {
+      checkCwd2();
+    }
+  }
+  [MAKEFS](er, entry, done) {
+    if (er) {
+      this[ONERROR](er, entry);
+      done();
+      return;
+    }
+    switch (entry.type) {
+      case "File":
+      case "OldFile":
+      case "ContiguousFile":
+        return this[FILE2](entry, done);
+      case "Link":
+        return this[HARDLINK2](entry, done);
+      case "SymbolicLink":
+        return this[SYMLINK2](entry, done);
+      case "Directory":
+      case "GNUDumpDir":
+        return this[DIRECTORY2](entry, done);
+    }
+  }
+  [LINK](entry, linkpath, link, done) {
+    import_node_fs4.default[link](linkpath, String(entry.absolute), (er) => {
+      if (er) {
+        this[ONERROR](er, entry);
+      } else {
+        this[UNPEND]();
+        entry.resume();
+      }
+      done();
+    });
+  }
+};
+var callSync = (fn) => {
+  try {
+    return [null, fn()];
+  } catch (er) {
+    return [er, null];
+  }
+};
+var UnpackSync = class extends Unpack {
+  sync = true;
+  [MAKEFS](er, entry) {
+    return super[MAKEFS](er, entry, () => {
+    });
+  }
+  [CHECKFS](entry) {
+    if (!this[CHECKED_CWD]) {
+      const er2 = this[MKDIR](this.cwd, this.dmode);
+      if (er2) {
+        return this[ONERROR](er2, entry);
+      }
+      this[CHECKED_CWD] = true;
+    }
+    if (entry.absolute !== this.cwd) {
+      const parent = normalizeWindowsPath(import_node_path8.default.dirname(String(entry.absolute)));
+      if (parent !== this.cwd) {
+        const mkParent = this[MKDIR](parent, this.dmode);
+        if (mkParent) {
+          return this[ONERROR](mkParent, entry);
+        }
+      }
+    }
+    const [lstatEr, st] = callSync(() => import_node_fs4.default.lstatSync(String(entry.absolute)));
+    if (st && (this.keep || /* c8 ignore next */
+    this.newer && st.mtime > (entry.mtime ?? st.mtime))) {
+      return this[SKIP](entry);
+    }
+    if (lstatEr || this[ISREUSABLE](entry, st)) {
+      return this[MAKEFS](null, entry);
+    }
+    if (st.isDirectory()) {
+      if (entry.type === "Directory") {
+        const needChmod = this.chmod && entry.mode && (st.mode & 4095) !== entry.mode;
+        const [er3] = needChmod ? callSync(() => {
+          import_node_fs4.default.chmodSync(String(entry.absolute), Number(entry.mode));
+        }) : [];
+        return this[MAKEFS](er3, entry);
+      }
+      const [er2] = callSync(() => import_node_fs4.default.rmdirSync(String(entry.absolute)));
+      this[MAKEFS](er2, entry);
+    }
+    const [er] = entry.absolute === this.cwd ? [] : callSync(() => unlinkFileSync(String(entry.absolute)));
+    this[MAKEFS](er, entry);
+  }
+  [FILE2](entry, done) {
+    const mode = typeof entry.mode === "number" ? entry.mode & 4095 : this.fmode;
+    const oner = (er) => {
+      let closeError;
+      try {
+        import_node_fs4.default.closeSync(fd);
+      } catch (e) {
+        closeError = e;
+      }
+      if (er || closeError) {
+        this[ONERROR](er || closeError, entry);
+      }
+      done();
+    };
+    let fd;
+    try {
+      fd = import_node_fs4.default.openSync(String(entry.absolute), getWriteFlag(entry.size), mode);
+    } catch (er) {
+      return oner(er);
+    }
+    const tx = this.transform ? this.transform(entry) || entry : entry;
+    if (tx !== entry) {
+      tx.on("error", (er) => this[ONERROR](er, entry));
+      entry.pipe(tx);
+    }
+    tx.on("data", (chunk) => {
+      try {
+        import_node_fs4.default.writeSync(fd, chunk, 0, chunk.length);
+      } catch (er) {
+        oner(er);
+      }
+    });
+    tx.on("end", () => {
+      let er = null;
+      if (entry.mtime && !this.noMtime) {
+        const atime = entry.atime || /* @__PURE__ */ new Date();
+        const mtime = entry.mtime;
+        try {
+          import_node_fs4.default.futimesSync(fd, atime, mtime);
+        } catch (futimeser) {
+          try {
+            import_node_fs4.default.utimesSync(String(entry.absolute), atime, mtime);
+          } catch (utimeser) {
+            er = futimeser;
+          }
+        }
+      }
+      if (this[DOCHOWN](entry)) {
+        const uid = this[UID](entry);
+        const gid = this[GID](entry);
+        try {
+          import_node_fs4.default.fchownSync(fd, Number(uid), Number(gid));
+        } catch (fchowner) {
+          try {
+            import_node_fs4.default.chownSync(String(entry.absolute), Number(uid), Number(gid));
+          } catch (chowner) {
+            er = er || fchowner;
+          }
+        }
+      }
+      oner(er);
+    });
+  }
+  [DIRECTORY2](entry, done) {
+    const mode = typeof entry.mode === "number" ? entry.mode & 4095 : this.dmode;
+    const er = this[MKDIR](String(entry.absolute), mode);
+    if (er) {
+      this[ONERROR](er, entry);
+      done();
+      return;
+    }
+    if (entry.mtime && !this.noMtime) {
+      try {
+        import_node_fs4.default.utimesSync(String(entry.absolute), entry.atime || /* @__PURE__ */ new Date(), entry.mtime);
+      } catch (er2) {
+      }
+    }
+    if (this[DOCHOWN](entry)) {
+      try {
+        import_node_fs4.default.chownSync(String(entry.absolute), Number(this[UID](entry)), Number(this[GID](entry)));
+      } catch (er2) {
+      }
+    }
+    done();
+    entry.resume();
+  }
+  [MKDIR](dir, mode) {
+    try {
+      return mkdirSync(normalizeWindowsPath(dir), {
+        uid: this.uid,
+        gid: this.gid,
+        processUid: this.processUid,
+        processGid: this.processGid,
+        umask: this.processUmask,
+        preserve: this.preservePaths,
+        unlink: this.unlink,
+        cwd: this.cwd,
+        mode
+      });
+    } catch (er) {
+      return er;
+    }
+  }
+  [LINK](entry, linkpath, link, done) {
+    const ls = `${link}Sync`;
+    try {
+      import_node_fs4.default[ls](linkpath, String(entry.absolute));
+      done();
+      entry.resume();
+    } catch (er) {
+      return this[ONERROR](er, entry);
+    }
+  }
+};
+
+// node_modules/tar/dist/esm/extract.js
+var extractFileSync = (opt) => {
+  const u = new UnpackSync(opt);
+  const file = opt.file;
+  const stat = import_node_fs5.default.statSync(file);
+  const readSize = opt.maxReadSize || 16 * 1024 * 1024;
+  const stream4 = new ReadStreamSync(file, {
+    readSize,
+    size: stat.size
+  });
+  stream4.pipe(u);
+};
+var extractFile = (opt, _) => {
+  const u = new Unpack(opt);
+  const readSize = opt.maxReadSize || 16 * 1024 * 1024;
+  const file = opt.file;
+  const p = new Promise((resolve, reject) => {
+    u.on("error", reject);
+    u.on("close", resolve);
+    import_node_fs5.default.stat(file, (er, stat) => {
+      if (er) {
+        reject(er);
+      } else {
+        const stream4 = new ReadStream(file, {
+          readSize,
+          size: stat.size
+        });
+        stream4.on("error", reject);
+        stream4.pipe(u);
+      }
+    });
+  });
+  return p;
+};
+var extract = makeCommand(extractFileSync, extractFile, (opt) => new UnpackSync(opt), (opt) => new Unpack(opt), (opt, files) => {
+  if (files?.length)
+    filesFilter(opt, files);
+});
+
+// node_modules/tar/dist/esm/replace.js
+var import_node_fs6 = __toESM(require("node:fs"), 1);
+var import_node_path9 = __toESM(require("node:path"), 1);
+var replaceSync = (opt, files) => {
+  const p = new PackSync(opt);
+  let threw = true;
+  let fd;
+  let position;
+  try {
+    try {
+      fd = import_node_fs6.default.openSync(opt.file, "r+");
+    } catch (er) {
+      if (er?.code === "ENOENT") {
+        fd = import_node_fs6.default.openSync(opt.file, "w+");
+      } else {
+        throw er;
+      }
+    }
+    const st = import_node_fs6.default.fstatSync(fd);
+    const headBuf = Buffer.alloc(512);
+    POSITION: for (position = 0; position < st.size; position += 512) {
+      for (let bufPos = 0, bytes = 0; bufPos < 512; bufPos += bytes) {
+        bytes = import_node_fs6.default.readSync(fd, headBuf, bufPos, headBuf.length - bufPos, position + bufPos);
+        if (position === 0 && headBuf[0] === 31 && headBuf[1] === 139) {
+          throw new Error("cannot append to compressed archives");
+        }
+        if (!bytes) {
+          break POSITION;
+        }
+      }
+      const h = new Header(headBuf);
+      if (!h.cksumValid) {
+        break;
+      }
+      const entryBlockSize = 512 * Math.ceil((h.size || 0) / 512);
+      if (position + entryBlockSize + 512 > st.size) {
+        break;
+      }
+      position += entryBlockSize;
+      if (opt.mtimeCache && h.mtime) {
+        opt.mtimeCache.set(String(h.path), h.mtime);
+      }
+    }
+    threw = false;
+    streamSync(opt, p, position, fd, files);
+  } finally {
+    if (threw) {
+      try {
+        import_node_fs6.default.closeSync(fd);
+      } catch (er) {
+      }
+    }
+  }
+};
+var streamSync = (opt, p, position, fd, files) => {
+  const stream4 = new WriteStreamSync(opt.file, {
+    fd,
+    start: position
+  });
+  p.pipe(stream4);
+  addFilesSync2(p, files);
+};
+var replaceAsync = (opt, files) => {
+  files = Array.from(files);
+  const p = new Pack(opt);
+  const getPos = (fd, size, cb_) => {
+    const cb = (er, pos2) => {
+      if (er) {
+        import_node_fs6.default.close(fd, (_) => cb_(er));
+      } else {
+        cb_(null, pos2);
+      }
+    };
+    let position = 0;
+    if (size === 0) {
+      return cb(null, 0);
+    }
+    let bufPos = 0;
+    const headBuf = Buffer.alloc(512);
+    const onread = (er, bytes) => {
+      if (er || typeof bytes === "undefined") {
+        return cb(er);
+      }
+      bufPos += bytes;
+      if (bufPos < 512 && bytes) {
+        return import_node_fs6.default.read(fd, headBuf, bufPos, headBuf.length - bufPos, position + bufPos, onread);
+      }
+      if (position === 0 && headBuf[0] === 31 && headBuf[1] === 139) {
+        return cb(new Error("cannot append to compressed archives"));
+      }
+      if (bufPos < 512) {
+        return cb(null, position);
+      }
+      const h = new Header(headBuf);
+      if (!h.cksumValid) {
+        return cb(null, position);
+      }
+      const entryBlockSize = 512 * Math.ceil((h.size ?? 0) / 512);
+      if (position + entryBlockSize + 512 > size) {
+        return cb(null, position);
+      }
+      position += entryBlockSize + 512;
+      if (position >= size) {
+        return cb(null, position);
+      }
+      if (opt.mtimeCache && h.mtime) {
+        opt.mtimeCache.set(String(h.path), h.mtime);
+      }
+      bufPos = 0;
+      import_node_fs6.default.read(fd, headBuf, 0, 512, position, onread);
+    };
+    import_node_fs6.default.read(fd, headBuf, 0, 512, position, onread);
+  };
+  const promise = new Promise((resolve, reject) => {
+    p.on("error", reject);
+    let flag = "r+";
+    const onopen = (er, fd) => {
+      if (er && er.code === "ENOENT" && flag === "r+") {
+        flag = "w+";
+        return import_node_fs6.default.open(opt.file, flag, onopen);
+      }
+      if (er || !fd) {
+        return reject(er);
+      }
+      import_node_fs6.default.fstat(fd, (er2, st) => {
+        if (er2) {
+          return import_node_fs6.default.close(fd, () => reject(er2));
+        }
+        getPos(fd, st.size, (er3, position) => {
+          if (er3) {
+            return reject(er3);
+          }
+          const stream4 = new WriteStream(opt.file, {
+            fd,
+            start: position
+          });
+          p.pipe(stream4);
+          stream4.on("error", reject);
+          stream4.on("close", resolve);
+          addFilesAsync2(p, files);
+        });
+      });
+    };
+    import_node_fs6.default.open(opt.file, flag, onopen);
+  });
+  return promise;
+};
+var addFilesSync2 = (p, files) => {
+  files.forEach((file) => {
+    if (file.charAt(0) === "@") {
+      list({
+        file: import_node_path9.default.resolve(p.cwd, file.slice(1)),
+        sync: true,
+        noResume: true,
+        onReadEntry: (entry) => p.add(entry)
+      });
+    } else {
+      p.add(file);
+    }
+  });
+  p.end();
+};
+var addFilesAsync2 = async (p, files) => {
+  for (let i = 0; i < files.length; i++) {
+    const file = String(files[i]);
+    if (file.charAt(0) === "@") {
+      await list({
+        file: import_node_path9.default.resolve(String(p.cwd), file.slice(1)),
+        noResume: true,
+        onReadEntry: (entry) => p.add(entry)
+      });
+    } else {
+      p.add(file);
+    }
+  }
+  p.end();
+};
+var replace = makeCommand(
+  replaceSync,
+  replaceAsync,
+  /* c8 ignore start */
+  () => {
+    throw new TypeError("file is required");
+  },
+  () => {
+    throw new TypeError("file is required");
+  },
+  /* c8 ignore stop */
+  (opt, entries) => {
+    if (!isFile2(opt)) {
+      throw new TypeError("file is required");
+    }
+    if (opt.gzip || opt.brotli || opt.zstd || opt.file.endsWith(".br") || opt.file.endsWith(".tbr")) {
+      throw new TypeError("cannot append to compressed archives");
+    }
+    if (!entries?.length) {
+      throw new TypeError("no paths specified to add/replace");
+    }
+  }
+);
+
+// node_modules/tar/dist/esm/update.js
+var update = makeCommand(replace.syncFile, replace.asyncFile, replace.syncNoFile, replace.asyncNoFile, (opt, entries = []) => {
+  replace.validate?.(opt, entries);
+  mtimeFilter(opt);
+});
+var mtimeFilter = (opt) => {
+  const filter2 = opt.filter;
+  if (!opt.mtimeCache) {
+    opt.mtimeCache = /* @__PURE__ */ new Map();
+  }
+  opt.filter = filter2 ? (path8, stat) => filter2(path8, stat) && !/* c8 ignore start */
+  ((opt.mtimeCache?.get(path8) ?? stat.mtime ?? 0) > (stat.mtime ?? 0)) : (path8, stat) => !/* c8 ignore start */
+  ((opt.mtimeCache?.get(path8) ?? stat.mtime ?? 0) > (stat.mtime ?? 0));
+};
+
+// src/downloadServer.ts
+var fs11 = __toESM(require("fs/promises"));
+var import_promises2 = require("stream/promises");
+var import_child_process = require("child_process");
+var import_util3 = require("util");
+var execPromise = (0, import_util3.promisify)(import_child_process.exec);
+var REPO = "rshtml/rshtml-analyzer";
+var SERVER_NAME = "rshtml-analyzer";
+var BINARY_NAME = (0, import_os.platform)() === "win32" ? `${SERVER_NAME}.exe` : SERVER_NAME;
+async function getLocalVersion(path8) {
+  const { stdout, stderr } = await execPromise(`"${path8}" --version`).catch(() => ({ stdout: "", stderr: "Command failed to execute" }));
+  return stderr ? null : stdout;
+}
+async function latestGithubRelease() {
+  const url2 = `https://api.github.com/repos/${REPO}/releases/latest`;
+  const response = await axios_default.get(url2, {
+    headers: { "User-Agent": "rshtml-vscode-client" }
+  });
+  if (response.data?.tag_name) {
+    return response.data.tag_name;
+  }
+  return null;
+}
+async function downloadGithubRelease(context) {
+  const installDir = context.globalStorageUri.fsPath;
+  const lsPath = import_vscode.Uri.joinPath(context.globalStorageUri, BINARY_NAME).fsPath;
+  console.log("getting latest release");
+  const latestTag = await latestGithubRelease();
+  const latestVersion = latestTag?.replace(/^v/, "");
+  console.log(`latest version: ${latestVersion}`);
+  if (!latestVersion) return lsPath;
+  console.log("getting local release");
+  const localVersion = await getLocalVersion(lsPath);
+  console.log(`latest local version: ${localVersion}`);
+  console.log(`Latest version: ${latestVersion}, Local version: ${localVersion ?? "not installed"}`);
+  if (latestVersion.trim() === localVersion?.trim()) {
+    console.log("rshtml-analyzer is up to date.");
+    return lsPath;
+  }
+  await fs11.mkdir(installDir, { recursive: true });
+  return await import_vscode.window.withProgress({
+    location: 15,
+    title: `Installing rshtml-analyzer ${latestVersion}...`
+  }, async (progress) => {
+    progress.report({ message: "Downloading release..." });
+    const platformName = (0, import_os.platform)() === "win32" ? "windows" : (0, import_os.platform)() === "darwin" ? "macos" : "linux";
+    const assetFileName = `${SERVER_NAME}-${platformName}-${(0, import_os.arch)()}.tar.gz`;
+    const downloadUrl = `https://github.com/${REPO}/releases/download/${latestTag}/${assetFileName}`;
+    const response = await axios_default.get(downloadUrl, { responseType: "stream" });
+    await (0, import_promises2.pipeline)(
+      response.data,
+      extract({
+        C: installDir
+      })
+    );
+    if ((0, import_os.platform)() !== "win32") {
+      await fs11.chmod(lsPath, 493);
+    }
+    console.log(`Successfully installed version ${latestVersion}`);
+    return lsPath;
+  });
+}
+
+// src/extension.ts
 var client;
 async function activate(context) {
   console.log("EXTENSION ACTIVE!");
-  const filesConfig = import_vscode.workspace.getConfiguration("files");
+  const filesConfig = import_vscode2.workspace.getConfiguration("files");
   const associations = filesConfig.get("associations", {});
   const newAssociation = "*.rs.html";
   if (associations[newAssociation] !== "html") {
     const newAssociations = { ...associations, [newAssociation]: "html" };
-    await filesConfig.update("associations", newAssociations, import_vscode.ConfigurationTarget.Global);
+    await filesConfig.update("associations", newAssociations, import_vscode2.ConfigurationTarget.Global);
     console.log(`'files.associations' updated: '${newAssociation}' -> 'html'`);
   }
   const serverOptionsTCP = () => {
@@ -18011,7 +38418,7 @@ async function activate(context) {
       console.log(`Connecting to TCP server: ${host}:${port}`);
       const socket = (0, import_net.createConnection)({ port, host });
       socket.on("connect", () => {
-        console.log("TCP connection successed! LanguageClient starting.");
+        console.log("TCP connection succeeded! LanguageClient starting.");
         resolve({
           reader: socket,
           writer: socket
@@ -18019,65 +38426,73 @@ async function activate(context) {
       });
       socket.on("error", (err) => {
         console.error("Socket error:", err);
-        import_vscode.window.showErrorMessage("Failed to connect to RsHtml server. Make sure the server is running.");
+        import_vscode2.window.showErrorMessage("Failed to connect to RsHtml server. Make sure the server is running.");
         reject(err);
       });
     });
   };
-  const platformName = (0, import_os.platform)();
-  const archName = (0, import_os.arch)();
-  let serverPath;
-  if (platformName === "win32") {
-    serverPath = "lsp/rshtml-analyzer.exe";
-  } else if (platformName === "darwin") {
-    if (archName === "arm64") {
-      serverPath = "lsp/rshtml-analyzer-macos-arm64";
-    } else {
-      serverPath = "lsp/rshtml-analyzer-macos-x64";
-    }
+  let serverPath = BINARY_NAME;
+  let path8 = await (0, import_which.default)(BINARY_NAME, { nothrow: true });
+  console.log(`path: ${path8}, binary: ${BINARY_NAME}`);
+  if (path8 === null) {
+    console.log("binary not found");
+    serverPath = await downloadGithubRelease(context);
   } else {
-    if (archName === "arm64") {
-      serverPath = "lsp/rshtml-analyzer-linux-arm64";
-    } else {
-      serverPath = "lsp/rshtml-analyzer-linux-x64";
-    }
+    console.log("system binary found");
   }
   const serverOptionsRPC = {
-    command: context.asAbsolutePath(serverPath),
-    //args: [context.asAbsolutePath(path.join('server', 'main.js'))],
-    transport: import_node.TransportKind.stdio
+    command: serverPath,
+    transport: import_node2.TransportKind.stdio
   };
   const clientOptions = {
     documentSelector: [
       { scheme: "file", language: "html", pattern: "**/*.rs.html" }
     ],
     outputChannelName: "RsHtml Language Server",
-    traceOutputChannel: import_vscode.window.createOutputChannel("RsHtml LSP Trace"),
+    traceOutputChannel: import_vscode2.window.createOutputChannel("RsHtml LSP Trace"),
     initializationOptions: {
-      workspaceFolders: import_vscode.workspace.workspaceFolders?.map((folder) => folder.uri.toString()) || null
+      workspaceFolders: import_vscode2.workspace.workspaceFolders?.map((folder) => folder.uri.toString()) || null
     },
     synchronize: {
-      fileEvents: import_vscode.workspace.createFileSystemWatcher("**/Cargo.toml")
+      fileEvents: import_vscode2.workspace.createFileSystemWatcher("**/Cargo.toml")
     }
   };
-  client = new import_node.LanguageClient(
-    "rshtmlLanguageServer",
-    "RSHtml Language Server",
+  client = new import_node2.LanguageClient(
+    "rshtml-analyzer",
+    "RsHtml Language Server",
     serverOptionsRPC,
-    //serverOptionsTCP
+    //serverOptionsTCP,
     clientOptions
   );
   console.log("LanguageClient starting...");
   await client.start();
 }
-async function deactivate() {
+function deactivate() {
   if (!client) {
     return void 0;
   }
-  return await client.stop();
+  return client.stop();
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   activate,
   deactivate
 });
+/*! Bundled license information:
+
+mime-db/index.js:
+  (*!
+   * mime-db
+   * Copyright(c) 2014 Jonathan Ong
+   * Copyright(c) 2015-2022 Douglas Christopher Wilson
+   * MIT Licensed
+   *)
+
+mime-types/index.js:
+  (*!
+   * mime-types
+   * Copyright(c) 2014 Jonathan Ong
+   * Copyright(c) 2015 Douglas Christopher Wilson
+   * MIT Licensed
+   *)
+*/

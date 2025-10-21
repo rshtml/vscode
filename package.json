@@ -2,7 +2,7 @@
   "name": "rshtml",
   "displayName": "rshtml",
   "description": "RsHtml Template Support",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "publisher": "rshtml",
   "license": "MIT or Apache-2.0",
   "keywords": [
@@ -41,13 +41,13 @@
     ]
   },
   "configuration": {
-    "title": "Rshtml Configuration",
+    "title": "RsHtml",
     "properties": {
       "rshtml.trace.server": {
         "type": "string",
-        "scope": "windows",
+        "scope": "window",
         "description": "description of rshtml.trace.server",
-        "default": "off",
+        "default": "verbose",
         "enum": [
           "off",
           "messages",
@@ -57,11 +57,15 @@
     }
   },
   "dependencies": {
-    "vscode-languageclient": "^9.0.1"
+    "axios": "^1.12.2",
+    "tar": "^7.5.1",
+    "vscode-languageclient": "^9.0.1",
+    "which": "^5.0.0"
   },
   "devDependencies": {
     "@types/node": "^24.0.4",
     "@types/vscode": "^1.101.0",
+    "@types/which": "^3.0.4",
     "esbuild": "^0.25.6"
   },
   "activationEvents": [
@@ -69,6 +73,6 @@
   ],
   "main": "out/extension.js",
   "scripts": {
-    "build": "esbuild ./extension.js --bundle --outfile=./out/extension.js --external:vscode --format=cjs --platform=node"
+    "build": "esbuild ./src/extension.ts --bundle --outfile=./out/extension.js --external:vscode --format=cjs --platform=node"
   }
 }
