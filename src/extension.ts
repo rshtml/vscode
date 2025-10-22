@@ -28,7 +28,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
     const newAssociation = '*.rs.html';
     if (associations[newAssociation] !== 'html') {
         const newAssociations: { [key: string]: string } = { ...associations, [newAssociation]: 'html' };
-        await filesConfig.update('associations', newAssociations, ConfigurationTarget.Global);
+        await filesConfig.update('associations', newAssociations, ConfigurationTarget.Workspace);
         console.log(`'files.associations' updated: '${newAssociation}' -> 'html'`);
     }
 
@@ -60,7 +60,10 @@ export async function activate(context: ExtensionContext): Promise<void> {
     let serverPath: string = BINARY_NAME;
     let path = await which(BINARY_NAME, { nothrow: true });
     console.log(`path: ${path}, binary: ${BINARY_NAME}`);
-    if (!path) {
+    if (path) {
+        console.log("system binary found");
+        serverPath = path;
+    } else {
         console.log("binary not found");
         try {
             serverPath = await downloadGithubRelease(context);
@@ -68,8 +71,6 @@ export async function activate(context: ExtensionContext): Promise<void> {
             window.showErrorMessage(`Failed to download ${SERVER_NAME}: ${error.message}`);
             return;
         }
-    } else {
-        console.log("system binary found");
     }
 
     const serverOptionsRPC: ServerOptions = {
