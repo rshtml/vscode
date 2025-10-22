@@ -112,3 +112,35 @@ export function deactivate(): Thenable<void> | undefined {
     }
     return client.stop();
 }
+
+/*
+   2 async function findReleaseAsset(tagName: string): Promise<{ url: string, fileName: string } | null> {
+    3     try {
+    4         // API'den tüm release bilgilerini çekiyoruz
+    5         const response = await axios.get<{ assets: { name: string, browser_download_url: string }[] }>(
+    6             `https://api.github.com/repos/${REPO}/releases/tags/${tagName}`,
+    7             { headers: { 'User-Agent': 'rshtml-vscode-client' } }
+    8         );
+    9
+   10         const platformName = platform() === 'win32' ? 'windows' : (platform() === 'darwin' ? 'macos' :
+      'linux');
+   11         const archName = arch(); // 'x64', 'arm64' etc.
+   12
+   13         // Asset listesini döngüye alıp bizim platform ve mimarimize uyanı arıyoruz
+   14         for (const asset of response.data.assets) {
+   15             const lowerCaseName = asset.name.toLowerCase();
+   16             if (lowerCaseName.includes(platformName) && lowerCaseName.includes(archName) && lowerCaseName.
+      endsWith('.tar.gz')) {
+   17                 console.log(`Found matching asset: ${asset.name}`);
+   18                 return { url: asset.browser_download_url, fileName: asset.name };
+   19             }
+   20         }
+   21
+   22         console.error("No matching asset found for this platform and architecture.");
+   23         return null;
+   24     } catch (error) {
+   25         console.error("Failed to fetch release assets:", error);
+   26         return null;
+   27     }
+   28 }
+*/
