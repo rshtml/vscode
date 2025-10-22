@@ -24,6 +24,7 @@ This extension is a lightweight wrapper that automatically starts the RsHtml lan
 2.  **Language Server Management:** This extension requires the `rshtml-analyzer` language server to provide language features. The extension handles this for you automatically:
     *   If you have `rshtml-analyzer` already installed and available in your system's `PATH`, the extension will use your existing version. This is ideal for users who prefer to manage their own toolchains.
         The server can be downloaded from the [releases](https://github.com/rshtml/rshtml-analyzer/releases) page or use the command below:
+
         ```sh
             cargo install --git https://github.com/rshtml/rshtml-analyzer.git --tag v0.1.5
         ```
