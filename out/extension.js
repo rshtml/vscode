@@ -38345,32 +38345,42 @@ var execPromise = (0, import_util3.promisify)(import_child_process.exec);
 var REPO = "rshtml/rshtml-analyzer";
 var SERVER_NAME = "rshtml-analyzer";
 var BINARY_NAME = (0, import_os.platform)() === "win32" ? `${SERVER_NAME}.exe` : SERVER_NAME;
+var UPDATE_CHECK_INTERVAL_MS = 1 * 1 * 60 * 1e3;
 async function getLocalVersion(path8) {
   const { stdout, stderr } = await execPromise(`"${path8}" --version`).catch(() => ({ stdout: "", stderr: "Command failed to execute" }));
-  return stderr ? null : stdout;
+  if (stderr) return null;
+  const versionMatch = stdout.match(/(\d+\.\d+\.\d+)/);
+  return versionMatch ? versionMatch[0] : null;
 }
 async function latestGithubRelease() {
-  const url2 = `https://api.github.com/repos/${REPO}/releases/latest`;
-  const response = await axios_default.get(url2, {
-    headers: { "User-Agent": "rshtml-vscode-client" }
-  });
-  if (response.data?.tag_name) {
-    return response.data.tag_name;
+  try {
+    const response = await axios_default.get(`https://api.github.com/repos/${REPO}/releases/latest`, {
+      headers: { "User-Agent": "rshtml-vscode-client" }
+    });
+    return response.data?.tag_name ?? null;
+  } catch {
+    return null;
   }
-  return null;
 }
 async function downloadGithubRelease(context) {
   const installDir = context.globalStorageUri.fsPath;
   const lsPath = import_vscode.Uri.joinPath(context.globalStorageUri, BINARY_NAME).fsPath;
+  console.log("getting local release");
+  const localVersion = await getLocalVersion(lsPath);
+  console.log(`latest local version: ${localVersion}`);
+  const lastCheckTimestamp = context.globalState.get("rshtml.lastUpdateCheck");
+  const currentTime = Date.now();
+  if (localVersion && lastCheckTimestamp && currentTime - lastCheckTimestamp < UPDATE_CHECK_INTERVAL_MS) {
+    console.log("Update check skipped, not enough time has passed since the last check.");
+    return lsPath;
+  }
   console.log("getting latest release");
   const latestTag = await latestGithubRelease();
   const latestVersion = latestTag?.replace(/^v/, "");
   console.log(`latest version: ${latestVersion}`);
   if (!latestVersion) return lsPath;
-  console.log("getting local release");
-  const localVersion = await getLocalVersion(lsPath);
-  console.log(`latest local version: ${localVersion}`);
   console.log(`Latest version: ${latestVersion}, Local version: ${localVersion ?? "not installed"}`);
+  await context.globalState.update("rshtml.lastUpdateCheck", currentTime);
   if (latestVersion.trim() === localVersion?.trim()) {
     console.log("rshtml-analyzer is up to date.");
     return lsPath;
@@ -38434,9 +38444,14 @@ async function activate(context) {
   let serverPath = BINARY_NAME;
   let path8 = await (0, import_which.default)(BINARY_NAME, { nothrow: true });
   console.log(`path: ${path8}, binary: ${BINARY_NAME}`);
-  if (path8 === null) {
+  if (!path8) {
     console.log("binary not found");
-    serverPath = await downloadGithubRelease(context);
+    try {
+      serverPath = await downloadGithubRelease(context);
+    } catch (error) {
+      import_vscode2.window.showErrorMessage(`Failed to download ${SERVER_NAME}: ${error.message}`);
+      return;
+    }
   } else {
     console.log("system binary found");
   }
