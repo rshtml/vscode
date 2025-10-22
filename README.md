@@ -1,5 +1,8 @@
 # RsHtml for Visual Studio Code
 
+[![Visual Studio Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/rshtml.rshtml?style=for-the-badge&label=VS%20Code%20Marketplace)](https://marketplace.visualstudio.com/items?itemName=rshtml.rshtml)
+[![Open VSX Registry](https://img.shields.io/open-vsx/v/rshtml/rshtml?style=for-the-badge&label=Open%20VSX)](https://open-vsx.org/extension/rshtml/rshtml)
+
 This extension provides official language server support for the [RsHtml](https://github.com/rshtml/rshtml) templating engine in Visual Studio Code.
 
 ## Features
@@ -14,9 +17,15 @@ This extension is a lightweight wrapper that automatically starts the RsHtml lan
 
 ## Getting Started
 
-1.  Install the extension from the Visual Studio Code Marketplace.
-2.  Open a project containing `.rs.html` files.
-3.  The extension will automatically activate and provide language support.
+1.  **Install the Extension:** Install "RsHtml" from your preferred marketplace:
+    *   [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=rshtml.rshtml)
+    *   [Open VSX Registry](https://open-vsx.org/extension/rshtml/rshtml)
+
+2.  **Language Server Management:** This extension requires the `rshtml-analyzer` language server to provide language features. The extension handles this for you automatically:
+    *   If you have `rshtml-analyzer` already installed and available in your system's `PATH`, the extension will use your existing version. This is ideal for users who prefer to manage their own toolchains.
+    *   If the server is not found in your `PATH`, the extension will seamlessly download and manage the latest compatible version for your operating system in the background. This provides a zero-configuration experience.
+
+3.  **Start Coding:** Open a project containing `.rs.html` files to automatically activate the language features.
 
 ---
 
