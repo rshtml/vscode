@@ -73,6 +73,7 @@
   ],
   "main": "out/extension.js",
   "scripts": {
-    "build": "esbuild ./src/extension.ts --bundle --outfile=./out/extension.js --external:vscode --format=cjs --platform=node"
+    "build": "esbuild ./src/extension.ts --bundle --outfile=./out/extension.js --external:vscode --format=cjs --platform=node",
+    "build:release": "esbuild ./src/extension.ts --bundle --outfile=./out/extension.js --external:vscode --format=cjs --platform=node --minify --drop:console --drop:debugger"
   }
 }
