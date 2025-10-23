@@ -26,7 +26,7 @@ This extension is a lightweight wrapper that automatically starts the RsHtml lan
         The server can be downloaded from the [releases](https://github.com/rshtml/rshtml-analyzer/releases) page or use the command below:
 
         ```sh
-            cargo install --git https://github.com/rshtml/rshtml-analyzer.git --tag v0.1.5
+        cargo install --git https://github.com/rshtml/rshtml-analyzer.git --tag v0.1.5
         ```
     *   If the server is not found in your `PATH`, the extension will seamlessly download and manage the latest compatible version for your operating system in the background. This provides a zero-configuration experience.
 
