@@ -20,8 +20,8 @@ const REPO = "rshtml/rshtml-analyzer";
 export const SERVER_NAME = 'rshtml-analyzer';
 export const BINARY_NAME: string = platform() === 'win32' ? `${SERVER_NAME}.exe` : SERVER_NAME;
 
-//const UPDATE_CHECK_INTERVAL_MS = 3 * 60 * 60 * 1000; // 3 hours
-const UPDATE_CHECK_INTERVAL_MS = 1 * 1 * 60 * 1000; // 1 minute
+const UPDATE_CHECK_INTERVAL_MS = 3 * 60 * 60 * 1000; // 3 hours
+//const UPDATE_CHECK_INTERVAL_MS = 1 * 1 * 60 * 1000; // 1 minute
 
 async function getLocalVersion(path: string): Promise<string | null> {
     const { stdout, stderr } = await execPromise(`"${path}" --version`).catch(() => ({ stdout: '', stderr: 'Command failed to execute' }));
