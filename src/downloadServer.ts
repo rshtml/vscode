@@ -91,8 +91,11 @@ export async function downloadGithubRelease(context: ExtensionContext): Promise<
 
         const platformName: string = platform() === 'win32' ? 'windows' : (platform() === 'darwin' ? 'macos' : 'linux');
         const archName = arch();
-        const asset = releaseInfo.assets.find(asset => asset.name.toLowerCase().includes(platformName) && asset.name.toLowerCase().includes(archName));
-        if (!asset) {
+        const asset = releaseInfo.assets.filter(asset => 
+            asset.name.toLowerCase().includes(platformName) && 
+            asset.name.toLowerCase().includes(archName))
+            .find(asset => !asset.name.toLowerCase().includes("musl"));
+        if (!asset) {   
             window.showErrorMessage(`No compatible binary found for your system (${platformName}-${archName}).`);
             return lsPath;
         }
