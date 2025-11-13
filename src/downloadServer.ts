@@ -1,18 +1,17 @@
-import {
-    window,
-    ExtensionContext,
-    Uri,
-} from 'vscode';
-
-import { platform, arch } from 'os';
+import { exec } from 'node:child_process';
+import * as fs from 'node:fs/promises';
+import os, { arch, platform } from 'node:os';
+import path from 'node:path';
+import { pipeline } from 'node:stream/promises';
+import { promisify } from 'node:util';
 import axios from 'axios';
 import * as tar from 'tar';
-import * as fs from 'fs/promises';
-import { pipeline } from 'stream/promises';
-import { exec } from 'child_process';
-import { promisify } from 'util';
-import path from 'path';
-import os from 'os';
+
+import type {
+    ExtensionContext,
+    
+} from 'vscode';
+import {Uri, window} from 'vscode';
 
 const execPromise = promisify(exec);
 
@@ -121,7 +120,7 @@ export async function downloadGithubRelease(context: ExtensionContext): Promise<
 
             console.log(`Successfully installed version ${latestVersion}`);
             return lsPath;
-        } catch (error: any) {
+        } catch (error) {
             window.showErrorMessage(`Failed to download or extract rshtml-analyzer: ${error.message}`);
             console.error(error);
             return lsPath;

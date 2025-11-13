@@ -1,22 +1,28 @@
-import {
-    workspace,
-    ConfigurationTarget,
-    window,
+import type { Socket } from 'node:net';
+import { createConnection } from 'node:net';
+
+import type {
     ExtensionContext,
     WorkspaceConfiguration,
 } from 'vscode';
-import { createConnection, Socket } from 'net';
 import {
-    LanguageClient,
-    TransportKind,
-    ServerOptions,
+    ConfigurationTarget,
+    window,
+    workspace,
+} from 'vscode';
+
+import type {
     LanguageClientOptions,
+    ServerOptions,
     StreamInfo,
 } from 'vscode-languageclient/node';
+import { LanguageClient, TransportKind } from 'vscode-languageclient/node';
+   
 import which from 'which';
-import { downloadGithubRelease, SERVER_NAME, BINARY_NAME } from "./downloadServer";
+import { BINARY_NAME, downloadGithubRelease, SERVER_NAME } from "./downloadServer";
 
 let client: LanguageClient | undefined;
+const IS_DEBUG = false;
 
 
 export async function activate(context: ExtensionContext): Promise<void> {
@@ -32,51 +38,57 @@ export async function activate(context: ExtensionContext): Promise<void> {
         console.log(`'files.associations' updated: '${newAssociation}' -> 'html'`);
     }
 
-    const serverOptionsTCP = (): Promise<StreamInfo> => {
-        return new Promise((resolve, reject) => {
-            const host = '127.0.0.1';
-            const port = 9257;
+    let serverOptions: ServerOptions | (() => Promise<StreamInfo>);
 
-            console.log(`Connecting to TCP server: ${host}:${port}`);
+    if (IS_DEBUG) {
+        const serverOptionsTCP = (): Promise<StreamInfo> => {
+            return new Promise((resolve, reject) => {
+                const host = '127.0.0.1';
+                const port = 9257;
 
-            const socket: Socket = createConnection({ port, host });
+                console.log(`Connecting to TCP server: ${host}:${port}`);
 
-            socket.on('connect', () => {
-                console.log('TCP connection succeeded! LanguageClient starting.');
-                resolve({
-                    reader: socket,
-                    writer: socket
+                const socket: Socket = createConnection({ port, host });
+
+                socket.on('connect', () => {
+                    console.log('TCP connection succeeded! LanguageClient starting.');
+                    resolve({
+                        reader: socket,
+                        writer: socket
+                    });
+                });
+
+                socket.on('error', (err: Error) => {
+                    console.error('Socket error:', err);
+                    window.showErrorMessage('Failed to connect to RsHtml server. Make sure the server is running.');
+                    reject(err);
                 });
             });
-
-            socket.on('error', (err: Error) => {
-                console.error('Socket error:', err);
-                window.showErrorMessage('Failed to connect to RsHtml server. Make sure the server is running.');
-                reject(err);
-            });
-        });
-    };
-
-    let serverPath: string = BINARY_NAME;
-    let path = await which(BINARY_NAME, { nothrow: true });
-    console.log(`path: ${path}, binary: ${BINARY_NAME}`);
-    if (path) {
-        console.log("system binary found");
-        serverPath = path;
+        };
+        serverOptions = serverOptionsTCP;
     } else {
-        console.log("binary not found");
-        try {
-            serverPath = await downloadGithubRelease(context);
-        } catch (error: any) {
-            window.showErrorMessage(`Failed to download ${SERVER_NAME}: ${error.message}`);
-            return;
+        let serverPath: string = BINARY_NAME;
+        const path = await which(BINARY_NAME, { nothrow: true });
+        console.log(`path: ${path}, binary: ${BINARY_NAME}`);
+        if (path) {
+            console.log("system binary found");
+            serverPath = path;
+        } else {
+            console.log("binary not found");
+            try {
+                serverPath = await downloadGithubRelease(context);
+            } catch (error) {
+                window.showErrorMessage(`Failed to download ${SERVER_NAME}: ${error.message}`);
+                return;
+            }
         }
-    }
 
-    const serverOptionsRPC: ServerOptions = {
-        command: serverPath,
-        transport: TransportKind.stdio
-    };
+        const serverOptionsRPC: ServerOptions = {
+            command: serverPath,
+            transport: TransportKind.stdio
+        };
+        serverOptions = serverOptionsRPC;
+    }
 
     const clientOptions: LanguageClientOptions = {
         documentSelector: [
@@ -95,8 +107,8 @@ export async function activate(context: ExtensionContext): Promise<void> {
     client = new LanguageClient(
         'rshtml-analyzer',
         'RsHtml Language Server',
-        serverOptionsRPC,
-        //serverOptionsTCP,
+        serverOptions,
+        //serverOptionsRPC, //serverOptionsTCP,        
         clientOptions
     );
 
