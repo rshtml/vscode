@@ -1,0 +1,106 @@
+{
+  "scopeName": "rshtml.rust",
+  "injectionSelector": "L:source.rust",
+  "patterns": [
+    { "include": "#v_macro_curly" },
+    { "include": "#v_macro_paren" },
+    { "include": "#v_macro_square" }
+  ],
+  "repository": {
+    "v_macro_curly": {
+      "name": "meta.v-macro.rshtml",
+      "begin": "\\b(v!)\\s*(\\{)",
+      "beginCaptures": {
+        "1": { "name": "keyword.other.v-macro.rust" },
+        "2": { "name": "punctuation.section.block.begin.rust" }
+      },
+      "end": "\\}",
+      "endCaptures": {
+        "0": { "name": "punctuation.section.block.end.rust" }
+      },
+      "patterns": [
+        { "include": "#rust_interpolation" },
+        {
+          "name": "meta.embedded.html.rshtml",
+          "begin": "(?=<)",
+          "end": "(?=\\{|\\}|$)",
+          "patterns": [
+            { "include": "text.html.basic" }
+          ]
+        },
+        {
+          "name": "text.html.rshtml",
+          "match": "[^<{}]+"
+        }
+      ]
+    },
+    "v_macro_paren": {
+      "name": "meta.v-macro.rshtml",
+      "begin": "\\b(v!)\\s*(\\()",
+      "beginCaptures": {
+        "1": { "name": "keyword.other.v-macro.rust" },
+        "2": { "name": "punctuation.section.parens.begin.rust" }
+      },
+      "end": "\\)",
+      "endCaptures": {
+        "0": { "name": "punctuation.section.parens.end.rust" }
+      },
+      "patterns": [
+        { "include": "#rust_interpolation" },
+        {
+          "name": "meta.embedded.html.rshtml",
+          "begin": "(?=<)",
+          "end": "(?=\\{|\\)|$)",
+          "patterns": [
+            { "include": "text.html.basic" }
+          ]
+        },
+        {
+          "name": "text.html.rshtml",
+          "match": "[^<{)]+"
+        }
+      ]
+    },
+    "v_macro_square": {
+      "name": "meta.v-macro.rshtml",
+      "begin": "\\b(v!)\\s*(\\[)",
+      "beginCaptures": {
+        "1": { "name": "keyword.other.v-macro.rust" },
+        "2": { "name": "punctuation.section.brackets.begin.rust" }
+      },
+      "end": "\\]",
+      "endCaptures": {
+        "0": { "name": "punctuation.section.brackets.end.rust" }
+      },
+      "patterns": [
+        { "include": "#rust_interpolation" },
+        {
+          "name": "meta.embedded.html.rshtml",
+          "begin": "(?=<)",
+          "end": "(?=\\{|\\]|$)",
+          "patterns": [
+            { "include": "text.html.basic" }
+          ]
+        },
+        {
+          "name": "text.html.rshtml",
+          "match": "[^<{]]+"
+        }
+      ]
+    },
+    "rust_interpolation": {
+      "name": "meta.embedded.rust.rshtml",
+      "begin": "\\{",
+      "beginCaptures": {
+        "0": { "name": "punctuation.section.embedded.begin.rust" }
+      },
+      "end": "\\}",
+      "endCaptures": {
+        "0": { "name": "punctuation.section.embedded.end.rust" }
+      },
+      "patterns": [
+        { "include": "source.rust" }
+      ]
+    }
+  }
+}
