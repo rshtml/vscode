@@ -3756,8 +3756,8 @@ var require_main2 = __commonJS({
         }
         DeleteFile3.is = is;
       })(DeleteFile2 || (exports3.DeleteFile = DeleteFile2 = {}));
-      var WorkspaceEdit2;
-      (function(WorkspaceEdit3) {
+      var WorkspaceEdit3;
+      (function(WorkspaceEdit4) {
         function is(value) {
           var candidate = value;
           return candidate && (candidate.changes !== void 0 || candidate.documentChanges !== void 0) && (candidate.documentChanges === void 0 || candidate.documentChanges.every(function(change) {
@@ -3768,8 +3768,8 @@ var require_main2 = __commonJS({
             }
           }));
         }
-        WorkspaceEdit3.is = is;
-      })(WorkspaceEdit2 || (exports3.WorkspaceEdit = WorkspaceEdit2 = {}));
+        WorkspaceEdit4.is = is;
+      })(WorkspaceEdit3 || (exports3.WorkspaceEdit = WorkspaceEdit3 = {}));
       var TextEditChangeImpl = (
         /** @class */
         function() {
@@ -4399,7 +4399,7 @@ var require_main2 = __commonJS({
         CodeAction3.create = create2;
         function is(value) {
           var candidate = value;
-          return candidate && Is2.string(candidate.title) && (candidate.diagnostics === void 0 || Is2.typedArray(candidate.diagnostics, Diagnostic2.is)) && (candidate.kind === void 0 || Is2.string(candidate.kind)) && (candidate.edit !== void 0 || candidate.command !== void 0) && (candidate.command === void 0 || Command2.is(candidate.command)) && (candidate.isPreferred === void 0 || Is2.boolean(candidate.isPreferred)) && (candidate.edit === void 0 || WorkspaceEdit2.is(candidate.edit));
+          return candidate && Is2.string(candidate.title) && (candidate.diagnostics === void 0 || Is2.typedArray(candidate.diagnostics, Diagnostic2.is)) && (candidate.kind === void 0 || Is2.string(candidate.kind)) && (candidate.edit !== void 0 || candidate.command !== void 0) && (candidate.command === void 0 || Command2.is(candidate.command)) && (candidate.isPreferred === void 0 || Is2.boolean(candidate.isPreferred)) && (candidate.edit === void 0 || WorkspaceEdit3.is(candidate.edit));
         }
         CodeAction3.is = is;
       })(CodeAction2 || (exports3.CodeAction = CodeAction2 = {}));
@@ -6058,12 +6058,12 @@ var require_protocol = __commonJS({
       DidSaveTextDocumentNotification2.messageDirection = messages_1.MessageDirection.clientToServer;
       DidSaveTextDocumentNotification2.type = new messages_1.ProtocolNotificationType(DidSaveTextDocumentNotification2.method);
     })(DidSaveTextDocumentNotification || (exports2.DidSaveTextDocumentNotification = DidSaveTextDocumentNotification = {}));
-    var TextDocumentSaveReason;
-    (function(TextDocumentSaveReason2) {
-      TextDocumentSaveReason2.Manual = 1;
-      TextDocumentSaveReason2.AfterDelay = 2;
-      TextDocumentSaveReason2.FocusOut = 3;
-    })(TextDocumentSaveReason || (exports2.TextDocumentSaveReason = TextDocumentSaveReason = {}));
+    var TextDocumentSaveReason2;
+    (function(TextDocumentSaveReason3) {
+      TextDocumentSaveReason3.Manual = 1;
+      TextDocumentSaveReason3.AfterDelay = 2;
+      TextDocumentSaveReason3.FocusOut = 3;
+    })(TextDocumentSaveReason2 || (exports2.TextDocumentSaveReason = TextDocumentSaveReason2 = {}));
     var WillSaveTextDocumentNotification;
     (function(WillSaveTextDocumentNotification2) {
       WillSaveTextDocumentNotification2.method = "textDocument/willSave";
@@ -40065,7 +40065,7 @@ var DeleteFile;
   DeleteFile2.is = is;
 })(DeleteFile || (DeleteFile = {}));
 var WorkspaceEdit;
-(function(WorkspaceEdit2) {
+(function(WorkspaceEdit3) {
   function is(value) {
     let candidate = value;
     return candidate && (candidate.changes !== void 0 || candidate.documentChanges !== void 0) && (candidate.documentChanges === void 0 || candidate.documentChanges.every((change) => {
@@ -40076,7 +40076,7 @@ var WorkspaceEdit;
       }
     }));
   }
-  WorkspaceEdit2.is = is;
+  WorkspaceEdit3.is = is;
 })(WorkspaceEdit || (WorkspaceEdit = {}));
 var TextDocumentIdentifier;
 (function(TextDocumentIdentifier2) {
@@ -61352,20 +61352,22 @@ function registerVMacroProvider(context, parser) {
   const formatCommand = vscode.commands.registerCommand("rshtml.format", async () => {
     const editor = vscode.window.activeTextEditor;
     if (!editor || editor.document.languageId !== "rust") return;
-    const options = editor.options;
+    const options = {
+      tabSize: Number(editor.options.tabSize) || 2,
+      insertSpaces: Boolean(editor.options.insertSpaces)
+    };
     const edits = calculateHtmlEdits(editor.document, options, extractor, htmlService);
-    if (edits.length > 0) {
-      await editor.edit((editBuilder) => {
-        for (let i = edits.length - 1; i >= 0; i--) {
-          const e = edits[i];
-          editBuilder.replace(e.range, e.newText);
-        }
-      });
-    }
+    if (edits.length === 0) return;
+    await editor.edit((editBuilder) => {
+      for (let i = edits.length - 1; i >= 0; i--) {
+        editBuilder.replace(edits[i].range, edits[i].newText);
+      }
+    });
     await vscode.commands.executeCommand("editor.action.formatDocument");
   });
   const saveListener = vscode.workspace.onWillSaveTextDocument((event) => {
     if (event.document.languageId !== "rust") return;
+    if (event.reason !== vscode.TextDocumentSaveReason.Manual) return;
     const config = vscode.workspace.getConfiguration("editor", event.document.uri);
     if (!config.get("formatOnSave")) return;
     const defaultOptions = {
@@ -61374,7 +61376,12 @@ function registerVMacroProvider(context, parser) {
       ...vscode.window.activeTextEditor?.options
     };
     let edits = calculateHtmlEdits(event.document, defaultOptions, extractor, htmlService);
-    event.waitUntil(Promise.resolve(edits));
+    if (edits.length === 0) return;
+    const workspaceEdit = new vscode.WorkspaceEdit();
+    edits.forEach((edit) => {
+      workspaceEdit.replace(event.document.uri, edit.range, edit.newText);
+    });
+    event.waitUntil(vscode.workspace.applyEdit(workspaceEdit));
   });
   context.subscriptions.push(completionProvider, hoverProvider, formatCommand, saveListener);
 }
@@ -61508,9 +61515,9 @@ function calculateHtmlEdits(document2, options, extractor, htmlService) {
     const rawContent = text.substring(result.contentStart, result.closeCharIndex);
     const commentMap = [];
     const protectedContent = rawContent.replace(/(\/\/[^\n]*)/g, (m) => {
-      const p = `<!-- RST_CMT_${commentMap.length} -->`;
-      commentMap.push({ p, o: m });
-      return p;
+      const placeholder = `__RUST_COMMENT_${commentMap.length}__`;
+      commentMap.push({ placeholder, original: m });
+      return placeholder;
     });
     const virtualDoc = TextDocument.create("virtual://fmt.html", "html", 1, protectedContent);
     const htmlEdits = htmlService.format(virtualDoc, void 0, {
@@ -61539,7 +61546,7 @@ function calculateHtmlEdits(document2, options, extractor, htmlService) {
     }).join("\n");
     let finalHtml = indentedHtml;
     for (const item of commentMap) {
-      finalHtml = finalHtml.replace(item.p, item.o);
+      finalHtml = finalHtml.replace(item.placeholder, item.original);
     }
     const finalBlock = `
 ${finalHtml}
@@ -61627,8 +61634,8 @@ async function activate(context) {
   client = new import_node2.LanguageClient(
     "rshtml-analyzer",
     "RsHtml Language Server",
-    //serverOptionsRPC,
-    serverOptionsTCP,
+    serverOptionsRPC,
+    //serverOptionsTCP,
     clientOptions
   );
   const parser = await initTreeSitter(context);

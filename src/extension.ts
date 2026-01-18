@@ -98,8 +98,8 @@ export async function activate(context: ExtensionContext): Promise<void> {
     client = new LanguageClient(
         'rshtml-analyzer',
         'RsHtml Language Server',
-        //serverOptionsRPC,
-        serverOptionsTCP,
+        serverOptionsRPC,
+        //serverOptionsTCP,
         clientOptions
     );
 
