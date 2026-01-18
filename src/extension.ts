@@ -123,7 +123,7 @@ async function initTreeSitter(context: ExtensionContext) {
     await Parser.init();
 
     const parser = new Parser();
-    const rustWasmPath = path.join(context.extensionPath, 'tree-sitter-rust.wasm');
+    const rustWasmPath = path.join(context.extensionPath, 'out', 'tree-sitter-rust.wasm');
     const Rust = await Language.load(rustWasmPath);
 
     parser.setLanguage(Rust);
