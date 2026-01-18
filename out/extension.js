@@ -4158,10 +4158,10 @@ var require_main2 = __commonJS({
         InsertTextFormat3.PlainText = 1;
         InsertTextFormat3.Snippet = 2;
       })(InsertTextFormat2 || (exports3.InsertTextFormat = InsertTextFormat2 = {}));
-      var CompletionItemTag2;
-      (function(CompletionItemTag3) {
-        CompletionItemTag3.Deprecated = 1;
-      })(CompletionItemTag2 || (exports3.CompletionItemTag = CompletionItemTag2 = {}));
+      var CompletionItemTag3;
+      (function(CompletionItemTag4) {
+        CompletionItemTag4.Deprecated = 1;
+      })(CompletionItemTag3 || (exports3.CompletionItemTag = CompletionItemTag3 = {}));
       var InsertReplaceEdit2;
       (function(InsertReplaceEdit3) {
         function create2(newText, insert, replace2) {
@@ -39339,6 +39339,330 @@ async function downloadGithubRelease(context) {
 // src/registerVMacroProvider.ts
 var vscode = __toESM(require("vscode"));
 
+// node_modules/vscode-languageserver-textdocument/lib/esm/main.js
+var FullTextDocument = class _FullTextDocument {
+  constructor(uri, languageId, version, content) {
+    this._uri = uri;
+    this._languageId = languageId;
+    this._version = version;
+    this._content = content;
+    this._lineOffsets = void 0;
+  }
+  get uri() {
+    return this._uri;
+  }
+  get languageId() {
+    return this._languageId;
+  }
+  get version() {
+    return this._version;
+  }
+  getText(range) {
+    if (range) {
+      const start = this.offsetAt(range.start);
+      const end = this.offsetAt(range.end);
+      return this._content.substring(start, end);
+    }
+    return this._content;
+  }
+  update(changes, version) {
+    for (const change of changes) {
+      if (_FullTextDocument.isIncremental(change)) {
+        const range = getWellformedRange(change.range);
+        const startOffset = this.offsetAt(range.start);
+        const endOffset = this.offsetAt(range.end);
+        this._content = this._content.substring(0, startOffset) + change.text + this._content.substring(endOffset, this._content.length);
+        const startLine = Math.max(range.start.line, 0);
+        const endLine = Math.max(range.end.line, 0);
+        let lineOffsets = this._lineOffsets;
+        const addedLineOffsets = computeLineOffsets(change.text, false, startOffset);
+        if (endLine - startLine === addedLineOffsets.length) {
+          for (let i = 0, len = addedLineOffsets.length; i < len; i++) {
+            lineOffsets[i + startLine + 1] = addedLineOffsets[i];
+          }
+        } else {
+          if (addedLineOffsets.length < 1e4) {
+            lineOffsets.splice(startLine + 1, endLine - startLine, ...addedLineOffsets);
+          } else {
+            this._lineOffsets = lineOffsets = lineOffsets.slice(0, startLine + 1).concat(addedLineOffsets, lineOffsets.slice(endLine + 1));
+          }
+        }
+        const diff = change.text.length - (endOffset - startOffset);
+        if (diff !== 0) {
+          for (let i = startLine + 1 + addedLineOffsets.length, len = lineOffsets.length; i < len; i++) {
+            lineOffsets[i] = lineOffsets[i] + diff;
+          }
+        }
+      } else if (_FullTextDocument.isFull(change)) {
+        this._content = change.text;
+        this._lineOffsets = void 0;
+      } else {
+        throw new Error("Unknown change event received");
+      }
+    }
+    this._version = version;
+  }
+  getLineOffsets() {
+    if (this._lineOffsets === void 0) {
+      this._lineOffsets = computeLineOffsets(this._content, true);
+    }
+    return this._lineOffsets;
+  }
+  positionAt(offset) {
+    offset = Math.max(Math.min(offset, this._content.length), 0);
+    const lineOffsets = this.getLineOffsets();
+    let low = 0, high = lineOffsets.length;
+    if (high === 0) {
+      return { line: 0, character: offset };
+    }
+    while (low < high) {
+      const mid = Math.floor((low + high) / 2);
+      if (lineOffsets[mid] > offset) {
+        high = mid;
+      } else {
+        low = mid + 1;
+      }
+    }
+    const line = low - 1;
+    offset = this.ensureBeforeEOL(offset, lineOffsets[line]);
+    return { line, character: offset - lineOffsets[line] };
+  }
+  offsetAt(position) {
+    const lineOffsets = this.getLineOffsets();
+    if (position.line >= lineOffsets.length) {
+      return this._content.length;
+    } else if (position.line < 0) {
+      return 0;
+    }
+    const lineOffset = lineOffsets[position.line];
+    if (position.character <= 0) {
+      return lineOffset;
+    }
+    const nextLineOffset = position.line + 1 < lineOffsets.length ? lineOffsets[position.line + 1] : this._content.length;
+    const offset = Math.min(lineOffset + position.character, nextLineOffset);
+    return this.ensureBeforeEOL(offset, lineOffset);
+  }
+  ensureBeforeEOL(offset, lineOffset) {
+    while (offset > lineOffset && isEOL(this._content.charCodeAt(offset - 1))) {
+      offset--;
+    }
+    return offset;
+  }
+  get lineCount() {
+    return this.getLineOffsets().length;
+  }
+  static isIncremental(event) {
+    const candidate = event;
+    return candidate !== void 0 && candidate !== null && typeof candidate.text === "string" && candidate.range !== void 0 && (candidate.rangeLength === void 0 || typeof candidate.rangeLength === "number");
+  }
+  static isFull(event) {
+    const candidate = event;
+    return candidate !== void 0 && candidate !== null && typeof candidate.text === "string" && candidate.range === void 0 && candidate.rangeLength === void 0;
+  }
+};
+var TextDocument;
+(function(TextDocument3) {
+  function create2(uri, languageId, version, content) {
+    return new FullTextDocument(uri, languageId, version, content);
+  }
+  TextDocument3.create = create2;
+  function update2(document2, changes, version) {
+    if (document2 instanceof FullTextDocument) {
+      document2.update(changes, version);
+      return document2;
+    } else {
+      throw new Error("TextDocument.update: document must be created by TextDocument.create");
+    }
+  }
+  TextDocument3.update = update2;
+  function applyEdits(document2, edits) {
+    const text = document2.getText();
+    const sortedEdits = mergeSort(edits.map(getWellformedEdit), (a, b) => {
+      const diff = a.range.start.line - b.range.start.line;
+      if (diff === 0) {
+        return a.range.start.character - b.range.start.character;
+      }
+      return diff;
+    });
+    let lastModifiedOffset = 0;
+    const spans = [];
+    for (const e of sortedEdits) {
+      const startOffset = document2.offsetAt(e.range.start);
+      if (startOffset < lastModifiedOffset) {
+        throw new Error("Overlapping edit");
+      } else if (startOffset > lastModifiedOffset) {
+        spans.push(text.substring(lastModifiedOffset, startOffset));
+      }
+      if (e.newText.length) {
+        spans.push(e.newText);
+      }
+      lastModifiedOffset = document2.offsetAt(e.range.end);
+    }
+    spans.push(text.substr(lastModifiedOffset));
+    return spans.join("");
+  }
+  TextDocument3.applyEdits = applyEdits;
+})(TextDocument || (TextDocument = {}));
+function mergeSort(data, compare) {
+  if (data.length <= 1) {
+    return data;
+  }
+  const p = data.length / 2 | 0;
+  const left = data.slice(0, p);
+  const right = data.slice(p);
+  mergeSort(left, compare);
+  mergeSort(right, compare);
+  let leftIdx = 0;
+  let rightIdx = 0;
+  let i = 0;
+  while (leftIdx < left.length && rightIdx < right.length) {
+    const ret = compare(left[leftIdx], right[rightIdx]);
+    if (ret <= 0) {
+      data[i++] = left[leftIdx++];
+    } else {
+      data[i++] = right[rightIdx++];
+    }
+  }
+  while (leftIdx < left.length) {
+    data[i++] = left[leftIdx++];
+  }
+  while (rightIdx < right.length) {
+    data[i++] = right[rightIdx++];
+  }
+  return data;
+}
+function computeLineOffsets(text, isAtLineStart, textOffset = 0) {
+  const result = isAtLineStart ? [textOffset] : [];
+  for (let i = 0; i < text.length; i++) {
+    const ch = text.charCodeAt(i);
+    if (isEOL(ch)) {
+      if (ch === 13 && i + 1 < text.length && text.charCodeAt(i + 1) === 10) {
+        i++;
+      }
+      result.push(textOffset + i + 1);
+    }
+  }
+  return result;
+}
+function isEOL(char) {
+  return char === 13 || char === 10;
+}
+function getWellformedRange(range) {
+  const start = range.start;
+  const end = range.end;
+  if (start.line > end.line || start.line === end.line && start.character > end.character) {
+    return { start: end, end: start };
+  }
+  return range;
+}
+function getWellformedEdit(textEdit) {
+  const range = getWellformedRange(textEdit.range);
+  if (range !== textEdit.range) {
+    return { newText: textEdit.newText, range };
+  }
+  return textEdit;
+}
+
+// src/vMacroExtractor.ts
+var VMacroExtractor = class {
+  parser;
+  uri = "";
+  version = -1;
+  offset = -1;
+  result = null;
+  constructor(parser) {
+    this.parser = parser;
+  }
+  getOrUpdate(document2, offset) {
+    if (this.uri === document2.uri.toString() && this.version === document2.version && this.offset === offset) {
+      if (!this.result) return null;
+      const virtualDoc2 = TextDocument.create(
+        document2.uri.toString(),
+        "html",
+        1,
+        this.result.virtualText
+      );
+      return { doc: virtualDoc2, info: this.result };
+    }
+    const text = document2.getText();
+    const currentResult = this.extract(text, offset);
+    this.uri = document2.uri.toString();
+    this.version = document2.version;
+    this.offset = offset;
+    this.result = currentResult;
+    if (!currentResult) return null;
+    const virtualDoc = TextDocument.create(
+      document2.uri.toString(),
+      "html",
+      1,
+      currentResult.virtualText
+    );
+    return {
+      doc: virtualDoc,
+      info: currentResult
+    };
+  }
+  extract(text, offset) {
+    const tree = this.parser.parse(text);
+    let currentNode = tree.rootNode.descendantForIndex(offset);
+    let macroNode = null;
+    while (currentNode) {
+      if (currentNode.type === "macro_invocation") {
+        if (currentNode.childForFieldName("macro")?.text === "v") {
+          macroNode = currentNode;
+          break;
+        }
+      }
+      currentNode = currentNode.parent;
+    }
+    if (!macroNode) {
+      tree.delete();
+      return null;
+    }
+    const mainTokenTree = macroNode.children.find((c) => c.type === "token_tree");
+    if (!mainTokenTree || offset <= mainTokenTree.startIndex || offset >= mainTokenTree.endIndex) {
+      tree.delete();
+      return null;
+    }
+    const contentStart = mainTokenTree.startIndex + 1;
+    const closeCharIndex = mainTokenTree.endIndex - 1;
+    const rawContent = text.substring(contentStart, closeCharIndex);
+    let maskedChars = rawContent.split("");
+    const rustBlocks = [];
+    for (const child of mainTokenTree.children) {
+      if (child.type === "token_tree" && text[child.startIndex] === "{") {
+        const localStart = child.startIndex - contentStart;
+        const localEnd = child.endIndex - contentStart;
+        if (localStart < 0 || localEnd > maskedChars.length) continue;
+        rustBlocks.push({ start: localStart, end: localEnd });
+        for (let i = localStart; i < localEnd; i++) {
+          if (maskedChars[i] !== "\n") {
+            maskedChars[i] = " ";
+          }
+        }
+      }
+    }
+    const maskedContent = maskedChars.join("");
+    tree.delete();
+    const prefixRaw = text.substring(0, contentStart);
+    let prefix = "";
+    for (let i = 0; i < prefixRaw.length; i++) {
+      prefix += prefixRaw[i] === "\n" ? "\n" : " ";
+    }
+    return { virtualText: prefix + maskedContent, contentStart, closeCharIndex, rustBlocks };
+  }
+  isInRustBlock(data, offset) {
+    const offsetInMacro = offset - data.info.contentStart;
+    return data.info.rustBlocks.some(
+      (block) => offsetInMacro >= block.start && offsetInMacro <= block.end
+    );
+  }
+  clear() {
+    this.uri = "";
+    this.result = null;
+  }
+};
+
 // node_modules/vscode-html-languageservice/lib/esm/parser/htmlScanner.js
 var l10n = __toESM(require_main5());
 
@@ -39854,8 +40178,8 @@ var InsertTextFormat;
   InsertTextFormat2.Snippet = 2;
 })(InsertTextFormat || (InsertTextFormat = {}));
 var CompletionItemTag;
-(function(CompletionItemTag2) {
-  CompletionItemTag2.Deprecated = 1;
+(function(CompletionItemTag3) {
+  CompletionItemTag3.Deprecated = 1;
 })(CompletionItemTag || (CompletionItemTag = {}));
 var InsertReplaceEdit;
 (function(InsertReplaceEdit2) {
@@ -40326,10 +40650,10 @@ var WorkspaceFolder;
   }
   WorkspaceFolder2.is = is;
 })(WorkspaceFolder || (WorkspaceFolder = {}));
-var TextDocument;
+var TextDocument2;
 (function(TextDocument3) {
   function create2(uri, languageId, version, content) {
-    return new FullTextDocument(uri, languageId, version, content);
+    return new FullTextDocument2(uri, languageId, version, content);
   }
   TextDocument3.create = create2;
   function is(value) {
@@ -40389,8 +40713,8 @@ var TextDocument;
     }
     return data;
   }
-})(TextDocument || (TextDocument = {}));
-var FullTextDocument = class {
+})(TextDocument2 || (TextDocument2 = {}));
+var FullTextDocument2 = class {
   constructor(uri, languageId, version, content) {
     this._uri = uri;
     this._languageId = languageId;
@@ -40524,230 +40848,6 @@ var Is;
   }
   Is2.typedArray = typedArray;
 })(Is || (Is = {}));
-
-// node_modules/vscode-languageserver-textdocument/lib/esm/main.js
-var FullTextDocument2 = class _FullTextDocument {
-  constructor(uri, languageId, version, content) {
-    this._uri = uri;
-    this._languageId = languageId;
-    this._version = version;
-    this._content = content;
-    this._lineOffsets = void 0;
-  }
-  get uri() {
-    return this._uri;
-  }
-  get languageId() {
-    return this._languageId;
-  }
-  get version() {
-    return this._version;
-  }
-  getText(range) {
-    if (range) {
-      const start = this.offsetAt(range.start);
-      const end = this.offsetAt(range.end);
-      return this._content.substring(start, end);
-    }
-    return this._content;
-  }
-  update(changes, version) {
-    for (const change of changes) {
-      if (_FullTextDocument.isIncremental(change)) {
-        const range = getWellformedRange(change.range);
-        const startOffset = this.offsetAt(range.start);
-        const endOffset = this.offsetAt(range.end);
-        this._content = this._content.substring(0, startOffset) + change.text + this._content.substring(endOffset, this._content.length);
-        const startLine = Math.max(range.start.line, 0);
-        const endLine = Math.max(range.end.line, 0);
-        let lineOffsets = this._lineOffsets;
-        const addedLineOffsets = computeLineOffsets(change.text, false, startOffset);
-        if (endLine - startLine === addedLineOffsets.length) {
-          for (let i = 0, len = addedLineOffsets.length; i < len; i++) {
-            lineOffsets[i + startLine + 1] = addedLineOffsets[i];
-          }
-        } else {
-          if (addedLineOffsets.length < 1e4) {
-            lineOffsets.splice(startLine + 1, endLine - startLine, ...addedLineOffsets);
-          } else {
-            this._lineOffsets = lineOffsets = lineOffsets.slice(0, startLine + 1).concat(addedLineOffsets, lineOffsets.slice(endLine + 1));
-          }
-        }
-        const diff = change.text.length - (endOffset - startOffset);
-        if (diff !== 0) {
-          for (let i = startLine + 1 + addedLineOffsets.length, len = lineOffsets.length; i < len; i++) {
-            lineOffsets[i] = lineOffsets[i] + diff;
-          }
-        }
-      } else if (_FullTextDocument.isFull(change)) {
-        this._content = change.text;
-        this._lineOffsets = void 0;
-      } else {
-        throw new Error("Unknown change event received");
-      }
-    }
-    this._version = version;
-  }
-  getLineOffsets() {
-    if (this._lineOffsets === void 0) {
-      this._lineOffsets = computeLineOffsets(this._content, true);
-    }
-    return this._lineOffsets;
-  }
-  positionAt(offset) {
-    offset = Math.max(Math.min(offset, this._content.length), 0);
-    const lineOffsets = this.getLineOffsets();
-    let low = 0, high = lineOffsets.length;
-    if (high === 0) {
-      return { line: 0, character: offset };
-    }
-    while (low < high) {
-      const mid = Math.floor((low + high) / 2);
-      if (lineOffsets[mid] > offset) {
-        high = mid;
-      } else {
-        low = mid + 1;
-      }
-    }
-    const line = low - 1;
-    offset = this.ensureBeforeEOL(offset, lineOffsets[line]);
-    return { line, character: offset - lineOffsets[line] };
-  }
-  offsetAt(position) {
-    const lineOffsets = this.getLineOffsets();
-    if (position.line >= lineOffsets.length) {
-      return this._content.length;
-    } else if (position.line < 0) {
-      return 0;
-    }
-    const lineOffset = lineOffsets[position.line];
-    if (position.character <= 0) {
-      return lineOffset;
-    }
-    const nextLineOffset = position.line + 1 < lineOffsets.length ? lineOffsets[position.line + 1] : this._content.length;
-    const offset = Math.min(lineOffset + position.character, nextLineOffset);
-    return this.ensureBeforeEOL(offset, lineOffset);
-  }
-  ensureBeforeEOL(offset, lineOffset) {
-    while (offset > lineOffset && isEOL(this._content.charCodeAt(offset - 1))) {
-      offset--;
-    }
-    return offset;
-  }
-  get lineCount() {
-    return this.getLineOffsets().length;
-  }
-  static isIncremental(event) {
-    const candidate = event;
-    return candidate !== void 0 && candidate !== null && typeof candidate.text === "string" && candidate.range !== void 0 && (candidate.rangeLength === void 0 || typeof candidate.rangeLength === "number");
-  }
-  static isFull(event) {
-    const candidate = event;
-    return candidate !== void 0 && candidate !== null && typeof candidate.text === "string" && candidate.range === void 0 && candidate.rangeLength === void 0;
-  }
-};
-var TextDocument2;
-(function(TextDocument3) {
-  function create2(uri, languageId, version, content) {
-    return new FullTextDocument2(uri, languageId, version, content);
-  }
-  TextDocument3.create = create2;
-  function update2(document2, changes, version) {
-    if (document2 instanceof FullTextDocument2) {
-      document2.update(changes, version);
-      return document2;
-    } else {
-      throw new Error("TextDocument.update: document must be created by TextDocument.create");
-    }
-  }
-  TextDocument3.update = update2;
-  function applyEdits(document2, edits) {
-    const text = document2.getText();
-    const sortedEdits = mergeSort(edits.map(getWellformedEdit), (a, b) => {
-      const diff = a.range.start.line - b.range.start.line;
-      if (diff === 0) {
-        return a.range.start.character - b.range.start.character;
-      }
-      return diff;
-    });
-    let lastModifiedOffset = 0;
-    const spans = [];
-    for (const e of sortedEdits) {
-      const startOffset = document2.offsetAt(e.range.start);
-      if (startOffset < lastModifiedOffset) {
-        throw new Error("Overlapping edit");
-      } else if (startOffset > lastModifiedOffset) {
-        spans.push(text.substring(lastModifiedOffset, startOffset));
-      }
-      if (e.newText.length) {
-        spans.push(e.newText);
-      }
-      lastModifiedOffset = document2.offsetAt(e.range.end);
-    }
-    spans.push(text.substr(lastModifiedOffset));
-    return spans.join("");
-  }
-  TextDocument3.applyEdits = applyEdits;
-})(TextDocument2 || (TextDocument2 = {}));
-function mergeSort(data, compare) {
-  if (data.length <= 1) {
-    return data;
-  }
-  const p = data.length / 2 | 0;
-  const left = data.slice(0, p);
-  const right = data.slice(p);
-  mergeSort(left, compare);
-  mergeSort(right, compare);
-  let leftIdx = 0;
-  let rightIdx = 0;
-  let i = 0;
-  while (leftIdx < left.length && rightIdx < right.length) {
-    const ret = compare(left[leftIdx], right[rightIdx]);
-    if (ret <= 0) {
-      data[i++] = left[leftIdx++];
-    } else {
-      data[i++] = right[rightIdx++];
-    }
-  }
-  while (leftIdx < left.length) {
-    data[i++] = left[leftIdx++];
-  }
-  while (rightIdx < right.length) {
-    data[i++] = right[rightIdx++];
-  }
-  return data;
-}
-function computeLineOffsets(text, isAtLineStart, textOffset = 0) {
-  const result = isAtLineStart ? [textOffset] : [];
-  for (let i = 0; i < text.length; i++) {
-    const ch = text.charCodeAt(i);
-    if (isEOL(ch)) {
-      if (ch === 13 && i + 1 < text.length && text.charCodeAt(i + 1) === 10) {
-        i++;
-      }
-      result.push(textOffset + i + 1);
-    }
-  }
-  return result;
-}
-function isEOL(char) {
-  return char === 13 || char === 10;
-}
-function getWellformedRange(range) {
-  const start = range.start;
-  const end = range.end;
-  if (start.line > end.line || start.line === end.line && start.character > end.character) {
-    return { start: end, end: start };
-  }
-  return range;
-}
-function getWellformedEdit(textEdit) {
-  const range = getWellformedRange(textEdit.range);
-  if (range !== textEdit.range) {
-    return { newText: textEdit.newText, range };
-  }
-  return textEdit;
-}
 
 // node_modules/vscode-html-languageservice/lib/esm/htmlLanguageTypes.js
 var TokenType;
@@ -61182,156 +61282,29 @@ function getLanguageService(options = defaultLanguageServiceOptions) {
   };
 }
 
-// src/vMacroExtractor.ts
-var VMacroExtractor = class {
-  parser;
-  uri = "";
-  version = -1;
-  offset = -1;
-  result = null;
-  constructor(parser) {
-    this.parser = parser;
-  }
-  getOrUpdate(document2, offset) {
-    if (this.uri === document2.uri.toString() && this.version === document2.version && this.offset === offset) {
-      if (this.result) {
-        const virtualDoc2 = TextDocument2.create(
-          document2.uri.toString(),
-          "html",
-          1,
-          this.result.virtualText
-        );
-        return { doc: virtualDoc2, info: this.result };
-      }
-      return null;
-    }
-    const text = document2.getText();
-    const currentResult = this.extract(text, offset);
-    this.uri = document2.uri.toString();
-    this.version = document2.version;
-    this.offset = offset;
-    this.result = currentResult;
-    if (!currentResult) return null;
-    const virtualDoc = TextDocument2.create(
-      document2.uri.toString(),
-      "html",
-      1,
-      currentResult.virtualText
-    );
-    return {
-      doc: virtualDoc,
-      info: currentResult
-    };
-  }
-  extract(text, offset) {
-    const tree = this.parser.parse(text);
-    let currentNode = tree.rootNode.descendantForIndex(offset);
-    let macroNode = null;
-    while (currentNode) {
-      if (currentNode.type === "macro_invocation") {
-        if (currentNode.childForFieldName("macro")?.text === "v") {
-          macroNode = currentNode;
-          break;
-        }
-      }
-      currentNode = currentNode.parent;
-    }
-    if (!macroNode) {
-      tree.delete();
-      return null;
-    }
-    const mainTokenTree = macroNode.children.find((c) => c.type === "token_tree");
-    console.log("main token tree:", mainTokenTree);
-    if (!mainTokenTree || offset <= mainTokenTree.startIndex || offset >= mainTokenTree.endIndex) {
-      tree.delete();
-      return null;
-    }
-    const contentStart = mainTokenTree.startIndex + 1;
-    const closeCharIndex = mainTokenTree.endIndex - 1;
-    const rawContent = text.substring(contentStart, closeCharIndex);
-    let maskedChars = rawContent.split("");
-    for (const child of mainTokenTree.children) {
-      if (child.type === "token_tree" && child.text === "{") {
-        const localStart = child.startIndex - contentStart;
-        const localEnd = child.endIndex - contentStart;
-        if (localStart < 0 || localEnd > maskedChars.length) continue;
-        for (let i = localStart; i < localEnd; i++) {
-          if (maskedChars[i] !== "\n") {
-            maskedChars[i] = " ";
-          }
-        }
-      }
-    }
-    const maskedContent = maskedChars.join("");
-    tree.delete();
-    const prefixRaw = text.substring(0, contentStart);
-    let prefix = "";
-    for (let i = 0; i < prefixRaw.length; i++) {
-      prefix += prefixRaw[i] === "\n" ? "\n" : " ";
-    }
-    return { virtualText: prefix + maskedContent, contentStart, closeCharIndex };
-  }
-  clear() {
-    this.uri = "";
-    this.result = null;
-  }
-};
-
 // src/registerVMacroProvider.ts
+var LSP_TO_VSCODE_KIND_OFFSET = 1;
 function registerVMacroProvider(context, parser) {
   const htmlService = getLanguageService();
   const extractor = new VMacroExtractor(parser);
   const completionProvider = vscode.languages.registerCompletionItemProvider(
     "rust",
     {
-      async provideCompletionItems(document2, position, _token, _context) {
-        const offset = document2.offsetAt(position);
-        const data = extractor.getOrUpdate(document2, offset);
-        if (!data) return null;
-        const htmlDoc = htmlService.parseHTMLDocument(data.doc);
-        const htmlCompletions = htmlService.doComplete(data.doc, position, htmlDoc);
-        return htmlCompletions.items.map((item) => {
-          const newItem = new vscode.CompletionItem(item.label);
-          if (item.kind) {
-            newItem.kind = item.kind - 1;
-          }
-          if (item.documentation) {
-            const doc = typeof item.documentation === "string" ? item.documentation : item.documentation.value;
-            newItem.documentation = new vscode.MarkdownString(doc);
-          }
-          newItem.detail = item.detail;
-          const edit = item.textEdit;
-          if (edit) {
-            const newText = edit.newText;
-            if (item.insertTextFormat === 2) {
-              newItem.insertText = new vscode.SnippetString(newText);
-            } else {
-              newItem.insertText = newText;
-            }
-            if (edit.range) {
-              newItem.range = new vscode.Range(
-                edit.range.start.line,
-                edit.range.start.character,
-                edit.range.end.line,
-                edit.range.end.character
-              );
-            } else if (edit.replace) {
-              newItem.range = new vscode.Range(
-                edit.replace.start.line,
-                edit.replace.start.character,
-                edit.replace.end.line,
-                edit.replace.end.character
-              );
-            }
-          } else {
-            if (item.insertTextFormat === 2 && typeof item.insertText === "string") {
-              newItem.insertText = new vscode.SnippetString(item.insertText);
-            } else {
-              newItem.insertText = item.insertText;
-            }
-          }
-          return newItem;
-        });
+      async provideCompletionItems(document2, position, token, _context) {
+        try {
+          if (token.isCancellationRequested) return null;
+          const offset = document2.offsetAt(position);
+          const data = extractor.getOrUpdate(document2, offset);
+          if (!data || extractor.isInRustBlock(data, offset)) return null;
+          if (token.isCancellationRequested) return null;
+          const htmlDoc = htmlService.parseHTMLDocument(data.doc);
+          const completionList = htmlService.doComplete(data.doc, position, htmlDoc);
+          if (!completionList || !completionList.items) return null;
+          return completionList.items.map((lspItem) => toVsCompletionItem(lspItem));
+        } catch (error) {
+          console.error("[RsHtml] Completion error:", error);
+          return null;
+        }
       }
     },
     "<",
@@ -61340,123 +61313,47 @@ function registerVMacroProvider(context, parser) {
     '"',
     "=",
     "/"
-    // Triggers
   );
   const hoverProvider = vscode.languages.registerHoverProvider("rust", {
     async provideHover(document2, position, token) {
-      const offset = document2.offsetAt(position);
-      const data = extractor.getOrUpdate(document2, offset);
-      if (!data) return null;
-      const htmlDoc = htmlService.parseHTMLDocument(data.doc);
-      const hover = htmlService.doHover(data.doc, position, htmlDoc);
-      if (!hover || !hover.contents) return null;
-      let markdownContent;
-      if (typeof hover.contents === "string") {
-        markdownContent = new vscode.MarkdownString(hover.contents);
-      } else if (Array.isArray(hover.contents)) {
-        const text = hover.contents.map((c) => typeof c === "string" ? c : c.value).join("\n\n");
-        markdownContent = new vscode.MarkdownString(text);
-      } else {
-        markdownContent = new vscode.MarkdownString(hover.contents.value);
+      try {
+        if (token.isCancellationRequested) return null;
+        const offset = document2.offsetAt(position);
+        const data = extractor.getOrUpdate(document2, offset);
+        if (!data || extractor.isInRustBlock(data, offset)) return null;
+        if (token.isCancellationRequested) return null;
+        const htmlDoc = htmlService.parseHTMLDocument(data.doc);
+        const hover = htmlService.doHover(data.doc, position, htmlDoc);
+        if (!hover || !hover.contents) return null;
+        let markdownContent;
+        if (typeof hover.contents === "string") {
+          markdownContent = new vscode.MarkdownString(hover.contents);
+        } else if (Array.isArray(hover.contents)) {
+          const text = hover.contents.map((c) => typeof c === "string" ? c : c.value).join("\n\n");
+          markdownContent = new vscode.MarkdownString(text);
+        } else {
+          markdownContent = new vscode.MarkdownString(hover.contents.value);
+        }
+        markdownContent.isTrusted = true;
+        const range = hover.range ? new vscode.Range(
+          hover.range.start.line,
+          hover.range.start.character,
+          hover.range.end.line,
+          hover.range.end.character
+        ) : void 0;
+        return new vscode.Hover(markdownContent, range);
+      } catch (error) {
+        console.error("[RsHtml] Hover provider error:", error);
+        return null;
       }
-      return new vscode.Hover(markdownContent);
     }
   });
-  const autoCloseListener = vscode.workspace.onDidChangeTextDocument((event) => {
-    if (event.document.languageId !== "rust" || event.contentChanges.length === 0) return;
-    const change = event.contentChanges[0];
-    if (change.text.length !== 1) return;
-    if (change.text !== ">" && change.text !== "/") return;
-    const editor = vscode.window.activeTextEditor;
-    if (!editor || editor.document !== event.document) return;
-    const position = change.range.end.translate(0, 1);
-    const offset = event.document.offsetAt(position);
-    const data = extractor.getOrUpdate(event.document, offset);
-    if (!data) return;
-    const text = event.document.getText();
-    const beforeCursor = text.substring(0, offset);
-    if (change.text === "/") {
-      if (text.charAt(offset) === ">") return;
-      const lastOpenTag = beforeCursor.lastIndexOf("<");
-      if (lastOpenTag > -1 && lastOpenTag > beforeCursor.lastIndexOf(">")) {
-        editor.edit((editBuilder) => {
-          editBuilder.insert(position, ">");
-        });
-        return;
-      }
-    }
-    if (change.text === ">") {
-      if (beforeCursor.endsWith("/>")) return;
-      const tagMatch = beforeCursor.match(/<([a-zA-Z][a-zA-Z0-9:-]*)(?:\s+[^>]*)?>$/);
-      if (!tagMatch) return;
-      const tagName = tagMatch[1];
-      const voidElements = ["area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"];
-      if (voidElements.includes(tagName.toLowerCase())) return;
-      editor.edit((editBuilder) => {
-        editBuilder.insert(position, `</${tagName}>`);
-      }).then(() => {
-        editor.selection = new vscode.Selection(position, position);
-      });
-    }
-  });
-  const calculateHtmlEdits = (document2, options) => {
-    const text = document2.getText();
-    const edits = [];
-    const macroRegex = /v!\s*\{/g;
-    let match;
-    const indentUnit = options.insertSpaces ? " ".repeat(options.tabSize) : "	";
-    while ((match = macroRegex.exec(text)) !== null) {
-      const offsetInside = match.index + match[0].length;
-      const result = extractor.extract(text, offsetInside);
-      if (!result) continue;
-      macroRegex.lastIndex = result.closeCharIndex;
-      const rawContent = text.substring(result.contentStart, result.closeCharIndex);
-      const virtualDoc = TextDocument2.create("virtual://fmt.html", "html", 1, rawContent);
-      const htmlEdits = htmlService.format(virtualDoc, void 0, {
-        tabSize: Math.max(2, Math.floor(options.tabSize / 2)),
-        //options.tabSize,
-        insertSpaces: options.insertSpaces,
-        indentScripts: "keep",
-        indentInnerHtml: false,
-        // Manuel girinti yapacağız
-        preserveNewLines: true,
-        wrapLineLength: 0
-      });
-      let formattedHtml = rawContent;
-      for (let i = htmlEdits.length - 1; i >= 0; i--) {
-        const e = htmlEdits[i];
-        const startOff = virtualDoc.offsetAt(e.range.start);
-        const endOff = virtualDoc.offsetAt(e.range.end);
-        formattedHtml = formattedHtml.substring(0, startOff) + e.newText + formattedHtml.substring(endOff);
-      }
-      formattedHtml = formattedHtml.trim();
-      const startPos = document2.positionAt(match.index);
-      const lineText = document2.lineAt(startPos.line).text;
-      const baseIndentMatch = lineText.match(/^\s*/);
-      const baseIndent = baseIndentMatch ? baseIndentMatch[0] : "";
-      const targetIndent = baseIndent + indentUnit;
-      const indentedHtml = formattedHtml.split("\n").map((line) => {
-        if (line.trim().length === 0) return "";
-        return targetIndent + line;
-      }).join("\n");
-      const finalBlock = `
-${indentedHtml}
-${baseIndent}`;
-      edits.push(new vscode.TextEdit(
-        new vscode.Range(
-          document2.positionAt(result.contentStart),
-          document2.positionAt(result.closeCharIndex)
-        ),
-        finalBlock
-      ));
-    }
-    return edits;
-  };
+  registerAutoCloseTag(context, extractor);
   const formatCommand = vscode.commands.registerCommand("rshtml.format", async () => {
     const editor = vscode.window.activeTextEditor;
     if (!editor || editor.document.languageId !== "rust") return;
     const options = editor.options;
-    const edits = calculateHtmlEdits(editor.document, options);
+    const edits = calculateHtmlEdits(editor.document, options, extractor, htmlService);
     if (edits.length > 0) {
       await editor.edit((editBuilder) => {
         for (let i = edits.length - 1; i >= 0; i--) {
@@ -61468,24 +61365,197 @@ ${baseIndent}`;
     await vscode.commands.executeCommand("editor.action.formatDocument");
   });
   const saveListener = vscode.workspace.onWillSaveTextDocument((event) => {
-    const document2 = event.document;
-    if (document2.languageId !== "rust") return;
-    const config = vscode.workspace.getConfiguration("editor", document2.uri);
+    if (event.document.languageId !== "rust") return;
+    const config = vscode.workspace.getConfiguration("editor", event.document.uri);
     if (!config.get("formatOnSave")) return;
-    event.waitUntil(Promise.resolve(calculateHtmlEdits(document2, {
-      tabSize: 4,
-      // Save anında editor options erişilemeyebilir, varsayılanlar
-      insertSpaces: true
-    })));
+    const defaultOptions = {
+      tabSize: 2,
+      insertSpaces: true,
+      ...vscode.window.activeTextEditor?.options
+    };
+    let edits = calculateHtmlEdits(event.document, defaultOptions, extractor, htmlService);
+    event.waitUntil(Promise.resolve(edits));
   });
-  context.subscriptions.push(
-    completionProvider,
-    hoverProvider,
-    /*autoCloseCommand,*/
-    autoCloseListener,
-    formatCommand,
-    saveListener
+  context.subscriptions.push(completionProvider, hoverProvider, formatCommand, saveListener);
+}
+function toVsCompletionItem(lspItem) {
+  const vsItem = new vscode.CompletionItem(lspItem.label);
+  if (lspItem.kind) {
+    vsItem.kind = lspItem.kind - LSP_TO_VSCODE_KIND_OFFSET;
+  }
+  if (lspItem.documentation) {
+    const docValue = typeof lspItem.documentation === "string" ? lspItem.documentation : lspItem.documentation.value;
+    vsItem.documentation = new vscode.MarkdownString(docValue);
+  }
+  vsItem.detail = lspItem.detail;
+  vsItem.sortText = lspItem.sortText;
+  vsItem.filterText = lspItem.filterText;
+  vsItem.preselect = lspItem.preselect;
+  if (lspItem.commitCharacters) {
+    vsItem.commitCharacters = lspItem.commitCharacters;
+  }
+  if (lspItem.tags?.includes(CompletionItemTag.Deprecated) || lspItem.deprecated) {
+    vsItem.tags = [vscode.CompletionItemTag.Deprecated];
+  }
+  const edit = lspItem.textEdit;
+  if (edit) {
+    vsItem.insertText = toVsSnippet(edit.newText, lspItem.insertTextFormat);
+    if ("range" in edit) {
+      vsItem.range = toVsRange(edit.range);
+    } else if ("insert" in edit && "replace" in edit) {
+      vsItem.range = toVsRange(edit.replace);
+    }
+  } else {
+    vsItem.insertText = toVsSnippet(lspItem.insertText ?? lspItem.label, lspItem.insertTextFormat);
+  }
+  return vsItem;
+}
+function toVsRange(range) {
+  return new vscode.Range(
+    range.start.line,
+    range.start.character,
+    range.end.line,
+    range.end.character
   );
+}
+function toVsSnippet(text, format2) {
+  if (format2 === InsertTextFormat.Snippet) {
+    return new vscode.SnippetString(text);
+  }
+  return text;
+}
+function registerAutoCloseTag(context, extractor) {
+  let isBusy = false;
+  const voidElements = /* @__PURE__ */ new Set([
+    "area",
+    "base",
+    "br",
+    "col",
+    "embed",
+    "hr",
+    "img",
+    "input",
+    "link",
+    "meta",
+    "param",
+    "source",
+    "track",
+    "wbr"
+  ]);
+  const listener = vscode.workspace.onDidChangeTextDocument(async (event) => {
+    if (isBusy || event.document.languageId !== "rust" || event.contentChanges.length === 0) return;
+    const change = event.contentChanges[0];
+    if (change.text.length !== 1) return;
+    if (change.text !== ">" && change.text !== "/") return;
+    const editor = vscode.window.activeTextEditor;
+    if (!editor || editor.document !== event.document) return;
+    const position = change.range.end.translate(0, 1);
+    const offset = event.document.offsetAt(position);
+    const data = extractor.getOrUpdate(event.document, offset);
+    if (!data || extractor.isInRustBlock(data, offset)) return;
+    const startPos = event.document.positionAt(Math.max(data.info.contentStart, offset - 1e3));
+    const rangeBefore = new vscode.Range(startPos, position);
+    const textBefore = event.document.getText(rangeBefore);
+    if (change.text === "/") {
+      const nextCharRange = new vscode.Range(position, position.translate(0, 1));
+      const nextChar = event.document.getText(nextCharRange);
+      if (nextChar === ">") return;
+      const contentToCheck = textBefore.slice(0, -1);
+      if (/<[^>]+$/.test(contentToCheck)) {
+        await performEdit(editor, position, ">", false);
+      }
+    } else if (change.text === ">") {
+      if (textBefore.endsWith("/>")) return;
+      const contentToCheck = textBefore.slice(0, -1);
+      const match = contentToCheck.match(/<([a-zA-Z][a-zA-Z0-9:-]*)(?:\s+[^<]*)?$/);
+      if (match) {
+        const tagName = match[1];
+        if (!voidElements.has(tagName.toLowerCase())) {
+          await performEdit(editor, position, `</${tagName}>`, true);
+        }
+      }
+    }
+  });
+  async function performEdit(editor, position, text, moveCursor) {
+    if (isBusy) return;
+    isBusy = true;
+    try {
+      const success = await editor.edit((editBuilder) => {
+        editBuilder.insert(position, text);
+      }, { undoStopBefore: false, undoStopAfter: true });
+      if (success && moveCursor) {
+        editor.selection = new vscode.Selection(position, position);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      isBusy = false;
+    }
+  }
+  context.subscriptions.push(listener);
+}
+function calculateHtmlEdits(document2, options, extractor, htmlService) {
+  const text = document2.getText();
+  const edits = [];
+  const macroRegex = /v!\s*\{/g;
+  let match;
+  const indentUnit = options.insertSpaces ? " ".repeat(options.tabSize) : "	";
+  while ((match = macroRegex.exec(text)) !== null) {
+    const offsetInside = match.index + match[0].length;
+    const result = extractor.extract(text, offsetInside);
+    if (!result) continue;
+    macroRegex.lastIndex = result.closeCharIndex;
+    const rawContent = text.substring(result.contentStart, result.closeCharIndex);
+    const commentMap = [];
+    const protectedContent = rawContent.replace(/(\/\/[^\n]*)/g, (m) => {
+      const p = `<!-- RST_CMT_${commentMap.length} -->`;
+      commentMap.push({ p, o: m });
+      return p;
+    });
+    const virtualDoc = TextDocument.create("virtual://fmt.html", "html", 1, protectedContent);
+    const htmlEdits = htmlService.format(virtualDoc, void 0, {
+      tabSize: Math.max(2, Math.floor(options.tabSize / 2)),
+      insertSpaces: options.insertSpaces,
+      indentScripts: "keep",
+      indentInnerHtml: false,
+      preserveNewLines: true,
+      wrapLineLength: 0
+    });
+    let formatted = protectedContent;
+    for (let i = htmlEdits.length - 1; i >= 0; i--) {
+      const e = htmlEdits[i];
+      const start = virtualDoc.offsetAt(e.range.start);
+      const end = virtualDoc.offsetAt(e.range.end);
+      formatted = formatted.substring(0, start) + e.newText + formatted.substring(end);
+    }
+    formatted = formatted.trim();
+    const startPos = document2.positionAt(match.index);
+    const lineText = document2.lineAt(startPos.line).text;
+    const baseIndent = (lineText.match(/^\s*/) || [""])[0];
+    const targetIndent = baseIndent + indentUnit;
+    const indentedHtml = formatted.split("\n").map((line) => {
+      if (!line.trim()) return "";
+      return targetIndent + line;
+    }).join("\n");
+    let finalHtml = indentedHtml;
+    for (const item of commentMap) {
+      finalHtml = finalHtml.replace(item.p, item.o);
+    }
+    const finalBlock = `
+${finalHtml}
+${baseIndent}`;
+    const currentDocText = text.substring(result.contentStart, result.closeCharIndex);
+    if (finalBlock !== currentDocText) {
+      edits.push(new vscode.TextEdit(
+        new vscode.Range(
+          document2.positionAt(result.contentStart),
+          document2.positionAt(result.closeCharIndex)
+        ),
+        finalBlock
+      ));
+    }
+  }
+  return edits;
 }
 
 // src/extension.ts

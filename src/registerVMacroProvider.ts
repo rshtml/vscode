@@ -1,7 +1,14 @@
 import * as vscode from 'vscode';
-import { getLanguageService } from 'vscode-html-languageservice';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { VMacroExtractor } from './vMacroExtractor';
+import {
+    getLanguageService,
+    InsertTextFormat,
+    CompletionItem as LSPCompletionItem,
+    CompletionItemTag as LSPCompletionItemTag
+} from 'vscode-html-languageservice';
+
+const LSP_TO_VSCODE_KIND_OFFSET = 1;
 
 export function registerVMacroProvider(context: vscode.ExtensionContext, parser: any) {
 
@@ -11,107 +18,198 @@ export function registerVMacroProvider(context: vscode.ExtensionContext, parser:
     const completionProvider = vscode.languages.registerCompletionItemProvider(
         'rust',
         {
-            async provideCompletionItems(document, position, _token, _context) {
-                const offset = document.offsetAt(position);
+            async provideCompletionItems(document, position, token, _context) {
+                try {
+                    if (token.isCancellationRequested) return null;
 
-                const data = extractor.getOrUpdate(document, offset);
-                if (!data) return null;
+                    const offset = document.offsetAt(position);
 
-                const htmlDoc = htmlService.parseHTMLDocument(data.doc);
-                const htmlCompletions = htmlService.doComplete(data.doc, position, htmlDoc);
+                    const data = extractor.getOrUpdate(document, offset);
+                    if (!data || extractor.isInRustBlock(data, offset)) return null;
 
-                // Convert LSP Types to VS Code Types
-                return htmlCompletions.items.map(item => {
-                    const newItem = new vscode.CompletionItem(item.label);
+                    if (token.isCancellationRequested) return null;
 
-                    if (item.kind) {
-                        newItem.kind = item.kind - 1;
-                    }
+                    const htmlDoc = htmlService.parseHTMLDocument(data.doc);
+                    const completionList = htmlService.doComplete(data.doc, position, htmlDoc);
 
-                    if (item.documentation) {
-                        const doc = typeof item.documentation === 'string'
-                            ? item.documentation
-                            : item.documentation.value;
-                        newItem.documentation = new vscode.MarkdownString(doc);
-                    }
+                    if (!completionList || !completionList.items) return null;
 
-                    newItem.detail = item.detail;
+                    return completionList.items.map(lspItem => toVsCompletionItem(lspItem));
 
-                    const edit = item.textEdit as any;
-
-                    if (edit) {
-                        const newText = edit.newText;
-
-                        if (item.insertTextFormat === 2) {
-                            newItem.insertText = new vscode.SnippetString(newText);
-                        } else {
-                            newItem.insertText = newText;
-                        }
-
-                        if (edit.range) {
-                            newItem.range = new vscode.Range(
-                                edit.range.start.line, edit.range.start.character,
-                                edit.range.end.line, edit.range.end.character
-                            );
-                        } else if (edit.replace) {
-                            newItem.range = new vscode.Range(
-                                edit.replace.start.line, edit.replace.start.character,
-                                edit.replace.end.line, edit.replace.end.character
-                            );
-                        }
-                    } else {
-                        if (item.insertTextFormat === 2 && typeof item.insertText === 'string') {
-                            newItem.insertText = new vscode.SnippetString(item.insertText);
-                        } else {
-                            newItem.insertText = item.insertText;
-                        }
-                    }
-
-                    return newItem;
-                });
+                } catch (error) {
+                    console.error('[RsHtml] Completion error:', error);
+                    return null;
+                }
             }
         },
-        '<', ' ', ':', '"', '=', '/' // Triggers
+        '<', ' ', ':', '"', '=', '/'
     );
 
     const hoverProvider = vscode.languages.registerHoverProvider('rust', {
         async provideHover(document, position, token) {
-            const offset = document.offsetAt(position);
+            try {
+                if (token.isCancellationRequested) return null;
 
-            const data = extractor.getOrUpdate(document, offset);
-            if (!data) return null;
+                const offset = document.offsetAt(position);
 
-            const htmlDoc = htmlService.parseHTMLDocument(data.doc);
+                const data = extractor.getOrUpdate(document, offset);
+                if (!data || extractor.isInRustBlock(data, offset)) return null;
 
-            const hover = htmlService.doHover(data.doc, position, htmlDoc);
+                if (token.isCancellationRequested) return null;
 
-            if (!hover || !hover.contents) return null;
+                const htmlDoc = htmlService.parseHTMLDocument(data.doc);
+                const hover = htmlService.doHover(data.doc, position, htmlDoc);
 
-            // LSP format to Vs Code format
-            let markdownContent: vscode.MarkdownString;
+                if (!hover || !hover.contents) return null;
 
-            if (typeof hover.contents === 'string') {
-                markdownContent = new vscode.MarkdownString(hover.contents);
-            } else if (Array.isArray(hover.contents)) {
-                const text = hover.contents
-                    .map(c => typeof c === 'string' ? c : c.value)
-                    .join('\n\n');
-                markdownContent = new vscode.MarkdownString(text);
-            } else {
-                markdownContent = new vscode.MarkdownString(hover.contents.value);
+                // LSP format to Vs Code format
+                let markdownContent: vscode.MarkdownString;
+
+                if (typeof hover.contents === 'string') {
+                    markdownContent = new vscode.MarkdownString(hover.contents);
+                } else if (Array.isArray(hover.contents)) {
+                    const text = hover.contents
+                        .map(c => typeof c === 'string' ? c : c.value)
+                        .join('\n\n');
+                    markdownContent = new vscode.MarkdownString(text);
+                } else {
+                    markdownContent = new vscode.MarkdownString(hover.contents.value);
+                }
+
+                markdownContent.isTrusted = true;
+
+                const range = hover.range ? new vscode.Range(
+                    hover.range.start.line, hover.range.start.character,
+                    hover.range.end.line, hover.range.end.character
+                ) : undefined;
+
+                return new vscode.Hover(markdownContent, range);
+            } catch (error) {
+                console.error('[RsHtml] Hover provider error:', error);
+                return null;
             }
-
-            return new vscode.Hover(markdownContent);
         }
     });
 
-    const autoCloseListener = vscode.workspace.onDidChangeTextDocument(event => {
-        if (event.document.languageId !== 'rust' || event.contentChanges.length === 0) return;
+    registerAutoCloseTag(context, extractor);
+
+    const formatCommand = vscode.commands.registerCommand('rshtml.format', async () => {
+        const editor = vscode.window.activeTextEditor;
+        if (!editor || editor.document.languageId !== 'rust') return;
+
+        const options = editor.options as vscode.FormattingOptions;
+        const edits = calculateHtmlEdits(editor.document, options, extractor, htmlService);
+
+        if (edits.length > 0) {
+            await editor.edit(editBuilder => {
+                for (let i = edits.length - 1; i >= 0; i--) {
+                    const e = edits[i];
+                    editBuilder.replace(e.range, e.newText);
+                }
+            });
+        }
+
+        await vscode.commands.executeCommand('editor.action.formatDocument');
+    });
+
+    // For format on save
+    const saveListener = vscode.workspace.onWillSaveTextDocument(event => {
+        if (event.document.languageId !== 'rust') return;
+
+        const config = vscode.workspace.getConfiguration('editor', event.document.uri);
+        if (!config.get('formatOnSave')) return;
+
+        const defaultOptions: vscode.FormattingOptions = {
+            tabSize: 2,
+            insertSpaces: true,
+            ...vscode.window.activeTextEditor?.options
+        } as vscode.FormattingOptions;
+
+        let edits = calculateHtmlEdits(event.document, defaultOptions, extractor, htmlService);
+
+        event.waitUntil(Promise.resolve(edits));
+    });
+
+    context.subscriptions.push(completionProvider, hoverProvider, formatCommand, saveListener);
+}
+
+// Completion
+function toVsCompletionItem(lspItem: LSPCompletionItem): vscode.CompletionItem {
+    const vsItem = new vscode.CompletionItem(lspItem.label);
+
+    if (lspItem.kind) {
+        vsItem.kind = lspItem.kind - LSP_TO_VSCODE_KIND_OFFSET;
+    }
+
+    if (lspItem.documentation) {
+        const docValue = typeof lspItem.documentation === 'string'
+            ? lspItem.documentation
+            : lspItem.documentation.value;
+        vsItem.documentation = new vscode.MarkdownString(docValue);
+    }
+
+    vsItem.detail = lspItem.detail;
+    vsItem.sortText = lspItem.sortText;
+    vsItem.filterText = lspItem.filterText;
+    vsItem.preselect = lspItem.preselect;
+
+    if (lspItem.commitCharacters) {
+        vsItem.commitCharacters = lspItem.commitCharacters;
+    }
+
+    if (lspItem.tags?.includes(LSPCompletionItemTag.Deprecated) || lspItem.deprecated) {
+        vsItem.tags = [vscode.CompletionItemTag.Deprecated];
+    }
+
+    const edit = lspItem.textEdit;
+
+    if (edit) {
+        vsItem.insertText = toVsSnippet(edit.newText, lspItem.insertTextFormat);
+
+        if ('range' in edit) {
+            vsItem.range = toVsRange(edit.range);
+        } else if ('insert' in edit && 'replace' in edit) {
+            vsItem.range = toVsRange(edit.replace);
+        }
+    } else {
+        vsItem.insertText = toVsSnippet(lspItem.insertText ?? lspItem.label, lspItem.insertTextFormat);
+    }
+
+    return vsItem;
+}
+
+function toVsRange(range: { start: { line: number, character: number }, end: { line: number, character: number } }): vscode.Range {
+    return new vscode.Range(
+        range.start.line, range.start.character,
+        range.end.line, range.end.character
+    );
+}
+
+function toVsSnippet(text: string, format?: number): string | vscode.SnippetString {
+    if (format === InsertTextFormat.Snippet) {
+        return new vscode.SnippetString(text);
+    }
+    return text;
+}
+// End Completion
+
+// Auto Close
+export function registerAutoCloseTag(
+    context: vscode.ExtensionContext,
+    extractor: VMacroExtractor
+) {
+    let isBusy = false;
+
+    const voidElements = new Set([
+        'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input',
+        'link', 'meta', 'param', 'source', 'track', 'wbr'
+    ]);
+
+    const listener = vscode.workspace.onDidChangeTextDocument(async event => {
+        if (isBusy || event.document.languageId !== 'rust' || event.contentChanges.length === 0) return;
 
         const change = event.contentChanges[0];
-
         if (change.text.length !== 1) return;
-
         if (change.text !== '>' && change.text !== '/') return;
 
         const editor = vscode.window.activeTextEditor;
@@ -121,120 +219,134 @@ export function registerVMacroProvider(context: vscode.ExtensionContext, parser:
         const offset = event.document.offsetAt(position);
 
         const data = extractor.getOrUpdate(event.document, offset);
-        if (!data) return;
+        if (!data || extractor.isInRustBlock(data, offset)) return;
 
-        const text = event.document.getText();
-        const beforeCursor = text.substring(0, offset);
+        const startPos = event.document.positionAt(Math.max(data.info.contentStart, offset - 1000));
+        const rangeBefore = new vscode.Range(startPos, position);
+        const textBefore = event.document.getText(rangeBefore);
 
         if (change.text === '/') {
-            if (text.charAt(offset) === '>') return;
+            const nextCharRange = new vscode.Range(position, position.translate(0, 1));
+            const nextChar = event.document.getText(nextCharRange);
+            if (nextChar === '>') return;
 
-            const lastOpenTag = beforeCursor.lastIndexOf('<');
-            if (lastOpenTag > -1 && lastOpenTag > beforeCursor.lastIndexOf('>')) {
-                editor.edit(editBuilder => {
-                    editBuilder.insert(position, '>');
-                });
-                return;
+            const contentToCheck = textBefore.slice(0, -1);
+            if (/<[^>]+$/.test(contentToCheck)) {
+                await performEdit(editor, position, '>', false);
             }
         }
 
-        if (change.text === '>') {
-            if (beforeCursor.endsWith('/>')) return;
+        else if (change.text === '>') {
+            if (textBefore.endsWith('/>')) return;
 
-            const tagMatch = beforeCursor.match(/<([a-zA-Z][a-zA-Z0-9:-]*)(?:\s+[^>]*)?>$/);
-            if (!tagMatch) return;
+            const contentToCheck = textBefore.slice(0, -1);
+            const match = contentToCheck.match(/<([a-zA-Z][a-zA-Z0-9:-]*)(?:\s+[^<]*)?$/);
 
-            const tagName = tagMatch[1];
-            const voidElements = ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'];
-
-            if (voidElements.includes(tagName.toLowerCase())) return;
-
-            editor.edit(editBuilder => {
-                editBuilder.insert(position, `</${tagName}>`);
-            }).then(() => {
-                editor.selection = new vscode.Selection(position, position);
-            });
+            if (match) {
+                const tagName = match[1];
+                if (!voidElements.has(tagName.toLowerCase())) {
+                    await performEdit(editor, position, `</${tagName}>`, true);
+                }
+            }
         }
     });
 
-    /// FORMATTING
+    async function performEdit(editor: vscode.TextEditor, position: vscode.Position, text: string, moveCursor: boolean) {
+        if (isBusy) return;
+        isBusy = true;
 
-    const calculateHtmlEdits = (document: vscode.TextDocument, options: vscode.FormattingOptions): vscode.TextEdit[] => {
-        const text = document.getText();
-        const edits: vscode.TextEdit[] = [];
-        const macroRegex = /v!\s*\{/g;
-        let match;
+        try {
+            const success = await editor.edit(editBuilder => {
+                editBuilder.insert(position, text);
+            }, { undoStopBefore: false, undoStopAfter: true });
 
-        // Girinti birimi (Tab mı Space mi?)
-        const indentUnit = options.insertSpaces ? ' '.repeat(options.tabSize) : '\t';
-
-        while ((match = macroRegex.exec(text)) !== null) {
-            // v! { kısmının bittiği yer
-            const offsetInside = match.index + match[0].length;
-
-            // --- 1. Sizin Fonksiyonunuzu Kullanıyoruz ---
-            const result = extractor.extract(text, offsetInside);
-            if (!result) continue;
-
-            // Regex'i makronun sonuna taşı
-            macroRegex.lastIndex = result.closeCharIndex;
-
-            // --- 2. İçeriği Al (Ham Hali) ---
-            // extractVMacroContent fonksiyonunuzun döndüğü 'virtualText' maskelenmiş (boşluklu) haldir.
-            // Formatlayıcıya vermek için maskelenmemiş, orijinal HTML metnine ihtiyacımız var.
-            // Neyse ki 'contentStart' ve 'closeCharIndex' koordinatlarını bize veriyor.
-            const rawContent = text.substring(result.contentStart, result.closeCharIndex);
-
-            // --- 3. Sanal Doküman ve Formatlama ---
-            const virtualDoc = TextDocument.create('virtual://fmt.html', 'html', 1, rawContent);
-
-            const htmlEdits = htmlService.format(virtualDoc, undefined, {
-                tabSize: Math.max(2, Math.floor(options.tabSize / 2)), //options.tabSize,
-                insertSpaces: options.insertSpaces,
-                indentScripts: 'keep',
-                indentInnerHtml: false, // Manuel girinti yapacağız
-                preserveNewLines: true,
-                wrapLineLength: 0
-            });
-
-            // --- 4. Formatlanmış HTML'i Oluştur ---
-            // HTML servisinden gelen parça parça editleri, rawContent üzerine uygulayıp
-            // elimizde "temiz, formatlanmış ama girintisiz" bir HTML metni elde ediyoruz.
-            let formattedHtml = rawContent;
-            // Editleri sondan başa uygula
-            for (let i = htmlEdits.length - 1; i >= 0; i--) {
-                const e = htmlEdits[i];
-                const startOff = virtualDoc.offsetAt(e.range.start);
-                const endOff = virtualDoc.offsetAt(e.range.end);
-                formattedHtml = formattedHtml.substring(0, startOff) + e.newText + formattedHtml.substring(endOff);
+            if (success && moveCursor) {
+                editor.selection = new vscode.Selection(position, position);
             }
+        } catch (err) {
+            console.error(err);
+        } finally {
+            isBusy = false;
+        }
+    }
 
-            formattedHtml = formattedHtml.trim(); // Kenar boşluklarını temizle
+    context.subscriptions.push(listener);
+}
+// End Auto Close
 
-            // --- 5. Girintileme ve Yerleştirme (Indentation) ---
+// Format
+function calculateHtmlEdits(
+    document: vscode.TextDocument,
+    options: vscode.FormattingOptions,
+    extractor: VMacroExtractor,
+    htmlService: any
+): vscode.TextEdit[] {
+    const text = document.getText();
+    const edits: vscode.TextEdit[] = [];
+    const macroRegex = /v!\s*\{/g;
+    let match;
+    const indentUnit = options.insertSpaces ? ' '.repeat(options.tabSize) : '\t';
 
-            // 'v!' makrosunun olduğu satırın başındaki boşluğu (base indent) bul
-            const startPos = document.positionAt(match.index);
-            const lineText = document.lineAt(startPos.line).text;
-            const baseIndentMatch = lineText.match(/^\s*/);
-            const baseIndent = baseIndentMatch ? baseIndentMatch[0] : '';
+    while ((match = macroRegex.exec(text)) !== null) {
+        const offsetInside = match.index + match[0].length;
 
-            // İçerik, baseIndent + 1 seviye içeride olmalı
-            const targetIndent = baseIndent + indentUnit;
+        const result = extractor.extract(text, offsetInside);
+        if (!result) continue;
 
-            const indentedHtml = formattedHtml.split('\n').map(line => {
-                if (line.trim().length === 0) return '';
-                return targetIndent + line;
-            }).join('\n');
+        macroRegex.lastIndex = result.closeCharIndex;
 
-            // --- 6. Nihai Bloğu Yerleştir ---
-            // \n
-            // {GİRİNTİLİ_HTML}
-            // \n
-            // {BASE_INDENT}
-            const finalBlock = `\n${indentedHtml}\n${baseIndent}`;
+        const rawContent = text.substring(result.contentStart, result.closeCharIndex);
 
-            // Tek bir edit ile tüm içeriği değiştir
+        // 1. Protect rust comments
+        const commentMap: { p: string, o: string }[] = [];
+        const protectedContent = rawContent.replace(/(\/\/[^\n]*)/g, (m) => {
+            const p = `<!-- RST_CMT_${commentMap.length} -->`;
+            commentMap.push({ p, o: m });
+            return p;
+        });
+
+        // 2. Virtual HTML Formating
+        const virtualDoc = TextDocument.create('virtual://fmt.html', 'html', 1, protectedContent);
+        const htmlEdits = htmlService.format(virtualDoc, undefined, {
+            tabSize: Math.max(2, Math.floor(options.tabSize / 2)),
+            insertSpaces: options.insertSpaces,
+            indentScripts: 'keep',
+            indentInnerHtml: false,
+            preserveNewLines: true,
+            wrapLineLength: 0
+        });
+
+        // 3. Apply Edits
+        let formatted = protectedContent;
+        for (let i = htmlEdits.length - 1; i >= 0; i--) {
+            const e = htmlEdits[i];
+            const start = virtualDoc.offsetAt(e.range.start);
+            const end = virtualDoc.offsetAt(e.range.end);
+            formatted = formatted.substring(0, start) + e.newText + formatted.substring(end);
+        }
+        formatted = formatted.trim();
+
+        // 4. Indentation
+        const startPos = document.positionAt(match.index);
+        const lineText = document.lineAt(startPos.line).text;
+        const baseIndent = (lineText.match(/^\s*/) || [''])[0];
+        const targetIndent = baseIndent + indentUnit;
+
+        const indentedHtml = formatted.split('\n').map(line => {
+            if (!line.trim()) return '';
+            return targetIndent + line;
+        }).join('\n');
+
+        // 5. Restore Comments
+        let finalHtml = indentedHtml;
+        for (const item of commentMap) {
+            finalHtml = finalHtml.replace(item.p, item.o);
+        }
+
+        // 6. Final
+        const finalBlock = `\n${finalHtml}\n${baseIndent}`;
+        const currentDocText = text.substring(result.contentStart, result.closeCharIndex);
+        if (finalBlock !== currentDocText) {
             edits.push(new vscode.TextEdit(
                 new vscode.Range(
                     document.positionAt(result.contentStart),
@@ -243,47 +355,7 @@ export function registerVMacroProvider(context: vscode.ExtensionContext, parser:
                 finalBlock
             ));
         }
-        return edits;
-    };
-
-    // 1. KOMUT (Sağ Tık ve Kısayol İçin)
-    const formatCommand = vscode.commands.registerCommand('rshtml.format', async () => {
-        const editor = vscode.window.activeTextEditor;
-        if (!editor || editor.document.languageId !== 'rust') return;
-
-        const options = editor.options as vscode.FormattingOptions;
-        const edits = calculateHtmlEdits(editor.document, options);
-
-        if (edits.length > 0) {
-            await editor.edit(editBuilder => {
-                // Tersten uygula
-                for (let i = edits.length - 1; i >= 0; i--) {
-                    const e = edits[i];
-                    editBuilder.replace(e.range, e.newText);
-                }
-            });
-        }
-
-        // for rust analyzer
-        await vscode.commands.executeCommand('editor.action.formatDocument');
-    });
-
-    // 2. KAYDETME OLAYI (Format On Save İçin)
-    const saveListener = vscode.workspace.onWillSaveTextDocument(event => {
-        const document = event.document;
-        if (document.languageId !== 'rust') return;
-
-        // Kullanıcı ayarlarına bak: "editor.formatOnSave" açık mı?
-        const config = vscode.workspace.getConfiguration('editor', document.uri);
-        if (!config.get('formatOnSave')) return;
-
-        // Ayar açıksa, kaydetme işlemine bizim editleri ekle
-        event.waitUntil(Promise.resolve(calculateHtmlEdits(document, {
-            tabSize: 4, // Save anında editor options erişilemeyebilir, varsayılanlar
-            insertSpaces: true
-        } as vscode.FormattingOptions)));
-    });
-    /// END FORMATTING
-
-    context.subscriptions.push(completionProvider, hoverProvider, /*autoCloseCommand,*/ autoCloseListener, formatCommand, saveListener);
+    }
+    return edits;
 }
+// End Format

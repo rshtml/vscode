@@ -7,6 +7,7 @@ export interface VMacroData {
         virtualText: string;
         contentStart: number;
         closeCharIndex: number;
+        rustBlocks: { start: number, end: number }[];
     };
 }
 
@@ -27,20 +28,18 @@ export class VMacroExtractor {
             this.version === document.version &&
             this.offset === offset) {
 
-            if (this.result) {
-                const virtualDoc = TextDocument.create(
-                    document.uri.toString(),
-                    'html',
-                    1,
-                    this.result.virtualText
-                );
-                return { doc: virtualDoc, info: this.result };
-            }
-            return null;
+            if (!this.result) return null;
+
+            const virtualDoc = TextDocument.create(
+                document.uri.toString(),
+                'html',
+                1,
+                this.result.virtualText
+            );
+            return { doc: virtualDoc, info: this.result };
         }
 
         const text = document.getText();
-
         const currentResult = this.extract(text, offset);
 
         this.uri = document.uri.toString();
@@ -54,7 +53,7 @@ export class VMacroExtractor {
             document.uri.toString(),
             'html',
             1,
-            currentResult.virtualText
+            currentResult.virtualText,
         );
 
         return {
@@ -85,7 +84,6 @@ export class VMacroExtractor {
 
         // 2. Find macro main body
         const mainTokenTree = macroNode.children.find((c: any) => c.type === 'token_tree');
-        console.log("main token tree:", mainTokenTree);
         if (!mainTokenTree || offset <= mainTokenTree.startIndex || offset >= mainTokenTree.endIndex) {
             tree.delete(); return null;
         }
@@ -97,13 +95,17 @@ export class VMacroExtractor {
         const rawContent = text.substring(contentStart, closeCharIndex);
         let maskedChars = rawContent.split('');
 
+        const rustBlocks: { start: number, end: number }[] = [];
+
         for (const child of mainTokenTree.children) {
-            if (child.type === 'token_tree' && child.text === '{') {
+            if (child.type === 'token_tree' && text[child.startIndex] === "{") {
 
                 const localStart = child.startIndex - contentStart;
                 const localEnd = child.endIndex - contentStart;
 
                 if (localStart < 0 || localEnd > maskedChars.length) continue;
+
+                rustBlocks.push({ start: localStart, end: localEnd });
 
                 for (let i = localStart; i < localEnd; i++) {
                     if (maskedChars[i] !== '\n') {
@@ -123,7 +125,14 @@ export class VMacroExtractor {
             prefix += (prefixRaw[i] === '\n') ? '\n' : ' ';
         }
 
-        return { virtualText: prefix + maskedContent, contentStart, closeCharIndex };
+        return { virtualText: prefix + maskedContent, contentStart, closeCharIndex, rustBlocks };
+    }
+
+    public isInRustBlock(data: VMacroData, offset: number): boolean {
+        const offsetInMacro = offset - data.info.contentStart;
+        return data.info.rustBlocks.some(block =>
+            offsetInMacro >= block.start && offsetInMacro <= block.end
+        );
     }
 
     public clear() {

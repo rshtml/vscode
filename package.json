@@ -37,6 +37,36 @@
         "injectTo": [
           "text.html.basic"
         ]
+      },
+      {
+        "scopeName": "rshtml.rust",
+        "path": "./syntaxes/rshtml-rust.tmLanguage.json",
+        "injectTo": [
+          "source.rust"
+        ]
+      }
+    ],
+    "commands": [
+      {
+        "command": "rshtml.format",
+        "title": "Format RsHtml"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "rshtml.format",
+          "when": "resourceLangId == rust",
+          "group": "1_modification"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "rshtml.format",
+        "key": "ctrl+k ctrl+v",
+        "mac": "cmd+k cmd+v",
+        "when": "editorTextFocus && resourceLangId == rust"
       }
     ]
   },
