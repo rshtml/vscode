@@ -128,6 +128,81 @@ export class VMacroExtractor {
         return { virtualText: prefix + maskedContent, contentStart, closeCharIndex, rustBlocks };
     }
 
+    public extractAll(text: string): VMacroData[] {
+        const tree = this.parser.parse(text);
+        const results: VMacroData[] = [];
+
+        const visit = (node: any) => {
+            if (node.type === 'macro_invocation') {
+                if (node.childForFieldName('macro')?.text === 'v') {
+
+                    const mainTokenTree = node.children.find((c: any) => c.type === 'token_tree');
+                    if (!mainTokenTree) return;
+
+                    const contentStart = mainTokenTree.startIndex + 1;
+                    const closeCharIndex = mainTokenTree.endIndex - 1;
+
+                    if (contentStart >= closeCharIndex) {
+                        return null; // empty macro
+                    }
+
+                    const rawContent = text.substring(contentStart, closeCharIndex);
+                    let maskedChars = rawContent.split('');
+
+                    const rustBlocks: { start: number, end: number }[] = [];
+
+                    for (const child of mainTokenTree.children) {
+                        if (child.type === 'token_tree' && text[child.startIndex] === "{") {
+
+                            const localStart = child.startIndex - contentStart;
+                            const localEnd = child.endIndex - contentStart;
+
+                            if (localStart < 0 || localEnd > maskedChars.length) continue;
+
+                            rustBlocks.push({ start: localStart, end: localEnd });
+                        }
+                    }
+
+                    const maskedContent = maskedChars.join('');
+
+                    const prefix = text.substring(0, contentStart).replace(/[^\n]/g, ' ');
+                    /*let prefix = '';
+                    for (let i = 0; i < prefixRaw.length; i++) {
+                        prefix += (prefixRaw[i] === '\n') ? '\n' : ' ';
+                    }*/
+
+                    const virtualText = prefix + maskedContent;
+
+                    const doc = TextDocument.create(
+                        'virtual://rshtml.html',
+                        'html',
+                        1,
+                        virtualText
+                    );
+
+                    results.push({
+                        doc,
+                        info: {
+                            virtualText,
+                            contentStart,
+                            closeCharIndex,
+                            rustBlocks
+                        }
+                    });
+                }
+            }
+
+            for (const child of node.children || []) {
+                visit(child);
+            }
+        };
+
+        visit(tree.rootNode);
+        tree.delete();
+
+        return results;
+    }
+
     public isInRustBlock(data: VMacroData, offset: number): boolean {
         const offsetInMacro = offset - data.info.contentStart;
         return data.info.rustBlocks.some(block =>

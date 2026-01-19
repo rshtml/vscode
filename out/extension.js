@@ -3756,8 +3756,8 @@ var require_main2 = __commonJS({
         }
         DeleteFile3.is = is;
       })(DeleteFile2 || (exports3.DeleteFile = DeleteFile2 = {}));
-      var WorkspaceEdit3;
-      (function(WorkspaceEdit4) {
+      var WorkspaceEdit2;
+      (function(WorkspaceEdit3) {
         function is(value) {
           var candidate = value;
           return candidate && (candidate.changes !== void 0 || candidate.documentChanges !== void 0) && (candidate.documentChanges === void 0 || candidate.documentChanges.every(function(change) {
@@ -3768,8 +3768,8 @@ var require_main2 = __commonJS({
             }
           }));
         }
-        WorkspaceEdit4.is = is;
-      })(WorkspaceEdit3 || (exports3.WorkspaceEdit = WorkspaceEdit3 = {}));
+        WorkspaceEdit3.is = is;
+      })(WorkspaceEdit2 || (exports3.WorkspaceEdit = WorkspaceEdit2 = {}));
       var TextEditChangeImpl = (
         /** @class */
         function() {
@@ -4399,7 +4399,7 @@ var require_main2 = __commonJS({
         CodeAction3.create = create2;
         function is(value) {
           var candidate = value;
-          return candidate && Is2.string(candidate.title) && (candidate.diagnostics === void 0 || Is2.typedArray(candidate.diagnostics, Diagnostic2.is)) && (candidate.kind === void 0 || Is2.string(candidate.kind)) && (candidate.edit !== void 0 || candidate.command !== void 0) && (candidate.command === void 0 || Command2.is(candidate.command)) && (candidate.isPreferred === void 0 || Is2.boolean(candidate.isPreferred)) && (candidate.edit === void 0 || WorkspaceEdit3.is(candidate.edit));
+          return candidate && Is2.string(candidate.title) && (candidate.diagnostics === void 0 || Is2.typedArray(candidate.diagnostics, Diagnostic2.is)) && (candidate.kind === void 0 || Is2.string(candidate.kind)) && (candidate.edit !== void 0 || candidate.command !== void 0) && (candidate.command === void 0 || Command2.is(candidate.command)) && (candidate.isPreferred === void 0 || Is2.boolean(candidate.isPreferred)) && (candidate.edit === void 0 || WorkspaceEdit2.is(candidate.edit));
         }
         CodeAction3.is = is;
       })(CodeAction2 || (exports3.CodeAction = CodeAction2 = {}));
@@ -6058,12 +6058,12 @@ var require_protocol = __commonJS({
       DidSaveTextDocumentNotification2.messageDirection = messages_1.MessageDirection.clientToServer;
       DidSaveTextDocumentNotification2.type = new messages_1.ProtocolNotificationType(DidSaveTextDocumentNotification2.method);
     })(DidSaveTextDocumentNotification || (exports2.DidSaveTextDocumentNotification = DidSaveTextDocumentNotification = {}));
-    var TextDocumentSaveReason2;
-    (function(TextDocumentSaveReason3) {
-      TextDocumentSaveReason3.Manual = 1;
-      TextDocumentSaveReason3.AfterDelay = 2;
-      TextDocumentSaveReason3.FocusOut = 3;
-    })(TextDocumentSaveReason2 || (exports2.TextDocumentSaveReason = TextDocumentSaveReason2 = {}));
+    var TextDocumentSaveReason;
+    (function(TextDocumentSaveReason2) {
+      TextDocumentSaveReason2.Manual = 1;
+      TextDocumentSaveReason2.AfterDelay = 2;
+      TextDocumentSaveReason2.FocusOut = 3;
+    })(TextDocumentSaveReason || (exports2.TextDocumentSaveReason = TextDocumentSaveReason = {}));
     var WillSaveTextDocumentNotification;
     (function(WillSaveTextDocumentNotification2) {
       WillSaveTextDocumentNotification2.method = "textDocument/willSave";
@@ -39651,6 +39651,58 @@ var VMacroExtractor = class {
     }
     return { virtualText: prefix + maskedContent, contentStart, closeCharIndex, rustBlocks };
   }
+  extractAll(text) {
+    const tree = this.parser.parse(text);
+    const results = [];
+    const visit = (node) => {
+      if (node.type === "macro_invocation") {
+        if (node.childForFieldName("macro")?.text === "v") {
+          const mainTokenTree = node.children.find((c) => c.type === "token_tree");
+          if (!mainTokenTree) return;
+          const contentStart = mainTokenTree.startIndex + 1;
+          const closeCharIndex = mainTokenTree.endIndex - 1;
+          if (contentStart >= closeCharIndex) {
+            return null;
+          }
+          const rawContent = text.substring(contentStart, closeCharIndex);
+          let maskedChars = rawContent.split("");
+          const rustBlocks = [];
+          for (const child of mainTokenTree.children) {
+            if (child.type === "token_tree" && text[child.startIndex] === "{") {
+              const localStart = child.startIndex - contentStart;
+              const localEnd = child.endIndex - contentStart;
+              if (localStart < 0 || localEnd > maskedChars.length) continue;
+              rustBlocks.push({ start: localStart, end: localEnd });
+            }
+          }
+          const maskedContent = maskedChars.join("");
+          const prefix = text.substring(0, contentStart).replace(/[^\n]/g, " ");
+          const virtualText = prefix + maskedContent;
+          const doc = TextDocument.create(
+            "virtual://rshtml.html",
+            "html",
+            1,
+            virtualText
+          );
+          results.push({
+            doc,
+            info: {
+              virtualText,
+              contentStart,
+              closeCharIndex,
+              rustBlocks
+            }
+          });
+        }
+      }
+      for (const child of node.children || []) {
+        visit(child);
+      }
+    };
+    visit(tree.rootNode);
+    tree.delete();
+    return results;
+  }
   isInRustBlock(data, offset) {
     const offsetInMacro = offset - data.info.contentStart;
     return data.info.rustBlocks.some(
@@ -40065,7 +40117,7 @@ var DeleteFile;
   DeleteFile2.is = is;
 })(DeleteFile || (DeleteFile = {}));
 var WorkspaceEdit;
-(function(WorkspaceEdit3) {
+(function(WorkspaceEdit2) {
   function is(value) {
     let candidate = value;
     return candidate && (candidate.changes !== void 0 || candidate.documentChanges !== void 0) && (candidate.documentChanges === void 0 || candidate.documentChanges.every((change) => {
@@ -40076,7 +40128,7 @@ var WorkspaceEdit;
       }
     }));
   }
-  WorkspaceEdit3.is = is;
+  WorkspaceEdit2.is = is;
 })(WorkspaceEdit || (WorkspaceEdit = {}));
 var TextDocumentIdentifier;
 (function(TextDocumentIdentifier2) {
@@ -61352,36 +61404,31 @@ function registerVMacroProvider(context, parser) {
   const formatCommand = vscode.commands.registerCommand("rshtml.format", async () => {
     const editor = vscode.window.activeTextEditor;
     if (!editor || editor.document.languageId !== "rust") return;
-    const options = {
-      tabSize: Number(editor.options.tabSize) || 2,
-      insertSpaces: Boolean(editor.options.insertSpaces)
+    const options = editor.options || {
+      tabSize: 2,
+      insertSpaces: true
     };
     const edits = calculateHtmlEdits(editor.document, options, extractor, htmlService);
-    if (edits.length === 0) return;
-    await editor.edit((editBuilder) => {
-      for (let i = edits.length - 1; i >= 0; i--) {
-        editBuilder.replace(edits[i].range, edits[i].newText);
-      }
-    });
+    if (edits.length > 0) {
+      await editor.edit((editBuilder) => {
+        for (let i = edits.length - 1; i >= 0; i--) {
+          const e = edits[i];
+          editBuilder.replace(e.range, e.newText);
+        }
+      });
+    }
     await vscode.commands.executeCommand("editor.action.formatDocument");
   });
   const saveListener = vscode.workspace.onWillSaveTextDocument((event) => {
     if (event.document.languageId !== "rust") return;
-    if (event.reason !== vscode.TextDocumentSaveReason.Manual) return;
     const config = vscode.workspace.getConfiguration("editor", event.document.uri);
     if (!config.get("formatOnSave")) return;
-    const defaultOptions = {
+    const defaultOptions = vscode.window.activeTextEditor?.options || {
       tabSize: 2,
-      insertSpaces: true,
-      ...vscode.window.activeTextEditor?.options
+      insertSpaces: true
     };
     let edits = calculateHtmlEdits(event.document, defaultOptions, extractor, htmlService);
-    if (edits.length === 0) return;
-    const workspaceEdit = new vscode.WorkspaceEdit();
-    edits.forEach((edit) => {
-      workspaceEdit.replace(event.document.uri, edit.range, edit.newText);
-    });
-    event.waitUntil(vscode.workspace.applyEdit(workspaceEdit));
+    event.waitUntil(Promise.resolve(edits));
   });
   context.subscriptions.push(completionProvider, hoverProvider, formatCommand, saveListener);
 }
@@ -61504,62 +61551,54 @@ function registerAutoCloseTag(context, extractor) {
 function calculateHtmlEdits(document2, options, extractor, htmlService) {
   const text = document2.getText();
   const edits = [];
-  const macroRegex = /v!\s*\{/g;
-  let match;
-  const indentUnit = options.insertSpaces ? " ".repeat(options.tabSize) : "	";
-  while ((match = macroRegex.exec(text)) !== null) {
-    const offsetInside = match.index + match[0].length;
-    const result = extractor.extract(text, offsetInside);
-    if (!result) continue;
-    macroRegex.lastIndex = result.closeCharIndex;
-    const rawContent = text.substring(result.contentStart, result.closeCharIndex);
-    const commentMap = [];
-    const protectedContent = rawContent.replace(/(\/\/[^\n]*)/g, (m) => {
-      const placeholder = `__RUST_COMMENT_${commentMap.length}__`;
-      commentMap.push({ placeholder, original: m });
-      return placeholder;
-    });
-    const virtualDoc = TextDocument.create("virtual://fmt.html", "html", 1, protectedContent);
+  const htmlIndentUnit = options.insertSpaces ? " ".repeat(Math.max(2, Math.floor(options.tabSize / 2))) : "	";
+  const macros = extractor.extractAll(text);
+  for (let i = macros.length - 1; i >= 0; i--) {
+    const macro = macros[i];
+    const { virtualText, contentStart, closeCharIndex } = macro.info;
+    const content = virtualText.substring(contentStart);
+    const virtualDoc = TextDocument.create(
+      "virtual://fmt.html",
+      "html",
+      1,
+      content
+    );
     const htmlEdits = htmlService.format(virtualDoc, void 0, {
       tabSize: Math.max(2, Math.floor(options.tabSize / 2)),
       insertSpaces: options.insertSpaces,
-      indentScripts: "keep",
-      indentInnerHtml: false,
+      wrapLineLength: 0,
+      wrapAttributes: "auto",
       preserveNewLines: true,
-      wrapLineLength: 0
+      indentScripts: "keep",
+      indentInnerHtml: false
     });
-    let formatted = protectedContent;
-    for (let i = htmlEdits.length - 1; i >= 0; i--) {
-      const e = htmlEdits[i];
+    let formatted = content;
+    for (let j = htmlEdits.length - 1; j >= 0; j--) {
+      const e = htmlEdits[j];
       const start = virtualDoc.offsetAt(e.range.start);
       const end = virtualDoc.offsetAt(e.range.end);
       formatted = formatted.substring(0, start) + e.newText + formatted.substring(end);
     }
-    formatted = formatted.trim();
-    const startPos = document2.positionAt(match.index);
+    const trimmedContent = formatted.trimEnd();
+    const startPos = document2.positionAt(contentStart - 1);
     const lineText = document2.lineAt(startPos.line).text;
     const baseIndent = (lineText.match(/^\s*/) || [""])[0];
-    const targetIndent = baseIndent + indentUnit;
-    const indentedHtml = formatted.split("\n").map((line) => {
-      if (!line.trim()) return "";
-      return targetIndent + line;
-    }).join("\n");
-    let finalHtml = indentedHtml;
-    for (const item of commentMap) {
-      finalHtml = finalHtml.replace(item.placeholder, item.original);
-    }
+    const macroIndent = baseIndent + htmlIndentUnit;
+    const indentedHtml = trimmedContent.split("\n").map((line) => line.trim() ? macroIndent + line : "").join("\n");
     const finalBlock = `
-${finalHtml}
+${indentedHtml}
 ${baseIndent}`;
-    const currentDocText = text.substring(result.contentStart, result.closeCharIndex);
-    if (finalBlock !== currentDocText) {
-      edits.push(new vscode.TextEdit(
-        new vscode.Range(
-          document2.positionAt(result.contentStart),
-          document2.positionAt(result.closeCharIndex)
-        ),
-        finalBlock
-      ));
+    const originalContent = text.substring(contentStart, closeCharIndex);
+    if (finalBlock !== "\n" + originalContent) {
+      edits.push(
+        vscode.TextEdit.replace(
+          new vscode.Range(
+            document2.positionAt(contentStart),
+            document2.positionAt(closeCharIndex)
+          ),
+          finalBlock
+        )
+      );
     }
   }
   return edits;

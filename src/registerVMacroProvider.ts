@@ -97,7 +97,10 @@ export function registerVMacroProvider(context: vscode.ExtensionContext, parser:
         const editor = vscode.window.activeTextEditor;
         if (!editor || editor.document.languageId !== 'rust') return;
 
-        const options = editor.options as vscode.FormattingOptions;
+        const options: vscode.FormattingOptions = editor.options as vscode.FormattingOptions || {
+            tabSize: 2,
+            insertSpaces: true
+        };
         const edits = calculateHtmlEdits(editor.document, options, extractor, htmlService);
 
         if (edits.length > 0) {
@@ -119,11 +122,11 @@ export function registerVMacroProvider(context: vscode.ExtensionContext, parser:
         const config = vscode.workspace.getConfiguration('editor', event.document.uri);
         if (!config.get('formatOnSave')) return;
 
-        const defaultOptions: vscode.FormattingOptions = {
-            tabSize: 2,
-            insertSpaces: true,
-            ...vscode.window.activeTextEditor?.options
-        } as vscode.FormattingOptions;
+        const defaultOptions: vscode.FormattingOptions =
+            vscode.window.activeTextEditor?.options as vscode.FormattingOptions || {
+                tabSize: 2,
+                insertSpaces: true
+            };
 
         let edits = calculateHtmlEdits(event.document, defaultOptions, extractor, htmlService);
 
@@ -283,79 +286,74 @@ function calculateHtmlEdits(
 ): vscode.TextEdit[] {
     const text = document.getText();
     const edits: vscode.TextEdit[] = [];
-    const macroRegex = /v!\s*\{/g;
-    let match;
-    const indentUnit = options.insertSpaces ? ' '.repeat(options.tabSize) : '\t';
 
-    while ((match = macroRegex.exec(text)) !== null) {
-        const offsetInside = match.index + match[0].length;
+    const htmlIndentUnit = options.insertSpaces
+        ? ' '.repeat(Math.max(2, Math.floor(options.tabSize / 2)))
+        : '\t';
 
-        const result = extractor.extract(text, offsetInside);
-        if (!result) continue;
+    const macros = extractor.extractAll(text);
 
-        macroRegex.lastIndex = result.closeCharIndex;
+    for (let i = macros.length - 1; i >= 0; i--) {
+        const macro = macros[i];
+        const { virtualText, contentStart, closeCharIndex } = macro.info;
 
-        const rawContent = text.substring(result.contentStart, result.closeCharIndex);
+        const content = virtualText.substring(contentStart);
 
-        // 1. Protect rust comments
-        const commentMap: { p: string, o: string }[] = [];
-        const protectedContent = rawContent.replace(/(\/\/[^\n]*)/g, (m) => {
-            const p = `<!-- RST_CMT_${commentMap.length} -->`;
-            commentMap.push({ p, o: m });
-            return p;
-        });
+        const virtualDoc = TextDocument.create(
+            'virtual://fmt.html',
+            'html',
+            1,
+            content
+        );
 
-        // 2. Virtual HTML Formating
-        const virtualDoc = TextDocument.create('virtual://fmt.html', 'html', 1, protectedContent);
         const htmlEdits = htmlService.format(virtualDoc, undefined, {
-            tabSize: Math.max(2, Math.floor(options.tabSize / 2)),
-            insertSpaces: options.insertSpaces,
-            indentScripts: 'keep',
-            indentInnerHtml: false,
-            preserveNewLines: true,
-            wrapLineLength: 0
+            tabSize: Math.max(2, Math.floor(options.tabSize / 2)),  
+            insertSpaces: options.insertSpaces,                     
+            wrapLineLength: 0,                                     
+            wrapAttributes: 'auto',                                 
+            preserveNewLines: true,                                
+            indentScripts: 'keep',                                 
+            indentInnerHtml: false                                  
         });
 
-        // 3. Apply Edits
-        let formatted = protectedContent;
-        for (let i = htmlEdits.length - 1; i >= 0; i--) {
-            const e = htmlEdits[i];
+        let formatted = content;
+        for (let j = htmlEdits.length - 1; j >= 0; j--) {
+            const e = htmlEdits[j];
             const start = virtualDoc.offsetAt(e.range.start);
             const end = virtualDoc.offsetAt(e.range.end);
             formatted = formatted.substring(0, start) + e.newText + formatted.substring(end);
         }
-        formatted = formatted.trim();
 
-        // 4. Indentation
-        const startPos = document.positionAt(match.index);
-        const lineText = document.lineAt(startPos.line).text;
-        const baseIndent = (lineText.match(/^\s*/) || [''])[0];
-        const targetIndent = baseIndent + indentUnit;
+        const trimmedContent = formatted.trimEnd();
 
-        const indentedHtml = formatted.split('\n').map(line => {
-            if (!line.trim()) return '';
-            return targetIndent + line;
-        }).join('\n');
+        const startPos = document.positionAt(contentStart - 1);     
+        const lineText = document.lineAt(startPos.line).text;       
+        const baseIndent = (lineText.match(/^\s*/) || [''])[0];     
 
-        // 5. Restore Comments
-        let finalHtml = indentedHtml;
-        for (const item of commentMap) {
-            finalHtml = finalHtml.replace(item.p, item.o);
-        }
+        const macroIndent = baseIndent + htmlIndentUnit;
 
-        // 6. Final
-        const finalBlock = `\n${finalHtml}\n${baseIndent}`;
-        const currentDocText = text.substring(result.contentStart, result.closeCharIndex);
-        if (finalBlock !== currentDocText) {
-            edits.push(new vscode.TextEdit(
-                new vscode.Range(
-                    document.positionAt(result.contentStart),
-                    document.positionAt(result.closeCharIndex)
-                ),
-                finalBlock
-            ));
+        const indentedHtml = trimmedContent
+            .split('\n')
+            .map(line => line.trim() ? macroIndent + line : '')
+            .join('\n');
+
+        const finalBlock = `\n${indentedHtml}\n${baseIndent}`;
+
+        const originalContent = text.substring(contentStart, closeCharIndex);
+
+        if (finalBlock !== '\n' + originalContent) {
+            edits.push(
+                vscode.TextEdit.replace(
+                    new vscode.Range(
+                        document.positionAt(contentStart),
+                        document.positionAt(closeCharIndex)
+                    ),
+                    finalBlock
+                )
+            );
         }
     }
+
     return edits;
 }
 // End Format
