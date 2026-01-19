@@ -60,15 +60,7 @@
           "group": "1_modification"
         }
       ]
-    },
-    "keybindings": [
-      {
-        "command": "rshtml.format",
-        "key": "ctrl+k ctrl+v",
-        "mac": "cmd+k cmd+v",
-        "when": "editorTextFocus && resourceLangId == rust"
-      }
-    ]
+    }
   },
   "configuration": {
     "title": "RsHtml",
