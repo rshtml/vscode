@@ -8,3 +8,6 @@ vsc-extension-quickstart.md
 extension.js
 node_modules/
 package-lock.json
+tree-sitter/
+src/**
+*.ts

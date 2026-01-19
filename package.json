@@ -100,8 +100,9 @@
   ],
   "main": "out/extension.js",
   "scripts": {
-    "build": "esbuild ./src/extension.ts --bundle --outfile=./out/extension.js --external:vscode --external:web-tree-sitter --format=cjs --platform=node --main-fields=module,main && cp -r tree-sitter/* out/",
-    "build:release": "esbuild ./src/extension.ts --bundle --outfile=./out/extension.js --external:vscode --external:web-tree-sitter --format=cjs --platform=node --minify --drop:console --drop:debugger --main-fields=module,main && cp -r tree-sitter/* out/",
+    "vscode:prepublish": "npm run build:release",
+    "build": "esbuild ./src/extension.ts --bundle --outfile=./out/extension.js --external:vscode --format=cjs --platform=node --main-fields=module,main && cp -r tree-sitter/* out/",
+    "build:release": "esbuild ./src/extension.ts --bundle --outfile=./out/extension.js --external:vscode --format=cjs --platform=node --minify --drop:console --drop:debugger --main-fields=module,main && cp -r tree-sitter/* out/",
     "package": "vsce package --no-dependencies"
   }
 }
