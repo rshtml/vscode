@@ -15,9 +15,12 @@ import {
 } from 'vscode-languageclient/node';
 import which from 'which';
 import { downloadGithubRelease, SERVER_NAME, BINARY_NAME } from "./downloadServer";
+import { registerVMacroProvider } from "./registerVMacroProvider";
+import path from 'path';
+const { Parser, Language } = require('web-tree-sitter');
+
 
 let client: LanguageClient | undefined;
-
 
 export async function activate(context: ExtensionContext): Promise<void> {
     console.log('EXTENSION ACTIVE!');
@@ -102,6 +105,9 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
     //client.setTrace(Trace.Verbose)
 
+    const parser = await initTreeSitter(context);
+    registerVMacroProvider(context, parser);
+
     console.log('LanguageClient starting...');
     await client.start();
 }
@@ -111,4 +117,15 @@ export function deactivate(): Thenable<void> | undefined {
         return undefined;
     }
     return client.stop();
+}
+
+async function initTreeSitter(context: ExtensionContext) {
+    await Parser.init();
+
+    const parser = new Parser();
+    const rustWasmPath = path.join(context.extensionPath, 'out', 'tree-sitter-rust.wasm');
+    const Rust = await Language.load(rustWasmPath);
+
+    parser.setLanguage(Rust);
+    return parser;
 }
