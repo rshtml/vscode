@@ -17,6 +17,7 @@ import which from 'which';
 import { downloadGithubRelease, SERVER_NAME, BINARY_NAME } from "./downloadServer";
 import { registerVMacroProvider } from "./registerVMacroProvider";
 import path from 'path';
+import { registerRsHtmlFileProvider } from './registerRsHtmlFileProvider';
 const { Parser, Language } = require('web-tree-sitter');
 
 
@@ -107,11 +108,10 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
         //client.setTrace(Trace.Verbose)
 
-        outputChannel.appendLine('=== RsHtml Extension Activating ===');
-        const parser = await initTreeSitter(context);
-        outputChannel.appendLine('Parser initialized');
-        registerVMacroProvider(context, parser);
-        outputChannel.appendLine('Providers registered');
+        const { rustParser, rshtmlParser } = await initTreeSitter(context);
+
+        registerVMacroProvider(context, rustParser);
+        registerRsHtmlFileProvider(context, rshtmlParser);
 
         console.log('LanguageClient starting...');
         await client.start();
@@ -135,12 +135,15 @@ async function initTreeSitter(context: ExtensionContext) {
             locateFile: (file: string) => path.join(wasmDir, file)
         });
 
-        const parser = new Parser();
-        const rustWasmPath = path.join(wasmDir, 'tree-sitter-rust.wasm');
-        const Rust = await Language.load(rustWasmPath);
+        const rustParser = new Parser();
+        const Rust = await Language.load(path.join(wasmDir, 'tree-sitter-rust.wasm'));
+        rustParser.setLanguage(Rust);
 
-        parser.setLanguage(Rust);
-        return parser;
+        const rshtmlParser = new Parser();
+        const RsHtml = await Language.load(path.join(wasmDir, 'tree-sitter-rshtml.wasm'));
+        rshtmlParser.setLanguage(RsHtml);
+
+        return { rustParser, rshtmlParser };
     } catch (error) {
         outputChannel.appendLine(`ERROR: ${error}`);
         outputChannel.show();
