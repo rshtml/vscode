@@ -65642,7 +65642,7 @@ var RsHtmlFileExtractor = class {
   parser;
   uri = "";
   version = -1;
-  result = null;
+  result = "";
   constructor(parser) {
     this.parser = parser;
   }
@@ -65651,22 +65651,73 @@ var RsHtmlFileExtractor = class {
       return this.result;
     }
     const text = document2.getText();
-    const result = this.extract(text);
+    const result = this.extract(text, this.file_name(document2.uri.toString()));
     this.uri = document2.uri.toString();
     this.version = document2.version;
     this.result = result;
     return result;
   }
-  extract(text) {
+  extract(text, name3) {
     const tree = this.parser.parse(text);
     const chars = text.split("").map((c) => c === "\n" ? "\n" : " ");
-    const rustRegions = [];
+    const newlineInserts = [];
+    let templateParamsNode = null;
     const visit = (node) => {
       const type = node.type;
+      if (type === "template_params") {
+        templateParamsNode = node;
+        return;
+      }
+      if (type === "rust_expr_paren") {
+        for (const child of node.children) {
+          if (child.type === "open_paren") {
+            chars[child.startIndex] = "&";
+          } else if (child.type === "close_paren") {
+            chars[child.startIndex] = ";";
+          } else if (child.type === "rust_text") {
+            for (let i2 = child.startIndex; i2 < child.endIndex; i2++) {
+              chars[i2] = text[i2];
+            }
+          }
+        }
+        return;
+      }
+      if (type === "rust_expr_simple") {
+        for (const child of node.children) {
+          if (child.type === "rust_text") {
+            for (let i2 = child.startIndex; i2 < child.endIndex; i2++) {
+              chars[i2] = text[i2];
+            }
+            chars[child.startIndex - 1] = "&";
+            if (chars[child.endIndex] !== "\n") {
+              chars[child.endIndex] = ";";
+            } else {
+              newlineInserts.push(child.endIndex);
+            }
+          }
+        }
+        return;
+      }
+      if (type === "child_content_directive") {
+        for (let i2 = node.startIndex; i2 < node.endIndex; i2++) {
+          chars[i2 - 1] = text[i2];
+        }
+        chars[node.endIndex - 1] = ";";
+        return;
+      }
+      if (type === "rust_block") {
+        for (const child of node.children) {
+          if (child.type === "rust_text") {
+            for (let i2 = child.startIndex; i2 < child.endIndex; i2++) {
+              chars[i2] = text[i2];
+            }
+          }
+        }
+        return;
+      }
       if (type === "rust_text" || type === "open_brace" || type === "close_brace") {
         const s = node.startIndex;
         const e = node.endIndex;
-        rustRegions.push({ start: s, end: e });
         for (let i2 = s; i2 < e; i2++) {
           chars[i2] = text[i2];
         }
@@ -65677,30 +65728,40 @@ var RsHtmlFileExtractor = class {
       }
     };
     visit(tree.rootNode);
+    newlineInserts.sort((a, b) => b - a);
+    for (const pos2 of newlineInserts) {
+      chars.splice(pos2, 0, ";");
+    }
+    if (templateParamsNode) {
+      const startSymbol = templateParamsNode.children.find((c) => c.type === "start_symbol");
+      const openParen = templateParamsNode.children.find((c) => c.type === "open_paren");
+      const closeParen = templateParamsNode.children.find((c) => c.type === "close_paren");
+      for (let i2 = openParen.endIndex; i2 < closeParen.startIndex; i2++) {
+        chars[i2] = text[i2];
+      }
+      chars.splice(closeParen.startIndex, 1, ")", " ", "{");
+      chars.splice(startSymbol.startIndex, 2, ...`fn ${name3}(&self,child_content: impl ::rshtml::View, `.split(""));
+      chars.push("}");
+    }
     tree.delete();
-    return {
-      virtualText: chars.join(""),
-      rustRegions
-    };
+    return chars.join("");
+  }
+  file_name(uri) {
+    const fileName = uri.split("/").pop()?.replace(".rs.html", "") ?? "template";
+    return fileName.replace(/([A-Z])/g, (m, l, i2) => (i2 > 0 ? "_" : "") + l.toLowerCase());
   }
 };
 
 // src/registerRsHtmlFileProvider.ts
 function registerRsHtmlFileProvider(context, parser) {
   const extractor = new RsHtmlFileExtractor(parser);
-  console.log("buradaaaaa");
   const completionProvider = vscode2.languages.registerCompletionItemProvider(
     { scheme: "file", language: "html", pattern: "**/*.rs.html" },
     {
       async provideCompletionItems(document2, position) {
-        console.error("heyyyyy");
         const result = extractor.getOrUpdate(document2);
-        if (!result) return null;
-        console.error(result.virtualText);
-        const isInRust = result.rustRegions.some(
-          (r) => position.isAfterOrEqual(document2.positionAt(r.start)) && position.isBeforeOrEqual(document2.positionAt(r.end))
-        );
-        if (!isInRust) return null;
+        console.error(result);
+        return null;
       }
     }
   );

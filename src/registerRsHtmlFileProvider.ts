@@ -9,17 +9,16 @@ export function registerRsHtmlFileProvider(context: vscode.ExtensionContext, par
         {
             async provideCompletionItems(document, position) {
                 const result = extractor.getOrUpdate(document);
-                if (!result) return null;
 
-                console.error(result.virtualText);
+                console.error(result);
 
-                const isInRust = result.rustRegions.some((r: { start: number, end: number }) =>
-                    position.isAfterOrEqual(document.positionAt(r.start)) &&
-                    position.isBeforeOrEqual(document.positionAt(r.end))
-                );
-                if (!isInRust) return null;
+                //const fs = require('fs');
+                //const path = require('path');
+                //fs.writeFileSync(path.join(context.extensionPath, 'rshtml_virtual.rs'), result);
 
                 // rust-analyzer'a yönlendir
+
+                return null;
             }
         }
     );
