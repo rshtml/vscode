@@ -101,17 +101,17 @@ export async function activate(context: ExtensionContext): Promise<void> {
         client = new LanguageClient(
             'rshtml-analyzer',
             'RsHtml Language Server',
-            serverOptionsRPC,
-            //serverOptionsTCP,
+            //serverOptionsRPC,
+            serverOptionsTCP,
             clientOptions
         );
 
         //client.setTrace(Trace.Verbose)
 
-        const { rustParser, rshtmlParser } = await initTreeSitter(context);
+        const { rustParser, rshtmlParser, rshtmlLanguage } = await initTreeSitter(context);
 
         registerVMacroProvider(context, rustParser);
-        registerRsHtmlFileProvider(context, rshtmlParser);
+        registerRsHtmlFileProvider(context, rshtmlParser, rshtmlLanguage);
 
         console.log('LanguageClient starting...');
         await client.start();
@@ -143,7 +143,11 @@ async function initTreeSitter(context: ExtensionContext) {
         const RsHtml = await Language.load(path.join(wasmDir, 'tree-sitter-rshtml.wasm'));
         rshtmlParser.setLanguage(RsHtml);
 
-        return { rustParser, rshtmlParser };
+        return {
+            rustParser, 
+            rshtmlParser,
+            rshtmlLanguage: RsHtml
+        };
     } catch (error) {
         outputChannel.appendLine(`ERROR: ${error}`);
         outputChannel.show();

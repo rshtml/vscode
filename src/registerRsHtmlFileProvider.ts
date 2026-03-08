@@ -1,7 +1,8 @@
 import * as vscode from 'vscode';
 import { RsHtmlFileExtractor } from './rshtmlFileExtractor';
+import { RsHtmlSemanticTokensProvider, semanticLegend } from './rshtmlSemanticTokensProvider';
 
-export function registerRsHtmlFileProvider(context: vscode.ExtensionContext, parser: any) {
+export function registerRsHtmlFileProvider(context: vscode.ExtensionContext, parser: any, language: any) {
     const extractor = new RsHtmlFileExtractor(parser);
 
     const completionProvider = vscode.languages.registerCompletionItemProvider(
@@ -23,5 +24,13 @@ export function registerRsHtmlFileProvider(context: vscode.ExtensionContext, par
         }
     );
 
-    context.subscriptions.push(completionProvider);
+    const semanticProvider = new RsHtmlSemanticTokensProvider(context, parser, language);
+    const semanticRegistration = vscode.languages.registerDocumentSemanticTokensProvider(
+        { scheme: 'file', language: 'html', pattern: '**/*.rs.html' },
+        semanticProvider,
+        semanticLegend
+    );
+    context.subscriptions.push(semanticRegistration);
+
+    //context.subscriptions.push(semanticRegistration,completionProvider);
 }
