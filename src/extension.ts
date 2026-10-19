@@ -88,7 +88,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
                 { scheme: 'file', language: 'html', pattern: '**/*.rs.html' }
             ],
             outputChannelName: 'RsHtml Language Server',
-            traceOutputChannel: window.createOutputChannel('RsHtml LSP Trace'),
+            traceOutputChannel: window.createOutputChannel('RsHtml LSP Trace', { log: true }),
             initializationOptions: {
                 workspaceFolders: workspace.workspaceFolders?.map(folder => folder.uri.toString()) || null,
             },

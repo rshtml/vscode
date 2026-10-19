@@ -2,11 +2,12 @@
 
 The RsHtml Extension.
 
-## [0.1.5]
+## [0.1.6]
 
 ### Changed
 
-- **v! macro support added** 
+- **Parameter syntax updated** 
+- **packages updated** 
 
 ### Features
 
