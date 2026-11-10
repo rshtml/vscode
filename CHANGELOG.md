@@ -2,12 +2,9 @@
 
 The RsHtml Extension.
 
-## [0.1.6]
+## [0.1.7]
 
 ### Changed
-
-- **Parameter syntax updated** 
-- **packages updated** 
 
 ### Features
 

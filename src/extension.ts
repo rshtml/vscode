@@ -17,7 +17,9 @@ import which from 'which';
 import { downloadGithubRelease, SERVER_NAME, BINARY_NAME } from "./downloadServer";
 import { registerVMacroProvider } from "./registerVMacroProvider";
 import path from 'path';
-const { Parser, Language } = require('web-tree-sitter');
+import { registerRsHtmlProvider } from './registerRsHtmlProvider';
+const { Parser, Language, Query } = require('web-tree-sitter');
+import * as fs from 'fs';
 
 
 let client: LanguageClient | undefined;
@@ -110,8 +112,13 @@ export async function activate(context: ExtensionContext): Promise<void> {
         outputChannel.appendLine('=== RsHtml Extension Activating ===');
         const parser = await initTreeSitter(context);
         outputChannel.appendLine('Parser initialized');
-        registerVMacroProvider(context, parser);
-        outputChannel.appendLine('Providers registered');
+
+        registerVMacroProvider(context, parser.rshtmlParser);
+        outputChannel.appendLine('Rust provider registered');
+
+        registerRsHtmlProvider(context);
+        outputChannel.appendLine('RsHtml providers registered');
+
 
         console.log('LanguageClient starting...');
         await client.start();
@@ -135,12 +142,24 @@ async function initTreeSitter(context: ExtensionContext) {
             locateFile: (file: string) => path.join(wasmDir, file)
         });
 
-        const parser = new Parser();
-        const rustWasmPath = path.join(wasmDir, 'tree-sitter-rust.wasm');
-        const Rust = await Language.load(rustWasmPath);
+        // const rustParser = new Parser();
+        // const rustWasmPath = path.join(wasmDir, 'tree-sitter-rust.wasm');
+        // const Rust = await Language.load(rustWasmPath);
+        // rustParser.setLanguage(Rust);
 
-        parser.setLanguage(Rust);
-        return parser;
+        const rshtmlParser = new Parser();
+        const rshtmlWasmPath = path.join(wasmDir, 'tree-sitter-rshtml.wasm');
+        const RsHtml = await Language.load(rshtmlWasmPath);
+        rshtmlParser.setLanguage(RsHtml);
+
+
+        const rshtmlScm = fs.readFileSync(path.join(wasmDir, 'rshtml/highlights.scm'), 'utf8');
+        const rustScm = fs.readFileSync(path.join(wasmDir, 'rust/highlights.scm'), 'utf8');
+
+        const rshtmlQuery = new Query(RsHtml, rshtmlScm);
+        //const rustQuery = new Query(Rust, rustScm);
+
+        return { rshtmlParser, rshtmlLanguage: RsHtml, rshtmlQuery };
     } catch (error) {
         outputChannel.appendLine(`ERROR: ${error}`);
         outputChannel.show();
